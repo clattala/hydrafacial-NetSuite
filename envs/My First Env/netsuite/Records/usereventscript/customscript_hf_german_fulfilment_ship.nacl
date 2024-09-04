@@ -1,0 +1,64 @@
+netsuite.usereventscript customscript_hf_german_fulfilment_ship {
+  scriptid = "customscript_hf_german_fulfilment_ship"
+  name = "HF| UE | Germany Item Fulfilment Shipped"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_hf_ue_send_german_pdf_js@duuuuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_advance_pdf = {
+        scriptid = "custscript_hf_advance_pdf"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "Advance PDF Template"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+      custscript_hf_de_email_template = {
+        scriptid = "custscript_hf_de_email_template"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Email Template"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = "-120"
+        storevalue = true
+        index = 1
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy1 = {
+        scriptid = "customdeploy1"
+        allemployees = true
+        alllocalizationcontexts = true
+        allpartners = false
+        allroles = true
+        custscript_hf_advance_pdf = 199
+        custscript_hf_de_email_template = "[ACCOUNT_SPECIFIC_VALUE]"
+        executioncontext = "ACTION|ADVANCEDREVREC|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CONSOLRATEADJUSTOR|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OTHER|PAYMENTGATEWAY|PAYMENTPOSTBACK|PLATFORMEXTENSION|PORTLET|PROMOTIONS|RECORDACTION|RESTLET|RESTWEBSERVICES|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WEBSERVICES|WORKBOOKBUILDER|WORKFLOW"
+        isdeployed = true
+        loglevel = "ERROR"
+        recordtype = "ITEMFULFILLMENT"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF| UE | Germany Item Fulfilment Shipped"
+}

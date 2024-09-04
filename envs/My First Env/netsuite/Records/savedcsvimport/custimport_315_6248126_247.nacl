@@ -1,0 +1,60 @@
+netsuite.savedcsvimport custimport_315_6248126_247 {
+  scriptid = "custimport_315_6248126_247"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_assembly.scriptid
+  ignorereadonly = true
+  importname = "NB_Serialized_Assembly_Update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "SERIALIZEDASSEMBLYITEM"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      SERIALIZEDASSEMBLYITEM = {
+        file = "SERIALIZEDASSEMBLYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      SERIALIZEDASSEMBLYITEM = {
+        record = "SERIALIZEDASSEMBLYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            custitem_hf_procurement_method_fld = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_procurement_method_fld.scriptid
+              columnreference = {
+                column = "Procurement Method"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "NB_Serialized_Assembly_Update"
+}

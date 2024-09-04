@@ -1,0 +1,1 @@
+define('NetSuite.Slideshow.SlideshowCCT.Model',    ['Backbone'],    function (Backbone) {        'use strict';        return Backbone.Model.extend({            isEmpty: function () {                return !this.get('imageURL');            }        });    });

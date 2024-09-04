@@ -1,0 +1,394 @@
+netsuite.workflow customworkflow55 {
+  scriptid = "customworkflow55"
+  description = "APAC Customer and lead validations to check if subsidiary, roles, sales channel, sales group, department, region and location are empty"
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WEBAPPLICATION|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = true
+  initonvieworupdate = true
+  islogenabled = false
+  keephistory = "ALWAYS"
+  name = "HF | APAC | Customer Validations"
+  recordtypes = "CUSTOMER|LEAD"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"User Subsidiary\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        User_Subsidiary@s = {
+          name = "User Subsidiary"
+          value = "STDUSERSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+        __Subsidiary__2@_00123nn_00125 = {
+          name = "{#Subsidiary#}2"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate213 = {
+        scriptid = "workflowstate213"
+        donotexitworkflow = false
+        name = "Customer Validations"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldvalueaction = {
+              workflowaction836 = {
+                scriptid = "workflowaction836"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.entitycustomfield.instance.custentity_hf_globalregion.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hf_globalregion.customvalues.customvalue.val_12567_6248126_sb1_265.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"User Subsidiary\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Subsidiary@s = {
+                        name = "User Subsidiary"
+                        value = "STDUSERSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__2@_00123nn_00125 = {
+                        name = "{#Subsidiary#}2"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          BEFOREUSEREDIT = {
+            triggertype = "BEFOREUSEREDIT"
+            setfieldvalueaction = {
+              workflowaction837 = {
+                scriptid = "workflowaction837"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDENTITYCUSTOMERCUSTOMFORM"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.entryForm.instance.custform_246_6248126_sb1_323.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"User Subsidiary\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\",\"{#Subsidiary#}3\") AND \"Stage\" IN (\"Entity Stage1\") AND \"Custom Form (Customer)\" NOT IN (\"Entry Form1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Subsidiary@s = {
+                        name = "User Subsidiary"
+                        value = "STDUSERSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__2@_00123nn_00125 = {
+                        name = "{#Subsidiary#}2"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__3@_00123nn_00125 = {
+                        name = "{#Subsidiary#}3"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      Stage = {
+                        name = "Stage"
+                        value = "STDENTITYSTAGE"
+                      }
+                      Entity_Stage1@s = {
+                        name = "Entity Stage1"
+                        selectrecordtype = "-223"
+                        value = "1"
+                      }
+                      Custom_Form__Customer_@ssjk = {
+                        name = "Custom Form (Customer)"
+                        value = "STDENTITYCUSTOMERCUSTOMFORM"
+                      }
+                      Entry_Form1@s = {
+                        name = "Entry Form1"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_246_6248126_sb1_323.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction841 = {
+                scriptid = "workflowaction841"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDENTITYCUSTOMERCUSTOMFORM"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.entryForm.instance.custform_338_6248126_sb1_603.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Stage\" IN (\"Entity Stage1\") AND \"User Subsidiary\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\",\"{#Subsidiary#}3\") AND \"Custom Form (Customer)\" NOT IN (\"Entry Form1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Stage = {
+                        name = "Stage"
+                        value = "STDENTITYSTAGE"
+                      }
+                      Entity_Stage1@s = {
+                        name = "Entity Stage1"
+                        selectrecordtype = "-223"
+                        value = "3"
+                      }
+                      User_Subsidiary@s = {
+                        name = "User Subsidiary"
+                        value = "STDUSERSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__2@_00123nn_00125 = {
+                        name = "{#Subsidiary#}2"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__3@_00123nn_00125 = {
+                        name = "{#Subsidiary#}3"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      Custom_Form__Customer_@ssjk = {
+                        name = "Custom Form (Customer)"
+                        value = "STDENTITYCUSTOMERCUSTOMFORM"
+                      }
+                      Entry_Form1@s = {
+                        name = "Entry Form1"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_338_6248126_sb1_603.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+            }
+          }
+          BEFORESUBMIT = {
+            triggertype = "BEFORESUBMIT"
+            returnusererroraction = {
+              workflowaction838 = {
+                scriptid = "workflowaction838"
+                errortext = "Sales Group  is required"
+                initcondition = {
+                  formula = "isEmpty(\"Sales Channel\") = 'T' AND \"Stage\" IN (\"Entity Stage1\") AND \"User Subsidiary\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\",\"{#Subsidiary#}3\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Sales_Channel@s = {
+                        name = "Sales Channel"
+                        value = "[type=entitycustomfield, scriptid=cseg_atlas_hb_slchn]"
+                      }
+                      Stage = {
+                        name = "Stage"
+                        value = "STDENTITYSTAGE"
+                      }
+                      Entity_Stage1@s = {
+                        name = "Entity Stage1"
+                        selectrecordtype = "-223"
+                        value = "1"
+                      }
+                      User_Subsidiary@s = {
+                        name = "User Subsidiary"
+                        value = "STDUSERSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__2@_00123nn_00125 = {
+                        name = "{#Subsidiary#}2"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__3@_00123nn_00125 = {
+                        name = "{#Subsidiary#}3"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction839 = {
+                scriptid = "workflowaction839"
+                contexttypes = "ACTION|USERINTERFACE"
+                errortext = "Department is required when customer is internal employee"
+                initcondition = {
+                  formula = "\"Sales Group\" IN (\"HF | Sales Group1\") AND \"Stage\" IN (\"Entity Stage1\") AND isEmpty(\"Department- \") = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Sales_Group@s = {
+                        name = "Sales Group"
+                        value = netsuite.entitycustomfield.instance.custentity_hf_salesgroup.scriptid
+                      }
+                      HF___Sales_Group1@sgss = {
+                        name = "HF | Sales Group1"
+                        selectrecordtype = netsuite.customlist.instance.customlist_hf_salesgroup.scriptid
+                        value = netsuite.customlist.instance.customlist_hf_salesgroup.customvalues.customvalue.val_12304_6248126_sb1_743.scriptid
+                      }
+                      Stage = {
+                        name = "Stage"
+                        value = "STDENTITYSTAGE"
+                      }
+                      Entity_Stage1@s = {
+                        name = "Entity Stage1"
+                        selectrecordtype = "-223"
+                        value = "1"
+                      }
+                      Department_@b = {
+                        name = "Department-"
+                        value = netsuite.entitycustomfield.instance.custentity1.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = true
+              }
+              workflowaction840 = {
+                scriptid = "workflowaction840"
+                contexttypes = "USERINTERFACE"
+                errortext = '''
+REGION SUB REGION 
+CHANNEL SUB CHANNEL
+OPERATING COUNTRY BUSINESS TYPE BUSINESS LOCATION PURCHASE DECISION  
+is required for APAC region,please check
+'''
+                initcondition = {
+                  formula = "\"Subsidiary\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\") AND \"Stage\" IN (\"Entity Stage1\") AND ( isEmpty(\"Region\") = 'T' OR isEmpty(\"Sub Region\") = 'T' OR isEmpty(\"Channel\") = 'T' OR isEmpty(\"Sub Channel\") = 'T' OR isEmpty(\"Operating Country\") = 'T' OR isEmpty(\"Business Location\") = 'T' OR isEmpty(\"Purchase Decision\") = 'T' OR isEmpty(\"Business Type\") = 'T' ) AND ( isEmpty(\"Sales Group\") = 'T' )"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary = {
+                        name = "Subsidiary"
+                        value = "STDENTITYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__2@_00123nn_00125 = {
+                        name = "{#Subsidiary#}2"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      Stage = {
+                        name = "Stage"
+                        value = "STDENTITYSTAGE"
+                      }
+                      Entity_Stage1@s = {
+                        name = "Entity Stage1"
+                        selectrecordtype = "-223"
+                        value = "1"
+                      }
+                      Region = {
+                        name = "Region"
+                        value = netsuite.entitycustomfield.instance.custentity_hf_class.scriptid
+                      }
+                      Sub_Region@s = {
+                        name = "Sub Region"
+                        value = netsuite.entitycustomfield.instance.custentity_hf_subregion.scriptid
+                      }
+                      Channel = {
+                        name = "Channel"
+                        value = netsuite.entitycustomfield.instance.custentity_hf_channel.scriptid
+                      }
+                      Sub_Channel@s = {
+                        name = "Sub Channel"
+                        value = netsuite.entitycustomfield.instance.custentity_hf_subchannel.scriptid
+                      }
+                      Operating_Country@s = {
+                        name = "Operating Country"
+                        value = netsuite.entitycustomfield.instance.custentity4.scriptid
+                      }
+                      Business_Location@s = {
+                        name = "Business Location"
+                        value = netsuite.entitycustomfield.instance.custentity_hf_businesslocation.scriptid
+                      }
+                      Purchase_Decision@s = {
+                        name = "Purchase Decision"
+                        value = netsuite.entitycustomfield.instance.custentity_hf_purchasedecision.scriptid
+                      }
+                      Business_Type@s = {
+                        name = "Business Type"
+                        value = netsuite.entitycustomfield.instance.custentity_hf_businesstype.scriptid
+                      }
+                      Sales_Group@s = {
+                        name = "Sales Group"
+                        value = netsuite.entitycustomfield.instance.custentity_hf_salesgroup.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 2
+                isInactive = false
+              }
+            }
+            setfieldvalueaction = {
+              workflowaction1741 = {
+                scriptid = "workflowaction1741"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDENTITYRECEIVABLESACCOUNT"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = "[ACCOUNT_SPECIFIC_VALUE]"
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _generated_dependencies = [
+    {
+      reference = netsuite.customsegment.instance.cseg_atlas_hb_slchn.scriptid
+    },
+  ]
+  _alias = "HF | APAC | Customer Validations"
+}

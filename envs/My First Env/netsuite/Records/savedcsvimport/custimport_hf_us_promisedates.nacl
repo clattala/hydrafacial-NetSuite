@@ -1,0 +1,94 @@
+netsuite.savedcsvimport custimport_hf_us_promisedates {
+  scriptid = "custimport_hf_us_promisedates"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Updates Promise Dates on Sales Orders"
+  ignorereadonly = true
+  importname = "HF | US | PROMISE DATES"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "SALESORDER"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_hydrafacial_sales_order_1.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+    roles = "[scriptid=customrole1130]|[scriptid=customrole1129]|[scriptid=customrole_hf_supply_chain_manager]|[scriptid=customrole1048]|[scriptid=customrole1044]"
+  }
+  filemappings = {
+    filemapping = {
+      SALESORDER = {
+        file = "SALESORDER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      SALESORDER = {
+        record = "SALESORDER"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      SALESORDER_ITEM@f = {
+        record = "SALESORDER:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            custcol_promise_date = {
+              field = netsuite.transactioncolumncustomfield.instance.custcol_promise_date.scriptid
+              columnreference = {
+                column = "Promise Date"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            LINE = {
+              field = "LINE"
+              columnreference = {
+                column = "Line ID"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _generated_dependencies = [
+    {
+      reference = netsuite.role.instance.customrole1044.scriptid
+    },
+    {
+      reference = netsuite.role.instance.customrole1048.scriptid
+    },
+    {
+      reference = netsuite.role.instance.customrole1129.scriptid
+    },
+    {
+      reference = netsuite.role.instance.customrole1130.scriptid
+    },
+    {
+      reference = netsuite.role.instance.customrole_hf_supply_chain_manager.scriptid
+    },
+  ]
+  _alias = "HF | US | PROMISE DATES"
+}

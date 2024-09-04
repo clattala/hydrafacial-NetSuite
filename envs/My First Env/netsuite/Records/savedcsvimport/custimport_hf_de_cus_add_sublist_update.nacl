@@ -1,0 +1,139 @@
+netsuite.savedcsvimport custimport_hf_de_cus_add_sublist_update {
+  scriptid = "custimport_hf_de_cus_add_sublist_update"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_de_customer.scriptid
+  ignorereadonly = true
+  importname = "Customer Address Sublist - UPDATE"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = true
+  preventduplicates = false
+  recordtype = "CUSTOMER"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMER = {
+        file = "CUSTOMER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMER = {
+        record = "CUSTOMER"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CUSTOMER_ADDRESSBOOK_ADDRESSBOOKADDRESS@f = {
+        record = "CUSTOMER:ADDRESSBOOK:ADDRESSBOOKADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "Address 1"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ADDR2 = {
+              field = "ADDR2"
+              columnreference = {
+                column = "Address 2"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ADDRESSEE = {
+              field = "ADDRESSEE"
+              columnreference = {
+                column = "Addressee"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ATTENTION = {
+              field = "ATTENTION"
+              columnreference = {
+                column = "Attention"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "City"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              columnreference = {
+                column = "Country"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "Zip Code"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CUSTOMER_ADDRESSBOOK@f = {
+        record = "CUSTOMER:ADDRESSBOOK"
+        fieldmappings = {
+          fieldmapping = {
+            DEFAULTBILLING = {
+              field = "DEFAULTBILLING"
+              columnreference = {
+                column = "Default Billing Address"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            DEFAULTSHIPPING = {
+              field = "DEFAULTSHIPPING"
+              columnreference = {
+                column = "Default Shipping Address"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Customer Address Sublist - UPDATE"
+}

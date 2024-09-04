@@ -1,0 +1,88 @@
+netsuite.customsegment cseg_atlas_hb_slchn {
+  scriptid = "cseg_atlas_hb_slchn"
+  defaultrecordaccesslevel = "EDIT"
+  defaultsearchaccesslevel = "EDIT"
+  displaytype = "NORMAL"
+  fieldtype = "SELECT"
+  hasglimpact = true
+  ismandatory = false
+  label = "Sales Channel"
+  recordtype = netsuite.customrecord_cseg_atlas_hb_slchn.attr.scriptid
+  valuesdisplayorder = "SUBLIST"
+  segmentapplication = {
+    transactionbody = {
+      applications = {
+        application = {
+          SALE = {
+            id = "SALE"
+            isapplied = true
+          }
+          ITEMFULFILLMENT = {
+            id = "ITEMFULFILLMENT"
+            isapplied = true
+          }
+        }
+      }
+    }
+    transactionline = {
+      applications = {
+        application = {
+          SALE = {
+            id = "SALE"
+            isapplied = true
+          }
+        }
+      }
+    }
+    items = {
+      subtype = "BOTH"
+    }
+  }
+  permissions = {
+    permission = {
+      customrole1209_0 = {
+        role = "[scriptid=customrole1209_0]"
+        valuemgmtaccesslevel = "NONE"
+      }
+      customrole1638 = {
+        role = netsuite.role.instance.customrole1638.scriptid
+        valuemgmtaccesslevel = "NONE"
+      }
+      customrole1233 = {
+        role = netsuite.role.instance.customrole1233.scriptid
+        valuemgmtaccesslevel = "VIEW"
+      }
+      customrole1637 = {
+        role = netsuite.role.instance.customrole1637.scriptid
+        valuemgmtaccesslevel = "VIEW"
+      }
+      customrole1647 = {
+        role = netsuite.role.instance.customrole1647.scriptid
+        valuemgmtaccesslevel = "NONE"
+      }
+      customrole1754 = {
+        role = netsuite.role.instance.customrole1754.scriptid
+        valuemgmtaccesslevel = "VIEW"
+      }
+      customrole1497 = {
+        role = netsuite.role.instance.customrole1497.scriptid
+        valuemgmtaccesslevel = "VIEW"
+      }
+      customrole1047 = {
+        role = netsuite.role.instance.customrole1047.scriptid
+        valuemgmtaccesslevel = "FULL"
+      }
+      customrole1234 = {
+        role = netsuite.role.instance.customrole1234.scriptid
+        valuemgmtaccesslevel = "VIEW"
+      }
+      customrole_atlas_hb_mm_accounting_mgr = {
+        recordaccesslevel = "EDIT"
+        role = "[scriptid=customrole_atlas_hb_mm_accounting_mgr]"
+        searchaccesslevel = "EDIT"
+        valuemgmtaccesslevel = "FULL"
+      }
+    }
+  }
+  _alias = "Sales Channel"
+}

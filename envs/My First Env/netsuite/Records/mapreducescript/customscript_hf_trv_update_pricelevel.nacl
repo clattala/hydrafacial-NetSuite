@@ -1,0 +1,89 @@
+netsuite.mapreducescript customscript_hf_trv_update_pricelevel {
+  scriptid = "customscript_hf_trv_update_pricelevel"
+  name = "HF | Loyalty - Price Level and Level Up"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_loyalty_updateLoyaltyTierPriceLevelMR_js@ddv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_pricetier_results = {
+        scriptid = "custscript_hf_pricetier_results"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "Run for Results"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+      custscript_hf_pricetier_customer = {
+        scriptid = "custscript_hf_pricetier_customer"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Run for Customer"
+        onparentdelete = "SET_NULL"
+        searchlevel = "2"
+        selectrecordtype = "-2"
+        storevalue = true
+        index = 1
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_trv_update_pricelevel_sc = {
+        scriptid = "customdeploy_hf_trv_update_pricelevel_sc"
+        buffersize = "1"
+        concurrencylimit = "3"
+        custscript_hf_pricetier_results = 10
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | Loyalty - Price Level and Level Up - Schd"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2024-01-04"
+            starttime = "02:00:00Z"
+          }
+        }
+      }
+      customdeploy_hf_trv_update_pricelevel = {
+        scriptid = "customdeploy_hf_trv_update_pricelevel"
+        buffersize = "4"
+        concurrencylimit = "3"
+        custscript_hf_pricetier_results = 10
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | Update Loyalty Tier Pricing"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            repeat = "PT15M"
+            startdate = "2022-05-15"
+            starttime = "07:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Loyalty - Price Level and Level Up"
+}

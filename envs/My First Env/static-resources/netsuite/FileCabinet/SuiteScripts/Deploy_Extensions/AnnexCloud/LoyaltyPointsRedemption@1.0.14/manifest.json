@@ -1,0 +1,76 @@
+{
+    "name": "LoyaltyPointsRedemption",
+    "fantasyName": "Checkout Loyalty Points Redemption SCA",
+    "vendor": "AnnexCloud",
+    "type": "extension",
+    "target": "SCA,SCS",
+    "target_version": {
+        "SCA": ">=21.1.0",
+        "SCS": ">=21.1.0"
+    },
+    "version": "1.0.14",
+    "description": "Adds a module in checkout to redeem Annex Cloud Loyalty points and discount from order",
+    "assets": {
+        "img": {
+            "files": []
+        },
+        "fonts": {
+            "files": []
+        },
+        "services": {
+            "files": [
+                "services/LoyaltyPointsRedemption.EntryPoint.Service.ss"
+            ]
+        }
+    },
+    "templates": {
+        "application": {
+            "checkout": {
+                "files": [
+                    "Modules/EntryPoint/Templates/annexcloud_loyaltypointsredemption_entrypoint.tpl"
+                ]
+            }
+        }
+    },
+    "sass": {
+        "entry_points": {
+            "checkout": "Modules/EntryPoint/Sass/_loyaltypointsredemption-entrypoint.scss"
+        },
+        "files": [
+            "Modules/EntryPoint/Sass/_loyaltypointsredemption-entrypoint.scss"
+        ]
+    },
+    "javascript": {
+        "entry_points": {
+            "shopping": "Modules/EntryPoint/JavaScript/AnnexCloud.LoyaltyPointsRedemption.Shopping.EntryPoint.js",
+            "checkout": "Modules/EntryPoint/JavaScript/AnnexCloud.LoyaltyPointsRedemption.EntryPoint.js"
+        },
+        "application": {
+            "shopping": {
+                "files": [
+                    "Modules/EntryPoint/JavaScript/AnnexCloud.LoyaltyPointsRedemption.Shopping.EntryPoint.js"
+                ]
+            },
+            "checkout": {
+                "files": [
+                    "Modules/EntryPoint/JavaScript/AnnexCloud.LoyaltyPointsRedemption.EntryPoint.js",
+                    "Modules/EntryPoint/JavaScript/AnnexCloud.LoyaltyPointsRedemption.EntryPoint.Model.js",
+                    "Modules/EntryPoint/JavaScript/OrderWizard.Module.PointsRedemption.js",
+                    "Modules/JWT/JavaScript/JWT.Helper.js",
+                    "Modules/JWT/JavaScript/CryptoJs.js"
+                ]
+            }
+        }
+    },
+    "ssp-libraries": {
+        "entry_point": "Modules/EntryPoint/SuiteScript/AnnexCloud.LoyaltyPointsRedemption.EntryPoint.js",
+        "files": [
+            "Modules/EntryPoint/SuiteScript/AnnexCloud.LoyaltyPointsRedemption.EntryPoint.js",
+            "Modules/EntryPoint/SuiteScript/LoyaltyPointsRedemption.EntryPoint.ServiceController.js",
+            "Modules/EntryPoint/SuiteScript/LoyaltyPointsRedemption.Model.js"
+        ]
+    },
+    "suitescript2": {
+        "files": []
+    }
+}

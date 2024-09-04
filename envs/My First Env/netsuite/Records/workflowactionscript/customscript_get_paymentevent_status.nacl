@@ -1,0 +1,45 @@
+netsuite.workflowactionscript customscript_get_paymentevent_status {
+  scriptid = "customscript_get_paymentevent_status"
+  name = "HF | WF | Get Payment Event Status"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  returntype = "TEXT"
+  scriptfile = netsuite.file.instance.SuiteScripts_hf_wf_getPaymentEventStatus_js@duuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_workflow_state = {
+        scriptid = "custscript_workflow_state"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "Workflow State"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_payment_event_status = {
+        scriptid = "customdeploy_payment_event_status"
+        allemployees = false
+        allpartners = false
+        allroles = true
+        isdeployed = true
+        loglevel = "ERROR"
+        recordtype = "SALESORDER"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | WF | Get Payment Event Status"
+}

@@ -1,0 +1,65 @@
+netsuite.workflowactionscript customscript_hf_toggle_auto_pay_scr_flag {
+  scriptid = "customscript_hf_toggle_auto_pay_scr_flag"
+  name = "HF | Toggle Auto Payment Script Flag"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_hf_wfs_toggle_auto_payment_js@duuuuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_run_auto_pay_script_y = {
+        scriptid = "custscript_hf_run_auto_pay_script_y"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Auto Pay - Yes"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = netsuite.customlist.instance.customlist_hf_run_auto_pay_options.scriptid
+        storevalue = true
+        index = 0
+      }
+      custscript_hf_run_auto_pay_script_n = {
+        scriptid = "custscript_hf_run_auto_pay_script_n"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Auto Pay - No"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = netsuite.customlist.instance.customlist_hf_run_auto_pay_options.scriptid
+        storevalue = true
+        index = 1
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_toggle_auto_pay_scr_flag = {
+        scriptid = "customdeploy_hf_toggle_auto_pay_scr_flag"
+        allemployees = false
+        allpartners = false
+        allroles = true
+        custscript_hf_run_auto_pay_script_n = netsuite.customlist.instance.customlist_hf_run_auto_pay_options.customvalues.customvalue.val_4762988_6248126_sb3_688.scriptid
+        custscript_hf_run_auto_pay_script_y = netsuite.customlist.instance.customlist_hf_run_auto_pay_options.customvalues.customvalue.val_4762987_6248126_sb3_247.scriptid
+        isdeployed = true
+        loglevel = "DEBUG"
+        recordtype = "INVOICE"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Toggle Auto Payment Script Flag"
+}

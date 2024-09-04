@@ -1,0 +1,112 @@
+netsuite.savedcsvimport custimport_363_6248126_254 {
+  scriptid = "custimport_363_6248126_254"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "COMMA"
+  description = "Indirect PO Item Import"
+  ignorereadonly = true
+  importname = "Indirect PO Item Import"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "SERVICEPURCHASEITEM"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      SERVICEPURCHASEITEM = {
+        file = "SERVICEPURCHASEITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      SERVICEPURCHASEITEM = {
+        record = "SERVICEPURCHASEITEM"
+        fieldmappings = {
+          fieldmapping = {
+            COST = {
+              field = "COST"
+              columnreference = {
+                column = "Purchase price"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_itemgroup = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_itemgroup.scriptid
+              columnreference = {
+                column = "Item Group"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+            DISPLAYNAME = {
+              field = "DISPLAYNAME"
+              columnreference = {
+                column = "Display Name"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+            EXPENSEACCOUNT = {
+              field = "EXPENSEACCOUNT"
+              columnreference = {
+                column = "Account"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+            INCLUDECHILDREN = {
+              field = "INCLUDECHILDREN"
+              value = "T"
+            }
+            ITEMID = {
+              field = "ITEMID"
+              columnreference = {
+                column = "Name"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+            PURCHASEDESCRIPTION = {
+              field = "PURCHASEDESCRIPTION"
+              columnreference = {
+                column = "Purchase description"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "2"
+            }
+            TAXSCHEDULE = {
+              field = "TAXSCHEDULE"
+              columnreference = {
+                column = "Tax Schedule"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+            UNITSTYPE = {
+              field = "UNITSTYPE"
+              value = "1"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Indirect PO Item Import"
+}

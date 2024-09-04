@@ -1,0 +1,146 @@
+netsuite.savedcsvimport custimport_hf_de_inv_adj {
+  scriptid = "custimport_hf_de_inv_adj"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | DE | Inv. Adjustment"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVENTORYADJUSTMENT"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_644_6248126_253.scriptid
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = true
+  }
+  filemappings = {
+    filemapping = {
+      INVENTORYADJUSTMENT = {
+        file = "INVENTORYADJUSTMENT"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVENTORYADJUSTMENT = {
+        record = "INVENTORYADJUSTMENT"
+        fieldmappings = {
+          fieldmapping = {
+            ACCOUNT = {
+              field = "ACCOUNT"
+              columnreference = {
+                column = "Adjustment Account Internal ID"
+                file = "INVENTORYADJUSTMENT"
+                type = "INTERNAL_ID"
+              }
+            }
+            ADJLOCATION = {
+              field = "ADJLOCATION"
+              value = "47"
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "External ID"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "6"
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              value = "31/10/2022"
+            }
+          }
+        }
+      }
+      INVENTORYADJUSTMENT_INVENTORY@f = {
+        record = "INVENTORYADJUSTMENT:INVENTORY"
+        fieldmappings = {
+          fieldmapping = {
+            ADJUSTQTYBY = {
+              field = "ADJUSTQTYBY"
+              columnreference = {
+                column = "Inventory Adjustment Adjustments: Adjust Qty. By"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Inventory Adjustment Adjustments: Item Internal ID"
+                file = "INVENTORYADJUSTMENT"
+                type = "INTERNAL_ID"
+              }
+            }
+            LINE = {
+              field = "LINE"
+              columnreference = {
+                column = "Inventory Adjustment Adjustments: Line"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              value = "47"
+            }
+            UNITCOST = {
+              field = "UNITCOST"
+              columnreference = {
+                column = "Est. Unit Cost"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVENTORYADJUSTMENT_INVENTORY_INVENTORYDETAIL_INVENTORYASSIGNMENT@f = {
+        record = "INVENTORYADJUSTMENT:INVENTORY:INVENTORYDETAIL:INVENTORYASSIGNMENT"
+        fieldmappings = {
+          fieldmapping = {
+            EXPIRATIONDATE = {
+              field = "EXPIRATIONDATE"
+              columnreference = {
+                column = "Expiry Date"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "Inventory Adjustment Adjustments – Inventory Detail: Quantity"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+            RECEIPTINVENTORYNUMBER = {
+              field = "RECEIPTINVENTORYNUMBER"
+              columnreference = {
+                column = "Inventory Adjustment Adjustments – Inventory Detail: Issue Inventory Number (Lot/Serial No)"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | DE | Inv. Adjustment"
+}

@@ -1,0 +1,69 @@
+netsuite.savedcsvimport custimport_688_6248126_256 {
+  scriptid = "custimport_688_6248126_256"
+  charencoding = "UTF_8"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Albert Wand"
+  entryform = netsuite.entryForm.instance.custform_hf_assembly.scriptid
+  ignorereadonly = true
+  importname = "SC Planner update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "LOTNUMBEREDASSEMBLYITEM"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      LOTNUMBEREDASSEMBLYITEM = {
+        file = "LOTNUMBEREDASSEMBLYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      LOTNUMBEREDASSEMBLYITEM = {
+        record = "LOTNUMBEREDASSEMBLYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            custitem_hf_mainbuyer = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_mainbuyer.scriptid
+              columnreference = {
+                column = "Primary Buyer"
+                file = "LOTNUMBEREDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_sc_planner = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_sc_planner.scriptid
+              columnreference = {
+                column = "Planner"
+                file = "LOTNUMBEREDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "LOTNUMBEREDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "SC Planner update"
+}

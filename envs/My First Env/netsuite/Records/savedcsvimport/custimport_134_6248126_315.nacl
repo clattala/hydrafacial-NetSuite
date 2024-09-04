@@ -1,0 +1,95 @@
+netsuite.savedcsvimport custimport_134_6248126_315 {
+  scriptid = "custimport_134_6248126_315"
+  charencoding = "GB18030"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_246_6248126_sb1_323.scriptid
+  ignorereadonly = true
+  importname = "日本客户更新loyal tier"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CUSTOMER"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMER = {
+        file = "CUSTOMER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMER = {
+        record = "CUSTOMER"
+        fieldmappings = {
+          fieldmapping = {
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "External Id"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CUSTOMER_ADDRESSBOOK_ADDRESSBOOKADDRESS@f = {
+        record = "CUSTOMER:ADDRESSBOOK:ADDRESSBOOKADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "Bill-To Addressee"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ADDRESSEE = {
+              field = "ADDRESSEE"
+              columnreference = {
+                column = "Company Name- Alt"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            OVERRIDE = {
+              field = "OVERRIDE"
+              value = "F"
+            }
+          }
+        }
+      }
+      CUSTOMER_ADDRESSBOOK@f = {
+        record = "CUSTOMER:ADDRESSBOOK"
+        fieldmappings = {
+          fieldmapping = {
+            LABEL = {
+              field = "LABEL"
+              columnreference = {
+                column = "Bill-To Addressee"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "日本客户更新loyal tier"
+}

@@ -1,0 +1,468 @@
+netsuite.workflow customworkflow42 {
+  scriptid = "customworkflow42"
+  description = '''
+1 - Sets the Terms to Net 30 for the UK subsidiary only.
+2 - Sets Region to 5100 HQ UK
+3 - Sets Operating Country to UK
+4 - Sets Global Region to EMEA
+5 - Credit Hold Off
+'''
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = true
+  initonvieworupdate = true
+  islogenabled = true
+  keephistory = "ALWAYS"
+  name = "HF | EMEA | Set Customer Defaults"
+  recordtypes = "CUSTOMER|LEAD|PROSPECT"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"Subsidiary\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        Subsidiary = {
+          name = "Subsidiary"
+          value = "STDENTITYSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+        __Subsidiary__2@_00123nn_00125 = {
+          name = "{#Subsidiary#}2"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate174 = {
+        scriptid = "workflowstate174"
+        donotexitworkflow = false
+        name = "Set Customer Defaults"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            setdisplaytypeaction = {
+              workflowaction1574 = {
+                scriptid = "workflowaction1574"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                displaytype = "INLINE"
+                field = "STDENTITYSALESREP"
+                issublistfield = false
+                initcondition = {
+                  formula = "\"Subsidiary\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\",\"{#Subsidiary#}3\",\"{#Subsidiary#}4\") AND \"User Role\" IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary = {
+                        name = "Subsidiary"
+                        value = "STDENTITYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__2@_00123nn_00125 = {
+                        name = "{#Subsidiary#}2"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__3@_00123nn_00125 = {
+                        name = "{#Subsidiary#}3"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__4@_00123nn_00125 = {
+                        name = "{#Subsidiary#}4"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_hfuk_csm.scriptid
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_hf_de_csm.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1482.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_hfuk_bdm.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1516.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1518.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1704 = {
+                scriptid = "workflowaction1704"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                displaytype = "INLINE"
+                field = netsuite.entitycustomfield.instance.custentity_hf_bdm.scriptid
+                issublistfield = false
+                initcondition = {
+                  formula = "\"Subsidiary\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\",\"{#Subsidiary#}3\",\"{#Subsidiary#}4\") AND \"User Role\" IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary = {
+                        name = "Subsidiary"
+                        value = "STDENTITYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__2@_00123nn_00125 = {
+                        name = "{#Subsidiary#}2"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__3@_00123nn_00125 = {
+                        name = "{#Subsidiary#}3"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__4@_00123nn_00125 = {
+                        name = "{#Subsidiary#}4"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1482.scriptid
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_hf_de_csm.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_hfuk_bdm.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_hfuk_csm.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+              workflowaction1705 = {
+                scriptid = "workflowaction1705"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                displaytype = "INLINE"
+                field = netsuite.entitycustomfield.instance.custentity_hf_override_auto_csm_bdm_map.scriptid
+                issublistfield = false
+                initcondition = {
+                  formula = "\"Subsidiary\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\",\"{#Subsidiary#}3\",\"{#Subsidiary#}4\") AND \"User Role\" IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary = {
+                        name = "Subsidiary"
+                        value = "STDENTITYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__2@_00123nn_00125 = {
+                        name = "{#Subsidiary#}2"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__3@_00123nn_00125 = {
+                        name = "{#Subsidiary#}3"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__4@_00123nn_00125 = {
+                        name = "{#Subsidiary#}4"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1482.scriptid
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_hf_de_csm.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_hfuk_bdm.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_hfuk_csm.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 2
+                isInactive = false
+              }
+            }
+          }
+          BEFORESUBMIT = {
+            triggertype = "BEFORESUBMIT"
+            setfieldvalueaction = {
+              workflowaction707 = {
+                scriptid = "workflowaction707"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                eventtypes = "CREATE"
+                field = netsuite.entitycustomfield.instance.custentity_hf_class.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = "[ACCOUNT_SPECIFIC_VALUE]"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Subsidiary\" IN (\"{#Subsidiary#}1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary = {
+                        name = "Subsidiary"
+                        value = "STDENTITYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction634 = {
+                scriptid = "workflowaction634"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                eventtypes = "CREATE"
+                field = "STDENTITYTERMS"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = "[ACCOUNT_SPECIFIC_VALUE]"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Subsidiary\" IN (\"{#Subsidiary#}1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary = {
+                        name = "Subsidiary"
+                        value = "STDENTITYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+              workflowaction708 = {
+                scriptid = "workflowaction708"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                eventtypes = "CREATE"
+                field = netsuite.entitycustomfield.instance.custentity4.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = "77"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Subsidiary\" IN (\"{#Subsidiary#}1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary = {
+                        name = "Subsidiary"
+                        value = "STDENTITYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 2
+                isInactive = true
+              }
+              workflowaction709 = {
+                scriptid = "workflowaction709"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                eventtypes = "CREATE"
+                field = netsuite.entitycustomfield.instance.custentity_hf_globalregion.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hf_globalregion.customvalues.customvalue.val_91939_6248126_sb1_271.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Subsidiary\" IN (\"{#Subsidiary#}1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary = {
+                        name = "Subsidiary"
+                        value = "STDENTITYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 3
+                isInactive = false
+              }
+              workflowaction640 = {
+                scriptid = "workflowaction640"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                eventtypes = "CREATE"
+                field = "STDENTITYCREDITHOLDOVERRIDE"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = "3"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Subsidiary\" IN (\"{#Subsidiary#}1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary = {
+                        name = "Subsidiary"
+                        value = "STDENTITYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 4
+                isInactive = false
+              }
+              workflowaction1742 = {
+                scriptid = "workflowaction1742"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDENTITYRECEIVABLESACCOUNT"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = "[ACCOUNT_SPECIFIC_VALUE]"
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 5
+                isInactive = false
+              }
+              workflowaction1743 = {
+                scriptid = "workflowaction1743"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.entitycustomfield.instance.custentity_hf_customer_since.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuedate = "TODAY"
+                valuetype = "DATE"
+                initcondition = {
+                  formula = "\"Stage\" IN (\"Entity Stage1\") AND \"Status\" IN (\"Entity Status1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Stage = {
+                        name = "Stage"
+                        value = "STDENTITYSTAGE"
+                      }
+                      Entity_Stage1@s = {
+                        name = "Entity Stage1"
+                        selectrecordtype = "-223"
+                        value = "1"
+                      }
+                      Status = {
+                        name = "Status"
+                        value = "STDENTITYSTATUS"
+                      }
+                      Entity_Status1@s = {
+                        name = "Entity Status1"
+                        selectrecordtype = "-104"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 6
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | EMEA | Set Customer Defaults"
+}

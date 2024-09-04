@@ -1,0 +1,66 @@
+netsuite.workflowactionscript customscript_hf_create_bsckorder_so {
+  scriptid = "customscript_hf_create_bsckorder_so"
+  name = "HF | Create Back Order SO"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  returnrecordtype = "-30"
+  returntype = "SELECT"
+  scriptfile = netsuite.file.instance.SuiteScripts_hf_create_backorder_so_js@duuuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_so_order_type = {
+        scriptid = "custscript_so_order_type"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Order Type"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = netsuite.customlist.instance.customlist_hf_order_type.scriptid
+        storevalue = true
+        index = 0
+      }
+      custscript_depost_account = {
+        scriptid = "custscript_depost_account"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Deposit Account"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = "-112"
+        storevalue = true
+        index = 1
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_create_bsckorder_so = {
+        scriptid = "customdeploy_hf_create_bsckorder_so"
+        allemployees = false
+        allpartners = false
+        allroles = true
+        custscript_so_order_type = netsuite.customlist.instance.customlist_hf_order_type.customvalues.customvalue.val_19160012_6248126_971.scriptid
+        isdeployed = true
+        loglevel = "DEBUG"
+        recordtype = "SALESORDER"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Create Back Order SO"
+}

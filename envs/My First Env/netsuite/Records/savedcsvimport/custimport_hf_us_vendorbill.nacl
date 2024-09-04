@@ -1,0 +1,152 @@
+netsuite.savedcsvimport custimport_hf_us_vendorbill {
+  scriptid = "custimport_hf_us_vendorbill"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | US | VENDOR BILLS"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "VENDORBILL"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_267_6248126_sb1_502.scriptid
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      VENDORBILL_ITEM@f = {
+        file = "VENDORBILL:ITEM"
+        foreignkey = "ExternalID"
+      }
+      VENDORBILL = {
+        file = "VENDORBILL"
+        primarykey = "ExternalID"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      VENDORBILL_ITEM@f = {
+        record = "VENDORBILL:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item"
+                file = "VENDORBILL:ITEM"
+                type = "INTERNAL_ID"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              columnreference = {
+                column = "Location"
+                file = "VENDORBILL:ITEM"
+                type = "INTERNAL_ID"
+              }
+            }
+            ORDERLINE = {
+              field = "ORDERLINE"
+              columnreference = {
+                column = "Line"
+                file = "VENDORBILL:ITEM"
+                type = "NAME"
+              }
+            }
+            RATE = {
+              field = "RATE"
+              columnreference = {
+                column = "Rate"
+                file = "VENDORBILL:ITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      VENDORBILL = {
+        record = "VENDORBILL"
+        fieldmappings = {
+          fieldmapping = {
+            APPROVALSTATUS = {
+              field = "APPROVALSTATUS"
+              columnreference = {
+                column = "Approval Status"
+                file = "VENDORBILL"
+                type = "NAME"
+              }
+            }
+            DUEDATE = {
+              field = "DUEDATE"
+              columnreference = {
+                column = "Due Date"
+                file = "VENDORBILL"
+                type = "NAME"
+              }
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "Vendor ID"
+                file = "VENDORBILL"
+                type = "INTERNAL_ID"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "ExternalID"
+                file = "VENDORBILL"
+                type = "NAME"
+              }
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "Memo"
+                file = "VENDORBILL"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "Document Date"
+                file = "VENDORBILL"
+                type = "NAME"
+              }
+            }
+            TRANID = {
+              field = "TRANID"
+              columnreference = {
+                column = "Document Number"
+                file = "VENDORBILL"
+                type = "NAME"
+              }
+            }
+            USERTOTAL = {
+              field = "USERTOTAL"
+              columnreference = {
+                column = "Amount"
+                file = "VENDORBILL"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | US | VENDOR BILLS"
+}

@@ -1,0 +1,136 @@
+netsuite.savedcsvimport custimport_hf_us_vendorcredit {
+  scriptid = "custimport_hf_us_vendorcredit"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | US | VENDOR CREDITS"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "VENDORCREDIT"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_hydrafacial_vendor_credit.scriptid
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      VENDORCREDIT = {
+        file = "VENDORCREDIT"
+        primarykey = "ExternalID"
+      }
+      VENDORCREDIT_ITEM@f = {
+        file = "VENDORCREDIT:ITEM"
+        foreignkey = "ExternalID"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      VENDORCREDIT = {
+        record = "VENDORCREDIT"
+        fieldmappings = {
+          fieldmapping = {
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "Vendor ID"
+                file = "VENDORCREDIT"
+                type = "INTERNAL_ID"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "ExternalID"
+                file = "VENDORCREDIT"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              columnreference = {
+                column = "Location"
+                file = "VENDORCREDIT"
+                type = "INTERNAL_ID"
+              }
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "Memo"
+                file = "VENDORCREDIT"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "Document Date"
+                file = "VENDORCREDIT"
+                type = "NAME"
+              }
+            }
+            TRANID = {
+              field = "TRANID"
+              columnreference = {
+                column = "Document Number"
+                file = "VENDORCREDIT"
+                type = "NAME"
+              }
+            }
+            USERTOTAL = {
+              field = "USERTOTAL"
+              columnreference = {
+                column = "Amount"
+                file = "VENDORCREDIT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      VENDORCREDIT_ITEM@f = {
+        record = "VENDORCREDIT:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item"
+                file = "VENDORCREDIT:ITEM"
+                type = "INTERNAL_ID"
+              }
+            }
+            ORDERLINE = {
+              field = "ORDERLINE"
+              columnreference = {
+                column = "Line"
+                file = "VENDORCREDIT:ITEM"
+                type = "NAME"
+              }
+            }
+            RATE = {
+              field = "RATE"
+              columnreference = {
+                column = "Rate"
+                file = "VENDORCREDIT:ITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | US | VENDOR CREDITS"
+}

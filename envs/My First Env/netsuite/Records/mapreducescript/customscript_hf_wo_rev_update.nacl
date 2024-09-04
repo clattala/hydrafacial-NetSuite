@@ -1,0 +1,32 @@
+netsuite.mapreducescript customscript_hf_wo_rev_update {
+  scriptid = "customscript_hf_wo_rev_update"
+  name = "HR | MR | Update Revision On WO"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_HR_MR_UpdateRevisionOnWO_js@duuv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_wo_rev_update = {
+        scriptid = "customdeploy_hf_wo_rev_update"
+        buffersize = "1"
+        concurrencylimit = "5"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HR | MR | Update Revision On WO"
+        yieldaftermins = "60"
+        recurrence = {
+          everyweekday = {
+            repeat = "PT30M"
+            startdate = "2022-06-18"
+            starttime = "06:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HR | MR | Update Revision On WO"
+}

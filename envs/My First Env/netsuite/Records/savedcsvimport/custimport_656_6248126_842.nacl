@@ -1,0 +1,84 @@
+netsuite.savedcsvimport custimport_656_6248126_842 {
+  scriptid = "custimport_656_6248126_842"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Employee China Import"
+  entryform = netsuite.entryForm.instance.custform_583_6248126_321.scriptid
+  ignorereadonly = true
+  importname = "Employee China Import - Update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "EMPLOYEE"
+  runserversuitescript = false
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      EMPLOYEE = {
+        file = "EMPLOYEE"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      EMPLOYEE_ROLES@f = {
+        record = "EMPLOYEE:ROLES"
+        fieldmappings = {
+          fieldmapping = {
+            SELECTEDROLE = {
+              field = "SELECTEDROLE"
+              value = "1480"
+            }
+          }
+        }
+      }
+      EMPLOYEE = {
+        record = "EMPLOYEE"
+        fieldmappings = {
+          fieldmapping = {
+            COMMENTS = {
+              field = "COMMENTS"
+              value = "SR-17613"
+            }
+            EMAIL = {
+              field = "EMAIL"
+              columnreference = {
+                column = "Email"
+                file = "EMPLOYEE"
+                type = "NAME"
+              }
+            }
+            GIVEACCESS = {
+              field = "GIVEACCESS"
+              value = "T"
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "EMPLOYEE"
+                type = "NAME"
+              }
+            }
+            SENDEMAIL = {
+              field = "SENDEMAIL"
+              value = "T"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Employee China Import - Update"
+}

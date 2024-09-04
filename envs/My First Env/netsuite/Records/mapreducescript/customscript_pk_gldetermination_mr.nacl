@@ -1,0 +1,73 @@
+netsuite.mapreducescript customscript_pk_gldetermination_mr {
+  scriptid = "customscript_pk_gldetermination_mr"
+  description = '''
+Set default receivable account when sales group is selected and saved on following record- 
+Customer-Sales Group-GL determination
+'''
+  name = "PK| GL Determination MR"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_trevera_mapreduce_pk_gldetermination_mr_js@dddbbv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_pk_salesgrp = {
+        scriptid = "custscript_pk_salesgrp"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Sales Group"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = netsuite.customlist.instance.customlist_hf_salesgroup.scriptid
+        storevalue = true
+        index = 0
+      }
+      custscript_pk_recacctid = {
+        scriptid = "custscript_pk_recacctid"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Receivable Account Id"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = "-112"
+        storevalue = true
+        index = 1
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_pk_gldetermination_mr = {
+        scriptid = "customdeploy_pk_gldetermination_mr"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "PK| GL Determination MR"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2021-09-14"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "PK| GL Determination MR"
+}

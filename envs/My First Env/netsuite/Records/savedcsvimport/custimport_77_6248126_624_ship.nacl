@@ -1,0 +1,127 @@
+netsuite.savedcsvimport custimport_77_6248126_624_ship {
+  scriptid = "custimport_77_6248126_624_ship"
+  charencoding = "GB18030"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_246_6248126_sb1_323.scriptid
+  ignorereadonly = true
+  importname = "HFC Shipping address"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CUSTOMER"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMER = {
+        file = "CUSTOMER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMER = {
+        record = "CUSTOMER"
+        fieldmappings = {
+          fieldmapping = {
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "External Id"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CUSTOMER_ADDRESSBOOK_ADDRESSBOOKADDRESS@f = {
+        record = "CUSTOMER:ADDRESSBOOK:ADDRESSBOOKADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "Bill-To Addressee"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ADDRPHONE = {
+              field = "ADDRPHONE"
+              columnreference = {
+                column = "Bill-To Phone"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "Bill-To City"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              value = "JP"
+            }
+            OVERRIDE = {
+              field = "OVERRIDE"
+              value = "T"
+            }
+            STATE = {
+              field = "STATE"
+              columnreference = {
+                column = "Bill-To State"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "Bill-To Zipcode"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CUSTOMER_ADDRESSBOOK@f = {
+        record = "CUSTOMER:ADDRESSBOOK"
+        fieldmappings = {
+          fieldmapping = {
+            DEFAULTSHIPPING = {
+              field = "DEFAULTSHIPPING"
+              value = "T"
+            }
+            LABEL = {
+              field = "LABEL"
+              columnreference = {
+                column = "Bill-To Addressee"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HFC Shipping address"
+}

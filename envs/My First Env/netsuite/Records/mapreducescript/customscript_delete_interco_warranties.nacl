@@ -1,0 +1,33 @@
+netsuite.mapreducescript customscript_delete_interco_warranties {
+  scriptid = "customscript_delete_interco_warranties"
+  description = "This script will delete all the intercompany warranties on daily basis"
+  name = "HF | MR | Delete Intercompany Warranties"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_hf_mr_delete_intercompany_warranty_js@duuuuv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_delete_interco_warranties = {
+        scriptid = "customdeploy_delete_interco_warranties"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | MR | Delete Intercompany Warranties"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            startdate = "2024-02-03"
+            starttime = "06:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | MR | Delete Intercompany Warranties"
+}

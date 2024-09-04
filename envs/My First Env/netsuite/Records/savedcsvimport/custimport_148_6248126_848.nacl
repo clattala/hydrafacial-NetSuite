@@ -1,0 +1,139 @@
+netsuite.savedcsvimport custimport_148_6248126_848 {
+  scriptid = "custimport_148_6248126_848"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "MC Statement Import - TM"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "VENDORBILL"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_267_6248126_sb1_502.scriptid
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = true
+  }
+  filemappings = {
+    filemapping = {
+      VENDORBILL = {
+        file = "VENDORBILL"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      VENDORBILL = {
+        record = "VENDORBILL"
+        fieldmappings = {
+          fieldmapping = {
+            ACCOUNT = {
+              field = "ACCOUNT"
+              value = "111"
+            }
+            ENTITY = {
+              field = "ENTITY"
+              value = "59808"
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "External ID"
+                file = "VENDORBILL"
+                type = "NAME"
+              }
+            }
+            LANDEDCOSTMETHOD = {
+              field = "LANDEDCOSTMETHOD"
+              value = "WEIGHT"
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              value = "6/1/2024"
+            }
+            TRANID = {
+              field = "TRANID"
+              columnreference = {
+                column = "Vendor Ref No"
+                file = "VENDORBILL"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      VENDORBILL_EXPENSE@f = {
+        record = "VENDORBILL:EXPENSE"
+        fieldmappings = {
+          fieldmapping = {
+            ACCOUNT = {
+              field = "ACCOUNT"
+              columnreference = {
+                column = "Expense Account ID"
+                file = "VENDORBILL"
+                type = "INTERNAL_ID"
+              }
+            }
+            AMOUNT = {
+              field = "AMOUNT"
+              columnreference = {
+                column = "Amount"
+                file = "VENDORBILL"
+                type = "NAME"
+              }
+            }
+            cseg_hf_project = {
+              field = netsuite.customsegment.instance.cseg_hf_project.scriptid
+              columnreference = {
+                column = "Project ID"
+                file = "VENDORBILL"
+                type = "INTERNAL_ID"
+              }
+            }
+            custcol_hf_ref1 = {
+              field = netsuite.transactioncolumncustomfield.instance.custcol_hf_ref1.scriptid
+              columnreference = {
+                column = "Ref # 1"
+                file = "VENDORBILL"
+                type = "NAME"
+              }
+            }
+            custcol_hf_ref2 = {
+              field = netsuite.transactioncolumncustomfield.instance.custcol_hf_ref2.scriptid
+              columnreference = {
+                column = "Ref # 2"
+                file = "VENDORBILL"
+                type = "NAME"
+              }
+            }
+            custcol_hf_ref3 = {
+              field = netsuite.transactioncolumncustomfield.instance.custcol_hf_ref3.scriptid
+              columnreference = {
+                column = "Ref # 3"
+                file = "VENDORBILL"
+                type = "NAME"
+              }
+            }
+            DEPARTMENT = {
+              field = "DEPARTMENT"
+              columnreference = {
+                column = "Line Department ID"
+                file = "VENDORBILL"
+                type = "INTERNAL_ID"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "MC Statement Import - TM"
+}

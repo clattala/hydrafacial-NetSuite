@@ -1,0 +1,123 @@
+netsuite.savedcsvimport custimport_hfde_lead_addresses {
+  scriptid = "custimport_hfde_lead_addresses"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_de_customer.scriptid
+  ignorereadonly = true
+  importname = "HF | DE | Lead Addresses"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "LEAD"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      LEAD = {
+        file = "LEAD"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      LEAD_ADDRESSBOOK@f = {
+        record = "LEAD:ADDRESSBOOK"
+        fieldmappings = {
+          fieldmapping = {
+            LABEL = {
+              field = "LABEL"
+              columnreference = {
+                column = "Address 1"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      LEAD_ADDRESSBOOK_ADDRESSBOOKADDRESS@f = {
+        record = "LEAD:ADDRESSBOOK:ADDRESSBOOKADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "Address 1"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            ADDR2 = {
+              field = "ADDR2"
+              columnreference = {
+                column = "Address 2"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            ADDRTEXT = {
+              field = "ADDRTEXT"
+              value = "Primary Address"
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "City"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              columnreference = {
+                column = "Country"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            OVERRIDE = {
+              field = "OVERRIDE"
+              value = "F"
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "ZIPCode"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      LEAD = {
+        record = "LEAD"
+        fieldmappings = {
+          fieldmapping = {
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "Lead External ID"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | DE | Lead Addresses"
+}

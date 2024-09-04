@@ -1,0 +1,62 @@
+netsuite.savedcsvimport custimport_leads_update {
+  scriptid = "custimport_leads_update"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "to update the leads status to closed and deactivate the leads"
+  entryform = netsuite.entryForm.instance.custform_243_6248126_sb1_305.scriptid
+  ignorereadonly = true
+  importname = "Leads Update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "LEAD"
+  runserversuitescript = false
+  usemultithread = false
+  validatemandatorycustfields = false
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      LEAD = {
+        file = "LEAD"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      LEAD = {
+        record = "LEAD"
+        fieldmappings = {
+          fieldmapping = {
+            ENTITYSTATUS = {
+              field = "ENTITYSTATUS"
+              value = "33"
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            ISINACTIVE = {
+              field = "ISINACTIVE"
+              value = "T"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Leads Update"
+}

@@ -1,0 +1,61 @@
+netsuite.savedcsvimport custimport_de_inv_adr_update {
+  scriptid = "custimport_de_inv_adr_update"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Updating custom field Invoice address with Billing Address"
+  ignorereadonly = true
+  importname = "HF | Invoice address updates"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVOICE"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_hf_de_invoice.scriptid
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVOICE = {
+        file = "INVOICE"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVOICE = {
+        record = "INVOICE"
+        fieldmappings = {
+          fieldmapping = {
+            custbody_hf_de_invoice_address = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_de_invoice_address.scriptid
+              columnreference = {
+                column = "Billing Address"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | Invoice address updates"
+}

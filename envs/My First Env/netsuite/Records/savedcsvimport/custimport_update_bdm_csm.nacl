@@ -1,0 +1,70 @@
+netsuite.savedcsvimport custimport_update_bdm_csm {
+  scriptid = "custimport_update_bdm_csm"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "This import is useful to update CSMs & BDMs on customers."
+  entryform = netsuite.entryForm.instance.custformhydrafacial_customer.scriptid
+  ignorereadonly = true
+  importname = "UK | Update BDM, CSM"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CUSTOMER"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = false
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMER = {
+        file = "CUSTOMER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMER = {
+        record = "CUSTOMER"
+        fieldmappings = {
+          fieldmapping = {
+            custentity_hf_bdm = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_bdm.scriptid
+              columnreference = {
+                column = "BDM"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            SALESREP = {
+              field = "SALESREP"
+              columnreference = {
+                column = "CSM"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "UK | Update BDM, CSM"
+}

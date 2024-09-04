@@ -1,0 +1,61 @@
+netsuite.savedcsvimport custimport_678_6248126_298 {
+  scriptid = "custimport_678_6248126_298"
+  charencoding = "UTF_8"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Importing correct revisions from MC"
+  entryform = netsuite.entryForm.instance.custform_hf_assembly.scriptid
+  ignorereadonly = true
+  importname = "MC revision correction - 5"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "SERIALIZEDASSEMBLYITEM"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      SERIALIZEDASSEMBLYITEM = {
+        file = "SERIALIZEDASSEMBLYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      SERIALIZEDASSEMBLYITEM = {
+        record = "SERIALIZEDASSEMBLYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            custitem_hf_revision = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_revision.scriptid
+              columnreference = {
+                column = "Revision"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal Id"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "MC revision correction - 5"
+}

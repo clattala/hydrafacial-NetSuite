@@ -1,0 +1,154 @@
+netsuite.mapreducescript customscript_mr_update_csm_bdm_customer {
+  scriptid = "customscript_mr_update_csm_bdm_customer"
+  name = "HF | MR Update CSM & BDM on Customer"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_hf_mr_updatecsm_bdm_js@duuuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_oldcsm = {
+        scriptid = "custscript_hf_oldcsm"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Old CSM"
+        onparentdelete = "SET_NULL"
+        searchlevel = "2"
+        selectrecordtype = "-4"
+        storevalue = true
+        index = 0
+      }
+      custscript_hf_newcsm = {
+        scriptid = "custscript_hf_newcsm"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "New CSM"
+        onparentdelete = "SET_NULL"
+        searchlevel = "2"
+        selectrecordtype = "-4"
+        storevalue = true
+        index = 1
+      }
+      custscript_hf_oldbdm = {
+        scriptid = "custscript_hf_oldbdm"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Old BDM"
+        onparentdelete = "SET_NULL"
+        searchlevel = "2"
+        selectrecordtype = "-4"
+        storevalue = true
+        index = 2
+      }
+      custscript_hf_newbdm = {
+        scriptid = "custscript_hf_newbdm"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "New BDM"
+        onparentdelete = "SET_NULL"
+        searchlevel = "2"
+        selectrecordtype = "-4"
+        storevalue = true
+        index = 3
+      }
+      custscript_hf_send_email = {
+        scriptid = "custscript_hf_send_email"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Send Email to"
+        onparentdelete = "SET_NULL"
+        searchlevel = "2"
+        selectrecordtype = "-4"
+        storevalue = true
+        index = 4
+      }
+      custscript_hf_post_code = {
+        scriptid = "custscript_hf_post_code"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "Post code"
+        searchlevel = "2"
+        storevalue = true
+        index = 5
+      }
+      custscript_hf_cust_subsidiary = {
+        scriptid = "custscript_hf_cust_subsidiary"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Subsidiary"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = "-117"
+        storevalue = true
+        index = 6
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy1 = {
+        scriptid = "customdeploy1"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "DEBUG"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF MR Update CSM & BDM on Customer"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            repeat = "PT15M"
+            startdate = "2023-07-14"
+            starttime = "07:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | MR Update CSM & BDM on Customer"
+}

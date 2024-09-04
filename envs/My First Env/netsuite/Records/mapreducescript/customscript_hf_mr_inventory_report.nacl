@@ -1,0 +1,51 @@
+netsuite.mapreducescript customscript_hf_mr_inventory_report {
+  scriptid = "customscript_hf_mr_inventory_report"
+  name = "HF MR Inventory Report"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_MR_Inventory_Report_js@duuuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_inventory_report_folderid = {
+        scriptid = "custscript_hf_inventory_report_folderid"
+        accesslevel = "2"
+        applyformatting = true
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "INTEGER"
+        isformula = false
+        ismandatory = false
+        label = "Inventory Report Folder ID"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_mr_inventory_report = {
+        scriptid = "customdeploy_hf_mr_inventory_report"
+        buffersize = "1"
+        concurrencylimit = "1"
+        custscript_hf_inventory_report_folderid = 1527165
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF MR Inventory Report"
+        yieldaftermins = "60"
+        recurrence = {
+          everyweekday = {
+            startdate = "2022-05-18"
+            starttime = "10:30:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF MR Inventory Report"
+}

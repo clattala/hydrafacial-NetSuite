@@ -1,0 +1,57 @@
+netsuite.savedcsvimport custimport_661_6248126_338 {
+  scriptid = "custimport_661_6248126_338"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "to resolve the issue of Quotes not converting to SO due to End of Group issue"
+  entryform = netsuite.entryForm.instance.custform_hf_assembly.scriptid
+  ignorereadonly = true
+  importname = "Item Group Update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "ITEMGROUP"
+  runserversuitescript = false
+  usemultithread = false
+  validatemandatorycustfields = false
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      ITEMGROUP = {
+        file = "ITEMGROUP"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      ITEMGROUP = {
+        record = "ITEMGROUP"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal id"
+                file = "ITEMGROUP"
+                type = "NAME"
+              }
+            }
+            INCLUDESTARTENDLINES = {
+              field = "INCLUDESTARTENDLINES"
+              value = "F"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Item Group Update"
+}

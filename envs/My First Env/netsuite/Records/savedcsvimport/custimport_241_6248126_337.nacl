@@ -1,0 +1,61 @@
+netsuite.savedcsvimport custimport_241_6248126_337 {
+  scriptid = "custimport_241_6248126_337"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = '''
+Updating Credit Controller on Records when got customer ID and CC name.
+This is only for Sharon. 
+'''
+  entryform = netsuite.entryForm.instance.custform_243_6248126_sb1_305.scriptid
+  ignorereadonly = true
+  importname = "Update Credit Controller on Records (Only for Sharon)"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CUSTOMER"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMER = {
+        file = "CUSTOMER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMER = {
+        record = "CUSTOMER"
+        fieldmappings = {
+          fieldmapping = {
+            custentity_3rp_cre_con = {
+              field = netsuite.entitycustomfield.instance.custentity_3rp_cre_con.scriptid
+              value = "154226"
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Update Credit Controller on Records (Only for Sharon)"
+}

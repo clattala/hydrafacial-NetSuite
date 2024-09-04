@@ -1,0 +1,77 @@
+netsuite.savedcsvimport custimport_hf_us_contacts {
+  scriptid = "custimport_hf_us_contacts"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  entryform = "STANDARDCONTACTFORM"
+  ignorereadonly = true
+  importname = "HF | US | CONTACTS"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CONTACT"
+  runserversuitescript = false
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CONTACT = {
+        file = "CONTACT"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CONTACT = {
+        record = "CONTACT"
+        fieldmappings = {
+          fieldmapping = {
+            COMPANY = {
+              field = "COMPANY"
+              columnreference = {
+                column = "CustomerID"
+                file = "CONTACT"
+                type = "INTERNAL_ID"
+              }
+            }
+            EMAIL = {
+              field = "EMAIL"
+              columnreference = {
+                column = "Username"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+            FIRSTNAME = {
+              field = "FIRSTNAME"
+              columnreference = {
+                column = "First Name"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+            LASTNAME = {
+              field = "LASTNAME"
+              columnreference = {
+                column = "Last Name"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | US | CONTACTS"
+}

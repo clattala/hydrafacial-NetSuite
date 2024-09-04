@@ -1,0 +1,83 @@
+netsuite.workflow customworkflow_hf_de_account_deposit {
+  scriptid = "customworkflow_hf_de_account_deposit"
+  description = "Instead of Undeposited funds Customer Deposits should be booked under Bank Account"
+  initcontexts = "USERINTERFACE"
+  initoncreate = true
+  initonvieworupdate = false
+  islogenabled = false
+  keephistory = "ALWAYS"
+  name = "HF | DE | Set Account on Deposit"
+  recordtypes = "CUSTOMERDEPOSIT"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        Subsidiary__Main_@sjk = {
+          name = "Subsidiary (Main)"
+          value = "STDBODYSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate330 = {
+        scriptid = "workflowstate330"
+        donotexitworkflow = false
+        name = "Set Account on Deposit"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldvalueaction = {
+              workflowaction1420 = {
+                scriptid = "workflowaction1420"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDBODYUNDEPFUNDS"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            setfieldvalueaction = {
+              workflowaction1421 = {
+                scriptid = "workflowaction1421"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDBODYACCOUNT"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = "[ACCOUNT_SPECIFIC_VALUE]"
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | DE | Set Account on Deposit"
+}

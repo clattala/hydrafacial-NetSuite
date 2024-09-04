@@ -1,0 +1,47 @@
+netsuite.workflowactionscript customscript_hf_wa_send_bill_approval {
+  scriptid = "customscript_hf_wa_send_bill_approval"
+  name = "HF WA Send Bill Approval Email"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_WA_SendVendorBill_js@duuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_po_bill_sender = {
+        scriptid = "custscript_hf_po_bill_sender"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Indirect PO Bill Email Sender"
+        onparentdelete = "SET_NULL"
+        searchlevel = "2"
+        selectrecordtype = "-4"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_wa_send_bill_approval = {
+        scriptid = "customdeploy_hf_wa_send_bill_approval"
+        allemployees = true
+        allpartners = false
+        allroles = true
+        custscript_hf_po_bill_sender = "[ACCOUNT_SPECIFIC_VALUE]"
+        isdeployed = true
+        loglevel = "DEBUG"
+        recordtype = "VENDORBILL"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF WA Send Bill Approval Email"
+}

@@ -1,0 +1,78 @@
+netsuite.workflow customworkflow_swc_todefaultvalue {
+  scriptid = "customworkflow_swc_todefaultvalue"
+  description = "This workflow is to set the Item Cost as Transfer Cost on Transfer Orders"
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = true
+  initonvieworupdate = false
+  islogenabled = false
+  keephistory = "ALWAYS"
+  name = "HF | CN  | Default Transfer Cost on TO"
+  recordtypes = "TRANSFERORDER"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"User Subsidiary\" IN (\"{#Subsidiary#}1\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        User_Subsidiary@s = {
+          name = "User Subsidiary"
+          value = "STDUSERSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate175 = {
+        scriptid = "workflowstate175"
+        donotexitworkflow = false
+        name = "Set Transfer Cost"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          BEFOREUSERSUBMIT = {
+            triggertype = "BEFOREUSERSUBMIT"
+            setfieldvalueaction = {
+              workflowaction641 = {
+                scriptid = "workflowaction641"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDBODYUSEITEMCOSTASTRANSFERCOST"
+                schedulemode = "DELAY"
+                valuechecked = true
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary__Main_@sjk = {
+                        name = "Subsidiary (Main)"
+                        value = "STDBODYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | CN  | Default Transfer Cost on TO"
+}

@@ -1,0 +1,56 @@
+netsuite.savedcsvimport custimport_598_6248126_734 {
+  scriptid = "custimport_598_6248126_734"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_inventory_part_form.scriptid
+  ignorereadonly = true
+  importname = "Enable Track Landed Cost - Inventory Item"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVENTORYITEM"
+  runserversuitescript = false
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVENTORYITEM = {
+        file = "INVENTORYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVENTORYITEM = {
+        record = "INVENTORYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            TRACKLANDEDCOST = {
+              field = "TRACKLANDEDCOST"
+              value = "T"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Enable Track Landed Cost - Inventory Item"
+}

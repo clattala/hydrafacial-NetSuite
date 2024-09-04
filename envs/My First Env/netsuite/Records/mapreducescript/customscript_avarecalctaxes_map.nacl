@@ -1,0 +1,32 @@
+netsuite.mapreducescript customscript_avarecalctaxes_map {
+  scriptid = "customscript_avarecalctaxes_map"
+  description = "Map/Reduce script for running Tax recalculation for Batches created"
+  name = "AVA_RecalculateTaxes_Map"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = "[/SuiteBundles/Bundle 296604/AVA_MAP_RecalculateTaxes.js]"
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_recalculatetaxes = {
+        scriptid = "customdeploy_recalculatetaxes"
+        buffersize = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "AVA_RecalculateTaxes_Map"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2021-01-19"
+            starttime = "02:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  bundle = netsuite.bundle.instance.bundle_296604
+  _alias = "AVA_RecalculateTaxes_Map"
+}

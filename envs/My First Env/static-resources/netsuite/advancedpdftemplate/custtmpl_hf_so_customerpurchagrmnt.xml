@@ -1,0 +1,663 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+<head>
+	<link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+	<#if .locale == "zh_CN">
+		<link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+	<#elseif .locale == "zh_TW">
+		<link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+	<#elseif .locale == "ja_JP">
+		<link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+	<#elseif .locale == "ko_KR">
+		<link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+	<#elseif .locale == "th_TH">
+		<link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+	</#if>
+    <macrolist>
+        <macro id="nlheader">
+            <table style="width: 100%; font-size: 10pt;"><tr>
+	<td align="center" rowspan="3" style="padding: 0;"><img height="80%" src="${companyInformation.logoUrl}" style="float: left; margin: 7px" width="80%" /></td>
+	</tr></table>
+        </macro>
+        <macro id="nlfooter">
+            <table style="width: 100%; font-size: 8pt;"><tr>
+	<td align="center" colspan="2"><span>HydraFacial UK Ltd, Unit 40, Sir Frank Whittle Business Centre, Great Central Way, Rugby, CV21 3XH </span></td>
+	</tr>
+	<tr>
+	<td align="center" colspan="2"><span>Tel: 01788 572007 | Web: hydrafacial.co.uk </span></td>
+	</tr></table>
+        </macro>
+    </macrolist>
+    <style type="text/css">* {
+            font-family: NotoSans, sans-serif;
+		}
+		table {
+			font-size: 9pt;
+			table-layout: fixed;
+		}
+        th {
+            font-weight: bold;
+            font-size: 8pt;
+            vertical-align: middle;
+            padding: 5px 6px 3px;
+            background-color: #e3e3e3;
+            color: #333333;
+        }
+        td {
+            padding: 4px 6px;
+        }
+		td p { align:left }
+
+        .tnc {
+            font-size:6px;
+        }
+
+        .rtd {
+        border-bottom: 1px dotted black;
+        margin-right: 20px;
+        padding-bottom:30px;
+        }
+
+        .rtd p {
+            width:500px;
+        }
+
+        .ltd {
+        /*   width: 10%; */
+        }
+
+        table.nsbasic {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        table.nsbasic th {
+            border:1px solid black;
+        }
+
+        table.nsbasic td {
+            border-left:1px solid black;
+            border-bottom:1px solid black;
+        }
+
+        table.nsbasic tr td:last-child {
+            border-right:1px solid black;
+        }
+
+        table.cfinder tr td {
+            padding-top:30px;
+        }
+</style>
+</head>
+<body header="nlheader" header-height="5%" footer="nlfooter" footer-height="20pt" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+    <div align="center"><u><b>HydraFacial Customer Purchase Agreement </b></u></div>
+
+<table class="nsbasic" style="margin-bottom:20px;" width="100%"><tr>
+	<th colspan="3"><b>HydraFacial Details</b></th>
+	</tr>
+	<tr>
+	<td colspan="1">Purchase Order Number:</td>
+	<td colspan="2">${record.tranid}</td>
+	</tr>
+	<tr>
+	<td colspan="1">Date:</td>
+	<td colspan="2">${record.trandate}</td>
+	</tr>
+	<tr>
+	<td colspan="1">Sales Representative Name:</td>
+	<td colspan="2">${record.salesrep}</td>
+	</tr>
+	<tr>
+	<td colspan="1">Sales Representative Email:</td>
+	<td colspan="2">${record.salesrep.email}</td>
+  </tr>
+  	<tr>
+	<td colspan="1">Sales Representative Phone No.:</td>
+	<td colspan="2">${record.salesrep.phone}</td>
+	</tr>
+    	<tr>
+	<td colspan="1">Memo:</td>
+	<td colspan="2">${record.memo}</td>
+	</tr></table>
+
+<table class="nsbasic" style="margin-bottom:10px;" width="100%"><tr>
+	<th colspan="4"><b>Purchase agreement information</b></th>
+	</tr>
+	<tr>
+	<td colspan="1">Company:</td>
+	<td colspan="1">${record.entity}</td>
+	<td colspan="1">Mobile:</td>
+	<td colspan="1">${record.custbody5}</td>
+	</tr>
+	<tr>
+	<td colspan="1">Contact Name:</td>
+	<td colspan="3">${record.custbody_hf_pri_con_nam}</td>
+	</tr>
+	<tr>
+	<td colspan="1">Contact Number:</td>
+	<td colspan="1">${record.custbody_hf_pri_con_phone}</td>
+	<td colspan="1">Email Address:</td>
+	<td colspan="1">${record.custbody_hf_pri_con_email}</td>
+	</tr>
+	<tr>
+	<td colspan="1">Address:</td>
+	<td colspan="3" style="height:40px;">${record.billaddress}</td>
+	</tr></table>
+
+<table class="nsbasic" style="margin-bottom:5px;" width="100%"><tr>
+	<th colspan="9">Product Description</th>
+	</tr>
+	<#list record.item as item>
+	<tr>
+	<td colspan="5">${item.item} ${item.description}</td>
+	<td colspan="4" style="padding:0;">
+	<table width="100%"><#if item_index==0><tr>
+		<td colspan="1" style="border-left:0;"><b>Quantity </b></td>
+		<td colspan="2"><b>Unit Price </b><br />All prices exclude VAT</td>
+		<td colspan="1" style="border-right:0;"><b>Extended<br />Price </b></td>
+		</tr>
+		</#if>
+		<tr>
+		<td colspan="1" style="border-left:0;border-bottom:0;">${item.quantity}</td>
+		<td colspan="2" style="border-bottom:0;">${item.rate}</td>
+		<td colspan="1" style="border-right:0;border-bottom:0;">${item.amount}</td>
+		</tr></table>
+	</td>
+	</tr>
+	<#--><#if item.itemtype=='Assembly'><#assign item_num = item.item>
+	<tr>
+	<th colspan="9" style="border-top:0;">Optional Extras ${components.components}</th>
+	</tr>
+	<#list components.components as component>
+	<tr>
+	<td colspan="5">${component.item.text} ${component.description.value}</td>
+	<td colspan="4" style="padding:0;">
+	<table width="100%"><tr>
+		<td colspan="1" style="border-left:0;border-bottom:0;">${component.qty.value}</td>
+		<td colspan="2" style="border-bottom:0;">&nbsp;</td>
+		<td colspan="1" style="border-right:0;border-bottom:0;">&nbsp;</td>
+		</tr></table>
+	</td>
+	</tr>
+	</#list></#if><-->
+	<tr>
+	<th colspan="9" style="border-top:0;">&nbsp;</th>
+	</tr>
+	</#list>
+	<tr>
+	<th colspan="8" style="border-top:0;border-right:0">Total</th>
+	<th colspan="1" style="border-top:0;">${record.subtotal}</th>
+	</tr>
+	<tr>
+      <#if record.billcountry = 'United Kingdom' || record.billcountry = 'Northern Ireland'>
+        <td colspan="8"><strong>VAT at 20%</strong></td>
+</#if>      <#if record.billcountry = 'Guernsey' || record.billcountry = 'Jersey'>
+        <td colspan="8"><strong>VAT at 0%</strong></td>
+</#if><#if record.billcountry = 'Ireland'>
+        <td colspan="8"><strong>VAT at 23%</strong></td>
+</#if><#if record.billcountry = 'Spain'>
+        <td colspan="8"><strong>VAT at 21%</strong></td>
+</#if><#if record.billcountry != 'Spain' && record.billcountry != 'Guernsey' && record.billcountry != 'Jersey' && record.billcountry != 'United Kingdom' && record.billcountry != 'Northern Ireland' && record.billcountry != 'Ireland'>
+        <td colspan="8"><strong>VAT at 20%</strong></td>
+</#if>
+	<td colspan="1"><strong>${record.taxtotal}</strong></td>
+	</tr>
+	<tr>
+	<td colspan="8"><strong>Total</strong></td>
+	<td colspan="1"><strong>${record.total}</strong></td>
+	</tr>
+	<tr height="40px;">
+	<td colspan="9">Notes/Comments:</td>
+	</tr>
+	<tr>
+	<td colspan="9">Quote valid until:</td>
+	</tr>
+	<tr>
+	<th colspan="9" style="border-top:0;">Payment information</th>
+	</tr>
+	<tr>
+	<td colspan="3">Payment Method:</td>
+	<td colspan="6">${record.terms}</td>
+	</tr>
+	<tr>
+	<td colspan="3">Deposit Required: (Yes or no. If yes, enter amount)</td>
+	<td colspan="6">&nbsp;</td>
+	</tr></table>
+
+<table style="margin-bottom:5px;" width="100%"><tr>
+	<td>&nbsp;
+	<p><strong>Payment Options</strong></p>
+
+	<p><span style="border: 1px solid black;">&nbsp; &nbsp; </span> &nbsp; Payment terms &ndash; payment must be cleared prior to delivery unless buying on a lease</p>
+
+	<p><span style="border: 1px solid black;">&nbsp; &nbsp; </span> &nbsp; Debit/credit card - payment can be taken over the phone</p>
+
+	<p><span style="border: 1px solid black;">&nbsp; &nbsp; </span> &nbsp; Bank transfer - HydraFacial UK Ltd [Sort code: 20-73-48. Account number: 33365174]</p>
+
+	<p>&nbsp;</p>
+      
+<table class="nsbasic" style="margin-bottom:20px;" width="100%"><tr>
+	<th colspan="3"><b>Customer Bank Details</b></th>
+	</tr>
+	<tr>
+	<td colspan="1">Bank Account Name:</td>
+	<td colspan="2"></td>
+	</tr>
+	<tr>
+	<td colspan="1">Account No:</td>
+	<td colspan="2"></td>
+	</tr>
+	<tr>
+	<td colspan="1">Sort Code:</td>
+	<td colspan="2"></td>
+	</tr>
+	<tr>
+	<td colspan="1">IBAN:</td>
+	<td colspan="2"></td>
+	</tr></table>
+
+	<p><span class="s2"><strong>Approval Information</strong></span><br /><span class="s3"><strong><em>By signing this form I agree to that I shall not sell HydraFacial or Perk retail products on the internet and that I agree to all points itemised in the attached terms and conditions of supply document</em></strong></span></p>
+	</td>
+	</tr></table>
+
+<table class="nsbasic" style="margin-bottom:10px;" width="100%"><tr colspan="8">
+	<td colspan="2" style="border-top:1px solid black">Customer Signature:</td>
+	<td colspan="3" style="border-top:1px solid black">&nbsp;</td>
+	<td colspan="1" style="border-top:1px solid black">Date:</td>
+	<td colspan="2" style="border-top:1px solid black">&nbsp;</td>
+	</tr>
+	<tr colspan="8">
+	<td colspan="2">HydraFacial UK Signature:</td>
+	<td colspan="3">&nbsp;</td>
+	<td colspan="1">Date:</td>
+	<td colspan="2">&nbsp;</td>
+	</tr></table>
+
+<table width="100%"><tr>
+	<td style="padding:0; border:1px solid black; border-top:0;" width="35%">
+	<table width="100%"><tr>
+		<th style="border:1px solid black;border-left:0;border-right:0;"><b>HydraFacial Elite Unit Includes </b></th>
+		</tr>
+		<tr>
+		<td>
+		<p>1 cartridge hand piece (70318)</p>
+
+		<p>1 puncture tool (16257)</p>
+
+		<p>1 license agreement</p>
+
+		<p>2 red LED light (70237)</p>
+
+		<p>2 blue LED light (70146)</p>
+
+		<p>1 lymphatic drainage therapy kit (70144)</p>
+
+		<p>1 standard one-year warranty</p>
+
+		<p>1 Tool holder</p>
+
+		<p>&nbsp;</p>
+		</td>
+		</tr>
+		<tr>
+		<th style="border:1px solid black;border-left:0;border-right:0;"><b>HydraFacial &amp; Perk Marketing Package includes: </b></th>
+		</tr>
+		<tr>
+		<td>
+		<p>&nbsp;</p>
+
+		<p>1 Clinic Video Card</p>
+
+		<p>6 Staff Badges</p>
+
+		<p>1 USB Stick</p>
+
+		<p>4 Pens</p>
+
+		<p>2 Pull up Banners</p>
+
+		<p>1 Leaflet Holder (Perspex)</p>
+
+		<p>100 HydraFacial Customer Leaflets (A5)</p>
+
+		<p>2 HydraFacial Posters (A2)</p>
+
+		<p>2 Perk Posters (A2)</p>
+
+		<p>50 Gift of Healthy Skin cards</p>
+
+		<p>1 Desk Top Display</p>
+		</td>
+		</tr></table>
+	</td>
+	<td style="padding:0; border:1px solid black; border-top:0;border-left:0;" width="65%">
+	<table width="100%"><tr>
+		<th style="border:1px solid black;border-left:0;border-right:0;"><b>Included with your system: </b></th>
+		</tr>
+		<tr>
+		<td style="padding:0; border:0;">
+		<table width="100%"><tr>
+			<td style="padding:5px 0 0 5px;">
+			<p><strong>HYDRAPACKS &ndash; PROVIDING YOU WITH A TOTAL OF:</strong></p>
+
+			<p>2 bottles Activ-4 skin solutions (70137)</p>
+
+			<p>2 bottles Beta-HD skin solutions (70138)</p>
+
+			<p>2 bottles Antiox+ skin solutions (70353)</p>
+
+			<p>2 bottles Rinseaway system cleaning solutions (701470)</p>
+
+			<p>&nbsp;</p>
+
+			<p>2 x HydroPeel tips for exfoliation - Blue (15/pk) (74112)</p>
+
+			<p>2 x HydroPeel tips for extraction - Teal (15/pk) (74114)</p>
+
+			<p>2 x HydroPeel tips for application - Clear (15/pk) (74111)</p>
+
+			<p>2 boxes GlySal&trade; prep acid peel vials - Gly 7.5%, Sal 2% (6 vials/box) (70200)</p>
+			</td>
+			</tr></table>
+		</td>
+		</tr></table>
+	</td>
+	</tr></table>
+
+<table style="margin-bottom:10px;" width="100%"><tr>
+	<td>
+	<p>&nbsp;</p>
+
+	<p><strong>Please sign and post to HydraFacial UK Ltd, Unit 40, Sir Frank Whittle Business Centre, Great Central Way, Rugby, Warwickshire CV21 3XH or scan and email to: </strong><a href="mailto:orders@hydrafacialuk.com"><span class="s1"><strong>orders@hydrafacialuk.com</strong></span></a></p>
+
+	<p>&nbsp;</p>
+
+	<p><strong>Please phone 01788 572 007 if you need any help.</strong></p>
+
+	<p><strong>Return Policy:</strong></p>
+
+	<p><em>All sales are final. Any returns are subject to a 35% re-stocking fee. Returns must be pre-approved and returned within 30 days in the original box and in saleable condition. Shipping charges are additional and non-refundable. Save all packaging for returns and repairs.<span>&nbsp; </span>Damages must be reported to the carrier immediately at the time of delivery. For repairs, please call 01788 572007 to obtain a return material authorisation (RMA) number and fill out the required RMA form.</em></p>
+	</td>
+	</tr></table>
+  
+<table border="0" cellpadding="0" cellspacing="0" style="height: 1px; width: 85%; margin-top: -12px;"><tr>
+	<td>
+	<table cellspacing="0" style="width: 97.2455%;"><tr>
+		<td colspan="3" style="height: 1px; width: 92.5276%;"><strong>Payment before delivery</strong><br />Debit / Credit card - Payment can be taken over the phone<br /><strong>&nbsp;</strong></td>
+		</tr>
+		<tr>
+		<td style="width: 23.5656%; height: 12px; text-align: left;">Bank Transfer:</td>
+		<td style="width: 53.8935%; height: 12px; text-align: left;"><strong>HydraFacial UK Limited</strong></td>
+		</tr>
+		<tr>
+		<td style="width: 23.5656%; height: 10px; text-align: left;">Bank:</td>
+		<td style="width: 53.8935%; height: 10px; text-align: left;"><strong>Barclay&#39;s Bank</strong></td>
+		</tr>
+		<tr>
+		<td style="width: 23.5656%; height: 10px; text-align: left;">Sort Code :</td>
+		<td style="width: 53.8935%; height: 10px; text-align: left;"><strong>20-73-48</strong></td>
+		</tr>
+		<tr>
+		<td style="width: 23.5656%; height: 14px; text-align: left;">Account No:</td>
+		<td style="width: 53.8935%; height: 14px; text-align: left;"><strong>33365174</strong></td>
+		</tr>
+		<tr>
+		<td style="width: 23.5656%; height: 14px; text-align: left;">IBAN:</td>
+		<td style="width: 53.8935%; height: 14px; text-align: left;"><strong>GB41 BUKB 20734833365174</strong></td>
+		</tr>
+		<tr>
+		<td style="width: 23.5656%; height: 10px; text-align: left;">SWIFTBIC :</td>
+		<td style="width: 53.8935%; height: 10px; text-align: left;"><strong>BUKBGB22</strong></td>
+		</tr></table>
+
+	<p>PLEASE NOTE THAT LATE PAYMENT OF THIS INVOICE MAY RESULT IN CREDIT FACILITIES BEING WITHDRAWN</p>
+	</td>
+	</tr></table>
+
+<table class="tnc"><tr>
+	<td>
+	<p><strong>Terms and Conditions of Supply</strong></p>
+
+	<p><strong>1. </strong><span class="s1"><strong>Definitions</strong></span></p>
+
+	<p>&ldquo;The Company&rdquo; HydraFacial UK Ltd</p>
+
+	<p>&ldquo;The Customer&rdquo;: the person, firm or company to whom the Quotation is addressed or by or on behalf of whom the Order is placed.</p>
+
+	<p>&ldquo;The Quotation&rdquo;: the written quotation by the Company in respect of the Product or Services.</p>
+
+	<p>&ldquo;Order&rdquo;: the written request by the Customer for the Product or Services.</p>
+
+	<p>&ldquo;Product&rdquo;: any item produced or manufactured or supplied by the Company as detailed in the Quotation.</p>
+
+	<p>&ldquo;Services&rdquo;: any Services provided by the Company as detailed in the Quotation.</p>
+
+	<p>&ldquo;Contract Price&rdquo;: the sum payable by the Customer for the Product or Services</p>
+
+	<p>&ldquo;Invoice&rdquo;: the request for payment made by the Company in respect of the Product or Services</p>
+
+	<p>&ldquo;Confidential Information&rdquo;: any information supplied by the Customer or Company which at the date of supply is not within the public domain</p>
+
+	<p>&ldquo;Indemnity Amount&rdquo;: the amount for which the Company is insured under the Indemnity Policy in respect of any claim by the Customer</p>
+
+	<p>&ldquo;Indemnity Policy&rdquo;: the Company&rsquo;s professional indemnity insurance policy for the time being in force</p>
+
+	<p>&ldquo;Specification&rdquo;: the detail of the Product or Services as detailed in the Order</p>
+
+	<p>&ldquo;Specified Period&rdquo;: the agreed period for the delivery, installation and/or commissioning of the Product or for the performance of the Services</p>
+
+	<p><strong>2. </strong><span class="s1"><strong>General</strong></span></p>
+
+	<p>2.1 Unless otherwise specifically agreed in writing by a duly authorised officer of the Company the terms specified herein shall supersede any earlier terms or conditions proposed by the Company and shall override any terms or conditions stipulated or referred to by the Customer whether in its Order or in any negotiations</p>
+
+	<p>2.2 No Order by the Customer shall be binding upon the Company until it has been accepted in writing by the Company.</p>
+
+	<p>2.3 The Company can, after accepting the Order, in its absolute discretion make changes, modifications or substitutions to the Specification provided that such changes, modifications or substitutions do not materially diminish the overall performance of the Product or the overall standard of the Services.</p>
+
+	<p>2.4 The Company will use its reasonable endeavours to procure the delivery, installation and/or commissioning of the Product at the agreed site or the performance of the Services within the Specified Period provided that the Customer shall do all acts reasonably necessary to facilitate the delivery, installation and/or commissioning of the Product or the performance of the Services, and the Company shall not be liable for any delay or additional costs or expenses occasioned by any default of the Customer.</p>
+
+	<p>2.5 Where the installation or commissioning of the Product is to be carried out by the Company the Customer shall not remove the primary packaging from the Product other than upon the written authorisation of the Company.</p>
+
+	<p>2.6 The Customer shall at its own expense prepare and provide all proper accommodation and facilities to a standard agreed with the Company including but not limited to proper environmental conditions for the Product or Services.</p>
+
+	<p>2.7 If the Company notifies the Customer that, for whatever reason, it will be or has been unable to deliver, install or commission the Product or perform the Services within the Specified Period the Customer must within 7 days of such notification authorise, in writing, an extension of the Specified Period.<span class="Apple-converted-space">&nbsp; </span>If no such written authorisation is made the Company shall be entitled forthwith to terminate this Agreement and to render an invoice in respect of all works done and/or items supplied up to and including the date of such termination which the Customer shall thereupon become liable to pay.</p>
+
+	<p>2.8 All delivery, installation, commissioning and performance dates are subject to change and time is not of the essence in respect thereof.</p>
+
+	<p><strong>3. </strong><span class="s1"><strong>Quotations</strong></span></p>
+
+	<p>3.1 No verbal quotation shall be binding upon the Company.</p>
+
+	<p>3.2 All Quotations will automatically lapse 3 calendar months from the date of such Quotation and the Company reserves the right to withdraw any Quotation within the 3 month period.</p>
+
+	<p><strong>4. </strong><span class="s1"><strong>Terms of Payment</strong></span></p>
+
+	<p>4.1 Upon acceptance of an Order by the Company the Customer will pay a non-refundable deposit equal to 10% of the Contract Price.</p>
+
+	<p>4.2 The balance of the Contract Price shall fall due prior to delivery, unless payment terms or lease finance has been agreed.</p>
+
+	<p>4.3 Payment of the Contract Price shall be in pounds sterling. Payment shall be deemed to take place upon clearance of the payment (if by cheque).</p>
+
+	<p>4.4 Any query as to the Invoice must be raised within 30 days of despatch of the Invoice by the Company.</p>
+
+	<p><strong>5. </strong><span class="s1"><strong>Safety</strong></span></p>
+
+	<p>No member, employee or agent of the Company shall be required to undertake any work which involves risk of personal injury or illness and the Customer shall take all reasonable care to see that any work (whether as part of the Services or otherwise) which is required to be carried out outside the premises of the Company can be performed within a safe working environment.</p>
+	</td>
+	<td>
+	<p><strong>6. </strong><span class="s1"><strong>Warranties and Exclusions</strong></span></p>
+
+	<p>6.1 Nothing in clauses 6.2 to 6.19 shall have the effect of excluding or restricting the Company&rsquo;s liability for death or personal injury resulting from negligence.</p>
+
+	<p>6.2 The Company warrants that it will carry out the Services with reasonable skill and care <span class="Apple-converted-space">&nbsp; </span>and this shall be the only warranty given by the Company in respect of the Services.<span class="Apple-converted-space">&nbsp; </span>All other warranties and conditions implied by statute, common law or otherwise are hereby excluded to the extent that the law permits.</p>
+
+	<p>6.3.1 The Customer must notify the Company in writing of any alleged breach in respect of the provision of the Services within 28 days of completion of the Services (unless the Customer proves that it could not,</p>
+
+	<p>by the exercise of reasonable diligence, have discovered the breach within that period, in which case the Customer must notify the Company in writing within 7 days of the date when it could first reasonably have discovered the breach).</p>
+
+	<p>6.3.2 Upon receiving notification pursuant to clause 6.3.1 the Company shall have the right, at its absolute discretion,</p>
+
+	<p>i. to take such steps as are necessary to comply with its obligations under these terms and conditions (the Customer providing all necessary assistance), or</p>
+
+	<p>ii. to refund the whole or part of the Contract Price as it deems appropriate</p>
+
+	<p>6.3.3 The Company shall not be liable to the Customer for any loss of any kind which arises out of any breach in the provision of the Services, unless the Customer has notified the Company in writing of the breach within the period stipulated in clause 6.3.1, as to which time shall be of the essence.</p>
+
+	<p>6.3.4 For the purposes of clause 6.3.1 the Company shall be treated as having completed the Services notwithstanding any alleged breach in the provision of the Services.</p>
+
+	<p>6.4 The Company shall not be liable for any consequential losses (which, for the avoidance of doubt, shall in this Agreement include loss of profits) howsoever caused.</p>
+
+	<p>6.5 Any claim brought under these terms and conditions shall in any event be limited to the lesser of:</p>
+
+	<p>i. The Contract Price, and</p>
+
+	<p>ii. The Indemnity Amount</p>
+
+	<p>6.6 The Customer shall hereby indemnify the Company against any loss or damage claimed against the Company by any third party to the extent that any such loss or damage exceeds the limit stipulated in clause 6.5.</p>
+
+	<p>6.7 The Customer warrants to the Company that all data and information provided for the purpose of the Services shall be full and accurate and any change in the data shall be immediately notified to the Company.<span class="Apple-converted-space">&nbsp; </span>Any loss or damage resulting from the reliance of the Company upon such information shall be the responsibility of the Customer.</p>
+
+	<p>6.8 Subject to clause 6.10 the Product and any components, spares and accessories supplied by the Company are warranted against defects in workmanship and materials for a period of 12 months from the date of despatch by the Company (or from the date of despatch by the supplier or suppliers of such components or spares or accessories, in the event that the same are despatched direct to the Customer from such supplier or suppliers).<span class="Apple-converted-space">&nbsp; </span>This shall be the only warranty given by the Company in respect of the Product and any components, spares or accessories.<span class="Apple-converted-space">&nbsp; </span>All other warranties and conditions implied by statute, common law or otherwise are hereby excluded to the extent that the law permits.<span class="Apple-converted-space">&nbsp; </span>For the avoidance of doubt the Company in particular gives no warranty that the Product conforms to any specification or is fit for any specific purpose.</p>
+
+	<p>6.9 The Company shall at its option either replace, repair or issue a credit note to the Customer for any Product or components, spares or accessories found to be defective by reason of poor workmanship or faulty materials</p>
+
+	<p>6.10 The Company shall however be under no obligation to take any action under clause 6.9 unless:</p>
+
+	<p>i. the Company has been notified of the defects in writing by the Customer within 7 days of the discovery of such defects and in any event not later than 12 months from the date of despatch (as to both of which time shall be of the essence) and</p>
+
+	<p>ii. the defective goods have been returned to the Company&rsquo;s premises if so required under clause 6.15 below and</p>
+
+	<p>iii. examination of the goods by the Company discloses to its satisfaction that such defects exist and have not been caused by mishandling, misuse, neglect, improper installation, improper repair, insufficient or inadequate or improper maintenance, or by alteration or accident (the Customer being liable to pay to the Company the cost, as certified by Company, of the examination of any goods in respect of which the Company does not accept liability under this paragraph)</p>
+
+	<p>6.11 Other than as is provided for in clauses 6.9, 6.10and 6.11 above the Company shall have no liability whatsoever to the Customer in relation to any defects in the Product, or in any components, spares or accessories, and in particular the Company will not be liable for the return of the Contract Price, for any costs incurred for the shipment of defective components or for any consequential losses (including loss of profit).</p>
+
+	<p>6.12 Warranty repairs will be carried out at the premises of the Company or such other premises as shall be decided by the Company in its absolute discretion.<span class="Apple-converted-space">&nbsp; </span>No equipment should be returned to the Company without the prior written authorisation of the Company.</p>
+
+	<p>6.13 Equipment repaired or replaced under this warranty is warranted only for the remaining unexpired portion of the original warranty period which was applicable to the repaired or replaced equipment.</p>
+
+	<p>6.14 This warranty does not cover any defects which have been caused by mishandling, misuse, neglect, improper installation, improper repair, insufficient or inadequate or improper maintenance, or by alteration or accident, or which arise for whatever reason at any time after modification, repair or attempted repair of the equipment by persons other than the Company or an authorised agent of the Company.</p>
+
+	<p>6.15 The Company accepts no liability whatsoever arising from the use to which the Product is put or from the non-use or attempted use thereof or for the consequences arising therefrom.</p>
+
+	<p><strong>7. </strong><span class="s1"><strong>Confidential Information</strong></span></p>
+
+	<p>7.1 If any Confidential Information comes to the attention of either the Customer or Company in connection with any Services or Product the same shall not be disclosed to any third party other than with the written<span class="Apple-converted-space">&nbsp; &nbsp; </span>consent of the party from whom such Confidential Information was obtained and the party to whom such information belongs, save that<span class="Apple-converted-space">&nbsp; </span>where the Company employs outside consultants or obtains independent advice or assistance in relation to any Services or Product it shall be entitled to make such disclosure of Confidential Information as it deems desirable to the consultant or person providing aid or assistance and shall take reasonable steps to ensure that the same is kept confidential by such person.</p>
+
+	<p>7.2 The provisions of confidentiality shall not apply where such information is or becomes part of the public domain through no fault of the Company or Customer as the case may be.</p>
+
+	<p>7.3 Neither the Company nor Customer shall without the consent of the other use the name of the other in any publicity material.</p>
+
+	<p>&nbsp;</p>
+
+	<p><strong>8. </strong><span class="s1"><strong>Reports</strong></span></p>
+
+	<p>All reports drawings advice and other information prepared by the Company and/or provided to the Customer shall be the property of the Company, and the Customer shall be entitled to have the use of the information contained therein only for those purposes referred to in Clause 10 subject to the other clauses herein contained.</p>
+	</td>
+	<td>
+	<p><strong>9. </strong><span class="s1"><strong>Equipment</strong></span></p>
+
+	<p>Unless otherwise agreed in writing all rigs and equipment which are purchased or otherwise provided in connection with or for the purpose of carrying out any Services or manufacturing installing or commissioning any Product (whether by the Customer or the Company) will become and remain the property of the Company.</p>
+
+	<p><strong>10. </strong><span class="s1"><strong>Internet Sales</strong></span></p>
+
+	<p>10.1 Perk or HydraFacial products should not be advertised and sold on the internet. They should be sold as part of the treatment service delivered in the clinic.</p>
+
+	<p>10.2 Any advertisements on shopping cart sites, amazon, ebay, or any other internet shopping site may result in us ceasing supplies of HydraFacial and Perk products to your business.</p>
+
+	<p><strong>11. </strong><span class="s1"><strong>Intellectual Property Rights</strong></span></p>
+
+	<p>11.1 All Intellectual Property Rights arising from any Services or relating to any product manufactured shall remain the property of the Company and the Customer shall be entitled to use the Intellectual Property only for those purposes notified by the Customer to the Company prior to commencement of Services as being those for which the Services are required.</p>
+
+	<p>11.2 The Customer warrants that any Services which it requests the Company to undertake or any Product which it requests the Company to supply (and in particular but not limited to any Services undertaken or product manufactured by the Company in connection with the use of information designs or drawings supplied by the Customer) shall not infringe the Intellectual Property rights of any third party.</p>
+
+	<p><strong>12.</strong><span class="s1"><strong> Termination</strong></span></p>
+
+	<p>12.1 The Company shall have the right to terminate this Agreement by serving written notice of termination forthwith upon the happening of any of the following events:</p>
+
+	<p>i. The Customer becoming bankrupt, compounding with its creditors, being wound up, going into liquidation, entering into a voluntary arrangement or having a receiver or administrator appointed (other than for the purposes of amalgamation or reconstruction).</p>
+
+	<p>ii. Failure by the Customer to comply with these terms and conditions in any material respect.</p>
+
+	<p>12.2 In the event of termination under this clause 11 the Company retains any rights and remedies available to it.</p>
+
+	<p>12.3 Without prejudice to its rights under this clause 11 the Company may suspend any Services in any of the events referred to in 11.1.</p>
+
+	<p><strong>132. </strong><span class="s1"><strong>Retention of Title</strong></span></p>
+
+	<p>13.1 Ownership of the Product or of any reports provided pursuant to the Services or of any goods supplied by the Company to the Customer pursuant to this Quotation shall remain with the Company until the Customer has paid in full all monies owed by it to the Company under this or any similar Agreement for similar product or goods or services.</p>
+
+	<p>13.2 The risk in the Product or other goods or in the use of any documentation provided pursuant to the Services passes to the Customer on supply of the same to the Customer or on behalf of the Customer.</p>
+
+	<p><strong>14. </strong><span class="s1"><strong>Miscellaneous</strong></span></p>
+
+	<p>14.1 Neither party shall be in default hereunder by reason of any delay in the performance of or failure to perform any of its obligations hereunder if such delay or failure is caused solely by strikes acts of God or the public enemy riots incendiaries interference by civil or military authorities compliance with governmental laws rules and regulations delays in transit or delivery inability to secure necessary governmental priorities for materials or any fault beyond its control or without its fault or negligence.<span class="Apple-converted-space">&nbsp; </span>Should Force Majeure subsist for a period greater than 3 months either party shall have the right to terminate the Services or the manufacture of the Product.</p>
+
+	<p>14.2 The headings to the clauses of this Agreement are for convenience only and shall be of no force or effect whatsoever in construing this Agreement.</p>
+
+	<p>14.3 No waiver of a breach by either party of any term of this Agreement shall be deemed to constitute a waiver of any other breach of the same or of any other term.</p>
+
+	<p>14.4 If any clause or part of a clause in this Agreement shall be or become void or unenforceable for whatever reason the remainder of this Agreement shall remain in full force and effect and neither party shall be discharged from its obligations thereunder.</p>
+
+	<p>14.5 All correspondence reports and documentation concerned with or arising from this Agreement shall be in the English language.</p>
+
+	<p>14.6 This Agreement shall be governed and interpreted by the Laws of England regardless of the place of execution or the place of performance and the parties hereto submit to the exclusive jurisdiction of the English Courts.</p>
+
+	<p>14.7 The parties agree that these terms and conditions (together with any other terms and conditions expressly incorporated in writing in this Agreement) constitute the entire Agreement between the parties.<span class="Apple-converted-space">&nbsp; </span>The parties also acknowledge that no statement or representation made by either party has been relied upon by the other in agreeing to enter into this Agreement.</p>
+
+	<p>&nbsp;</p>
+
+	<p><strong>01/10/2019 onwards</strong></p>
+	</td>
+	</tr></table>
+
+<table style="border:1px solid black;" width="100%"><tr>
+	<td align="center" width="100%"><span style="font-size:22px; font-weight:bold; text-align:center;">HYDRAFACIAL CLINIC FINDER</span></td>
+	</tr>
+	<tr>
+	<td align="center" width="100%">
+	<p style="font-size:12px; font-weight:bold; text-align:center;">Please provide the details you would like to appear on the &lsquo;Find a Provider&rsquo; page</p>
+
+	<p style="font-size:12px; font-weight:bold; text-align:center;">of the HydraFacial.co.uk website</p>
+	</td>
+	</tr>
+	<tr>
+	<td>
+	<table class="cfinder" width="100%"><tr>
+		<td><span>Clinic Name</span></td>
+		<td colspan="2" style="border-bottom:1px grey dotted;">&nbsp;</td>
+		</tr>
+		<tr>
+		<td><span>Clinic Address (inc&rsquo; Postcode)</span></td>
+		<td colspan="2" style="border-bottom:1px grey dotted;">&nbsp;</td>
+		</tr>
+		<tr>
+		<td style="border-bottom:1px grey dotted;">&nbsp;</td>
+		<td colspan="2" style="border-bottom:1px grey dotted;">&nbsp;</td>
+		</tr>
+		<tr>
+		<td style="border-bottom:1px grey dotted;">&nbsp;</td>
+		<td colspan="2" style="border-bottom:1px grey dotted;">&nbsp;</td>
+		</tr>
+		<tr>
+		<td style="border-bottom:1px grey dotted;">&nbsp;</td>
+		<td colspan="2" style="border-bottom:1px grey dotted;">&nbsp;</td>
+		</tr>
+		<tr>
+		<td><span>Clinic Phone Number</span></td>
+		<td colspan="2" style="border-bottom:1px grey dotted;">&nbsp;</td>
+		</tr>
+		<tr>
+		<td><span>Clinic Email Address</span></td>
+		<td colspan="2" style="border-bottom:1px grey dotted;">&nbsp;</td>
+		</tr>
+		<tr>
+		<td><span>Clinic Website* </span></td>
+		<td colspan="2" style="border-bottom:1px grey dotted;">&nbsp;</td>
+		</tr>
+		<tr>
+		<td><span>* Or Social Media page if no website </span></td>
+		</tr></table>
+	</td>
+	</tr></table>
+</body>
+</pdf>

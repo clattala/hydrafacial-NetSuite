@@ -1,0 +1,118 @@
+netsuite.workflow customworkflow_hf_us_vendor_rtv_shipping {
+  scriptid = "customworkflow_hf_us_vendor_rtv_shipping"
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = true
+  initonvieworupdate = true
+  islogenabled = false
+  keephistory = "ONLYWHENTESTING"
+  name = "HF | US | Vendor RTV Shipping defaults"
+  recordtypes = "VENDORRETURNAUTHORIZATION"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"Custom Form\" IN (\"Transaction Form1\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        Custom_Form@s = {
+          name = "Custom Form"
+          value = "STDBODYCUSTOMFORM"
+        }
+        Transaction_Form1@s = {
+          name = "Transaction Form1"
+          selectrecordtype = "-171"
+          value = netsuite.transactionForm.instance.custform_hydrafacial_vendor_return_authorization.scriptid
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate406 = {
+        scriptid = "workflowstate406"
+        donotexitworkflow = false
+        name = "Set Defaults"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          BEFOREUSEREDIT = {
+            triggertype = "BEFOREUSEREDIT"
+            setfieldvalueaction = {
+              workflowaction1781 = {
+                scriptid = "workflowaction1781"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_shipper.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hf_shipper.customvalues.customvalue.val_11201050_6248126_sb1_440.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "isEmpty(\"Shipper\") = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Shipper = {
+                        name = "Shipper"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_hf_shipper.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          AFTERFIELDEDIT = {
+            triggertype = "AFTERFIELDEDIT"
+            setfieldvalueaction = {
+              workflowaction1782 = {
+                scriptid = "workflowaction1782"
+                clienttriggerfields = netsuite.transactionbodycustomfield.instance.custbody_hf_order_type.scriptid
+                clienttriggerfieldsissublistfield = false
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_shipper.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hf_shipper.customvalues.customvalue.val_11201050_6248126_sb1_440.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Order Type\" IN (\"HF | Order Type1\",\"HF | Order Type2\",\"HF | Order Type3\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Order_Type@s = {
+                        name = "Order Type"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_hf_order_type.scriptid
+                      }
+                      HF___Order_Type1@sgss = {
+                        name = "HF | Order Type1"
+                        selectrecordtype = netsuite.customlist.instance.customlist_hf_order_type.scriptid
+                        value = netsuite.customlist.instance.customlist_hf_order_type.customvalues.customvalue.val_20239004_6248126_sb2_453.scriptid
+                      }
+                      HF___Order_Type2@sgss = {
+                        name = "HF | Order Type2"
+                        selectrecordtype = netsuite.customlist.instance.customlist_hf_order_type.scriptid
+                        value = netsuite.customlist.instance.customlist_hf_order_type.customvalues.customvalue.val_20239003_6248126_sb2_112.scriptid
+                      }
+                      HF___Order_Type3@sgss = {
+                        name = "HF | Order Type3"
+                        selectrecordtype = netsuite.customlist.instance.customlist_hf_order_type.scriptid
+                        value = netsuite.customlist.instance.customlist_hf_order_type.customvalues.customvalue.val_20239005_6248126_sb2_141.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | US | Vendor RTV Shipping defaults"
+}

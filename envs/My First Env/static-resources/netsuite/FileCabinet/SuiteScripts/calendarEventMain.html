@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='utf-8' />
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        #calendar {
+            max-width: 100%;
+            margin: 40px auto;
+        }
+
+        /*
+        i wish this required CSS was better documented :(
+        https://github.com/FezVrasta/popper.js/issues/674
+        derived from this CSS on this page: https://popper.js.org/tooltip-examples.html
+        */
+
+        .popper,
+        .tooltip {
+            position: absolute;
+            z-index: 9999;
+            background: #FFC107;
+            color: black;
+            width: 150px;
+            border-radius: 3px;
+            box-shadow: 0 0 2px rgba(0,0,0,0.5);
+            padding: 10px;
+            text-align: center;
+        }
+        .style5 .tooltip {
+            background: #1E252B;
+            color: #FFFFFF;
+            max-width: 200px;
+            width: auto;
+            font-size: .8rem;
+            padding: .5em 1em;
+        }
+        .popper .popper__arrow,
+        .tooltip .tooltip-arrow {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            position: absolute;
+            margin: 5px;
+        }
+
+        .tooltip .tooltip-arrow,
+        .popper .popper__arrow {
+            border-color: #FFC107;
+        }
+        .style5 .tooltip .tooltip-arrow {
+            border-color: #1E252B;
+        }
+        .popper[x-placement^="top"],
+        .tooltip[x-placement^="top"] {
+            margin-bottom: 5px;
+        }
+        .popper[x-placement^="top"] .popper__arrow,
+        .tooltip[x-placement^="top"] .tooltip-arrow {
+            border-width: 5px 5px 0 5px;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
+            bottom: -5px;
+            left: calc(50% - 5px);
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        .popper[x-placement^="bottom"],
+        .tooltip[x-placement^="bottom"] {
+            margin-top: 5px;
+        }
+        .tooltip[x-placement^="bottom"] .tooltip-arrow,
+        .popper[x-placement^="bottom"] .popper__arrow {
+            border-width: 0 5px 5px 5px;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            border-top-color: transparent;
+            top: -5px;
+            left: calc(50% - 5px);
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        .tooltip[x-placement^="right"],
+        .popper[x-placement^="right"] {
+            margin-left: 5px;
+        }
+        .popper[x-placement^="right"] .popper__arrow,
+        .tooltip[x-placement^="right"] .tooltip-arrow {
+            border-width: 5px 5px 5px 0;
+            border-left-color: transparent;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+            left: -5px;
+            top: calc(50% - 5px);
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .popper[x-placement^="left"],
+        .tooltip[x-placement^="left"] {
+            margin-right: 5px;
+        }
+        .popper[x-placement^="left"] .popper__arrow,
+        .tooltip[x-placement^="left"] .tooltip-arrow {
+            border-width: 5px 0 5px 5px;
+            border-top-color: transparent;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
+            right: -5px;
+            top: calc(50% - 5px);
+            margin-left: 0;
+            margin-right: 0;
+        }
+        #calendarswitch-div {
+            visibility: hidden;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+        }
+
+        .single-col {
+            padding: 1em;
+        }
+
+        .new-row {
+            grid-column-start: 1;
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.4.2/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.4.2/main.min.js"></script>
+    <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.4.2/main.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.4.2/main.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+
+    <script>
+
+        const NL_CONTEXT    = nlapiGetContext();
+        const SESSION_KEY   = NL_CONTEXT.name+':calendarEvent';
+        const SUITELET_URL  = nlapiResolveURL('suitelet', 'customscript_full_io_calendar_sl', 'customdeploy1');
+        const SELECTED_GRP  = localStorage.getItem(SESSION_KEY);
+
+        /* const handleEvents = (events) => {
+            const lookup = events.reduce((a, e) => {
+                a[e.id] = ++a[e.id] || 0;
+                return a;
+            }, {});
+            const duplicatedEvents = events.filter(e => lookup[e.id])
+            if (duplicatedEvents.length) {
+                duplicatedEvents.splice(-1, 1) // keep the last one
+                duplicatedEvents.map(evt => evt.remove()) // remove the others, may be more than one
+            }
+        }  */
+        /////////// PAGE INIT
+        (() => {
+            document.addEventListener('DOMContentLoaded', function(cal) {      
+                console.log('SELECTED_GRP', SELECTED_GRP);
+
+                nlapiRequestURL(`${SUITELET_URL}&service=searchEvents&selectedGroup=${SELECTED_GRP||'me'}`, null, null, function(response) {
+                    let events = JSON.parse(response.body)
+                    let calendarEl = document.getElementById('calendar');
+                    let calendar = new FullCalendar.Calendar(calendarEl, {
+                        plugins: [ 'dayGrid' ],
+                        defaultView: 'dayGridMonth',
+                        height: 'auto',
+                        // contentHeight: '600',
+                        header: {
+                            left: 'prev,next today customAddEventBtn customTestBtn',
+                            center: 'title',
+                            right: 'dayGridMonth,dayGridWeek,dayGridDay,dayGridlist'
+                        },
+                        eventRender: function(info) {
+                            let tooltip = new Tooltip(info.el, {
+                                title: info.event.extendedProps.custfield,
+                                content: 'dsad',
+                                placement: 'top',
+                                trigger: 'hover',
+                                container: 'body'
+                            })
+                            // if (!fieldChanged) return true
+                            // console.log(info.event.id)
+                            // // if (fieldChanged) {
+                            // //     return this.getEvents().findIndex(fi => fi.id == info.event.id) == -1
+                            // // }
+                            // let events = this.getEvents()
+                            // let filter = events.filter(f => f.id == info.event.id)
+                            // console.log(filter, info.event.id)
+                            // if (filter.length) {
+                            //     return false
+                            // } else {
+                            //     return true
+                            // }
+                            // handleEvents(events)
+                            // if (fieldChanged)
+                            //     return ['all', info.event.extendedProps.group].indexOf(document.getElementById('groupswitch').value) > -1
+                        },
+                        events: events/*  {
+                            url: `${SUITELET_URL}&service=searchEvents&selectedGroup=${SELECTED_GRP||'me'}`, // Default current user
+                            type: 'GET'
+                        } */,
+                        eventTimeFormat: { // like '14:30:00'
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: true
+                        },
+                        customButtons: {
+                            customAddEventBtn: {
+                                text: 'Add Event',
+                                click: function () {
+                                    parent.window.location = '/app/crm/calendar/event.nl?bool=T';
+                                }
+                            }
+                        },
+                        editable: true,
+                        // events:  events,
+                        eventClick: function (info) {
+                            info.jsEvent.preventDefault(); // don't let the browser naviga
+                            if (info.event.url) {
+                                window.open(info.event.url);
+                            }
+                        }
+                    });
+                    calendar.render()
+
+                    ////// ASYNC SEARCHES
+                    let renderLegends = new Promise(function(res) {
+                        try {
+                            if (SELECTED_GRP && SELECTED_GRP != "me") {
+                                let str = ""
+                                let legends = events.filter((v,i,a)=>a.findIndex(t=>(t.extendedProps.organizer === v.extendedProps.organizer))===i) // Remove duplicate event organizers
+                                for (i in legends) {
+                                    let legend = legends[i].extendedProps
+                                    if ((i % 8) == 0) {
+                                            str += `
+                                            <div class="single-col">
+                                                <ul style="background-color:${legend.color}">&nbsp;</ul>
+                                                <ul>${legend.organizer}</ul>
+                                            </div>
+                                            `
+                                    } else {
+                                        str += `
+                                        <div class="single-col">
+                                            <ul style="background-color:${legend.color}">&nbsp;</ul>
+                                            <ul>${legend.organizer}</ul>
+                                        </div>
+                                        `
+                                    }
+                                }
+                                jQuery(`<div class="container">${str}</div>`).insertAfter('div#calendar')
+                            }
+                        } catch(e) {
+                            console.log('searchEmployeeGroup() error', e.message)
+                        }
+                        res('renderLegends')
+                    })
+                    let searchEmployeeGroup = new Promise(function(res) {
+                        try {
+                            nlapiRequestURL(`${SUITELET_URL}&service=searchEmployeeGroup`, null, null, function(response) {
+                                let groups = JSON.parse(response.body)
+                                /////// Render to option list
+                                for (group of groups) {
+                                    let option = document.createElement("option")
+                                    option.text = group.text
+                                    option.value = group.value
+                                    option.selected = SELECTED_GRP?group.value == SELECTED_GRP:false
+                                    let select = document.getElementById("groupswitch")
+                                    select.appendChild(option);
+                                }
+                                if (SELECTED_GRP == "all") {
+                                    document.getElementById("groupswitch")[1].selected = true
+                                }
+                                localStorage.setItem(SESSION_KEY, '')
+                                document.getElementById("calendarswitch-div").style.visibility = "visible";
+                            })
+                        } catch(e) {
+                            console.log('searchEmployeeGroup() error', e.message)
+                        }
+                        res('searchEmployeeGroup')
+                    })
+                    Promise.all([renderLegends, searchEmployeeGroup]).then(function(res) {
+                        addFieldChangedHandler(calendar)
+                        console.log('End field changed')
+                    })
+                })
+            });
+        })();
+
+        // let fieldChanged = false
+        function addFieldChangedHandler(calendar) {
+            ////////// On user change
+            /* document.getElementById('calendarswitch').addEventListener("change", function(evt) {
+                let listEvent = calendar.getEvents()
+                listEvent.forEach(event => { 
+                    event.remove()
+                })
+                let events = {
+                    url: `${SUITELET_URL}&service=searchEvents&selectedUser=${evt.target.value}`,
+                    type: 'GET'
+                }
+                calendar.addEventSource(events)
+                calendar.render()
+            }) */
+            ////////// On employee group change (bug: its just duplicate the events)
+            document.getElementById('groupswitch').addEventListener("change", function(evt) {
+                console.log('this', evt.target.value)
+                localStorage.setItem(SESSION_KEY, evt.target.value)
+                parent.document.querySelector('div[aria-label*="Custom Calendar Events"] span[data-action*="refresh"]').click()
+                // calendar.getEvents().forEach(event => { event.remove() })
+                // calendar.addEventSource({
+                //     url: `${SUITELET_URL}&service=searchEvents&selectedGroup=${evt.target.value}`,
+                //     type: 'GET'
+                // })
+                // fieldChanged = true
+                // calendar.render()
+                // calendar.rerenderEvents()
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <div id="calendarswitch-div">
+        <!-- <select id="calendarswitch">
+
+        </select> -->
+        <select id="groupswitch">
+            <option selected value="me">Me</option>
+            <option value="all">All Group</option>
+        </select>
+    </div>
+    <div id='calendar'></div>
+</body>
+
+</html>

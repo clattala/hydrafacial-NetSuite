@@ -1,0 +1,876 @@
+/**
+ * Module Description
+ * 
+ * Version    Date            Author           Remarks
+ * 1.00       01 Jan 2020     Rakesh K
+ *
+ */
+
+/**
+ * @param {Object} dataIn Parameter object
+ * @returns {Object} Output object
+ */
+
+//-------------------Create Customer ---------------
+/*
+{
+  
+  "name": "testa30 a30",
+  "phone_number": "30303030"
+  "customer_email": "testa30@test.com",
+ // "loyalty_id":"testa30@test.com",
+  "birthdy_date": "2017-07-22T14:30:28.5700501Z",
+  "program_type":"1"                                       //-->1.Implicit, 2.Explicit with Retro , 3.Explicit without Retro
+  "loyalty_status":"1"										//--->1. YES, 2.NO
+  "billing_to": {
+    "recipient": {
+      "name": "Tom White",
+      "phone_number": "3342031815"
+    },
+    "address": {
+      "address1": "3100 Quail Run",
+      "address2": "",
+      "city": "OPELIKA",
+      "state": "AL",
+      "zip_code": "36801",
+    }
+  },
+  "shipping_to": {
+    "recipient": {
+      "name": "Tom White",
+      "phone_number": "3342031815"
+    },
+    "address": {
+      "address1": "3100 Quail Run",
+      "address2": "",
+      "city": "OPELIKA",
+      "state": "AL",
+      "zip_code": "36801",
+    }
+  }
+  
+}
+ *
+ *
+ *
+ *
+ *
+ *
+ * var customerCreatedObj = {
+ 		    	  "status":"success",
+ 		    	  "customer_Id":loyaltyId,
+ 		    	  "message":""
+ 		    };
+ 		    
+    var customerFound = {
+	  "status":"error",
+	  "customer_Id":loyaltyId,
+	  "error":"Customer Already exists"
+	};
+ *
+ *
+ */
+function createUser(dataIn){
+    
+    //var annexRecId = '';
+    var scisAccount = nlapiLookupField('customrecord_annex_cloud_site_details', '1', ['custrecord_customer_site_account_type', 'custrecord_annex_multi_site_config','custrecord_annex_cloud_get_cus_det_scrip']);
+    var accountType = defVal(scisAccount.custrecord_customer_site_account_type);
+    var multiSiteConfField = defVal(scisAccount.custrecord_annex_multi_site_config);
+    var inactiveGetCustomerDetailScript = defVal(scisAccount.custrecord_annex_cloud_get_cus_det_scrip);
+    nlapiLogExecution('debug','inactiveGetCustomerDetailScript==>',inactiveGetCustomerDetailScript);
+
+      if (inactiveGetCustomerDetailScript != 'F')
+      {
+     
+     try{
+
+	// checks if customer exists.  If it doesn't creates the customer
+		
+	nlapiLogExecution('DEBUG','dataIn', JSON.stringify(dataIn));
+//	dataIn = JSON.parse(dataIn)
+	nlapiLogExecution('DEBUG','dataIn.data',JSON.stringify(dataIn));	
+	var filter = new Array();
+	filter[0] = new nlobjSearchFilter('custentity_annex_cloud_pi_loyalty_id', null, 'is', dataIn.loyalty_id);
+//	filter[0] = new nlobjSearchFilter('custentity_annex_cloud_pi_loyalty_id', null, 'is', dataIn.customer_email);
+	//filter[0] = new nlobjSearchFilter('email', null, 'is', dataIn.customer_email);
+//	nlapiLogExecution('DEBUG','dataIn.loyalty_Id',dataIn.loyalty_Id);
+	nlapiLogExecution('DEBUG','dataIn.customer_email',dataIn.customer_email);
+	var x = nlapiSearchRecord('customer', null, filter);
+	if (x == null) {
+		
+		nlapiLogExecution('DEBUG','New Customer','New Customer');
+		var id = createCustomer(dataIn);
+		nlapiLogExecution('DEBUG','Old customer',id);
+		
+		var loyaltyId = nlapiLookupField('customer', id,'custentity_annex_cloud_pi_loyalty_id');
+		   var customerCreatedObj = {
+ 		    	  "status":"success",
+ 		    	  "loyalty_Id":loyaltyId,
+ 		    	  "customer_Id":id,
+ 		    	  "message":"Customer Created"
+ 		    };
+		
+		return customerCreatedObj;
+	} 
+	else {
+		var id = x[0].id;
+      if(id){
+        var loyaltyId = nlapiLookupField('customer', id,'custentity_annex_cloud_pi_loyalty_id');
+      }
+		
+		var customerFound = {
+	    	  "status":"error",
+	    	  "loyalty_Id":loyaltyId,
+	    	  "customer_Id":id,
+	    	  "error":"Customer Already exists"
+	    };
+		return customerFound;
+	}
+	}catch(e){
+		
+		var getCustomerIdErrObj = {
+		    	  "status":"error",
+		    	  "error":e.message
+		    };
+	
+		nlapiLogExecution('DEBUG', 'err cust', e);
+			return getCustomerIdErrObj;
+	}
+}
+}
+
+function createCustomer(dataIn) {
+	
+    var scisAccount = nlapiLookupField('customrecord_annex_cloud_site_details', '1', ['custrecord_customer_site_account_type', 'custrecord_annex_multi_site_config','custrecord_annex_cloud_get_cus_det_scrip']);
+    var accountType = defVal(scisAccount.custrecord_customer_site_account_type);
+    var multiSiteConfField = defVal(scisAccount.custrecord_annex_multi_site_config);
+    var inactiveGetCustomerDetailScript = defVal(scisAccount.custrecord_annex_cloud_get_cus_det_scrip);
+    nlapiLogExecution('debug','inactiveGetCustomerDetailScript==>',inactiveGetCustomerDetailScript);
+
+      if (inactiveGetCustomerDetailScript != 'T')
+      {
+		
+//	var phone= dataIn.shipping_to.recipient.phone_number;
+	var phone= dataIn.phone_number;
+	nlapiLogExecution('DEBUG', 'creating Customer',phone);
+	var buyerName = defVal(dataIn.name);
+//	if(buyerName == '')
+//	{
+//		dataIn.name = dataIn.shipping_to.recipient.name;
+//	}
+	var cust = nlapiCreateRecord('customer',{recordmode:"dynamic"});
+	cust.setFieldValue('isperson', 'T');
+
+	
+    if(dataIn.name.length > 32){
+    	dataIn.name = dataIn.name.slice(0,30);
+    }
+  
+	var name = (dataIn.name).split(' ');
+	if(name.length>1){
+		cust.setFieldValue('firstname',name[0]);
+		lastName = name[(name.length)-1];
+		cust.setFieldValue('lastname',lastName);
+	}
+	else{
+		cust.setFieldValue('firstname', dataIn.name);
+	}
+	
+	nlapiLogExecution('DEBUG','after last name',dataIn.name);
+	cust.setFieldValue('email', dataIn.customer_email);
+	
+	nlapiLogExecution('DEBUG','email',dataIn.customer_email);
+	cust.setFieldValue('phone', dataIn.phone_number.slice(0,22));
+	nlapiLogExecution('DEBUG','phone_number',dataIn.phone_number);
+	
+
+	var loyaltyStatus = defVal(dataIn.loyalty_status);
+
+	if(loyaltyStatus != '')
+	{
+		cust.setFieldValue('custentity_annex_cloud_loyalty_program', loyaltyStatus);
+	}
+	nlapiLogExecution('DEBUG', 'getCustomer Details','217');
+	var birthday = dataIn.birthdy_date;
+	birthday = nlapiStringToDate(birthday);
+	//birthday = nlapiDateToString(birthday)
+	if(birthday){
+      cust.setFieldValue('custentity_annex_cloud_pi_birthday', birthday);
+    }
+	
+	nlapiLogExecution('DEBUG', 'getCustomer Details','223');
+	try{
+	var id = nlapiSubmitRecord(cust,null,true);
+	nlapiLogExecution('DEBUG', 'new customer', id);
+	return id;
+	}
+	catch(e)
+	{
+		nlapiLogExecution('DEBUG','create Customer catch 232', e);
+	}
+	
+}
+
+}
+
+//-------------------End Create Customer------------
+
+
+
+//--------------------------Update Customer --------------
+/*
+
+{
+  
+  "name": "testa30 a30",
+  "phone_number": "30303030"
+  "customer_email": "testa30@test.com",
+//  "loyalty_id":"testa30@test.com",
+  "birthdy_date": "2017-07-22T14:30:28.5700501Z",
+  "billing_to": {
+    "recipient": {
+      "name": "Tom White",
+      "phone_number": "3342031815"
+    },
+    "address": {
+      "address1": "3100 Quail Run",
+      "address2": "",
+      "city": "OPELIKA",
+      "state": "AL",
+      "zip_code": "36801",
+    }
+  },
+  "shipping_to": {
+    "recipient": {
+      "name": "Tom White",
+      "phone_number": "3342031815"
+    },
+    "address": {
+      "address1": "3100 Quail Run",
+      "address2": "",
+      "city": "OPELIKA",
+      "state": "AL",
+      "zip_code": "36801",
+    }
+  }
+  
+}
+ *
+ *
+ *
+ *
+ *  var customerCreatedObj = {
+ 		    	  "status":"success",
+ 		    	  "customer_Id":loyaltyId,
+ 		    	  "message":""
+ 		    };
+ 		    
+    var customerFound = {
+	  "status":"error",
+	  "customer_Id":loyaltyId,
+	  "error":"Customer Already exists"
+	};
+ *
+ *
+ */
+function updateCustomer(dataIn) {
+
+	var scisAccount = nlapiLookupField('customrecord_annex_cloud_site_details', '1', ['custrecord_customer_site_account_type', 'custrecord_annex_multi_site_config','custrecord_annex_cloud_get_cus_det_scrip']);
+    var accountType = defVal(scisAccount.custrecord_customer_site_account_type);
+    var multiSiteConfField = defVal(scisAccount.custrecord_annex_multi_site_config);
+    var inactiveGetCustomerDetailScript = defVal(scisAccount.custrecord_annex_cloud_get_cus_det_scrip);
+    nlapiLogExecution('debug','inactiveGetCustomerDetailScript==>',inactiveGetCustomerDetailScript);
+
+      if (inactiveGetCustomerDetailScript != 'T')
+      {
+	try{// checks if customer exists.  If it doesn't creates the customer
+		
+		
+		if(!dataIn.customer_Id && !dataIn.loyalty_Id)
+  	  {
+	    	  var idCanotbeBlnk = {
+			    	  "status":"error",
+			    	  "error":"Both Customer And Loyalty ID cannot be blank",
+			    	  "order_Id":"",
+			    	  "loyalty_Id":""
+			    };
+	    	  nlapiLogExecution('DEBUG', '301', '301');
+	    	  return idCanotbeBlnk;
+	    	  
+	    	  
+  	  }
+		
+		
+		
+		var custId;
+		if(dataIn.customer_Id){
+			
+			custId = dataIn.customer_Id;
+			nlapiLogExecution('DEBUG','295 id',custId)
+			try{
+			var email = nlapiLookupField('customer', custId,'email');
+			
+			
+			}catch(e)
+			{
+				nlapiLogExecution('DEBUG', '302','302')
+				  var customerNotFoundObj =  {
+				    	  "status":"error",
+				    	  "error":"Customer Not Found"
+				    };
+				
+				return customerNotFoundObj;
+			}
+		}
+		
+		
+		var x ;
+		nlapiLogExecution('DEBUG','332',custId);
+		if(!custId){
+			nlapiLogExecution('DEBUG','344','344');
+		var filter = new Array();
+		filter[0] = new nlobjSearchFilter('custentity_annex_cloud_pi_loyalty_id', null, 'is', dataIn.loyalty_Id);
+//		filter[0] = new nlobjSearchFilter('custentity_annex_cloud_pi_loyalty_id', null, 'is', dataIn.customer_email);
+		 
+		x =  nlapiSearchRecord('customer', null, filter);
+		}
+
+		if (x == null && !custId) {
+			
+			   var customerNotFoundObj =  {
+				    	  "status":"error",
+				    	  "error":"Customer Not Found"
+				    };
+				
+				return customerNotFoundObj;
+		} 
+		else {
+			
+			var id;
+			if(!custId){
+			id = x[0].id;
+			}else{
+				id = custId;
+			}
+			
+		var phone= dataIn.shipping_to.recipient.phone_number;
+//		var id = x[0].id;
+		
+		
+		
+		var addChange =true;
+		if(defVal(dataIn.shipping_to) == "" && defVal(dataIn.shipping_to == "")){
+			addChange = false; 
+			nlapiLogExecution('DEBUG','address is Blank','Address Blank');
+		}
+		if(addChange){
+		nlapiLogExecution('DEBUG', 'Existing Customer',id);
+		var obj=nlapiLoadRecord('customer',id,{recordmode : 'dynamic'});
+		var flag=0;
+		var billFlag = 0;
+		
+		var lines = obj.getLineItemCount('addressbook');
+		nlapiLogExecution('DEBUG','lines',lines);	
+		var cur_zip=dataIn.shipping_to.address.zip_code;
+		var cur_add1=dataIn.shipping_to.address.address1;
+		
+		var bill_zip = dataIn.billing_to.address.zip_code;
+		var bill_addr1 = dataIn.billing_to.address.address1;
+		for(var z=1;z<=lines;z++){
+			var cust_zipcode=obj.getLineItemValue('addressbook', 'zip', z);
+			var cust_addr1=obj.getLineItemValue('addressbook','addr1', z);
+			
+			var defShip = obj.getLineItemValue('addressbook','defaultshipping', z);
+			var defBill = obj.getLineItemValue('addressbook','defaultbilling', z);
+			
+//			
+//			nlapiLogExecution('AUDIT', 'defShip',defShip+'==='+defBill);
+//			nlapiLogExecution('AUDIT', 'cust_zipcode',cust_zipcode);
+//			nlapiLogExecution('AUDIT', 'cust_addr1',cust_addr1.length);
+//			nlapiLogExecution('AUDIT', 'cur_zip',cur_zip);
+//			nlapiLogExecution('AUDIT', 'cur_add1',cur_add1.length);
+
+			if((cust_zipcode==cur_zip)&&(cust_addr1==cur_add1.trim()) && defShip =='T'){
+				flag++;
+				
+			}
+			
+
+			nlapiLogExecution('AUDIT', 'defShip',defShip+'==='+defBill);
+			nlapiLogExecution('AUDIT', 'cust_zipcode',cust_zipcode);
+			nlapiLogExecution('AUDIT', 'bill_zip',bill_zip);
+			nlapiLogExecution('AUDIT', 'cust_addr1',cust_addr1);
+			nlapiLogExecution('AUDIT', 'bill_addr1',bill_addr1);
+			
+			
+			if((cust_zipcode==bill_zip)&&(cust_addr1==bill_addr1.trim())){
+				billFlag++;
+				obj.setLineItemValue('addressbook','defaultbilling',z, 'T')
+				
+			}
+
+		}
+		nlapiLogExecution('DEBUG','billFlag',billFlag);
+		nlapiLogExecution('DEBUG','flag',flag);
+		
+		if(flag==0){
+
+
+			obj.selectNewLineItem('addressbook');
+			obj.setCurrentLineItemValue('addressbook', 'defaultshipping', 'T');
+			nlapiLogExecution('DEBUG', 'New Before address1', 'Before');
+			
+			var addr1 = trimString(dataIn.shipping_to.address.address1);
+			
+
+			obj.setCurrentLineItemValue('addressbook', 'label', addr1);
+			var subrecord = obj.createCurrentLineItemSubrecord('addressbook','addressbookaddress');
+			if(!dataIn.shipping_to.address.country){
+				subrecord.setFieldValue('country', 'US');
+			}
+			else
+			{
+			subrecord.setFieldValue('country', arr[dataIn.shipping_to.address.country]);
+			}
+		   
+		  subrecord.setFieldValue('attention', dataIn.shipping_to.recipient.name.slice(0,30));
+	
+			if (phone.match(/[^0]/) && (phone.length >= 8)) {
+				subrecord.setFieldValue('addrphone', phone.slice(0,22));
+			}
+			nlapiLogExecution('DEBUG', 'addr1', addr1);
+			if(addr1)
+			{
+			var addr2 = trimString(dataIn.shipping_to.address.address2)
+		    subrecord.setFieldValue('addr1',addr1);
+			subrecord.setFieldValue('addr2',addr2);
+			}
+			else{
+				var addr2 = trimString(dataIn.shipping_to.address.address2)
+			    subrecord.setFieldValue('addr1',addr2);
+			}
+			var city = trimString( dataIn.shipping_to.address.city);
+			var state = trimString(dataIn.shipping_to.address.state);
+			var zipCode = trimString(dataIn.shipping_to.address.zip_code);
+			subrecord.setFieldValue('city',city);
+			subrecord.setFieldValue('state',state);
+			subrecord.setFieldValue('zip',zipCode);
+			subrecord.commit();
+			obj.commitLineItem('addressbook');
+			
+			
+			
+
+		}
+		
+		
+		if(billFlag==0){
+
+
+			obj.selectNewLineItem('addressbook');
+			obj.setCurrentLineItemValue('addressbook', 'defaultbilling', 'T');
+			nlapiLogExecution('DEBUG', 'defaultbilling address1', 'Before');
+			
+			var addr1 = trimString(dataIn.billing_to.address.address1);
+			
+
+			obj.setCurrentLineItemValue('addressbook', 'label', addr1);
+			var subrecord = obj.createCurrentLineItemSubrecord('addressbook','addressbookaddress');
+			if(!dataIn.billing_to.address.country){
+				subrecord.setFieldValue('country', 'US');
+			}
+			else
+			{
+			subrecord.setFieldValue('country', arr[dataIn.billing_to.address.country]);
+			}
+		   
+		  subrecord.setFieldValue('attention', dataIn.billing_to.recipient.name.slice(0,30));
+	
+			if (phone.match(/[^0]/) && (phone.length >= 8)) {
+				subrecord.setFieldValue('addrphone', phone.slice(0,22));
+			}
+			nlapiLogExecution('DEBUG', 'addr1', addr1);
+			if(addr1)
+			{
+			var addr2 = trimString(dataIn.billing_to.address.address2)
+		    subrecord.setFieldValue('addr1',addr1);
+			subrecord.setFieldValue('addr2',addr2);
+			}
+			else{
+				var addr2 = trimString(dataIn.billing_to.address.address2)
+			    subrecord.setFieldValue('addr1',addr2);
+			}
+			var city = trimString( dataIn.billing_to.address.city);
+			var state = trimString(dataIn.billing_to.address.state);
+			var zipCode = trimString(dataIn.billing_to.address.zip_code);
+			subrecord.setFieldValue('city',city);
+			subrecord.setFieldValue('state',state);
+			subrecord.setFieldValue('zip',zipCode);
+			subrecord.commit();
+			obj.commitLineItem('addressbook');
+			
+			
+			
+
+		}
+		
+		
+		
+		var currentPhone = obj.getFieldValue('phone');
+		var currentFirstName = obj.getFieldValue('firstname');
+		var currentLastName = obj.getFieldValue('lastname');
+		var currentName = currentFirstName+' '+currentLastName;
+		var phoneNum = defVal(dataIn.phone_number);
+		var name = defVal(dataIn.name);
+		var loyaltyStatus = defVal(dataIn.loyalty_status);
+		var prgmTyp = defVal(dataIn.program_type);
+		
+			
+		var anniversary_date = defVal(dataIn.anniversary_date);
+		if(dataIn.anniversary_date){
+		anniversary_date = nlapiStringToDate(anniversary_date);
+		//anniversary_date = nlapiDateToString(anniversary_date);
+		}
+		var resActive = defVal(dataIn.active);
+			
+		
+		
+		var birthday = dataIn.birthdy_date;
+		birthday = nlapiStringToDate(birthday);
+		//birthday = nlapiDateToString(birthday)
+		if(birthday){
+          obj.setFieldValue('custentity_annex_cloud_pi_birthday', birthday);
+        }
+		var holdpoints = dataIn.hold_points;
+		if(holdpoints){
+          obj.setFieldValue('custentity_annex_cloud_hold_points', holdpoints);
+        }
+		var nameGet = name.split(" ");
+		var firstnameGet = nameGet[0];
+		var lastnameGet='';
+		if(nameGet.length > 1)
+		{
+			lastnameGet =  nameGet[1];
+		}
+		if(currentFirstName != firstnameGet || currentLastName != lastnameGet)
+		{
+			obj.setFieldValue('firstname', firstnameGet);
+			obj.setFieldValue('lastname',lastnameGet);
+			
+		}
+		if(currentPhone != phoneNum)
+		{
+			
+			obj.setFieldValue('phone',phoneNum);
+		}
+		
+		if(prgmTyp !=''){
+			obj.setFieldValue('custentity_annex_cloud_program_type', prgmTyp);
+		}
+		if(loyaltyStatus != '')
+		{
+			obj.setFieldValue('custentity_annex_cloud_loyalty_program', loyaltyStatus);
+		}
+		
+		if(anniversary_date != '')
+		{
+			obj.setFieldValue('custentity_annex_cloud_pi_loyalty_anvrsy', anniversary_date);
+		}if(resActive != '')
+		{
+			obj.setFieldValue('isinactive', resActive);
+		}
+		
+	    var submited =  nlapiSubmitRecord(obj, null,true);
+	    var loyaltyId = nlapiLookupField('customer', submited,'custentity_annex_cloud_pi_loyalty_id');
+		var customerRcdUpdateObj = {
+ 		    	  "status":"success",
+ 		    	  "loyalty_Id":loyaltyId,
+ 		    	  "message":"Record Update"
+ 		    };
+		
+		return customerRcdUpdateObj;
+		
+		}else{
+			
+			var customerRcd = nlapiLookupField('customer', id, ['phone','firstname','lastname'])
+
+			var currentPhone = customerRcd.phone;
+			var currentFirstName = customerRcd.firstname;
+			var currentLastName = customerRcd.lastname;
+			var currentName = currentFirstName+' '+currentLastName;
+			var phoneNum = defVal(dataIn.phone_number);
+			var name = defVal(dataIn.name);
+			var loyaltyStatus = defVal(dataIn.loyalty_status);
+			var prgmTyp = defVal(dataIn.program_type);
+			
+				
+			var anniversary_date = dataIn[i].pointsDetails.anniversary_date;
+			if(dataIn[i].pointsDetails.anniversary_date){
+			anniversary_date = nlapiStringToDate(anniversary_date);
+			anniversary_date = nlapiDateToString(anniversary_date);
+			}
+			var resActive = dataIn[i].pointsDetails.resData.active;
+				
+			var fieldArr = [];
+			var fieldValue = [];
+			
+			
+			var birthday = dataIn.birthdy_date;
+			birthday = nlapiStringToDate(birthday);
+			//birthday = nlapiDateToString(birthday)
+			if(birthday){
+              fieldArr.push('custentity_annex_cloud_pi_birthday');
+			fieldValue.push(birthday)
+			
+            }
+          	
+			var nameGet = name.split(" ");
+			var firstnameGet = nameGet[0];
+			var lastnameGet='';
+			if(nameGet.length > 1)
+			{
+				lastnameGet =  nameGet[1];
+			}
+			if(currentFirstName != firstnameGet || currentLastName != lastnameGet)
+			{
+				
+				fieldArr.push('firstname');
+				fieldValue.push(firstnameGet)
+				fieldArr.push('lastname');
+				fieldValue.push(lastnameGet)
+				
+			}
+			if(currentPhone != phoneNum)
+			{
+				fieldArr.push('phone');
+				fieldValue.push(phoneNum)
+
+			}
+			
+			if(prgmTyp !=''){
+
+				fieldArr.push('custentity_annex_cloud_program_type');
+				fieldValue.push(prgmTyp)
+
+			}
+			if(loyaltyStatus != '')
+			{
+
+				fieldArr.push('custentity_annex_cloud_loyalty_program');
+				fieldValue.push(loyaltyStatus);
+				
+			}
+			
+			if(anniversary_date != '')
+			{
+
+				fieldArr.push('custentity_annex_cloud_pi_loyalty_anvrsy');
+				fieldValue.push(anniversary_date);
+				
+			}if(resActive != '')
+			{
+				fieldArr.push('isinactive');
+				fieldValue.push(resActive);
+				
+				
+			}
+			
+//		    var submited =  nlapiSubmitRecord(obj, null,true);
+			nlapiSubmitField('customer', id,fieldArr, fieldValue);
+		    var loyaltyId = nlapiLookupField('customer', submited,'custentity_annex_cloud_pi_loyalty_id');
+			var customerRcdUpdateObj = {
+	 		    	  "status":"success",
+	 		    	  "loyalty_Id":loyaltyId,
+	 		    	  "message":"Record Update"
+	 		    };
+			
+			return customerRcdUpdateObj;
+		}
+		
+		
+	
+	}
+	}catch(e){
+		
+		var getCustomerIdErrObj = {
+		    	  "status":"error",
+		    	  "error":e.message
+		    };
+	
+		nlapiLogExecution('DEBUG', 'err cust', e);
+			return getCustomerIdErrObj;
+	}
+}
+}
+
+
+
+//---------------------------End Update Customer---------------
+
+//--------------------------------Get Customert Details ------------------------------
+
+/*
+ * {
+ * loyalty_id:"testa30@test.com"
+ * }
+ * 
+ * */
+function getCustomer(dataIn) {
+	
+	var scisAccount = nlapiLookupField('customrecord_annex_cloud_site_details', '1', ['custrecord_customer_site_account_type', 'custrecord_annex_multi_site_config','custrecord_annex_cloud_get_cus_det_scrip']);
+    var accountType = defVal(scisAccount.custrecord_customer_site_account_type);
+    var multiSiteConfField = defVal(scisAccount.custrecord_annex_multi_site_config);
+    var inactiveGetCustomerDetailScript = defVal(scisAccount.custrecord_annex_cloud_get_cus_det_scrip);
+    nlapiLogExecution('debug','inactiveGetCustomerDetailScript==>',inactiveGetCustomerDetailScript);
+
+      if (inactiveGetCustomerDetailScript != 'T')
+      {
+	
+	nlapiLogExecution('DEBUG','dataIn', JSON.stringify(dataIn));
+	
+	if(!dataIn.customer_Id && dataIn.loyalty_Id){
+		nlapiLogExecution('DEBUG', 'get the loyalty_Id', dataIn.loyalty_Id);
+//	dataIn = JSON.parse(dataIn)
+//	var id = dataIn.id ;
+//	nlapiLogExecution('DEBUG','id Get',id);
+	
+	try{
+		var filter = [];
+		var column = [];
+		column.push(new nlobjSearchColumn('firstname'));
+		column.push(new nlobjSearchColumn('lastname'));
+		
+		column.push(new nlobjSearchColumn('phone'));
+		column.push(new nlobjSearchColumn('email'));
+		column.push(new nlobjSearchColumn('custentity_annex_cloud_pi_birthday'));
+		column.push(new nlobjSearchColumn('custentity_annex_cloud_pi_loyalty_id'));
+		column.push(new nlobjSearchColumn('custentity_annex_cloud_str_hld_pts'));
+		
+		
+		
+		filter[0] = new nlobjSearchFilter('custentity_annex_cloud_pi_loyalty_id', null, 'is', dataIn.loyalty_Id);
+		var x = nlapiSearchRecord('customer', null, filter,column);
+		
+		if (x == null) {
+			
+			   var customerNotFoundObj =  {
+			    	  "status":"error",
+			    	  "error":"Customer Not Found"
+			    };
+			
+//			return JSON.stringify(customerNotFoundObj);
+			   return customerNotFoundObj;
+		} 
+		else {
+			var firstName = x[0].getValue(column[0]);
+			var lastName = x[0].getValue(column[1]);
+			var phone = x[0].getValue(column[2]);
+			var email = x[0].getValue(column[3]);
+			var birthday = x[0].getValue(column[4]);
+			var loyaltyId =  x[0].getValue(column[5]);
+			var storeHoldPts = x[0].getValue(column[6]);
+			var customerId = x[0].getId()
+			var customerDetailObj ={
+					"status":"success",
+					"name":firstName+" "+lastName,
+					"phone":phone,
+					"email":email,
+					"birthday":birthday,
+					"loyalty_Id":loyaltyId,
+					"customer_Id":customerId,
+					"store_hold_points":storeHoldPts
+					
+				};
+			
+//			return JSON.stringify(customerDetailObj);
+			return customerDetailObj;
+		}
+	}catch(e)
+	{
+		var errObj = {
+		    	  "status":"error",
+		    	  "error":e.message
+		    };
+		return errObj;
+	}
+	
+	
+	
+}else if(dataIn.customer_Id){
+	try{
+		
+		
+		var id = dataIn.customer_Id;
+		nlapiLogExecution('DEBUG', 'get the customer Id', id);
+		var customerRCd = nlapiLookupField('customer', id, ['firstname','lastname','phone','email','custentity_annex_cloud_pi_birthday','custentity_annex_cloud_pi_loyalty_id','custentity_annex_cloud_str_hld_pts'])
+	
+		var firstName =customerRCd.firstname
+			var lastName = customerRCd.lastname
+			var phone =customerRCd.phone
+			var email =customerRCd.email
+			var birthday = customerRCd.custentity_annex_cloud_pi_birthday
+			var loyaltyId = customerRCd.custentity_annex_cloud_pi_loyalty_id
+			var storeHoldPts =  customerRCd.custentity_annex_cloud_str_hld_pts
+			var customerId = id
+			
+			
+		var customerDetailObj ={
+			"status":"success",
+			"name":firstName+" "+lastName,
+			"phone":phone,
+			"email":email,
+			"birthday":birthday,
+			 "loyalty_Id":loyaltyId,
+			 "customer_Id":customerId,
+			 "store_hold_points":storeHoldPts
+			
+			
+		};
+	
+//	return JSON.stringify(customerDetailObj);
+			return customerDetailObj;
+		
+		}catch(e)
+		{
+			
+		var errObj = {
+		    	  "status":"error",
+		    	  "error":"Customer Not Found"
+		    };
+		return errObj;
+		}
+	}
+else{
+	
+	var errObj = {
+	    	  "status":"error",
+	    	  "error":"Both Customer And Loyalty ID cannot be blank"
+	    };
+	return errObj;
+}	
+}
+}
+//--------------------------------Get Customert Details ------------------------------
+
+
+
+function defVal(value)
+{		
+	    if(value == null || value == undefined || value == 'undefined' || value == ' ')
+	    value = '';	    
+	    return value;
+
+}
+
+
+function trimString(data)
+{
+	if(defVal(data) !='')
+	{
+		data = data.trim();
+		return data;
+	}
+	else{
+		return data;
+	}
+}

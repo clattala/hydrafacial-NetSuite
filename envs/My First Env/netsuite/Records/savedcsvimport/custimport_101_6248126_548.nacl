@@ -1,0 +1,119 @@
+netsuite.savedcsvimport custimport_101_6248126_548 {
+  scriptid = "custimport_101_6248126_548"
+  charencoding = "GB18030"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HFC Credit memo"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "CREDITMEMO"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_312_6248126_sb1_260.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CREDITMEMO = {
+        file = "CREDITMEMO"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CREDITMEMO = {
+        record = "CREDITMEMO"
+        fieldmappings = {
+          fieldmapping = {
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "CUSTOMER"
+                file = "CREDITMEMO"
+                type = "EXTERNAL_ID"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "EXTERNAL ID"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              value = "16"
+            }
+            MEMO = {
+              field = "MEMO"
+              value = "open data"
+            }
+            OTHERREFNUM = {
+              field = "OTHERREFNUM"
+              columnreference = {
+                column = "Ref No."
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "DATE"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CREDITMEMO_ITEM@f = {
+        record = "CREDITMEMO:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            AMOUNT = {
+              field = "AMOUNT"
+              columnreference = {
+                column = "RATE"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              value = "18"
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              value = "1"
+            }
+            RATE = {
+              field = "RATE"
+              columnreference = {
+                column = "RATE"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            TAXCODE = {
+              field = "TAXCODE"
+              value = "5"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HFC Credit memo"
+}

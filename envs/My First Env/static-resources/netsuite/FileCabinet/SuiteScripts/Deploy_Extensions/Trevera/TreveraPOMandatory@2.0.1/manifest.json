@@ -1,0 +1,56 @@
+{
+    "name": "TreveraPOMandatory",
+    "fantasyName": "PO Field Mandatory",
+    "vendor": "Trevera",
+    "type": "extension",
+    "target": "SCA,SCS",
+    "target_version": {
+        "SCA": ">=20.1.0",
+        "SCS": ">=20.1.0"
+    },
+    "version": "2.0.1",
+    "description": "Sets PO field to mandatory in checkout if the customer is paying with terms.",
+    "assets": {
+        "img": {
+            "files": []
+        },
+        "fonts": {
+            "files": []
+        }
+    },
+    "configuration": {
+        "files": [
+            "Modules/POMandatoryCheck/Configuration/PO.Required.json"
+        ]
+    },
+    "templates": {
+        "application": {
+            "checkout": {
+                "files": [
+                    "Modules/POMandatoryCheck/Templates/trv_order_wizard_paymentmethod_purchasenumber_module.tpl"
+                ]
+            }
+        }
+    },
+    "sass": {
+        "entry_points": {
+            "checkout": "Modules/POMandatoryCheck/Sass/_pomandatorycheck-pomandatorycheck.scss"
+        },
+        "files": [
+            "Modules/POMandatoryCheck/Sass/_pomandatorycheck-pomandatorycheck.scss"
+        ]
+    },
+    "javascript": {
+        "entry_points": {
+            "checkout": "Modules/POMandatoryCheck/JavaScript/Trevera.POMandatoryCheck.POMandatoryCheck.js"
+        },
+        "application": {
+            "checkout": {
+                "files": [
+                    "Modules/POMandatoryCheck/JavaScript/Trevera.POMandatoryCheck.POMandatoryCheck.js",
+                    "Modules/POMandatoryCheck/JavaScript/Trevera.OrderWizard.Module.PaymentMethod.PurchaseNumber.js"
+                ]
+            }
+        }
+    }
+}

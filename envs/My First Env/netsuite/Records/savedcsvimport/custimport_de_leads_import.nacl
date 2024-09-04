@@ -1,0 +1,222 @@
+netsuite.savedcsvimport custimport_de_leads_import {
+  scriptid = "custimport_de_leads_import"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  description = "This template is used to import leads into Netsuite."
+  entryform = netsuite.entryForm.instance.custform_642_6248126_432.scriptid
+  importname = "HF | DE | Lead Import"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "LEADANDCONTACT"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = true
+  }
+  filemappings = {
+    filemapping = {
+      LEADANDCONTACT = {
+        file = "LEADANDCONTACT"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      LEADANDCONTACT_CURRENCY@f = {
+        record = "LEADANDCONTACT:CURRENCY"
+        fieldmappings = {
+          fieldmapping = {
+            CURRENCY = {
+              field = "CURRENCY"
+              value = "4"
+            }
+          }
+        }
+      }
+      LEADANDCONTACT_CONTACT@f = {
+        record = "LEADANDCONTACT:CONTACT"
+        fieldmappings = {
+          fieldmapping = {
+            FIRSTNAME = {
+              field = "FIRSTNAME"
+              columnreference = {
+                column = "Contact First Name"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            LASTNAME = {
+              field = "LASTNAME"
+              columnreference = {
+                column = "Contact Last Name"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      LEADANDCONTACT = {
+        record = "LEADANDCONTACT"
+        fieldmappings = {
+          fieldmapping = {
+            CATEGORY = {
+              field = "CATEGORY"
+              columnreference = {
+                column = "SOURCE"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            COMPANYNAME = {
+              field = "COMPANYNAME"
+              columnreference = {
+                column = "COMPANY NAME"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            custentity_hf_channel = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_channel.scriptid
+              columnreference = {
+                column = "CHANNEL"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            custentity_hf_corporate = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_corporate.scriptid
+              value = "F"
+            }
+            custentity_hf_subchannel = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_subchannel.scriptid
+              columnreference = {
+                column = "SUB CHANNEL"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            EMAIL = {
+              field = "EMAIL"
+              columnreference = {
+                column = "Email"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            ENTITYSTATUS = {
+              field = "ENTITYSTATUS"
+              columnreference = {
+                column = "STATUS"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "External ID"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            PHONE = {
+              field = "PHONE"
+              columnreference = {
+                column = "Phone"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "6"
+            }
+          }
+        }
+      }
+      LEADANDCONTACT_ADDRESSBOOK_ADDRESSBOOKADDRESS@f = {
+        record = "LEADANDCONTACT:ADDRESSBOOK:ADDRESSBOOKADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "ADDRESS 1"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            ADDR2 = {
+              field = "ADDR2"
+              columnreference = {
+                column = "ADDRESS 2"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            ADDRESSEE = {
+              field = "ADDRESSEE"
+              columnreference = {
+                column = "ADDRESSEE"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            ATTENTION = {
+              field = "ATTENTION"
+              columnreference = {
+                column = "ATTENTION"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "CITY"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              columnreference = {
+                column = "COUNTRY"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            STATE = {
+              field = "STATE"
+              columnreference = {
+                column = "STATE"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "ZIP"
+                file = "LEADANDCONTACT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | DE | Lead Import"
+}

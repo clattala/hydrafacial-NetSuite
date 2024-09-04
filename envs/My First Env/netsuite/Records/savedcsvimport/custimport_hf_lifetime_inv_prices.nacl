@@ -1,0 +1,160 @@
+netsuite.savedcsvimport custimport_hf_lifetime_inv_prices {
+  scriptid = "custimport_hf_lifetime_inv_prices"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADDUPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Price Updates for Lifetime Inventory Items"
+  entryform = netsuite.entryForm.instance.custform_hf_inventory_part_form.scriptid
+  ignorereadonly = true
+  importname = "HF | Lifetime | Inventory Item Prices"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVENTORYITEM"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVENTORYITEM = {
+        file = "INVENTORYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVENTORYITEM_BACKENDPRICING@f = {
+        line = 2
+        record = "INVENTORYITEM:BACKENDPRICING"
+        fieldmappings = {
+          fieldmapping = {
+            CURRENCY = {
+              field = "CURRENCY"
+              value = "4"
+            }
+            PRICE = {
+              field = "PRICE"
+              columnreference = {
+                column = "Price 3"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            PRICELEVEL = {
+              field = "PRICELEVEL"
+              columnreference = {
+                column = "Price Level 3"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "Quantity 3"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVENTORYITEM_BACKENDPRICING_2@fu = {
+        record = "INVENTORYITEM:BACKENDPRICING"
+        fieldmappings = {
+          fieldmapping = {
+            CURRENCY = {
+              field = "CURRENCY"
+              value = "4"
+            }
+            PRICE = {
+              field = "PRICE"
+              columnreference = {
+                column = "Price 1"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            PRICELEVEL = {
+              field = "PRICELEVEL"
+              columnreference = {
+                column = "Price Level 1"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "Quantity 1"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVENTORYITEM_BACKENDPRICING_3@fu = {
+        line = 1
+        record = "INVENTORYITEM:BACKENDPRICING"
+        fieldmappings = {
+          fieldmapping = {
+            CURRENCY = {
+              field = "CURRENCY"
+              value = "4"
+            }
+            PRICE = {
+              field = "PRICE"
+              columnreference = {
+                column = "Price 2"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            PRICELEVEL = {
+              field = "PRICELEVEL"
+              columnreference = {
+                column = "Price Level 2"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "Quantity 2"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVENTORYITEM = {
+        record = "INVENTORYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | Lifetime | Inventory Item Prices"
+}

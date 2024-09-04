@@ -1,0 +1,60 @@
+netsuite.savedcsvimport custimport_650_6248126_763 {
+  scriptid = "custimport_650_6248126_763"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_inventory_part_form.scriptid
+  ignorereadonly = true
+  importname = "Insp_Items"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVENTORYITEM"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVENTORYITEM = {
+        file = "INVENTORYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVENTORYITEM = {
+        record = "INVENTORYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            custitem_hf_holdcode = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_holdcode.scriptid
+              columnreference = {
+                column = "Inspection req"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "internal ID"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Insp_Items"
+}

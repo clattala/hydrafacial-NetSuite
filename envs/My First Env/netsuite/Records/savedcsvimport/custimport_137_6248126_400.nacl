@@ -1,0 +1,72 @@
+netsuite.savedcsvimport custimport_137_6248126_400 {
+  scriptid = "custimport_137_6248126_400"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Used to update the blank roles in the system."
+  entryform = netsuite.entryForm.instance.custformhydrafacial_customer.scriptid
+  importname = "EMEA - Customer/Contact Role Update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CUSTOMERANDCONTACT"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMERANDCONTACT = {
+        file = "CUSTOMERANDCONTACT"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMERANDCONTACT = {
+        record = "CUSTOMERANDCONTACT"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "InternalID"
+                file = "CUSTOMERANDCONTACT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CUSTOMERANDCONTACT_CONTACT@f = {
+        record = "CUSTOMERANDCONTACT:CONTACT"
+        fieldmappings = {
+          fieldmapping = {
+            CONTACTROLE = {
+              field = "CONTACTROLE"
+              value = "-10"
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "ContactInternalID"
+                file = "CUSTOMERANDCONTACT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "EMEA - Customer/Contact Role Update"
+}

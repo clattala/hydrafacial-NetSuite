@@ -1,0 +1,83 @@
+netsuite.savedcsvimport custimport_311_6248126_603 {
+  scriptid = "custimport_311_6248126_603"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_inventory_part_form.scriptid
+  ignorereadonly = true
+  importname = "NB_Inventory_Update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVENTORYITEM"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVENTORYITEM = {
+        file = "INVENTORYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVENTORYITEM_ITEMVENDOR@f = {
+        record = "INVENTORYITEM:ITEMVENDOR"
+        fieldmappings = {
+          fieldmapping = {
+            PREFERREDVENDOR = {
+              field = "PREFERREDVENDOR"
+              columnreference = {
+                column = "Preferred YES/NO"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              columnreference = {
+                column = "Subsidiary"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            VENDOR = {
+              field = "VENDOR"
+              columnreference = {
+                column = "Vendor"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVENTORYITEM = {
+        record = "INVENTORYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "NB_Inventory_Update"
+}

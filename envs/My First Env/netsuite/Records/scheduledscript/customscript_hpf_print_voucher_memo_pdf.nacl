@@ -1,0 +1,114 @@
+netsuite.scheduledscript customscript_hpf_print_voucher_memo_pdf {
+  scriptid = "customscript_hpf_print_voucher_memo_pdf"
+  defaultfunction = "scheduled"
+  description = "中文多张凭证打印"
+  name = "ss_hpf_print_pdf_several_voucher_memo"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = "[/SuiteBundles/Bundle 191307/ss_hpf_print_pdf_several_voucher_memo.js]"
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_vou_printids_memo = {
+        scriptid = "custscript_vou_printids_memo"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "CLOBTEXT"
+        isformula = false
+        ismandatory = false
+        label = "Voucher Print Ids"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+      custscriptcustscript_vou_type_memo = {
+        scriptid = "custscriptcustscript_vou_type_memo"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "Vocher Type"
+        searchlevel = "2"
+        storevalue = true
+        index = 1
+      }
+      custscriptcustscript_adj_printids_memo = {
+        scriptid = "custscriptcustscript_adj_printids_memo"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "CLOBTEXT"
+        isformula = false
+        ismandatory = false
+        label = "Adjustment Journal"
+        searchlevel = "2"
+        storevalue = true
+        index = 2
+      }
+      custscriptcustscript_vou_sub_memo = {
+        scriptid = "custscriptcustscript_vou_sub_memo"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "Subsidiary"
+        searchlevel = "2"
+        storevalue = true
+        index = 3
+      }
+      custscriptcustscript_vou_filetype_memo = {
+        scriptid = "custscriptcustscript_vou_filetype_memo"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "File Type"
+        searchlevel = "2"
+        storevalue = true
+        index = 4
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hpf_print_voucher_memo_pdf = {
+        scriptid = "customdeploy_hpf_print_voucher_memo_pdf"
+        isdeployed = true
+        loglevel = "DEBUG"
+        status = "NOTSCHEDULED"
+        title = "ss_hpf_print_pdf_several_voucher_memo"
+        recurrence = {
+          single = {
+            startdate = "2018-03-22"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  libraries = {
+    library = [
+      {
+        scriptfile = "[/SuiteBundles/Bundle 191307/hitpointCloudScriptTool.js]"
+      },
+    ]
+  }
+  isInactive = false
+  _alias = "ss_hpf_print_pdf_several_voucher_memo"
+}

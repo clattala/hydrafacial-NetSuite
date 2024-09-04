@@ -1,0 +1,376 @@
+netsuite.savedcsvimport custimport_hfde_customers_2add {
+  scriptid = "custimport_hfde_customers_2add"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  description = "Customer Import for Germany with Different Addresses"
+  entryform = netsuite.entryForm.instance.custform_hf_de_customer.scriptid
+  ignorereadonly = true
+  importname = "HF | DE | Customers 2 Addresses"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CUSTOMER"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMER = {
+        file = "CUSTOMER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMER = {
+        record = "CUSTOMER"
+        fieldmappings = {
+          fieldmapping = {
+            CATEGORY = {
+              field = "CATEGORY"
+              columnreference = {
+                column = "NS Source"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            COMMENTS = {
+              field = "COMMENTS"
+              columnreference = {
+                column = "Description - Cleaned"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            COMPANYNAME = {
+              field = "COMPANYNAME"
+              columnreference = {
+                column = "Company Name"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            custentity4 = {
+              field = netsuite.entitycustomfield.instance.custentity4.scriptid
+              columnreference = {
+                column = "NS Billing Country"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            custentity_hf_channel = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_channel.scriptid
+              columnreference = {
+                column = "NetSuite Channel"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            custentity_hf_class = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_class.scriptid
+              columnreference = {
+                column = "Region"
+                file = "CUSTOMER"
+                type = "INTERNAL_ID"
+              }
+            }
+            custentity_hf_globalregion = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_globalregion.scriptid
+              columnreference = {
+                column = "Global Region"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            custentity_hf_legacy_id = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_legacy_id.scriptid
+              columnreference = {
+                column = "Legacy ID"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            custentity_hf_salesgroup = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_salesgroup.scriptid
+              columnreference = {
+                column = "Sales Group"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            custentity_hf_subchannel = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_subchannel.scriptid
+              columnreference = {
+                column = "NetSuite Sub Channel"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            custentity_hf_subregion = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_subregion.scriptid
+              columnreference = {
+                column = "Sub Region"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            EMAIL = {
+              field = "EMAIL"
+              columnreference = {
+                column = "Company Email"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ENTITYSTATUS = {
+              field = "ENTITYSTATUS"
+              value = "13"
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "Legacy ID"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ISPERSON = {
+              field = "ISPERSON"
+              value = "F"
+            }
+            PHONE = {
+              field = "PHONE"
+              columnreference = {
+                column = "Company Phone No"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "6"
+            }
+            TERMS = {
+              field = "TERMS"
+              columnreference = {
+                column = "Payment Terms"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            URL = {
+              field = "URL"
+              columnreference = {
+                column = "Website"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            VATREGNUMBER = {
+              field = "VATREGNUMBER"
+              columnreference = {
+                column = "Tax Registration No"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CUSTOMER_ADDRESSBOOK_ADDRESSBOOKADDRESS@f = {
+        record = "CUSTOMER:ADDRESSBOOK:ADDRESSBOOKADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "Billing Address Line 1"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ADDR2 = {
+              field = "ADDR2"
+              columnreference = {
+                column = "Billing Address Line 2"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ADDR3 = {
+              field = "ADDR3"
+              columnreference = {
+                column = "Billing Address Line 3"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ADDRTEXT = {
+              field = "ADDRTEXT"
+              value = "Billing Address"
+            }
+            ATTENTION = {
+              field = "ATTENTION"
+              columnreference = {
+                column = "Billing Attention"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "Billing Town/City"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              columnreference = {
+                column = "NS Billing Country"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "Billing Address Line 1"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            STATE = {
+              field = "STATE"
+              columnreference = {
+                column = "Billing State"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "Billing Post Code"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CUSTOMER_ADDRESSBOOK_ADDRESSBOOKADDRESS_2@ffu = {
+        line = 1
+        record = "CUSTOMER:ADDRESSBOOK:ADDRESSBOOKADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "Shipping Address Line 1"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ADDR2 = {
+              field = "ADDR2"
+              columnreference = {
+                column = "Shipping Address Line 2"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ADDRTEXT = {
+              field = "ADDRTEXT"
+              value = "Shipping Address"
+            }
+            ATTENTION = {
+              field = "ATTENTION"
+              columnreference = {
+                column = "NS Shipping Attention"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "Shipping Town/City"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              columnreference = {
+                column = "NS Shipping Country"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "Shipping Address Line 1"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            STATE = {
+              field = "STATE"
+              columnreference = {
+                column = "Shipping State"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "Shipping Post Code"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CUSTOMER_ADDRESSBOOK@f = {
+        line = 1
+        record = "CUSTOMER:ADDRESSBOOK"
+        fieldmappings = {
+          fieldmapping = {
+            DEFAULTSHIPPING = {
+              field = "DEFAULTSHIPPING"
+              value = "T"
+            }
+          }
+        }
+      }
+      CUSTOMER_ADDRESSBOOK_2@fu = {
+        record = "CUSTOMER:ADDRESSBOOK"
+        fieldmappings = {
+          fieldmapping = {
+            DEFAULTBILLING = {
+              field = "DEFAULTBILLING"
+              value = "T"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | DE | Customers 2 Addresses"
+}

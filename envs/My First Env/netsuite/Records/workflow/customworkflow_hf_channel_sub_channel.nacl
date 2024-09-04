@@ -1,0 +1,343 @@
+netsuite.workflow customworkflow_hf_channel_sub_channel {
+  scriptid = "customworkflow_hf_channel_sub_channel"
+  description = "This workflow makes the channel, subchannel, global region, Region and sub region as mandatory while creation of the customer record in NetSuite"
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = true
+  initonvieworupdate = true
+  islogenabled = false
+  keephistory = "ALWAYS"
+  name = "HF | EMEA | Channel & Sub-Channel WF"
+  recordtypes = "CUSTOMER"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"Subsidiary\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        Subsidiary = {
+          name = "Subsidiary"
+          value = "STDENTITYSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+        __Subsidiary__2@_00123nn_00125 = {
+          name = "{#Subsidiary#}2"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate265 = {
+        scriptid = "workflowstate265"
+        donotexitworkflow = false
+        name = "Channel & Sub-Channel WF"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldmandatoryaction = {
+              workflowaction1062 = {
+                scriptid = "workflowaction1062"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.entitycustomfield.instance.custentity_hf_channel.scriptid
+                ismandatory = true
+                issublistfield = false
+                initcondition = {
+                  formula = "\"Custom Form (Customer)\" IN (\"Entry Form1\",\"Entry Form2\",\"Entry Form3\") AND \"Status\" IN (\"Entity Status1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Custom_Form__Customer_@ssjk = {
+                        name = "Custom Form (Customer)"
+                        value = "STDENTITYCUSTOMERCUSTOMFORM"
+                      }
+                      Entry_Form1@s = {
+                        name = "Entry Form1"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_243_6248126_sb1_305.scriptid
+                      }
+                      Entry_Form2@s = {
+                        name = "Entry Form2"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_642_6248126_432.scriptid
+                      }
+                      Entry_Form3@s = {
+                        name = "Entry Form3"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_hf_de_customer.scriptid
+                      }
+                      Status = {
+                        name = "Status"
+                        value = "STDENTITYSTATUS"
+                      }
+                      Entity_Status1@s = {
+                        name = "Entity Status1"
+                        selectrecordtype = "-104"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+            setfieldvalueaction = {
+              workflowaction1632 = {
+                scriptid = "workflowaction1632"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDENTITYCUSTOMERCUSTOMFORM"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.entryForm.instance.custform_hf_de_customer.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Subsidiary\" IN (\"{#Subsidiary#}1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary = {
+                        name = "Subsidiary"
+                        value = "STDENTITYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = true
+              }
+            }
+          }
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            setfieldmandatoryaction = {
+              workflowaction1063 = {
+                scriptid = "workflowaction1063"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.entitycustomfield.instance.custentity_hf_globalregion.scriptid
+                ismandatory = true
+                issublistfield = false
+                initcondition = {
+                  formula = "\"Custom Form (Customer)\" IN (\"Entry Form1\",\"Entry Form2\",\"Entry Form3\") AND \"Stage\" IN (\"Entity Stage1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Custom_Form__Customer_@ssjk = {
+                        name = "Custom Form (Customer)"
+                        value = "STDENTITYCUSTOMERCUSTOMFORM"
+                      }
+                      Entry_Form1@s = {
+                        name = "Entry Form1"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_243_6248126_sb1_305.scriptid
+                      }
+                      Entry_Form2@s = {
+                        name = "Entry Form2"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_642_6248126_432.scriptid
+                      }
+                      Entry_Form3@s = {
+                        name = "Entry Form3"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_hf_de_customer.scriptid
+                      }
+                      Stage = {
+                        name = "Stage"
+                        value = "STDENTITYSTAGE"
+                      }
+                      Entity_Stage1@s = {
+                        name = "Entity Stage1"
+                        selectrecordtype = "-223"
+                        value = "1"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1064 = {
+                scriptid = "workflowaction1064"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.entitycustomfield.instance.custentity_hf_subregion.scriptid
+                ismandatory = true
+                issublistfield = false
+                initcondition = {
+                  formula = "\"Custom Form (Customer)\" IN (\"Entry Form1\",\"Entry Form2\",\"Entry Form3\") AND \"Stage\" IN (\"Entity Stage1\") AND \"Status\" IN (\"Entity Status1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Custom_Form__Customer_@ssjk = {
+                        name = "Custom Form (Customer)"
+                        value = "STDENTITYCUSTOMERCUSTOMFORM"
+                      }
+                      Entry_Form1@s = {
+                        name = "Entry Form1"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_243_6248126_sb1_305.scriptid
+                      }
+                      Entry_Form2@s = {
+                        name = "Entry Form2"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_642_6248126_432.scriptid
+                      }
+                      Entry_Form3@s = {
+                        name = "Entry Form3"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_hf_de_customer.scriptid
+                      }
+                      Stage = {
+                        name = "Stage"
+                        value = "STDENTITYSTAGE"
+                      }
+                      Entity_Stage1@s = {
+                        name = "Entity Stage1"
+                        selectrecordtype = "-223"
+                        value = "1"
+                      }
+                      Status = {
+                        name = "Status"
+                        value = "STDENTITYSTATUS"
+                      }
+                      Entity_Status1@s = {
+                        name = "Entity Status1"
+                        selectrecordtype = "-104"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+              workflowaction1065 = {
+                scriptid = "workflowaction1065"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.entitycustomfield.instance.custentity_hf_subchannel.scriptid
+                ismandatory = true
+                issublistfield = false
+                initcondition = {
+                  formula = "\"Custom Form (Customer)\" IN (\"Entry Form1\",\"Entry Form2\",\"Entry Form3\") AND \"Stage\" IN (\"Entity Stage1\") AND \"Status\" IN (\"Entity Status1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Custom_Form__Customer_@ssjk = {
+                        name = "Custom Form (Customer)"
+                        value = "STDENTITYCUSTOMERCUSTOMFORM"
+                      }
+                      Entry_Form1@s = {
+                        name = "Entry Form1"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_243_6248126_sb1_305.scriptid
+                      }
+                      Entry_Form2@s = {
+                        name = "Entry Form2"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_642_6248126_432.scriptid
+                      }
+                      Entry_Form3@s = {
+                        name = "Entry Form3"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_hf_de_customer.scriptid
+                      }
+                      Stage = {
+                        name = "Stage"
+                        value = "STDENTITYSTAGE"
+                      }
+                      Entity_Stage1@s = {
+                        name = "Entity Stage1"
+                        selectrecordtype = "-223"
+                        value = "1"
+                      }
+                      Status = {
+                        name = "Status"
+                        value = "STDENTITYSTATUS"
+                      }
+                      Entity_Status1@s = {
+                        name = "Entity Status1"
+                        selectrecordtype = "-104"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 2
+                isInactive = false
+              }
+              workflowaction1066 = {
+                scriptid = "workflowaction1066"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.entitycustomfield.instance.custentity_hf_class.scriptid
+                ismandatory = true
+                issublistfield = false
+                initcondition = {
+                  formula = "\"Custom Form (Customer)\" IN (\"Entry Form1\",\"Entry Form2\",\"Entry Form3\") AND \"Stage\" IN (\"Entity Stage1\") AND \"Status\" IN (\"Entity Status1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Custom_Form__Customer_@ssjk = {
+                        name = "Custom Form (Customer)"
+                        value = "STDENTITYCUSTOMERCUSTOMFORM"
+                      }
+                      Entry_Form1@s = {
+                        name = "Entry Form1"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_243_6248126_sb1_305.scriptid
+                      }
+                      Entry_Form2@s = {
+                        name = "Entry Form2"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_642_6248126_432.scriptid
+                      }
+                      Entry_Form3@s = {
+                        name = "Entry Form3"
+                        selectrecordtype = "-167"
+                        value = netsuite.entryForm.instance.custform_hf_de_customer.scriptid
+                      }
+                      Stage = {
+                        name = "Stage"
+                        value = "STDENTITYSTAGE"
+                      }
+                      Entity_Stage1@s = {
+                        name = "Entity Stage1"
+                        selectrecordtype = "-223"
+                        value = "1"
+                      }
+                      Status = {
+                        name = "Status"
+                        value = "STDENTITYSTATUS"
+                      }
+                      Entity_Status1@s = {
+                        name = "Entity Status1"
+                        selectrecordtype = "-104"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 3
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | EMEA | Channel & Sub-Channel WF"
+}

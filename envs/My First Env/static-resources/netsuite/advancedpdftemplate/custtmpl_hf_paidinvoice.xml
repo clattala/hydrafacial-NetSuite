@@ -1,0 +1,446 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+<head>
+	<link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+	<#if .locale == "zh_CN">
+		<link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+	<#elseif .locale == "zh_TW">
+		<link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+	<#elseif .locale == "ja_JP">
+		<link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+	<#elseif .locale == "ko_KR">
+		<link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+	<#elseif .locale == "th_TH">
+		<link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+	</#if>
+    <macrolist>
+        <macro id="nlheader">
+            <table width="100%"><tr>
+	<td width="60%">
+	<table style="width: 100%; margin-bottom:0px; padding-bottom:0px;">
+								<tr>
+									<td width="100%">
+										<#if companyInformation.logoUrl?length !=0><img src="https://6248126.app.netsuite.com/core/media/media.nl?id=2969912&amp;c=6248126&amp;h=QtwRNFc7ROYorrc4HNq0Lfg_ytkDPIfDktuxrgFkaL8Ig_Ww"
+												style="position: relative; top: -18px; left: -22px; margin: 10px; width:20%;height:20%" /> </#if>
+									</td>
+								</tr>
+							</table>
+							<table style="width: 100%; position: relative; top: -10px;">
+								<tr>
+									<td width="50%">
+										<table style="font-weight:bold; padding-bottom:10px; margin-bottom:5px;"
+											width="100%">
+											<tr>
+												<td>3600 E.Burnett St.</td>
+											</tr>
+											<tr>
+												<td>Long Beach CA 90815</td>
+											</tr>
+											<tr>
+												<td>USA</td>
+											</tr>
+										</table>
+									</td>
+									<td width="50%">
+										<table style="font-weight:bold; padding-bottom:10px;" width="100%">
+											<tr>
+												<td>Voice: 800-603-4996</td>
+											</tr>
+											<tr>
+												<td>&nbsp;</td>
+											</tr>
+											<tr>
+												<td>&nbsp;</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+	</td>
+	<td align="right" width="40%">
+	<table width="100%"><tr>
+		<td align="right" style="width:95%; font-size:22px; font-weight:bold;">Paid Invoice</td>
+		</tr></table>
+
+	<table class="hdr-desc" width="100%"><tr>
+		<td>Invoice No:</td>
+		<td>${record.tranid}</td>
+		</tr>
+		<tr>
+		<td>Invoice Date:</td>
+		<td>${record.trandate}</td>
+		</tr>
+		<tr>
+		<td>Invoice Due Date:</td>
+		<td>${record.duedate}</td>
+		</tr>
+		<tr>
+		<td>Sales Order No:</td>
+		<td>${record.createdfrom?replace('Sales Order #', '')}</td>
+		</tr>
+      	<#if record.shipcountry = "CA">
+          <tr>
+            <td>
+              BN:
+            </td>
+            <td>
+              85916 6985 RT0001
+            </td>
+          </tr>
+        </#if>
+		<tr>
+		<td>Page:</td>
+		<td><pagenumber/> of <totalpages/></td>
+		</tr></table>
+	</td>
+	</tr></table>
+        </macro>
+        <macro id="nlfooter">
+          <table style="margin-top:10px;" width="100%">
+              <tr>
+                <td width="20%" style="padding: 0;"><barcode codetype="code128" showtext="true" value="${record.tranid}"/></td>
+                <td width="80%" align="center">Order online and earn 1.5% online store credit* - Register here at <a href="https://hydrafacial.store/register">https://hydrafacial.store/register</a></td>
+              </tr>
+              <tr>
+                <td width="20%" style="padding: 0;">&nbsp;</td>
+                <td width="80%" align="center">*Limits apply - see store for details.</td>
+              </tr>
+          </table>
+        </macro>
+    </macrolist>
+    <style type="text/css">* {
+        font-family: NotoSans, sans-serif;
+		}
+		td p { align:left }
+        table {
+			font-size: 9pt;
+			table-layout: fixed;
+            vertical-align: middle;
+            align: center;
+		}
+
+        table.hdr-desc {
+            margin-top:10px;
+        }
+
+        table.hdr-desc tr td {
+            padding: 5px;
+            font-weight:bold;
+            font-size:10pt;
+        }
+
+        table.hdr-desc tr td:first-child {
+            color: #808080;
+        }
+
+        table.billto-shipto {
+            width:85%;
+            margin-top:10px;
+            font-weight:bold;   
+        }
+
+        table.billto-shipto tr td {
+            font-weight: bold;
+            padding:6px;
+            border: 1px solid black;
+            border-bottom:none;
+        }
+
+        table.billto-shipto tr:last-child td {
+            border-bottom: 1px solid black;
+        }
+
+        table.section-2 tr td{
+            padding:6px;
+            border: 1px solid black;
+            border-bottom:none;
+            border-right:none;
+        }
+
+        table.section-2 tr:nth-child(odd) td{
+            color: #808080;
+        }
+
+        table.section-2 tr:nth-child(even) td{
+            color: black;
+        }
+
+        table.section-2 tr td:last-child{
+            border-right: 1px solid black;
+        }
+
+        table.section-2 tr:last-child td{
+            border-bottom: 1px solid black;
+        }
+
+        table.item-table th {
+            font-weight: bold;
+            padding: 8px;
+            border:1px solid black;
+            border-right:none;
+        }
+
+        table.item-table th:last-child {
+            border-right:1px solid black;
+        }
+
+        table.item-table td {
+            font-size:8pt;
+            padding: 6px;
+            border:1px solid black;
+            <!--  border-top:none; -->
+            border-right:none;
+        }
+
+        table.item-table td:last-child {
+            border-right:1px solid black;
+        }
+
+        table.installment-table {
+            padding:10px;
+            border: 1px solid black;
+          <!--  border-top:none; -->
+        }
+
+        table.installment-table td {
+            font-size:8pt;
+            padding: 6px;
+        }
+
+        table.remittance-information-table td {
+            border: 1px solid black;
+            border-collapse: collapse;
+          	font-size: 8pt;
+        }
+</style>
+</head>
+<body header="nlheader" header-height="22%" footer="nlfooter" footer-height="8%" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+    <table style="margin-top:15px;" width="100%"><tr>
+	<td align="left">
+	<table class="billto-shipto"><tr>
+		<td>Bill To</td>
+		</tr>
+		<tr>
+		<td height="100px">${record.billaddress}</td>
+		</tr></table>
+	</td>
+	<td align="right">
+	<table class="billto-shipto"><tr>
+		<td>Ship To</td>
+		</tr>
+		<tr>
+		<td height="100px">${record.shipaddress}</td>
+		</tr></table>
+	</td>
+	</tr></table>
+
+<table class="section-2" style="margin-top:15px;" width="100%"><tr>
+	<td align="center">Customer ID</td>
+	<td align="center">Customer Name</td>
+	<td align="center">PO Number</td>
+	</tr>
+	<tr>
+	<td align="center"><b>${record.entity?keep_before(" ")}</b></td>
+	<td align="center"><b>${record.entity?keep_after(" ")}</b></td>
+	<td align="center"><b>${record.otherrefnum}</b></td>
+	</tr>
+    <tr>
+      <td align="center">Shipping Method</td>
+      <td align="center">Tracking No</td>
+      <td align="center">Payment Method</td>
+    </tr>
+    <tr>
+      <td align="center"><b>${record.shipmethod}</b></td>
+      <td align="center"><b>${record.linkedtrackingnumbers}</b></td>
+      <td align="center"><b>${record.paymentmethod}</b></td>
+    </tr>
+  </table>
+
+<table class="item-table" style="margin-top:10px;" width="100%"><tr>
+  	<th align="center" colspan="1" width="10%">Brand</th>
+	<th align="center" colspan="1" width="10%">Quantity</th>
+	<#if record.shipcountry = "CA">
+		<th align="center" colspan="2" width="15%">Item No.</th>
+		<th align="center" colspan="4" width="20%">Description</th>
+		<th  align="center" colspan="1" width="7%">
+			Tax<br />Rate
+		</th>
+		<th  align="center" colspan="1" width="10%">
+			Tax<br />Amount
+		</th>
+		<th align="center" colspan="1" width="14%">Unit<br />Price</th>
+		<th align="center" colspan="1" width="14%">Amount</th>
+	<#else>
+		<th align="center" colspan="2" width="20%">Item No.</th>
+		<th align="center" colspan="3" width="30%">Description</th>
+		<th align="center" colspan="1" width="15%">Unit<br />Price</th>
+		<th align="center" colspan="1" width="15%">Amount</th>
+	</#if>
+	</tr>
+	<#if record.item?has_content><!-- start items --><#list record.item as item>
+	<tr>
+    <td align="center" colspan="1" width="10%">${item.custcol_brand}</td>
+	<td align="center" colspan="1" width="10%">${item.quantity}</td>
+	<#if record.shipcountry = "CA">
+		<td align="center" colspan="2" width="15%">${item.item}</td>
+		<td align="center" colspan="4" width="25%">${item.description}</td>
+		<td  align="center" colspan="1" width="10%">
+			${item.taxrate1}
+		</td>
+		<td  align="center" colspan="1" width="10%">
+            <#if item.taxrate1?has_content>
+			<#assign percentage = item.taxrate1?replace('%', '')?number / 100>
+			<#assign number = item.amount>
+			<#assign result = number * percentage>
+            <#setting locale="en_US">
+			${item.rate?keep_before(" ")} ${result?string.currency}
+            <#else>
+                &nbsp;
+            </#if>
+		</td>
+		<td align="center" colspan="1" width="10%">${item.rate}</td>
+		<td align="center" colspan="1" width="10%">${item.amount}</td>
+	<#else>
+		<td align="center" colspan="2" width="20%">${item.item}</td>
+		<td align="center" colspan="3" width="20%">${item.description}</td>
+		<td align="center" colspan="1" width="15%">${item.rate}</td>
+		<td align="center" colspan="1" width="15%">${item.amount}</td>
+	</#if>
+	</tr>
+	</#list></#if>
+</table>
+
+<table class="installment-table" style="margin-top:15px;" width="100%"><tr>
+	<td width="60%">
+    <#if record.installment?has_content>
+	<table style="padding-bottom:10px;" width="100%"><tr>
+		<td style="width:95%; font-size:12px; font-weight:bold;">Installment Schedule</td>
+		</tr></table>
+
+	<table style="border-bottom:2px solid #0D47A1;" width="100%"><tr style="border-bottom:1px dotted #0D47A1;">
+		<th width="25%"><b>Installment</b></th>
+		<th width="25%"><b>Due Date</b></th>
+		<th width="20%"><b>Status</b></th>
+      	<th width="30%"><b>Payment Amount</b></th>
+		</tr>
+		<#list record.installment as installment>
+		<tr style="border-bottom:1px dotted #0D47A1;">
+		<td width="25%">${installment.seqnum}</td>
+		<td width="25%">${installment.duedate}</td>
+		<td width="20%">${installment.status}</td>
+		<td width="30%">${installment.amount}</td>
+		</tr>
+		</#list></table>
+      <#else>
+        &nbsp;
+        </#if>
+	</td>
+	<td width="40%">
+	<table align="right" width="100%"><tr><#assign calcsubtotal = record.subtotal - record.shippingcost><#assign currencyname = record.currency><#if currencyname = "Canadian Dollar"><#assign currencyvalue = "CAD"><#elseif currencyname = "US Dollar"><#assign currencyvalue = "USD"><#elseif currencyname = "Australian Dollar"><#assign currencyvalue = "AUD"><#elseif currencyname="British Pound"><#assign currencyvalue="GBP"><#elseif currencyname="Euro"><#assign currencyvalue="EUR"></#if>
+		<td width="50%">Order Subtotal:</td>
+		<#if currencyname = "Canadian Dollar" || currencyname = "US Dollar" || currencyname = "Australian Dollar">
+        <#setting locale="en_US">
+		<td width="50%">${currencyvalue} ${calcsubtotal?string.currency}</td>
+		<#else>
+		<td width="50%">${record.currencysymbol} ${calcsubtotal?string.currency}</td>
+		</#if></tr>
+		<tr>
+		<td width="50%">Shipping &amp; Handling:</td>
+		<td width="50%">${record.shippingcost}</td>
+		</tr>
+		<tr>
+		<td width="50%">Total Tax:</td>
+		<td width="50%">${record.taxtotal}</td>
+		</tr>
+		<tr>
+		<td width="50%">Total Amount:</td>
+		<td width="50%">${record.total}</td>
+		</tr>
+      	<tr>
+		<td width="50%">Remaining Amount:</td>
+        <#assign zeroTotal = '$0.0'>
+        <#if currencyname = "Canadian Dollar" || currencyname = "US Dollar" || currencyname = "Australian Dollar" || currencyname = "British Pound" || currencyname = "Euro">
+		<td width="50%">${currencyvalue} ${zeroTotal}</td>
+		<#else>
+		<td width="50%">${record.currencysymbol} ${zeroTotal?string.currency}}</td>
+		</#if>
+		</tr></table>
+	</td>
+	</tr></table>
+	  <!-- ${record.subsidiary.custrecord_hf_sub_bank_details} -->
+      <table class="remittance-information-table" style="margin-top:15px; page-break-inside:avoid;" width="100%">
+			<tr style="background-color: #e6e6e6; color: black; font-weight: bold;">
+				<td>Terms &amp; Conditions:</td>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+			<tr style="color: black;">
+				<td>Return Policy Device:</td>
+				<td colspan="3">Please refer back to your agreement, all sales are final, if allowed, a restocking fee
+					may be added.</td>
+			</tr>
+			<tr style="background-color: #e6e6e6; color: black;">
+				<td>Return Policy Consumables:</td>
+				<td colspan="3">RMA number must be on returned items, please reach out to Customer Care for assistance.
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr style="background-color: #e6e6e6; color: black;">
+				<td>
+					<table width="100%" style="border:none; font-weight: bold;">
+						<tr style="border:none;">
+							<td style="border:none;">For all customer needs:</td>
+						</tr>
+						<tr style="border:none;">
+							<td style="border:none;">800-603-4996</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table width="100%" style="border:none;">
+						<tr style="border:none;">
+							<td style="border:none;">Customer Care </td>
+						</tr>
+						<tr style="border:none;">
+							<td style="border:none;"> Option 2</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<table width="100%" style="border:none;">
+						<tr style="border:none;">
+							<td style="border:none;">Technical Support </td>
+						</tr>
+						<tr style="border:none;">
+							<td style="border:none;"> Option 3</td>
+						</tr>
+					</table>
+				</td>
+              	<td>
+					<table width="100%" style="border:none;">
+						<tr style="border:none;">
+							<td style="border:none;">Credit &amp; Collections </td>
+						</tr>
+						<tr style="border:none;">
+							<td style="border:none;"> Option 4</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr style="background-color: #e6e6e6; color: black;">
+				<td colspan="4">Incoterms: All goods are shipped Ex Works Hydrafacial, LLC dba The Hydrafacial Company.
+				</td>
+			</tr>
+		</table>
+</body>
+</pdf>

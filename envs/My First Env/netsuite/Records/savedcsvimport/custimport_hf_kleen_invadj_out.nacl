@@ -1,0 +1,118 @@
+netsuite.savedcsvimport custimport_hf_kleen_invadj_out {
+  scriptid = "custimport_hf_kleen_invadj_out"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | Kleen Adjust Out"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVENTORYADJUSTMENT"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_644_6248126_253.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVENTORYADJUSTMENT = {
+        file = "INVENTORYADJUSTMENT"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVENTORYADJUSTMENT = {
+        record = "INVENTORYADJUSTMENT"
+        fieldmappings = {
+          fieldmapping = {
+            ACCOUNT = {
+              field = "ACCOUNT"
+              value = "687"
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "External ID"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "3"
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              value = "3/28/2024"
+            }
+          }
+        }
+      }
+      INVENTORYADJUSTMENT_INVENTORY@f = {
+        record = "INVENTORYADJUSTMENT:INVENTORY"
+        fieldmappings = {
+          fieldmapping = {
+            ADJUSTQTYBY = {
+              field = "ADJUSTQTYBY"
+              columnreference = {
+                column = "QtyOut"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item"
+                file = "INVENTORYADJUSTMENT"
+                type = "INTERNAL_ID"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              columnreference = {
+                column = "Warehouse"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVENTORYADJUSTMENT_INVENTORY_INVENTORYDETAIL_INVENTORYASSIGNMENT@f = {
+        record = "INVENTORYADJUSTMENT:INVENTORY:INVENTORYDETAIL:INVENTORYASSIGNMENT"
+        fieldmappings = {
+          fieldmapping = {
+            ISSUEINVENTORYNUMBER = {
+              field = "ISSUEINVENTORYNUMBER"
+              columnreference = {
+                column = "Lot/Serial"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "QtyOut"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | Kleen Adjust Out"
+}

@@ -1,0 +1,51 @@
+netsuite.mapreducescript customscript_trv_send_fulfillmnt_email {
+  scriptid = "customscript_trv_send_fulfillmnt_email"
+  name = "HF | Send Fulfillment Emails"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_trevera_sendFulfillmentEmailMR_js@ddv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_trv_send_fulfillmnt_email = {
+        scriptid = "customdeploy_trv_send_fulfillmnt_email"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | Send Fulfillment Emails"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2022-05-29"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+      customdeploy_trv_send_fulfillmnt_emailsc = {
+        scriptid = "customdeploy_trv_send_fulfillmnt_emailsc"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | Send Fulfillment Emails Schd"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            repeat = "PT15M"
+            startdate = "2022-05-28"
+            starttime = "07:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Send Fulfillment Emails"
+}

@@ -1,0 +1,33 @@
+netsuite.mapreducescript customscript_hf_warranty_reg_serial_upd {
+  scriptid = "customscript_hf_warranty_reg_serial_upd"
+  name = "Warranty Registration Serial Update"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_wr_lotnum_mrs_js@duuv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy1 = {
+        scriptid = "customdeploy1"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "Warranty Registration Serial Update"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            repeat = "PT1H"
+            startdate = "2023-06-20"
+            starttime = "12:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "Warranty Registration Serial Update"
+}

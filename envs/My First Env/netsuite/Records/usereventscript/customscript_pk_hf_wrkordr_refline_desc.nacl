@@ -1,0 +1,50 @@
+netsuite.usereventscript customscript_pk_hf_wrkordr_refline_desc {
+  scriptid = "customscript_pk_hf_wrkordr_refline_desc"
+  description = "* sets reference item custom memo description on matching item lines"
+  name = "HF | Workorder | Set Reference Line Desc"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_trevera_userevent_pk_hf_workordr_reflines_ue_js@dddbbbbv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_refitemid = {
+        scriptid = "custscript_hf_refitemid"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Reference Item Id"
+        onparentdelete = "SET_NULL"
+        searchlevel = "2"
+        selectrecordtype = "-10"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_pk_hf_wrkordr_refline_desc = {
+        scriptid = "customdeploy_pk_hf_wrkordr_refline_desc"
+        allemployees = false
+        alllocalizationcontexts = true
+        allpartners = false
+        allroles = true
+        custscript_hf_refitemid = "[ACCOUNT_SPECIFIC_VALUE]"
+        executioncontext = "ACTION|ADVANCEDREVREC|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CONSOLRATEADJUSTOR|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OTHER|PAYMENTGATEWAY|PAYMENTPOSTBACK|PLATFORMEXTENSION|PORTLET|PROMOTIONS|RECORDACTION|RESTLET|RESTWEBSERVICES|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WEBSERVICES|WORKBOOKBUILDER|WORKFLOW"
+        isdeployed = true
+        loglevel = "DEBUG"
+        recordtype = "WORKORDER"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Workorder | Set Reference Line Desc"
+}

@@ -1,0 +1,1 @@
+define('NetSuite.Slideshow.SlideshowCCT.Collection',    [        'NetSuite.Slideshow.SlideshowCCT.Model',        'Backbone'    ],    function (SlideshowCCTModel, Backbone) {        'use strict';        return Backbone.Collection.extend({            model: SlideshowCCTModel        });    });

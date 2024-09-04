@@ -1,0 +1,334 @@
+netsuite.savedcsvimport custimport_hf_de_shopware_orders {
+  scriptid = "custimport_hf_de_shopware_orders"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  description = "This template is for orders coming from shopware"
+  ignorereadonly = true
+  importname = "HF | DE | Shopware SO"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "SALESORDER"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_hf_de_sales_order.scriptid
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = true
+  }
+  filemappings = {
+    filemapping = {
+      SALESORDER = {
+        file = "SALESORDER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      SALESORDER__BILLINGADDRESS@f = {
+        record = "SALESORDER::BILLINGADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "Address 2 : Bill Address 1"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            ADDRESSEE = {
+              field = "ADDRESSEE"
+              columnreference = {
+                column = "Address 2 : Bill Addresse"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            ATTENTION = {
+              field = "ATTENTION"
+              columnreference = {
+                column = "Address 2 : Billing Attention"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "Address 2 : Bill City"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              columnreference = {
+                column = "Address 2: Bill Country"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "Address 2 : Bill ZIP"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      SALESORDER = {
+        record = "SALESORDER"
+        fieldmappings = {
+          fieldmapping = {
+            CURRENCY = {
+              field = "CURRENCY"
+              columnreference = {
+                column = "Currency"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            custbody_hf_ordersource = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_ordersource.scriptid
+              columnreference = {
+                column = "Order Source"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            custbody_hf_rep_split1 = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_rep_split1.scriptid
+              value = "100.0%"
+            }
+            custbody_hf_sales_area = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_sales_area.scriptid
+              columnreference = {
+                column = "Sales Area"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            custbody_hf_weborder_num = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_weborder_num.scriptid
+              columnreference = {
+                column = "Weborder No."
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "Customer Internal ID"
+                file = "SALESORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "ExternalID"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              columnreference = {
+                column = "Location (Header) Internal ID"
+                file = "SALESORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            SHIPMETHOD = {
+              field = "SHIPMETHOD"
+              columnreference = {
+                column = "NS Shipping Method ??"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            SHIPPINGCOST = {
+              field = "SHIPPINGCOST"
+              columnreference = {
+                column = "Shipping Cost"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              columnreference = {
+                column = "Subsidiary Internal ID"
+                file = "SALESORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            TERMS = {
+              field = "TERMS"
+              columnreference = {
+                column = "Terms"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "Date"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            TRANID = {
+              field = "TRANID"
+              columnreference = {
+                column = "Order #"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      SALESORDER_ITEM@f = {
+        record = "SALESORDER:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            AMOUNT = {
+              field = "AMOUNT"
+              columnreference = {
+                column = "PriceNet"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item Internal ID"
+                file = "SALESORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              columnreference = {
+                column = "Location (Item) Internal ID"
+                file = "SALESORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            PRICE = {
+              field = "PRICE"
+              columnreference = {
+                column = "Price Level"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "Qty"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            RATE = {
+              field = "RATE"
+              columnreference = {
+                column = "Unit Price"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            TAX1AMT = {
+              field = "TAX1AMT"
+              columnreference = {
+                column = "Tax Amount"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            TAXCODE = {
+              field = "TAXCODE"
+              columnreference = {
+                column = "TaxCode"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      SALESORDER__SHIPPINGADDRESS@f = {
+        record = "SALESORDER::SHIPPINGADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "Address 1: Ship Address 1"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            ADDRESSEE = {
+              field = "ADDRESSEE"
+              columnreference = {
+                column = "Address 1 : Shipp Addresse"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            ATTENTION = {
+              field = "ATTENTION"
+              columnreference = {
+                column = "Address 1 : Ship Attention"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "Address 1 : Shipping City"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              columnreference = {
+                column = "Address 1 : Ship Country"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "Address 1 : Ship Zip"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | DE | Shopware SO"
+}

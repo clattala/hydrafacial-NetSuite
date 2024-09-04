@@ -1,0 +1,391 @@
+netsuite.workflow customworkflow61 {
+  scriptid = "customworkflow61"
+  description = "This allows the sales team to notify UK finance when a quote has been accepted, so they can efficiently chase for payment."
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WEBAPPLICATION|WEBSTORE|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = true
+  initonvieworupdate = true
+  islogenabled = false
+  keephistory = "ALWAYS"
+  name = "HF | UK | Quote Accept-FinChase Payment"
+  recordtypes = "ESTIMATE"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        Subsidiary__Main_@sjk = {
+          name = "Subsidiary (Main)"
+          value = "STDBODYSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+        __Subsidiary__2@_00123nn_00125 = {
+          name = "{#Subsidiary#}2"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate233 = {
+        scriptid = "workflowstate233"
+        donotexitworkflow = false
+        name = "State1: Initiate"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldvalueaction = {
+              workflowaction955 = {
+                scriptid = "workflowaction955"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_fin_cha_pay.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction956 = {
+                scriptid = "workflowaction956"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_dat_quo_acc.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 1
+                isInactive = false
+              }
+              workflowaction1170 = {
+                scriptid = "workflowaction1170"
+                field = "STDBODYLOCATION"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = "[ACCOUNT_SPECIFIC_VALUE]"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary__Main_@sjk = {
+                        name = "Subsidiary (Main)"
+                        value = "STDBODYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 2
+                isInactive = false
+              }
+            }
+          }
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            addbuttonaction = {
+              workflowaction957 = {
+                scriptid = "workflowaction957"
+                checkconditionbeforeexecution = true
+                label = "Quote Accepted"
+                saverecordfirst = true
+                initcondition = {
+                  formula = "\"User Role\" IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1184.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1185.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1189.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_hf_emea_salescrm.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1475.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_hfuk_csm.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_hfuk_bdm.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+            removebuttonaction = {
+              workflowaction1171 = {
+                scriptid = "workflowaction1171"
+                buttonid = "CREATESALESORD"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                initcondition = {
+                  formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\") AND isEmpty(\"Date Quote Accepted\") = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary__Main_@sjk = {
+                        name = "Subsidiary (Main)"
+                        value = "STDBODYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      Date_Quote_Accepted@s = {
+                        name = "Date Quote Accepted"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_hf_dat_quo_acc.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition431 = {
+              scriptid = "workflowtransition431"
+              buttonaction = netsuite.workflow.instance.customworkflow61.workflowstates.workflowstate.workflowstate233.workflowactions.BEFORELOAD.addbuttonaction.workflowaction957.scriptid
+              tostate = netsuite.workflow.instance.customworkflow61.workflowstates.workflowstate.workflowstate234.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 0
+            }
+          }
+        }
+        index = 0
+      }
+      workflowstate234 = {
+        scriptid = "workflowstate234"
+        donotexitworkflow = false
+        name = "State 2"
+        positionx = 693
+        positiony = 183
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldvalueaction = {
+              workflowaction958 = {
+                scriptid = "workflowaction958"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_fin_cha_pay.scriptid
+                schedulemode = "DELAY"
+                valuechecked = true
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction959 = {
+                scriptid = "workflowaction959"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_dat_quo_acc.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueformula = "{today}"
+                valuetype = "FORMULA"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 1
+                isInactive = false
+              }
+            }
+            sendemailaction = {
+              workflowaction960 = {
+                scriptid = "workflowaction960"
+                attachmenttype = "SPECIFIC"
+                body = "Hi,<br><br>The customer has accepted this quote {tranid}, and you may therefore chase the Proforma.<br><br>Thanks,"
+                includerecordlink = true
+                includetransaction = false
+                recipientemail = "ukaccounts@hydrafacial.com"
+                recipienttype = "ADDRESS"
+                schedulemode = "DELAY"
+                senderfield = "STDUSERUSER"
+                sendertype = "FIELD"
+                subject = "Customer Accepted Quote {tranid}"
+                usetemplate = false
+                initcondition = {
+                  formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary__Main_@sjk = {
+                        name = "Subsidiary (Main)"
+                        value = "STDBODYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1172 = {
+                scriptid = "workflowaction1172"
+                attachmenttype = "SPECIFIC"
+                body = "Hi,<br><br>The customer has accepted this quote {tranid}, and you may therefore chase the Proforma.<br><br>Thanks,"
+                includerecordlink = true
+                includetransaction = false
+                recipientemail = "kundenservice@hydrafacial.com"
+                recipienttype = "ADDRESS"
+                schedulemode = "DELAY"
+                senderfield = "STDUSERUSER"
+                sendertype = "FIELD"
+                subject = "Customer Accepted Quote {tranid}"
+                usetemplate = false
+                initcondition = {
+                  formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary__Main_@sjk = {
+                        name = "Subsidiary (Main)"
+                        value = "STDBODYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+            }
+          }
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            addbuttonaction = {
+              workflowaction961 = {
+                scriptid = "workflowaction961"
+                checkconditionbeforeexecution = true
+                label = "Quote Not Accepted"
+                saverecordfirst = true
+                initcondition = {
+                  formula = "\"User Role\" IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1184.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1185.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1189.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_hf_emea_salescrm.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1475.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition432 = {
+              scriptid = "workflowtransition432"
+              buttonaction = netsuite.workflow.instance.customworkflow61.workflowstates.workflowstate.workflowstate234.workflowactions.BEFORELOAD.addbuttonaction.workflowaction961.scriptid
+              tostate = netsuite.workflow.instance.customworkflow61.workflowstates.workflowstate.workflowstate233.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 0
+            }
+          }
+        }
+        index = 1
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | UK | Quote Accept-FinChase Payment"
+}

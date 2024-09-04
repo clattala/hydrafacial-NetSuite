@@ -1,0 +1,154 @@
+netsuite.workflow customworkflow_default_de_form_credmemo {
+  scriptid = "customworkflow_default_de_form_credmemo"
+  description = "Default Germany specific form"
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = true
+  initonvieworupdate = false
+  islogenabled = false
+  keephistory = "ALWAYS"
+  name = "HF | DE | Default DE Form-Credit Memo"
+  recordtypes = "CREDITMEMO"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        Subsidiary__Main_@sjk = {
+          name = "Subsidiary (Main)"
+          value = "STDBODYSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate325 = {
+        scriptid = "workflowstate325"
+        donotexitworkflow = false
+        name = "Set Default Form"
+        positionx = 243
+        positiony = 113
+        workflowactions = {
+          BEFOREUSEREDIT = {
+            triggertype = "BEFOREUSEREDIT"
+            setfieldvalueaction = {
+              workflowaction1408 = {
+                scriptid = "workflowaction1408"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDBODYCUSTOMFORM"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.transactionForm.instance.custform_hf_de_credit_memo.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          AFTERFIELDSOURCING = {
+            triggertype = "AFTERFIELDSOURCING"
+            setfieldvalueaction = {
+              workflowaction1407 = {
+                scriptid = "workflowaction1407"
+                clienttriggerfields = "STDBODYCUSTOMER"
+                clienttriggerfieldsissublistfield = false
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDBODYCUSTOMFORM"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.transactionForm.instance.custform_hf_de_credit_memo.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition560 = {
+              scriptid = "workflowtransition560"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_default_de_form_credmemo.workflowstates.workflowstate.workflowstate326.scriptid
+              initcondition = {
+                formula = "\"Custom Form\" IN (\"Transaction Form1\")"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Custom_Form@s = {
+                      name = "Custom Form"
+                      value = "STDBODYCUSTOMFORM"
+                    }
+                    Transaction_Form1@s = {
+                      name = "Transaction Form1"
+                      selectrecordtype = "-171"
+                      value = netsuite.transactionForm.instance.custform_hf_de_credit_memo.scriptid
+                    }
+                  }
+                }
+              }
+              index = 0
+            }
+          }
+        }
+        index = 0
+      }
+      workflowstate326 = {
+        scriptid = "workflowstate326"
+        donotexitworkflow = false
+        name = "Disable Custom Form"
+        positionx = 243
+        positiony = 223
+        workflowactions = {
+          BEFOREUSEREDIT = {
+            triggertype = "BEFOREUSEREDIT"
+            setdisplaytypeaction = {
+              workflowaction1409 = {
+                scriptid = "workflowaction1409"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                displaytype = "DISABLED"
+                field = "STDBODYCUSTOMFORM"
+                issublistfield = false
+                initcondition = {
+                  formula = "\"Custom Form\" IN (\"Transaction Form1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Custom_Form@s = {
+                        name = "Custom Form"
+                        value = "STDBODYCUSTOMFORM"
+                      }
+                      Transaction_Form1@s = {
+                        name = "Transaction Form1"
+                        selectrecordtype = "-171"
+                        value = netsuite.transactionForm.instance.custform_hf_de_credit_memo.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 1
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | DE | Default DE Form-Credit Memo"
+}

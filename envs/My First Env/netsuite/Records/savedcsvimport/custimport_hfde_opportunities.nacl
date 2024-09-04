@@ -1,0 +1,116 @@
+netsuite.savedcsvimport custimport_hfde_opportunities {
+  scriptid = "custimport_hfde_opportunities"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | DE | Opportunities"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "OPPORTUNITY"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_hf_de_opportunity.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      OPPORTUNITY = {
+        file = "OPPORTUNITY"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      OPPORTUNITY = {
+        record = "OPPORTUNITY"
+        fieldmappings = {
+          fieldmapping = {
+            custbody_hf_legacy_id = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_legacy_id.scriptid
+              columnreference = {
+                column = "Legacy ID"
+                file = "OPPORTUNITY"
+                type = "NAME"
+              }
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "Company : External ID"
+                file = "OPPORTUNITY"
+                type = "EXTERNAL_ID"
+              }
+            }
+            ENTITYSTATUS = {
+              field = "ENTITYSTATUS"
+              columnreference = {
+                column = "Status"
+                file = "OPPORTUNITY"
+                type = "NAME"
+              }
+            }
+            EXPECTEDCLOSEDATE = {
+              field = "EXPECTEDCLOSEDATE"
+              columnreference = {
+                column = "Expected Closed Date"
+                file = "OPPORTUNITY"
+                type = "NAME"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "External ID"
+                file = "OPPORTUNITY"
+                type = "NAME"
+              }
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "Details"
+                file = "OPPORTUNITY"
+                type = "NAME"
+              }
+            }
+            PROJECTEDTOTAL = {
+              field = "PROJECTEDTOTAL"
+              columnreference = {
+                column = "Projected Total"
+                file = "OPPORTUNITY"
+                type = "NAME"
+              }
+            }
+            TITLE = {
+              field = "TITLE"
+              columnreference = {
+                column = "Title"
+                file = "OPPORTUNITY"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "Date"
+                file = "OPPORTUNITY"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | DE | Opportunities"
+}

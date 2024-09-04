@@ -1,0 +1,49 @@
+netsuite.suitelet customscript_pk_cstmrprchagrmnt_sl {
+  scriptid = "customscript_pk_cstmrprchagrmnt_sl"
+  description = "Suitelet script for printing Customer Purchase Agreement."
+  name = "PK|CustomerPurchaseAgreement SL"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_Customer_Purchase_Agreement_suitelet_pk_hf_cstmrprchagrmnt_sl_js@dssddbbbv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_pk_prchagrmnt_tmpl = {
+        scriptid = "custscript_pk_prchagrmnt_tmpl"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Template- Cstmr Prch Agr"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = "-387"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_pk_cstmrprchagrmnt_sl = {
+        scriptid = "customdeploy_pk_cstmrprchagrmnt_sl"
+        allemployees = false
+        allpartners = false
+        allroles = true
+        custscript_pk_prchagrmnt_tmpl = netsuite.advancedpdftemplate.instance.custtmpl_404_6248126_sb3_827.scriptid
+        isdeployed = true
+        isonline = false
+        loglevel = "ERROR"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+        title = "PK|CustomerPurchaseAgreement SL"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "PK|CustomerPurchaseAgreement SL"
+}

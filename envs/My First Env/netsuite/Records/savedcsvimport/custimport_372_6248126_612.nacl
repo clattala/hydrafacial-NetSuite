@@ -1,0 +1,75 @@
+netsuite.savedcsvimport custimport_372_6248126_612 {
+  scriptid = "custimport_372_6248126_612"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_inventory_part_form.scriptid
+  ignorereadonly = true
+  importname = "HF | China Inv Intercompany Pricing"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVENTORYITEM"
+  runserversuitescript = false
+  usemultithread = true
+  validatemandatorycustfields = false
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVENTORYITEM = {
+        file = "INVENTORYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVENTORYITEM_ITEMVENDOR@f = {
+        record = "INVENTORYITEM:ITEMVENDOR"
+        fieldmappings = {
+          fieldmapping = {
+            PURCHASEPRICE = {
+              field = "PURCHASEPRICE"
+              columnreference = {
+                column = "China Price"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "5"
+            }
+            VENDOR = {
+              field = "VENDOR"
+              value = "25612"
+            }
+          }
+        }
+      }
+      INVENTORYITEM = {
+        record = "INVENTORYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | China Inv Intercompany Pricing"
+}

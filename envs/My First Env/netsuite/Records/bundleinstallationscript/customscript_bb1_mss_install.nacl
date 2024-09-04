@@ -1,0 +1,38 @@
+netsuite.bundleinstallationscript customscript_bb1_mss_install {
+  scriptid = "customscript_bb1_mss_install"
+  afterinstallfunction = "OneShipBundle_AfterInstall"
+  afterupdatefunction = "OneShipBundle_AfterUpdate"
+  beforeupdatefunction = "OneShipBundle_BeforeUpdate"
+  name = "BB1 OneShip - Bundle Installation"
+  notifyadmins = false
+  notifyemails = "remotelog@bluebridgeone.com"
+  notifyowner = true
+  scriptfile = "[/SuiteBundles/Bundle 277228/bb1_oneship_server.js]"
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_bb1_mss_install = {
+        scriptid = "customdeploy_bb1_mss_install"
+        isdeployed = true
+        loglevel = "AUDIT"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+        title = "BB1 OneShip - Bundle Installation"
+      }
+    }
+  }
+  libraries = {
+    library = [
+      {
+        scriptfile = "[/SuiteBundles/Bundle 277228/bb1_oneship_library.js]"
+      },
+      {
+        scriptfile = "[/SuiteBundles/Bundle 277228/bb1_qz_library/libs/moment.js]"
+      },
+      {
+        scriptfile = "[/SuiteBundles/Bundle 277228/bb1_qz_library/libs/moment-timezone.js]"
+      },
+    ]
+  }
+  isInactive = false
+  _alias = "BB1 OneShip - Bundle Installation"
+}

@@ -1,0 +1,156 @@
+netsuite.savedcsvimport custimport_hf_us_service_pos {
+  scriptid = "custimport_hf_us_service_pos"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | US | SERVICE POs"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "PURCHASEORDER"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_328_6248126_sb1_516.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      PURCHASEORDER = {
+        file = "PURCHASEORDER"
+        primarykey = "DocNum"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      PURCHASEORDER = {
+        record = "PURCHASEORDER"
+        fieldmappings = {
+          fieldmapping = {
+            APPROVALSTATUS = {
+              field = "APPROVALSTATUS"
+              value = "1"
+            }
+            CURRENCY = {
+              field = "CURRENCY"
+              value = "1"
+            }
+            DUEDATE = {
+              field = "DUEDATE"
+              columnreference = {
+                column = "HeaderShip"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "VendorID"
+                file = "PURCHASEORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "DocNum"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "Memo"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            OTHERREFNUM = {
+              field = "OTHERREFNUM"
+              columnreference = {
+                column = "VendorPO"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            TERMS = {
+              field = "TERMS"
+              columnreference = {
+                column = "Terms"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "DocDate"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            TRANID = {
+              field = "TRANID"
+              columnreference = {
+                column = "DocNum"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      PURCHASEORDER_EXPENSE@f = {
+        record = "PURCHASEORDER:EXPENSE"
+        fieldmappings = {
+          fieldmapping = {
+            ACCOUNT = {
+              field = "ACCOUNT"
+              columnreference = {
+                column = "AccountID"
+                file = "PURCHASEORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            AMOUNT = {
+              field = "AMOUNT"
+              columnreference = {
+                column = "Amount"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            custcol_exp_description = {
+              field = netsuite.transactioncolumncustomfield.instance.custcol_exp_description.scriptid
+              columnreference = {
+                column = "Description"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            LINE = {
+              field = "LINE"
+              columnreference = {
+                column = "Line"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | US | SERVICE POs"
+}

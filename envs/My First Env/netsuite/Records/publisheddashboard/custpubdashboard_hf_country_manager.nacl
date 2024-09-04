@@ -1,0 +1,310 @@
+netsuite.publisheddashboard custpubdashboard_hf_country_manager {
+  scriptid = "custpubdashboard_hf_country_manager"
+  center = netsuite.center.instance.custcenter_hf_sales_team.scriptid
+  locknewbar = false
+  lockshortcuts = false
+  name = "Country Manager"
+  roles = {
+    role = [
+      {
+        role = netsuite.role.instance.customrole_hfde_ctry_mgr.scriptid
+      },
+    ]
+  }
+  dashboards = {
+    dashboard = [
+      {
+        centertab = "BASICCENTERSUPPORT"
+        layout = "TWO_COLUMN"
+        mode = "UNLOCKED"
+        leftcolumn = {
+          quicksearch = [
+            {
+              defaultgeneraltype = "ENTITY_ENTITY_NAME"
+              isminimized = false
+              searchtype = "GENERIC"
+            },
+          ]
+          settings = [
+            {
+              isminimized = false
+            },
+          ]
+        }
+        centercolumn = {
+          tasklinks = [
+            {
+              isminimized = false
+            },
+          ]
+        }
+      },
+      {
+        centertab = "BASICCENTERACTIVITIES"
+        layout = "TWO_COLUMN"
+        mode = "UNLOCKED"
+        leftcolumn = {
+          calendar = [
+            {
+              isminimized = false
+              numberofrecordsinagenda = 7
+              recordstodisplayinagenda = "TODAY_ONLY"
+              showblockingcalls = true
+              showblockingtasks = true
+              showcampaignevents = false
+              showcanceledevents = false
+              showevents = true
+              shownonblockingcalls = true
+              shownonblockingtasks = true
+              showresourceallocations = false
+              showweekendsinmonthlyview = true
+            },
+          ]
+          quicksearch = [
+            {
+              defaultgeneraltype = "ACTIVITY"
+              isminimized = false
+              searchtype = "GENERIC"
+            },
+          ]
+          tasklinks = [
+            {
+              isminimized = false
+            },
+          ]
+          settings = [
+            {
+              isminimized = false
+            },
+          ]
+        }
+        centercolumn = {
+          calendar = [
+            {
+              isminimized = false
+              numberofrecordsinagenda = 7
+              recordstodisplayinagenda = "TODAY_ONLY"
+              showblockingcalls = true
+              showblockingtasks = true
+              showcampaignevents = false
+              showcanceledevents = false
+              showevents = true
+              shownonblockingcalls = true
+              shownonblockingtasks = true
+              showresourceallocations = false
+              showweekendsinmonthlyview = true
+            },
+          ]
+          list = [
+            {
+              allowinlineediting = true
+              isminimized = false
+              size = 10
+              type = "TASK"
+            },
+            {
+              allowinlineediting = true
+              isminimized = false
+              size = 10
+              type = "CALL"
+            },
+          ]
+          scheduler = [
+            {
+              isminimized = false
+            },
+          ]
+        }
+      },
+      {
+        centertab = netsuite.centertab.instance.custcentertab_hf_sales_crm.scriptid
+        layout = "TWO_COLUMN"
+        mode = "UNLOCKED"
+      },
+      {
+        centertab = "BASICCENTERHOMEHOME"
+        layout = "TWO_COLUMN"
+        mode = "UNLOCKED"
+        leftcolumn = {
+          shortcuts = [
+            {
+              isminimized = false
+            },
+          ]
+          kpimeter = [
+            {
+              isminimized = false
+              kpi = "ACTUAL_VS_QUOTA"
+            },
+            {
+              isminimized = false
+              kpi = "ACTUAL_VS_FORECAST"
+            },
+          ]
+          enhsnapshots = [
+            {
+              backgroundtype = "GLOBAL_BACKGROUND"
+              charttheme = "MATCH_COLOR_THEME_LIGHT"
+              charttype = "AREA"
+              custom = "F"
+              daterange = "THIS_FISCAL_QUARTER"
+              graphlayout = "COLUMN"
+              hierarchylevel = "3"
+              isgraph = "T"
+              isminimized = false
+              listtopx = "TOP_10"
+              orderdesc = "T"
+              snapshot = "ITEM_SALES_QUANTITY"
+              topx = "TOP_10"
+            },
+            {
+              backgroundtype = "lines"
+              charttheme = "MATCH_COLOR_THEME_LIGHT"
+              charttype = "AREA"
+              custom = "F"
+              daterange = "THIS_MONTH"
+              graphlayout = "COLUMN"
+              hierarchylevel = "3"
+              isgraph = "T"
+              isminimized = false
+              listtopx = "TOP_15"
+              orderdesc = "T"
+              periodrange = "THIS_PERIOD"
+              snapshot = "FORECAST_STATUS"
+              topx = "TOP_15"
+            },
+          ]
+          reminders = [
+            {
+              isminimized = false
+              showzeroresults = false
+              other = {
+                reminder = [
+                  {
+                    id = "ESTIMATESTOPRINT"
+                  },
+                ]
+              }
+            },
+          ]
+          settings = [
+            {
+              isminimized = false
+            },
+          ]
+        }
+        centercolumn = {
+          customportlet = [
+            {
+              isminimized = false
+              source = "[scriptid=customscript_snav_portlet.customdeploy_snav_portlet]"
+            },
+          ]
+          customsearch = [
+            {
+              allowinlineediting = false
+              backgroundtype = "GLOBAL_BACKGROUND"
+              charttheme = "GLOBAL_THEME"
+              drilldown = "IN_PORTLET"
+              isminimized = false
+              resultssize = 10
+              savedsearch = "[scriptid=customsearch_hf_emea_forecast_processing]"
+            },
+            {
+              allowinlineediting = true
+              backgroundtype = "GLOBAL_BACKGROUND"
+              charttheme = "GLOBAL_THEME"
+              drilldown = "NEW_PAGE"
+              isminimized = false
+              resultssize = 100
+              savedsearch = netsuite.savedsearch.instance.customsearch_sales_sw_at.scriptid
+            },
+            {
+              allowinlineediting = false
+              backgroundtype = "GLOBAL_BACKGROUND"
+              charttheme = "GLOBAL_THEME"
+              drilldown = "IN_PORTLET"
+              isminimized = false
+              resultssize = 100
+              savedsearch = "[scriptid=customsearch_hf_de_lead_conversion]"
+            },
+          ]
+          kpireport = [
+            {
+              isminimized = false
+              orientation = "KPIs on Left"
+              reportid = "QUOTE AND SALES"
+              restrict = "All"
+              showdates = false
+              trend = true
+            },
+          ]
+          keyperformanceindicators = [
+            {
+              cacheddata = false
+              isminimized = false
+              kpis = {
+                kpi = [
+                  {
+                    compare = true
+                    comparedaterange = "LAST_WEEK"
+                    daterange = "THIS_WEEK"
+                    headline = false
+                    kpi = "NEWLEADS"
+                  },
+                  {
+                    compare = true
+                    comparedaterange = "LAST_MONTH"
+                    daterange = "THIS_MONTH"
+                    headline = false
+                    kpi = "ESTIMATESRANGE"
+                  },
+                  {
+                    compare = true
+                    comparedaterange = "LAST_MONTH_TO_DATE"
+                    daterange = "THIS_MONTH"
+                    headline = false
+                    kpi = "FORECAST"
+                  },
+                  {
+                    compare = true
+                    comparedaterange = "SAME_MONTH_LAST_FISCAL_QUARTER_TO_DATE"
+                    compareperiodrange = "LAST_PERIOD"
+                    daterange = "THIS_MONTH"
+                    headline = false
+                    kpi = "NEWCUSTOMERS"
+                    periodrange = "THIS_PERIOD"
+                  },
+                  {
+                    compare = true
+                    comparedaterange = "SAME_MONTH_LAST_FISCAL_QUARTER_TO_DATE"
+                    daterange = "THIS_MONTH"
+                    headline = false
+                    kpi = "OPPORTUNITIESWON"
+                  },
+                  {
+                    compare = true
+                    comparedaterange = "SAME_MONTH_LAST_FISCAL_QUARTER_TO_DATE"
+                    compareperiodrange = "LAST_PERIOD"
+                    daterange = "THIS_MONTH"
+                    headline = false
+                    kpi = "SALES"
+                    periodrange = "THIS_PERIOD"
+                  },
+                  {
+                    compare = true
+                    comparedaterange = "LAST_MONTH"
+                    daterange = "THIS_MONTH"
+                    headline = false
+                    kpi = "QUOTA"
+                  },
+                ]
+              }
+            },
+          ]
+        }
+      },
+    ]
+  }
+  _alias = "Country Manager"
+}

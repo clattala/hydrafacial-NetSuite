@@ -1,0 +1,34 @@
+netsuite.mapreducescript customscript_hf_mr_invoice_automation {
+  scriptid = "customscript_hf_mr_invoice_automation"
+  description = "Invoice Automation"
+  name = "HF | MR | Invoice Automation"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_hf_mr_invoice_automation_js@duuuv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_mr_invoice_automation = {
+        scriptid = "customdeploy_hf_mr_invoice_automation"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | MR | Invoice Automation"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            repeat = "PT30M"
+            startdate = "2022-04-07"
+            starttime = "14:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | MR | Invoice Automation"
+}

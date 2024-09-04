@@ -1,0 +1,95 @@
+netsuite.savedcsvimport custimport_jg_openingbalanceload_de {
+  scriptid = "custimport_jg_openingbalanceload_de"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "JG|Opening Balance Load - DE"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "JOURNALENTRY"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_331_6248126_sb1_993.scriptid
+  usemultithread = false
+  validatemandatorycustfields = false
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      JOURNALENTRY = {
+        file = "JOURNALENTRY"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      JOURNALENTRY = {
+        record = "JOURNALENTRY"
+        fieldmappings = {
+          fieldmapping = {
+            MEMO = {
+              field = "MEMO"
+              value = "Opening Balance 2022-10-31"
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "6"
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              value = "11/15/2022"
+            }
+          }
+        }
+      }
+      JOURNALENTRY_LINE@f = {
+        record = "JOURNALENTRY:LINE"
+        fieldmappings = {
+          fieldmapping = {
+            ACCOUNT = {
+              field = "ACCOUNT"
+              columnreference = {
+                column = "Internal ID"
+                file = "JOURNALENTRY"
+                type = "INTERNAL_ID"
+              }
+            }
+            CREDIT = {
+              field = "CREDIT"
+              columnreference = {
+                column = "Credit"
+                file = "JOURNALENTRY"
+                type = "NAME"
+              }
+            }
+            DEBIT = {
+              field = "DEBIT"
+              columnreference = {
+                column = "Debit"
+                file = "JOURNALENTRY"
+                type = "NAME"
+              }
+            }
+            LINE = {
+              field = "LINE"
+              columnreference = {
+                column = "Line"
+                file = "JOURNALENTRY"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "JG|Opening Balance Load - DE"
+}

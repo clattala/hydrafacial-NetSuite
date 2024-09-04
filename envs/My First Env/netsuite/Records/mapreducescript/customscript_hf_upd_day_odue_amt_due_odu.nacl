@@ -1,0 +1,50 @@
+netsuite.mapreducescript customscript_hf_upd_day_odue_amt_due_odu {
+  scriptid = "customscript_hf_upd_day_odue_amt_due_odu"
+  name = "HF | US | Update Days Overdue-Amt Due-Ov"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_hf_mr_update_days_overdue_amont_due_overdue_invoice_js@duuuuuuuuv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploynewdep = {
+        scriptid = "customdeploynewdep"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | US | Update Days Overdue-Amt Due-Ov 2"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2023-10-17"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+      customdeploy_hf_upd_day_odue_amt_due_odu = {
+        scriptid = "customdeploy_hf_upd_day_odue_amt_due_odu"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | US | Update Days Overdue-Amt Due-Ov"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            startdate = "2023-07-10"
+            starttime = "08:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | US | Update Days Overdue-Amt Due-Ov"
+}

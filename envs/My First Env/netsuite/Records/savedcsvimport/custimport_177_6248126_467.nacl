@@ -1,0 +1,70 @@
+netsuite.savedcsvimport custimport_177_6248126_467 {
+  scriptid = "custimport_177_6248126_467"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  customrecord = netsuite.customrecord_sc_work_order_create.attr.scriptid
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Update the customer Work order BOM quantity. The CSV file needs customer work order internal ID and WO quantity values only"
+  entryform = netsuite.entryForm.instance.custform_626_6248126_578.scriptid
+  ignorereadonly = true
+  importname = "HF | WO Quantity Update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "CUSTOMRECORD"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMRECORD = {
+        file = "CUSTOMRECORD"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMRECORD = {
+        record = "CUSTOMRECORD"
+        fieldmappings = {
+          fieldmapping = {
+            customrecord_sc_work_order_create_custrecord_sc_work_order_item_qty@uuuuvuuuuu = {
+              field = netsuite.customrecord_sc_work_order_create.field.custom_custrecord_sc_work_order_item_qty.scriptid
+              columnreference = {
+                column = "Item Quantity"
+                file = "CUSTOMRECORD"
+                type = "NAME"
+              }
+            }
+            customrecord_sc_work_order_create_custrecord_update_work_order@uuuuvuuu = {
+              field = netsuite.customrecord_sc_work_order_create.field.custom_custrecord_update_work_order.scriptid
+              value = "T"
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "CUSTOMRECORD"
+                type = "NAME"
+              }
+            }
+            ISINACTIVE = {
+              field = "ISINACTIVE"
+              value = "F"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | WO Quantity Update"
+}

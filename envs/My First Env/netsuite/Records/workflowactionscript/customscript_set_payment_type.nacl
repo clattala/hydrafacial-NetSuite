@@ -1,0 +1,25 @@
+netsuite.workflowactionscript customscript_set_payment_type {
+  scriptid = "customscript_set_payment_type"
+  description = "This script sources ship payment type from customer and sets on sales order for US subsidiary on before submit, if ship payment type is blank"
+  name = "HF_WA_payment_type"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_WA_payment_type_js@duuuv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_set_payment_type = {
+        scriptid = "customdeploy_set_payment_type"
+        allemployees = false
+        allpartners = false
+        allroles = false
+        isdeployed = true
+        loglevel = "DEBUG"
+        recordtype = "SALESORDER"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF_WA_payment_type"
+}

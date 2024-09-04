@@ -1,0 +1,79 @@
+netsuite.savedcsvimport custimport_144_6248126_222 {
+  scriptid = "custimport_144_6248126_222"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "UK Sales Tax Update (SO)"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "SALESORDER"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_hydrafacial_sales_order_1.scriptid
+  usemultithread = false
+  validatemandatorycustfields = false
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      SALESORDER = {
+        file = "SALESORDER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      SALESORDER = {
+        record = "SALESORDER"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "SO Internal ID"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              value = "12"
+            }
+            TOBEEMAILED = {
+              field = "TOBEEMAILED"
+              value = "F"
+            }
+          }
+        }
+      }
+      SALESORDER_ITEM@f = {
+        record = "SALESORDER:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            LINE = {
+              field = "LINE"
+              columnreference = {
+                column = "Line ID"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            TAXCODE = {
+              field = "TAXCODE"
+              value = "3116"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "UK Sales Tax Update (SO)"
+}

@@ -1,0 +1,274 @@
+netsuite.savedsearch customsearch_hf_pricing_group_med_js {
+  scriptid = "customsearch_hf_pricing_group_med_js"
+  dependencies = {
+    dependency = [
+      "[scriptid=custitem_atlas_item_planner]",
+      netsuite.itemcustomfield.instance.custitem_hf_abc_class.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_commproperty.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_decimals.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_expires.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_freightdesc.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_holdcode.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_itemgroup.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_mainbuyer.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_parentitem.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_revision.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_tariffcode.scriptid,
+      "[scriptid=custitem_sps_item_synch]",
+      netsuite.customlist.instance.customlist_hf_commprop_list.scriptid,
+      "[scriptid=customrecord_atlas_item_planner]",
+      netsuite.customrecord_cseg_atlas_hb_slchn.attr.scriptid,
+      netsuite.customrecord_cseg_hf_project.attr.scriptid,
+      netsuite.customrecord_hf_itemgroup.attr.scriptid,
+      "[type=itemcustomfield, scriptid=cseg_atlas_hb_slchn]",
+      "[type=itemcustomfield, scriptid=cseg_hf_project]",
+    ]
+  }
+  definition = "7c6eb33c2688f4db8cd16dc48e21f01410610a9fdf50bd0ab3d5a26f315a9554@GZC@2024.1.16@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"
+  search_filter = [
+    {
+      FLAG_DATE_TIME_SECOND = false
+      FLAG_FROM_AVAILABLE_FILTER = false
+      FLAG_NOT = false
+      FLAG_OR = false
+      FIELD_OR_CLAUSE_STATUS = "N"
+      FIELD_NUM_LEFT_PARENS = 0
+      FIELD_NUM_RIGHT_PARENS = 0
+      FIELD_FILTER_NAME = "Item_TYPE"
+      FIELD_ATTRIBUTE = "ANYOF"
+      FIELD_TYPE = "SELECT"
+      RECORDS = [
+        {
+          KEY_ID = 0
+          FIELD_VALUE = "NonInvtPart"
+        },
+      ]
+    },
+    {
+      FLAG_DATE_TIME_SECOND = false
+      FLAG_FROM_AVAILABLE_FILTER = false
+      FLAG_NOT = false
+      FLAG_OR = false
+      FIELD_OR_CLAUSE_STATUS = "N"
+      FIELD_NUM_LEFT_PARENS = 0
+      FIELD_NUM_RIGHT_PARENS = 0
+      FIELD_FILTER_NAME = "Item_NAME"
+      FIELD_ATTRIBUTE = "STARTSWITH"
+      FIELD_TYPE = "TEXT"
+      RECORDS = [
+        {
+          KEY_ID = 0
+          FIELD_VALUE = "JUMPSTART"
+        },
+      ]
+    },
+    {
+      FLAG_DATE_TIME_SECOND = false
+      FLAG_FROM_AVAILABLE_FILTER = false
+      FLAG_NOT = false
+      FLAG_OR = false
+      FIELD_OR_CLAUSE_STATUS = "N"
+      FIELD_NUM_LEFT_PARENS = 0
+      FIELD_NUM_RIGHT_PARENS = 0
+      FIELD_FILTER_NAME = "Item_NAME"
+      FIELD_ATTRIBUTE = "DOESNOTCONTAIN"
+      FIELD_TYPE = "TEXT"
+      RECORDS = [
+        {
+          KEY_ID = 0
+          FIELD_VALUE = "22"
+        },
+      ]
+    },
+  ]
+  return_fields = [
+    {
+      FIELD_ALIAS = "Item_NAME"
+      FIELD_INDEX = 1
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Item_DISPLAYNAME"
+      FIELD_INDEX = 2
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Item_DESCRIPTION"
+      FIELD_INDEX = 3
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Item_TYPE"
+      FIELD_INDEX = 4
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Item_PRICE"
+      FIELD_INDEX = 5
+      FIELD_FORMULA_ERROR = false
+    },
+  ]
+  detail_fields = [
+    {
+      FIELD_ALIAS = "Item_NAME"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Item_DISPLAYNAME"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Item_DESCRIPTION"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Item_TYPE"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Item_PRICE"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_ATLAS_ITEM_PLANNER"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_TARIFFCODE"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_COMMPROPERTY"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_FREIGHTDESC"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_REVISION"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_ITEMGROUP"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_MAINBUYER"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_PARENTITEM"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_ABC_CLASS"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_HOLDCODE"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_EXPIRES"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_DECIMALS"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_SPS_ITEM_SYNCH"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_CSEG_ATLAS_HB_SLCHN"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_CSEG_HF_PROJECT"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+  ]
+  sort_columns = [
+    {
+      KEY_FIELD = "Item_NAME"
+      FILELD_ORDER = 1
+      FLAG_DESCENDING = false
+    },
+  ]
+  audience = {
+    FLAG_AUDIENCE_ALL_CUSTOMERS = false
+    FLAG_AUDIENCE_ALL_EMPLOYEES = false
+    FLAG_AUDIENCE_ALL_PARTNERS = false
+    FLAG_AUDIENCE_ALL_ROLES = true
+    FLAG_AUDIENCE_ALL_VENDORS = false
+  }
+  KEY_SCRIPT_ID = "customsearch_hf_pricing_group_med_js"
+  FIELD_DEFAULT_NAME = "[PRICING GROUP] Medical US + CA Jumpstart Items"
+  FIELD_SEARCH_TYPE = "Item"
+  FLAG_PUBLIC = true
+  FLAG_LIST = false
+  FLAG_PORTLET = false
+  FLAG_MACHINE = false
+  FLAG_REMINDER = false
+  FLAG_SHOW_LINK = false
+  FLAG_PREFERRED_LIST = false
+  FLAG_PREFERRED_PORTLET = false
+  FLAG_PREFERRED_MACHINE = false
+  FLAG_PREFERRED_FORM = false
+  FLAG_PREFERRED_RESULTS = false
+  FLAG_VIEW_AS_REPORT = false
+  FLAG_VIEW_AS_GRAPH = false
+  FLAG_VIEW_AS_GRID = false
+  FLAG_UNRESTRICTED = false
+  FLAG_DISABLE_DRILL_DOWN = false
+  FLAG_HIDE_FILTER_DROPDOWNS = false
+  KEY_DEFAULT_TEXT_FIELD_FILTER = "STARTSWITH"
+  FLAG_AVAILABLE_AS_FEED = false
+  FLAG_GLOBAL_EDIT = false
+  FLAG_CSV = false
+  FLAG_EXCEL = false
+  FLAG_PDF = false
+  FLAG_TRIGGERED_ALERT = false
+  FLAG_SCHEDULED_ALERT = false
+  FLAG_SCHEDULED_ALERT_SUMMARIES = false
+  FLAG_SEND_EMPTY_RESULTS = false
+  FLAG_ALERT_ALLOW_SUBSCRIBE = false
+  FLAG_ALERT_INCLUDE_VIEW_LINK = true
+  FLAG_HAS_TOTALS = false
+  FLAG_INCLUDE_PERIOD_END_TRANSACTIONS = false
+  FLAG_BUILT_IN = false
+  FLAG_SEND_ON_UPDATE = false
+  FLAG_SHOW_AUDIT_TRAIL = false
+  KEY_AUDIENCE = 0
+  _generated_dependencies = [
+    {
+      reference = netsuite.customsegment.instance.cseg_atlas_hb_slchn.scriptid
+    },
+    {
+      reference = netsuite.customsegment.instance.cseg_hf_project.scriptid
+    },
+  ]
+  _alias = "[PRICING GROUP] Medical US + CA Jumpstart Items"
+}

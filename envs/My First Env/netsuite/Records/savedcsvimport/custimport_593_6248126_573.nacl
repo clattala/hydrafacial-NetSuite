@@ -1,0 +1,75 @@
+netsuite.savedcsvimport custimport_593_6248126_573 {
+  scriptid = "custimport_593_6248126_573"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_inventory_part_form.scriptid
+  ignorereadonly = true
+  importname = "sai"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVENTORYITEM"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVENTORYITEM = {
+        file = "INVENTORYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVENTORYITEM_ITEMVENDOR@f = {
+        record = "INVENTORYITEM:ITEMVENDOR"
+        fieldmappings = {
+          fieldmapping = {
+            PREFERREDVENDOR = {
+              field = "PREFERREDVENDOR"
+              columnreference = {
+                column = "Preferred"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            VENDOR = {
+              field = "VENDOR"
+              columnreference = {
+                column = "Vendor Internal"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVENTORYITEM = {
+        record = "INVENTORYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ITEMID = {
+              field = "ITEMID"
+              columnreference = {
+                column = "PART NUMBER (NUMBERS ONLY)"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "sai"
+}

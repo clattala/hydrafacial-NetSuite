@@ -1,0 +1,61 @@
+netsuite.savedcsvimport custimport_367_6248126_396 {
+  scriptid = "custimport_367_6248126_396"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "This template is used for updating Invoice Address in order to have correct PDF templates"
+  ignorereadonly = true
+  importname = "DE | Update Invoice Address"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVOICE"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_hf_de_invoice.scriptid
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVOICE = {
+        file = "INVOICE"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVOICE = {
+        record = "INVOICE"
+        fieldmappings = {
+          fieldmapping = {
+            custbody_hf_de_invoice_address = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_de_invoice_address.scriptid
+              columnreference = {
+                column = "Invoice Address"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "DE | Update Invoice Address"
+}

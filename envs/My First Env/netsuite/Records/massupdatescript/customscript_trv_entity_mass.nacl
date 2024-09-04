@@ -1,0 +1,26 @@
+netsuite.massupdatescript customscript_trv_entity_mass {
+  scriptid = "customscript_trv_entity_mass"
+  description = "Touches each record to trigger scripting."
+  name = "HF | Entity | Mass Update"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_trevera_entityMassUpdate_js@ddv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_trv_entity_mass = {
+        scriptid = "customdeploy_trv_entity_mass"
+        allemployees = false
+        allpartners = false
+        allroles = true
+        isdeployed = true
+        loglevel = "AUDIT"
+        recordtype = "CUSTOMER"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Entity | Mass Update"
+}

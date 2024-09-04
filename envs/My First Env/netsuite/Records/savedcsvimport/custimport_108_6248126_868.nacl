@@ -1,0 +1,138 @@
+netsuite.savedcsvimport custimport_108_6248126_868 {
+  scriptid = "custimport_108_6248126_868"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "Spain AR Import - Old Invoices"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVOICE"
+  runserversuitescript = true
+  transactionform = "[scriptid=custform_225_6248126_sb1_191]"
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVOICE = {
+        file = "INVOICE"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVOICE_ITEM@f = {
+        record = "INVOICE:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              value = "1"
+            }
+            RATE = {
+              field = "RATE"
+              columnreference = {
+                column = "Rate/Balance"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVOICE = {
+        record = "INVOICE"
+        fieldmappings = {
+          fieldmapping = {
+            ACCOUNT = {
+              field = "ACCOUNT"
+              value = "119"
+            }
+            APPROVALSTATUS = {
+              field = "APPROVALSTATUS"
+              value = "2"
+            }
+            CURRENCY = {
+              field = "CURRENCY"
+              value = "4"
+            }
+            DUEDATE = {
+              field = "DUEDATE"
+              columnreference = {
+                column = "Due Date"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "Customer Ref"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "External ID"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              value = "20"
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "Invoice No/. Memo"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            OTHERREFNUM = {
+              field = "OTHERREFNUM"
+              columnreference = {
+                column = "PO #"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            POSTINGPERIOD = {
+              field = "POSTINGPERIOD"
+              value = "54"
+            }
+            TERMS = {
+              field = "TERMS"
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              value = "1/1/2021"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Spain AR Import - Old Invoices"
+}

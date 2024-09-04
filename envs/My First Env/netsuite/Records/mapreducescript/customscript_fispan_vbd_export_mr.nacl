@@ -1,0 +1,66 @@
+netsuite.mapreducescript customscript_fispan_vbd_export_mr {
+  scriptid = "customscript_fispan_vbd_export_mr"
+  name = "Entity Bank Details, Export Process"
+  notifyadmins = false
+  notifyowner = false
+  scriptfile = "[/SuiteBundles/Bundle 323878/com.fispan.vbd/backup/map-reduce-export.js]"
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_fispan_vbd_export_jobid = {
+        scriptid = "custscript_fispan_vbd_export_jobid"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "Job Id"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+      custscript_fispan_vbd_export_entitytype = {
+        scriptid = "custscript_fispan_vbd_export_entitytype"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "Entity Type"
+        searchlevel = "2"
+        storevalue = true
+        index = 1
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_fispan_vbd_export_mr = {
+        scriptid = "customdeploy_fispan_vbd_export_mr"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "Vendor Bank Details, Export Process"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2021-07-09"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  bundle = netsuite.bundle.instance.bundle_323878
+  _alias = "Entity Bank Details, Export Process"
+}

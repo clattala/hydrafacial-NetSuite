@@ -1,0 +1,32 @@
+netsuite.massupdatescript customscript_a1w_dlq_clear {
+  scriptid = "customscript_a1w_dlq_clear"
+  description = "Clears the download queue of all records. WARNING: THIS MUST BE USED WITH EXTREME CAUTION AS TO NOT DISRUPT DOCUMENT SYNC WITH A1WAREHOUSE."
+  name = "Warehouse Edge Clear Download Queue"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = "[/SuiteBundles/Bundle 279187/DLQClearMU.js]"
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_a1w_dlq_clear = {
+        scriptid = "customdeploy_a1w_dlq_clear"
+        allemployees = false
+        allpartners = false
+        allroles = false
+        audslctrole = "ADMINISTRATOR|[scriptid=customrole_aw1ms_integration]"
+        isdeployed = true
+        loglevel = "DEBUG"
+        recordtype = netsuite.customrecord_a1wms_dnloadqueue.attr.scriptid
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _generated_dependencies = [
+    {
+      reference = netsuite.role.instance.customrole_aw1ms_integration.scriptid
+    },
+  ]
+  _alias = "Warehouse Edge Clear Download Queue"
+}

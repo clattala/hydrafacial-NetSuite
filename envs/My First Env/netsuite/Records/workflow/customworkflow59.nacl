@@ -1,0 +1,90 @@
+netsuite.workflow customworkflow59 {
+  scriptid = "customworkflow59"
+  description = "A workflow to automatically approve sales invoices for all subs that aren't APAC, and disable the 'Approval Status' field to prevent manual manipulation."
+  initoncreate = true
+  initonvieworupdate = false
+  islogenabled = true
+  keephistory = "ALWAYS"
+  name = "HF | GBL | Auto Approve Non-APAC Invoice"
+  recordtypes = "INVOICE"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    type = "VISUAL_BUILDER"
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate227 = {
+        scriptid = "workflowstate227"
+        donotexitworkflow = false
+        name = "Auto Approve Sales Invoices"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            setdisplaytypeaction = {
+              workflowaction909 = {
+                scriptid = "workflowaction909"
+                displaytype = "DISABLED"
+                field = "STDBODYAPPROVALSTATUS"
+                issublistfield = false
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          BEFORESUBMIT = {
+            triggertype = "BEFORESUBMIT"
+            setfieldvalueaction = {
+              workflowaction910 = {
+                scriptid = "workflowaction910"
+                eventtypes = "CREATE"
+                field = "STDBODYAPPROVALSTATUS"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = "2"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Subsidiary (Main)\" NOT IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\",\"{#Subsidiary#}3\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary__Main_@sjk = {
+                        name = "Subsidiary (Main)"
+                        value = "STDBODYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__2@_00123nn_00125 = {
+                        name = "{#Subsidiary#}2"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__3@_00123nn_00125 = {
+                        name = "{#Subsidiary#}3"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | GBL | Auto Approve Non-APAC Invoice"
+}

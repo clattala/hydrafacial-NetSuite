@@ -1,0 +1,104 @@
+<a href="https://www.hydrafacial.com/"><img src="https://www.hydrafacial.store/site/images/NetSuiteEmails_Emails_Shipping-Confirmation_header_v1.jpg" /></a>
+<table style="width: 884.6px;">
+<tbody>
+	<tr>
+	<td style="width: 875px;">
+	<table style="width: 876.6px;">
+	<tbody>
+		<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		</tr>
+		<tr>
+		<td colspan="2">
+		<table style="width: 860.6px;">
+		<tbody>
+			<tr>
+			<td style="width: 851px;">
+			<table style="width: 853.6px;">
+			<tbody>
+				<tr>
+				<td style="width: 844px;">
+				<p>Your order number:&nbsp;${transaction.createdfrom?remove_beginning("Sales Order #")}<br />
+				<br />
+				Won't be long now! Your order has shipped and will be delivered soon to:<br />
+				<br />
+				${transaction.shipAddress}</p>
+				</td>
+				</tr>
+			</tbody>
+			</table>
+			<br />
+			Delivery Method: ${transaction.shipMethod}<br />
+			<br />
+			Tracking information: <!--
+              <a href="${transaction.trackingLink}">${transaction.linkedtrackingnumbers}</a>
+			--> <!-- Commented by clattala
+			<#if (transaction.trackingLink)?has_content> <#if (transaction.custbody_trv_fulfillment_method_name)?contains("UPS")> <a href="https://www.ups.com/track?tracknum=" style="color: #087ca6; text-decoration: none;">${transaction.linkedtrackingnumbers} </a> </#if> <#if (transaction.custbody_trv_fulfillment_method_name)?contains("FedEx")> <a href="https://www.fedex.com/fedextrack/?trknbr=" style="color: #087ca6; text-decoration: none;">${transaction.linkedtrackingnumbers} </a> </#if> <#if (transaction.custbody_hf_ship_service_desc)?contains("DHL")> <a href="https://www.dhl.com/en/express/tracking.html?AWB=" style="color: #087ca6; text-decoration: none;">${transaction.linkedtrackingnumbers} </a> </#if> </#if>
+   --> <#list transaction.package as pkg> <#if (transaction.custbody_trv_fulfillment_method_name)?contains("UPS")> <a href="https://www.ups.com/track?tracknum=${pkg.packagetrackingnumber}" style="color: #087ca6; text-decoration: none;">${pkg.packagetrackingnumber} </a> </#if> </#list> <#list transaction.package as pkg> <#if (transaction.custbody_trv_fulfillment_method_name)?contains("FedEx")> <a href="https://www.fedex.com/fedextrack/?trknbr=${pkg.packagetrackingnumber}" style="color: #087ca6; text-decoration: none;">${pkg.packagetrackingnumber} </a> </#if> </#list> <#list transaction.package as pkg> <#if (transaction.custbody_trv_fulfillment_method_name)?contains("DHL")> <a href="https://www.dhl.com/en/express/tracking.html?AWB=${pkg.packagetrackingnumber}" style="color: #087ca6; text-decoration: none;">${pkg.packagetrackingnumber} </a> </#if> </#list>
+
+			<table style="width: 854px;">
+			<tbody>
+				<tr>
+				<td>
+				<p><br />
+				<strong>Shipped Items:</strong></p>
+				</td>
+				</tr>
+			</tbody>
+			</table>
+			&nbsp;
+
+			<table style="width: 854.6px;">
+			<tbody>
+				<tr>
+				<td colspan="1" style="width: 183px;">
+				<p style="text-align: center;"><strong>Item</strong></p>
+				</td>
+				<td style="width: 474px;">
+				<p style="text-align: center;"><strong>Item Description</strong></p>
+				</td>
+				<td style="width: 179px; text-align: center;"><strong>Quantity</strong></td>
+				</tr>
+				<#assign itemAmountTotal=0><#if transaction.item?has_content><!-- start items --><#assign calcsubtotal=""><#assign itemRate=""><#list transaction.item as item><#if transaction.item?has_content><#list transaction.item as order><#if item.item==order.item?keep_before(" ")><#assign itemRate = order.rate><#assign itemRateWithoutSign = order.rate?keep_after("$")?replace(",", "")><#assign calcsubtotal=itemRateWithoutSign?replace(",", "")?number*item.quantity?number><#assign itemAmountTotal=itemAmountTotal+calcsubtotal></#if></#list></#if>
+				<tr>
+				<td style="width: 183px;">
+				<p style="text-align: center;">&nbsp;${item.item}</p>
+				</td>
+				<td style="width: 474px; text-align: center;">&nbsp;${item.description}</td>
+				<td style="width: 179px; text-align: center;">${item.quantity}</td>
+				</tr>
+				</#list></#if><#assign totalAmount=itemAmountTotal?number>
+				<tr>
+				<td style="width: 183px;">&nbsp;</td>
+				<td style="width: 474px;">&nbsp;</td>
+				<td style="width: 179px;">&nbsp;</td>
+				</tr>
+			</tbody>
+			</table>
+
+			<table style="width: 853px;">
+			<tbody>
+				<tr>
+				<td style="width: 837.444px;">
+				<p>If you're a registered customer, you can log in to see your order status here.</p>
+				</td>
+				<td style="width: 1px;">&nbsp;</td>
+				</tr>
+			</tbody>
+			</table>
+			</td>
+			</tr>
+		</tbody>
+		</table>
+		</td>
+		</tr>
+	</tbody>
+	</table>
+	</td>
+	</tr>
+</tbody>
+</table>
+<br />
+<a href="https://www.hydrafacial.com/"><img src="https://www.hydrafacial.store/site/images/NetSuiteEmails_Emails_UniversalFooter_r1.jpg" /></a>

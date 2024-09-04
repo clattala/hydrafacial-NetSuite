@@ -1,0 +1,39 @@
+netsuite.suitelet customscript_hf_sl_enable_void_feature {
+  scriptid = "customscript_hf_sl_enable_void_feature"
+  description = "NGO-4749 To toggle the Standard Accounting preference \"Void Transactions Using Reversing Journals Preference\""
+  name = "HF SL Void Enable Transaction Feature"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_SL_VoidFeature_js@duuv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_sl_enable_void_feature = {
+        scriptid = "customdeploy_hf_sl_enable_void_feature"
+        allemployees = true
+        allpartners = true
+        allroles = true
+        isdeployed = true
+        isonline = false
+        loglevel = "DEBUG"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+        title = "HF SL Void Enable Transaction Feature"
+        links = {
+          link = {
+            ACCOUNTCENTERFINANCIALOTHER = {
+              linkcategory = "ACCOUNTCENTERFINANCIALOTHER"
+              linklabel = "Enable Void Feature"
+            }
+            BASICLISTSSUPPORT = {
+              linkcategory = "BASICLISTSSUPPORT"
+              linklabel = "Enable Void Feature"
+            }
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF SL Void Enable Transaction Feature"
+}

@@ -1,0 +1,53 @@
+netsuite.mapreducescript customscript_hf_mr_generate_bom_report {
+  scriptid = "customscript_hf_mr_generate_bom_report"
+  description = "This scripts gets the assembly top level items and generates a csv file for the BOM multi level hierarchy."
+  name = "HF MR Generate BOM Report"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_MR_Generate_BOM_Report_js@duuuuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_bom_report_folder_id = {
+        scriptid = "custscript_hf_bom_report_folder_id"
+        accesslevel = "2"
+        applyformatting = true
+        checkspelling = false
+        defaultchecked = false
+        description = "BOM Report Folder ID"
+        displaytype = "NORMAL"
+        fieldtype = "INTEGER"
+        isformula = false
+        ismandatory = false
+        label = "BOM Report Folder ID"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_mr_generate_bom_report = {
+        scriptid = "customdeploy_hf_mr_generate_bom_report"
+        buffersize = "1"
+        concurrencylimit = "1"
+        custscript_hf_bom_report_folder_id = 1441423
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF MR Generate BOM Report"
+        yieldaftermins = "60"
+        recurrence = {
+          everyweekday = {
+            startdate = "2022-04-20"
+            starttime = "13:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF MR Generate BOM Report"
+}

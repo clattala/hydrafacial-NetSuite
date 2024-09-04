@@ -1,0 +1,72 @@
+netsuite.mapreducescript customscript_ca_ach_ep_migration_mr {
+  scriptid = "customscript_ca_ach_ep_migration_mr"
+  description = "This MR scripts is used to migrate bank details data under ACH subtab to Bank Details record of 'CPA-005' template in EBP SuiteApp. This script is for the accounts having CA edition. This script supports Vendor and Employee record types."
+  name = "ACH EP Migration MR - CA"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = "[/SuiteBundles/Bundle 509148/com.netsuite.electronicbankpayments/src/comp/mr/CA_ACH_EP_migration_mr.js]"
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_ca_ach_ep_entity_type = {
+        scriptid = "custscript_ca_ach_ep_entity_type"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        displaywidth = 40
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "CA ACH EP Entity Type"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_ca_ach_ep_migration_mr_ven = {
+        scriptid = "customdeploy_ca_ach_ep_migration_mr_ven"
+        buffersize = "1"
+        concurrencylimit = "1"
+        custscript_ca_ach_ep_entity_type = "vendor"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "CA_ACH EP Migration MR Vendor - CA"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2023-10-09"
+            starttime = "12:30:00Z"
+          }
+        }
+      }
+      customdeploy_ca_ach_ep_migration_mr_emp = {
+        scriptid = "customdeploy_ca_ach_ep_migration_mr_emp"
+        buffersize = "1"
+        concurrencylimit = "1"
+        custscript_ca_ach_ep_entity_type = "employee"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "CA_ACH EP Migration MR Employee - CA"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2023-10-09"
+            starttime = "12:30:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "ACH EP Migration MR - CA"
+}

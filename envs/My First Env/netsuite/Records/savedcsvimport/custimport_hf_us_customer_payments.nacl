@@ -1,0 +1,104 @@
+netsuite.savedcsvimport custimport_hf_us_customer_payments {
+  scriptid = "custimport_hf_us_customer_payments"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | US | CUSTOMER PAYMENTS"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "CUSTOMERPAYMENT"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_hydrafacial_customer_payment.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMERPAYMENT = {
+        file = "CUSTOMERPAYMENT"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMERPAYMENT = {
+        record = "CUSTOMERPAYMENT"
+        fieldmappings = {
+          fieldmapping = {
+            ACCOUNT = {
+              field = "ACCOUNT"
+              value = "1228"
+            }
+            ARACCT = {
+              field = "ARACCT"
+              columnreference = {
+                column = "AccountID"
+                file = "CUSTOMERPAYMENT"
+                type = "INTERNAL_ID"
+              }
+            }
+            AUTOAPPLY = {
+              field = "AUTOAPPLY"
+              value = "F"
+            }
+            CUSTOMER = {
+              field = "CUSTOMER"
+              columnreference = {
+                column = "CustomerID"
+                file = "CUSTOMERPAYMENT"
+                type = "INTERNAL_ID"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "DocNum"
+                file = "CUSTOMERPAYMENT"
+                type = "NAME"
+              }
+            }
+            PAYMENT = {
+              field = "PAYMENT"
+              columnreference = {
+                column = "OpenBal"
+                file = "CUSTOMERPAYMENT"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "DocDate"
+                file = "CUSTOMERPAYMENT"
+                type = "NAME"
+              }
+            }
+            TRANID = {
+              field = "TRANID"
+              columnreference = {
+                column = "DocNum"
+                file = "CUSTOMERPAYMENT"
+                type = "NAME"
+              }
+            }
+            UNDEPFUNDS = {
+              field = "UNDEPFUNDS"
+              value = "F"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | US | CUSTOMER PAYMENTS"
+}

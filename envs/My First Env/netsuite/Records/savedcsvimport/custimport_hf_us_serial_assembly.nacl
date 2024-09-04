@@ -1,0 +1,263 @@
+netsuite.savedcsvimport custimport_hf_us_serial_assembly {
+  scriptid = "custimport_hf_us_serial_assembly"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_assembly.scriptid
+  ignorereadonly = true
+  importname = "HF | US | SERIAL ASSEMBLY"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "SERIALIZEDASSEMBLYITEM"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      SERIALIZEDASSEMBLYITEM = {
+        file = "SERIALIZEDASSEMBLYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      SERIALIZEDASSEMBLYITEM_HIERARCHYVERSIONS@f = {
+        record = "SERIALIZEDASSEMBLYITEM:HIERARCHYVERSIONS"
+        fieldmappings = {
+          fieldmapping = {
+            HIERARCHYNODE = {
+              field = "HIERARCHYNODE"
+              columnreference = {
+                column = "Node"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "INTERNAL_ID"
+              }
+            }
+            HIERARCHYVERSION = {
+              field = "HIERARCHYVERSION"
+              value = "1"
+            }
+            ISINCLUDED = {
+              field = "ISINCLUDED"
+              value = "T"
+            }
+          }
+        }
+      }
+      SERIALIZEDASSEMBLYITEM = {
+        record = "SERIALIZEDASSEMBLYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ASSETACCOUNT = {
+              field = "ASSETACCOUNT"
+              columnreference = {
+                column = "InventoryAcct"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "INTERNAL_ID"
+              }
+            }
+            ATPMETHOD = {
+              field = "ATPMETHOD"
+              value = "CUMULATIVE_ATP_WITH_LOOK_AHEAD"
+            }
+            COGSACCOUNT = {
+              field = "COGSACCOUNT"
+              columnreference = {
+                column = "COGSAcct"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "INTERNAL_ID"
+              }
+            }
+            COUNTRYOFMANUFACTURE = {
+              field = "COUNTRYOFMANUFACTURE"
+              value = "US"
+            }
+            custitem_hf_abc_class = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_abc_class.scriptid
+              columnreference = {
+                column = "ABC CLASSIFICATION"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_commproperty = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_commproperty.scriptid
+              columnreference = {
+                column = "CommissionID"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "INTERNAL_ID"
+              }
+            }
+            custitem_hf_decimals = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_decimals.scriptid
+              columnreference = {
+                column = "DECIMALS REQUIRED"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_expires = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_expires.scriptid
+              columnreference = {
+                column = "PRODUCT EXPIRES"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_freightdesc = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_freightdesc.scriptid
+              columnreference = {
+                column = "COMMODITY DESCRIPTION"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_holdcode = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_holdcode.scriptid
+              columnreference = {
+                column = "INSPECTION REQUIRED"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_itemgroup = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_itemgroup.scriptid
+              columnreference = {
+                column = "ItemGroupID"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "INTERNAL_ID"
+              }
+            }
+            custitem_hf_revision = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_revision.scriptid
+              columnreference = {
+                column = "REVISION"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_shelflife = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_shelflife.scriptid
+              columnreference = {
+                column = "SHELFLIFE"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_pacejet_item_height = {
+              field = netsuite.itemcustomfield.instance.custitem_pacejet_item_height.scriptid
+              columnreference = {
+                column = "ITEM HEIGHT"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_pacejet_item_length = {
+              field = netsuite.itemcustomfield.instance.custitem_pacejet_item_length.scriptid
+              columnreference = {
+                column = "ITEM LENGTH"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_pacejet_item_width = {
+              field = netsuite.itemcustomfield.instance.custitem_pacejet_item_width.scriptid
+              columnreference = {
+                column = "ITEM WIDTH"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            DESCRIPTION = {
+              field = "DESCRIPTION"
+              columnreference = {
+                column = "DESCRIPTION"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            DISPLAYNAME = {
+              field = "DISPLAYNAME"
+              columnreference = {
+                column = "DISPLAY NAME"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            ITEMID = {
+              field = "ITEMID"
+              columnreference = {
+                column = "ITEM NAME/NUMBER"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            LEADTIME = {
+              field = "LEADTIME"
+              columnreference = {
+                column = "LEAD TIME"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            PURCHASEDESCRIPTION = {
+              field = "PURCHASEDESCRIPTION"
+              columnreference = {
+                column = "SALES DESCRIPTION"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "3"
+            }
+            TAXSCHEDULE = {
+              field = "TAXSCHEDULE"
+              columnreference = {
+                column = "TAX SCHEDULE"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            UNITSTYPE = {
+              field = "UNITSTYPE"
+              columnreference = {
+                column = "PRIMARY UNITS TYPE"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            VENDORNAME = {
+              field = "VENDORNAME"
+              columnreference = {
+                column = "VENDOR NAME"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            WEIGHT = {
+              field = "WEIGHT"
+              columnreference = {
+                column = "ITEM WEIGHT"
+                file = "SERIALIZEDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | US | SERIAL ASSEMBLY"
+}

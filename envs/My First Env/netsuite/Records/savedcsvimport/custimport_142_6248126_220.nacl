@@ -1,0 +1,79 @@
+netsuite.savedcsvimport custimport_142_6248126_220 {
+  scriptid = "custimport_142_6248126_220"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = false
+  importname = "UK Sales Tax Update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVOICE"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_227_6248126_sb1_501.scriptid
+  usemultithread = false
+  validatemandatorycustfields = false
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVOICE = {
+        file = "INVOICE"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVOICE_ITEM@f = {
+        record = "INVOICE:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ORDERLINE = {
+              field = "ORDERLINE"
+              columnreference = {
+                column = "Line ID"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            TAXCODE = {
+              field = "TAXCODE"
+              value = "3116"
+            }
+          }
+        }
+      }
+      INVOICE = {
+        record = "INVOICE"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Invoice Internal ID"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              value = "12"
+            }
+            TOBEEMAILED = {
+              field = "TOBEEMAILED"
+              value = "F"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "UK Sales Tax Update"
+}

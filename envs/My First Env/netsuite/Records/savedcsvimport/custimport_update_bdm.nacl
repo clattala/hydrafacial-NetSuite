@@ -1,0 +1,62 @@
+netsuite.savedcsvimport custimport_update_bdm {
+  scriptid = "custimport_update_bdm"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "This import is useful to update  BDMs on customers."
+  entryform = netsuite.entryForm.instance.custform_642_6248126_432.scriptid
+  ignorereadonly = true
+  importname = "Update BDM"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CUSTOMER"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMER = {
+        file = "CUSTOMER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMER = {
+        record = "CUSTOMER"
+        fieldmappings = {
+          fieldmapping = {
+            custentity_hf_bdm = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_bdm.scriptid
+              columnreference = {
+                column = "BDM"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Update BDM"
+}

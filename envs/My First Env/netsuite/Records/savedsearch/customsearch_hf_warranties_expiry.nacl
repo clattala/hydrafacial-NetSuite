@@ -1,0 +1,263 @@
+netsuite.savedsearch customsearch_hf_warranties_expiry {
+  scriptid = "customsearch_hf_warranties_expiry"
+  dependencies = {
+    dependency = [
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_hf_credit_memo_no]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_class]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_customer]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_department]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_invoice]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_invoicedate]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_item]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_location]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_manual_flag]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_quantity]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_ref_invoice]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_ref_seriallot]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_registration]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_serialnumber]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_status]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_subsidiary]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_uom]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_warrantybegin]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_warrantyexpire]",
+      "[scriptid=customrecord_wrm_warrantyreg.custrecord_wrm_reg_warrantyterm]",
+      "[scriptid=customrecord_wrm_warrantyreg]",
+      "[scriptid=customrecord_wrm_warrantyterms]",
+    ]
+  }
+  definition = "a668f237fe9d388ca696eed0dfb8d2a81e9369317aff19833309929bd90f5230@GZC@2024.1.16@H4sIAAAAAAAA/+1dbXOiyBb+vlX7Hyzn840RFZ2UcQuxTdjhxeUlmdwvFBPJDrtGU0hmNlP7428DjYJiBo+A6O2q3UlCN6cbeJ5zDk8foP/bP8+z2jfbXTqL+XW9eXFZr9nzx8XUmf95XTf08X969d8Gv/7Sny+Xi8crzXYda+b8sKfKl7/sR49fzD3LmdtuDZuZL6+CXtf1r573ctVofP/+/WJue8tXx7MvHhfPjeXjV/vZWjaCbvXaqzO9rrNMu9dkWFMbtq4065s91WzLffx69fi69BbPy+AP8+uT+d1yXWvuOfbStP95cdy3q2aX6bSbvY9d9rLN1tcHcXnRrNc859leetbzCz6oRL8BOZRn6+UFzzux1wBP0p/xzJ7+abt4yq59Ec4A/yBH7l6Ee16E85SCP/qNuNFoiKn95MwdD5sf9MPeo9iWqb18dJ0Xb4H7uzYea6q/vdi1x5m1XF7Xw/7qant9oCFO5W9NJOvqQ7+x3mPQ/2bNXu3loH/n/6w9OfYsaIiMjKMN9bDtuv4JPZgTjv/E3aB6rbHnjhqvChPdFEZ1f64/flzXl56L4YLP3s8uWb8RjLTHgGMBiSNzhMacIeqmzEl4wlP7xZ5PMUrfPtlv13Vx8WjN7NHqbF6RE6ULuog+XG7N8nZc+7d2MxTxv/erCdbQQROMhnyYoK3x+OCsACyL3I05MYaiwK9sflksZrY1rw8899UGmhQFTd82+GTNllCLE0XFpzpnoxLH3woyyteoiiRBHiE1X6varXKPT6v8KefTqqIxUlU0KuKSrWwXcvHW5gu5jGvzY0WVirKtIg07HS03877zVBGvqCPiKDYcWegoQpcfc2e8oemKRHa8VyXznlNVTtYfVHSzmpsz9+qDZo8FHvSdgO5NTsPT8+GQ7wmNbN+o3OS2KNOxaJSLZUPGV19XBV5H+VmWuM+mqtxr+8XcYD4jQeOGIjJHqiCK5ki5l/M73iCC8QbGvMxjhHI6Ivjce5a3wgiZY0HUkYpnqkz8eebLnygT0NFn3QxnHo63FXY1nVN17V7Qb4EQ4O44QQxOOkbYGOWIg8D8jagMOdFEIyFnvvHaXb4G0WceiTk72dE4Z/wiCV8tc6wq0p64je2tGcPfEa/DDQyV0QN8b16RJJzdA3iHHdXNDfJjFieivP23xt+ikSGWYhxfAkniVAHl5zXCYZDsn+WJ/pB7VA99RTB5ThRxIohR5N8iDXPOecIhBJkXDexkg8iXnnIecGtwiz2druicmPPpiWY9Qaqg4AuBL4aOUxiN43VByTFChGwaGuInU5lgPo32DWLr/YPb7CC9xHfKKidBgvbQwKEJH3zOx6dMdEES/otjLM6sIe4iYIMim8ZkhIN9AfdCnIGjmn+Jhfzihh/9fbs4SdlOneMiEvc6dXCDfcUks+PL1ZiNSDBpxDWYJ2fm2S7e6m3JMGhmP9tzL6HDhGmH1m94CQ0mmr5va9B/sVy8X2SMX8xm9qOv/tRrrv1ku/40r+sXF43gv+BKAlUhjFGM2FukYVxEKdGBIlGYdwbZoCAhDBpekXPOgfxwHcuzNjK5XIaQlZwjlpLjBEM6qyYvcoaGT7HO6cbaGz5+tdz6QIbalQ3JFNFYD7Gh7SIDwCrONm5zNktuGlIFvi9T98qav13NX2ez7TRfNrW3pWc/ywvPDu8IwHPAzt4QOUjIkJSRgH9TIftyOk7fhkbMEUfHxskPyhh6NKlapIZEnOD+xBFGG/fxg+YdJxpoyxuGngriBw/0feF8cpDJY8LCYQgPJrSF7TBQBKbiCvY2qD/4MlBMBFLRzUoIQp8ngpoiPP9sjxQcRBdsvWX1SzKyrbev4uby9fnZct/G+8XRMON/2IynjU1r1jfLmVlfZna4JTjNmQfZjDHrYXaYdW3v1Z3vN4iKdEOVw8t1HCbEZ3Bo9A99kyhw2n4OOVQxMW+gRPEF+s8bwibUFr7mvnTxsxWj+Hn70IY48QjFkAE7hwwIUOrCYGfIwc0XaF94oCS7mkhVC0ikRoEGMnyIcNtIc23nxMSQbCPLs2Lg2hkv8P8C3sj51/3DzzpkCSfx/jnSnSmT7t2y6d6jdKd0LzDwaoLs62p3KEdGtspk5MeyGdm8pJSklCwyAt+OTV71l/pMCUmKKSsf3m19L/Zudc6R5u0yad5kSud5i/Kc8ryMTDtUclNz7A2R953sOuyZI707pdL7oNta0IgspTeldwGZdVKO9ZfEciQlpGQPTsrS73ab9HaXkrJ4Uh608JfCym6prCz9jpehd7yUlcWzUhFHZB02N2L2yiQm0yydmAfdFFNiUmJmIqaM7vMm5sdSiXmQkgMa8aBlYUrMfYm53pIsxZjanuXMor+8LfqlFWaMkB48HEALM3IvzACXQ4E4WLqkxFBJiYbjAskYPkt/ypQsXVBiqKBEKVnOIo4x1ISRgGGTvpCzas60mLPqfbJcbx0kGoFGPOj+m3Kdcj0r13mR09LXa4OWLAwPOp4uuUu/o27RO2pK7lLIPUITTtX9Z+tTGb5uzkLzde/T5fpBd7WgEQ+6TaBcp1zPynVR4Xc/3xA1ZuF51Pd0WV76qnKbripTlpeTrgfvRENqesZOGjMl7aTvybK8XXoVdZtWUVOWl8JyiZMNTjT9126kEj3WnoXrse6nS/fSl8DadAmM0r0Uup/K48klM770FbY2XWGjjC+F8YJ8pwg8SiU7acvCc9L1ZCneKX1hrUMX1ijFSwrq43dpHmvPFtLHp0/30pfaOnSpjdK9zIjuPyP5XlRPvHf255E950cuS6Z76attHbraRuleDt11JKXzHDdkIjjud7rMLn2FjaUrbJTZpTD7D4OTdUFPL32NGrMwPOp7sixnS19hY+kKG2V5KSw3lPTwbSiZojfudrq0Ln0ljaUraZTWpdBaQ6rAibIhDXeUyMQ7ZHp6Jdb/dBl/0LoWaMSDbhAo4ynj95HZQ5KKSnqVe6JHVql9tcPJkr5b+itcuvQVLpT0pZA++pqLjtT0ND7eYZ/Pw/j9T5fxpSf2XZrYU8aXyvghuhHSa+QSPfbhfLDD6ZK+9Ny+S3N7SvpSSR9+tO1d1h/8JbhT432v9PS+R9N7yvtyVLxKfkSgZH6XXivXo7VylN+F8vtEPgZUMtFLv2vv0bv2I73RNfkO1+XC9TDdX5/n2b8ZrKi6ySuiIcnHeZ9rbAI5fGM6OI3H+CSJuLp8h39vV+T8d+NoPJJHgnyzDTHPfV0j7D10JPCA+et6uI/z4uCrGUEmG0o4EeGrhD2lMBGQrGsbLwBupNtObgUPtmOU9Ye0R/aTM3d8ROJN8+Vy8Xg1jW2KthBIOP6p2dj2VvOCS7Lp5uq1V2ea4v3ITHVBF9GHy3rN73RZH/Q3O4aHPIh3j47mb/vN/wK6/6PvudZ8ObP86eK54WNz8cYQnwN7bt4M8aUM/+r7EA6cAumV7Pz3wvykZu2MLfvpbNSZ/Lwd1/6t3QxF/O+95eKJefiE1dA/L477tu6cbvHHV5OXsw7/5JrjzHP9yzJ/n2TtPMU0Rrs7N5Knu7F90Rqb8NgJmDBNCZm3BZv0xqvwRRmxm4tIQMA3GSGUmhhK6TvjYwx+E6aD98zgg4+69f8mfqHZYzHcVk5il/3sx869Th3f95OjZZl2r8mwpjZsXUVNV0x4QEx9HU2yxAbOGGHq+w8mHZZg+p40soX9irh6SYmWX+DeGgNJE1F5QKjIMfwXp8nFHoaqiGmHkAg+B5i/w9FNyfMAwpuJaIjk7KNY/17UzIz7sTPzbDcwtEX51LarlA8sZZEefYMtPOlUo4N+cODpH28Km0LCZJEsv5GzsmOk7OcmawBNPiUfHmp7dwBN3nSuA2i7SgH0/c7/f7ERhIVOiIXO/ljoUCxUFwtpck4iSyrozSZBYrLKppKDbORS777xZJ1OTbGNIB0hAFz93V++Pj9b+MSRABb92Z9bz6lOODlC0CtKyzYnWjDpuuGJ6u5Pui4lXXVJB8JCL8RCb38s9CgWzgwLH0MsfNwfCx8pFs4MC00iczXf0bl2oaFZKaGLwiHn3GzvVbgAR8290rKU5bk8c7IU88dMyJpEN2syALIxlGzVJRsMDi0ChxYADi0Kh+rCIbf74gwVTgGC2qCb4aj0qYjb4Mj2Uf0tkZ2aAN2pSYWnChMMBgeWwIEFwIGlcDg3OBB9rAkQyJpUITs7OBCJrAnQyJpUJDs7OBCVrAmQyZpUJzs3ODBEJ2MAOhlDdbKzg0OTwKEJgEOTwuHc4BAVxAGEPYYKe2cHByLsMQBhj6HC3tnBgVTCMYBSOIbWwp0dHIgqyQBUSYaqkmcHB6JKMgBVkqGq5NnBgaiSDECVZKgqeXZwIKokA1AlGapKVhgO+a0RG0NNGAmcmv4q+nUzQdJH2FrxykxB68Ux+8dcM24Roa8FEPpaVOirMOFgcCBCXwsg9LWo0FdhOOTmf3mR09JLdIIWgh8G5HUDC8U4XGL6qL6W6GQtgE7WojpZhckFgwPRyVoAnaxFdbIKwyE3XztC/iPyEpLTX+G+biZI6oC87tpMMa43bv+o/pdITy2A9NSi0lOFCQeDA5GeWgDpqUWlpwrDITf/Kyr87me0o0aCoh7I90ZGivG8a+tH9buktqwFqC1r0dqyChMN9qIUIjm1AZJTm0pOFYZDfhoDecFVusxAGgmK9nsCc9NIQWLDyvox/W6blGm1AWVabVqmVWGiweBA5Kc2QH5qU/mpwnDIze9KnGxwoum/5y7V9cbaCZZgT2LG7BTjgBMDHNUHk+qnNqD6qU2rnypMOhgciATVBkhQbSpBnR0ciATVBkhQbSpBnR0cSPVTG1D91KbVTxWGQ24ZmiDfKQKf/tEv0kYwBKt7IjaKycpWxo+ZkXWI/NQByE8dKj9VmGQwOJCKpw6g4qlDK54qDIcc39Y7ftfvxtoJlmDVTzE7xfjfxABH9cFEiuoApKgOlaIqTDoYHEglVAdQCdWhlVAVhkPeea//Yav3cl+/nWAJVgsVs1NoDhwOcFQfTKSoDkCK6lApqsKkg8GBSFEdgBTVoVJUheGQnw/WkZTufHEDQQ+sCso3UJC7DSwf1c+S6qcOoPqpQ6ufKkwsEBxYIj+xAPmJpfJTheGQm5/9w+BkXdDTn2+NGgmKYNVPkZFifO7a+jH9Lkuqn1hA9RNLq58qTDQYHIjkxAIkJ5ZKThWGQ25+11DS01u8nWAHVu2E9y/G0QaGj+pjSXUTC6huYml1U4VJBYMDkZRYgKTEUkmpwnDI7+0tSBU4UTak4Y7q/ngHgqYu7A0uMUPFuN/kCEf1w6RwiAUUDrG0cKjCxIPBgUhOLEByYqnkVGE45FrTEPovUUl/uUCiB/m07iW4rmFlqbjKhtgQR/0MMSko6gIKirq0oKjC5IPBgchQXYAM1aUyVIXhAPfFihRzX/ecqnKy/qAjVSLv1drdTrDUyuaHd9vJyQu/N0BOPji3iBefXmrAi3cg5xmm98QNFRPukiOEZ9q1HxfudLQ+o4WBsN/YGutYsZboT12A/tSl+lOFnSsMDkR/6gL0py7VnyoMh9yjwBDdCOmv9Un0IHiCKVAJS8UGAjLEUe97iAbVBWhQXapBVZh8MDgQDaoL0KC6VIOqMBxy98Xo80RQ08u6k11CRPVgKlTSVLHuOBrjmP64R3SoHkCH6lEdqsIEhMGB6FA9gA7VozrU2cGBlEP1AOVQPVoOdXZwIE/g9QBP4PXoE3hnBweiq/UAulqP6mpnBweiq/UAulqP6mpVgMPmJsderjZqtutYM+eHPVW+/GU/evxi7lnO3HYHv/7yP32hpb0QOgEA"
+  search_filter = [
+    {
+      FLAG_DATE_TIME_SECOND = false
+      FLAG_FROM_AVAILABLE_FILTER = false
+      FLAG_NOT = false
+      FLAG_OR = false
+      FIELD_OR_CLAUSE_STATUS = "N"
+      FIELD_NUM_LEFT_PARENS = 0
+      FIELD_NUM_RIGHT_PARENS = 0
+      FIELD_FILTER_NAME = "SN_SystemNote_FIELD"
+      FIELD_ATTRIBUTE = "ANYOF"
+      FIELD_TYPE = "SELECT"
+      RECORDS = [
+        {
+          KEY_ID = 0
+          FIELD_VALUE = "CUSTRECORD_WRM_REG_WARRANTYEXPIRE"
+        },
+      ]
+    },
+  ]
+  return_fields = [
+    {
+      FIELD_ALIAS = "Custom_ID"
+      FIELD_INDEX = 1
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_REGISTRATION"
+      FIELD_INDEX = 2
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Custom_ISINACTIVE"
+      FIELD_INDEX = 3
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_HF_CREDIT_MEMO_NO"
+      FIELD_INDEX = 4
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_STATUS"
+      FIELD_INDEX = 5
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "SN_SystemNote_DATE"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "SN_SystemNote_FIELD"
+      FIELD_INDEX = 7
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "SN_SystemNote_OLDVALUE"
+      FIELD_INDEX = 8
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "SN_SystemNote_NEWVALUE"
+      FIELD_INDEX = 9
+      FIELD_FORMULA_ERROR = false
+    },
+  ]
+  detail_fields = [
+    {
+      FIELD_ALIAS = "Custom_ID"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Custom_SCRIPTID"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_SUBSIDIARY"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_CLASS"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_DEPARTMENT"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_LOCATION"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_CUSTOMER"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_MANUAL_FLAG"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_REGISTRATION"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_INVOICE"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_REF_INVOICE"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_INVOICEDATE"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_ITEM"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_QUANTITY"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_UOM"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_SERIALNUMBER"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_REF_SERIALLOT"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_WARRANTYTERM"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_WARRANTYBEGIN"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_WARRANTYEXPIRE"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_WRM_REG_STATUS"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTRECORD_HF_CREDIT_MEMO_NO"
+      FIELD_INDEX = 10
+      FIELD_FORMULA_ERROR = false
+    },
+  ]
+  sort_columns = [
+    {
+      KEY_FIELD = "SN_SystemNote_DATE"
+      FILELD_ORDER = 1
+      FLAG_DESCENDING = true
+    },
+  ]
+  audience = {
+    FLAG_AUDIENCE_ALL_CUSTOMERS = false
+    FLAG_AUDIENCE_ALL_EMPLOYEES = false
+    FLAG_AUDIENCE_ALL_PARTNERS = false
+    FLAG_AUDIENCE_ALL_ROLES = true
+    FLAG_AUDIENCE_ALL_VENDORS = false
+  }
+  KEY_SCRIPT_ID = "customsearch_hf_warranties_expiry"
+  FIELD_DEFAULT_NAME = "HF | GBL | Warranties Expiry"
+  FIELD_SEARCH_TYPE = "Custom"
+  FLAG_PUBLIC = true
+  FLAG_LIST = false
+  FLAG_PORTLET = false
+  FLAG_MACHINE = false
+  FLAG_REMINDER = false
+  FLAG_SHOW_LINK = false
+  FLAG_PREFERRED_LIST = false
+  FLAG_PREFERRED_PORTLET = false
+  FLAG_PREFERRED_MACHINE = false
+  FLAG_PREFERRED_FORM = false
+  FLAG_PREFERRED_RESULTS = false
+  KEY_RECORD_TYPE = 186
+  FLAG_VIEW_AS_REPORT = false
+  FLAG_VIEW_AS_GRAPH = false
+  FLAG_VIEW_AS_GRID = false
+  FLAG_UNRESTRICTED = false
+  FLAG_DISABLE_DRILL_DOWN = false
+  FLAG_HIDE_FILTER_DROPDOWNS = false
+  KEY_DEFAULT_TEXT_FIELD_FILTER = "STARTSWITH"
+  FLAG_AVAILABLE_AS_FEED = false
+  FLAG_GLOBAL_EDIT = false
+  FLAG_CSV = false
+  FLAG_EXCEL = false
+  FLAG_PDF = false
+  FLAG_TRIGGERED_ALERT = false
+  FLAG_SCHEDULED_ALERT = false
+  FLAG_SCHEDULED_ALERT_SUMMARIES = false
+  FLAG_SEND_EMPTY_RESULTS = false
+  FLAG_ALERT_ALLOW_SUBSCRIBE = false
+  FLAG_ALERT_INCLUDE_VIEW_LINK = true
+  FLAG_HAS_TOTALS = false
+  FLAG_INCLUDE_PERIOD_END_TRANSACTIONS = false
+  FLAG_BUILT_IN = false
+  FLAG_SEND_ON_UPDATE = false
+  FLAG_SHOW_AUDIT_TRAIL = false
+  KEY_AUDIENCE = 0
+  _alias = "HF | GBL | Warranties Expiry"
+}

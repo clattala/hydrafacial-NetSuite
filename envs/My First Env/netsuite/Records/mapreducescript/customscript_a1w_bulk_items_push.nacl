@@ -1,0 +1,31 @@
+netsuite.mapreducescript customscript_a1w_bulk_items_push {
+  scriptid = "customscript_a1w_bulk_items_push"
+  description = "Queues the downloads of item masters found in the \"A1W Item Search\"."
+  name = "Warehouse Edge Bulk Item Download"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = "[/SuiteBundles/Bundle 279187/ItemsPushMR.js]"
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_a1w_bulk_items_push = {
+        scriptid = "customdeploy_a1w_bulk_items_push"
+        buffersize = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "Warehouse Edge Bulk Item Download"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2017-09-29"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "Warehouse Edge Bulk Item Download"
+}

@@ -1,0 +1,336 @@
+netsuite.savedcsvimport custimport_hf_us_invoices {
+  scriptid = "custimport_hf_us_invoices"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | US | INVOICES"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVOICE"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_hydrafacial_invoice.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVOICE = {
+        file = "INVOICE"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVOICE_ITEM@f = {
+        record = "INVOICE:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            AMOUNT = {
+              field = "AMOUNT"
+              columnreference = {
+                column = "Balance"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item"
+                file = "INVOICE"
+                type = "INTERNAL_ID"
+              }
+            }
+          }
+        }
+      }
+      INVOICE__SHIPPINGADDRESS@f = {
+        record = "INVOICE::SHIPPINGADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "StreetB"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ADDR2 = {
+              field = "ADDR2"
+              columnreference = {
+                column = "BlockB"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "CityB"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              columnreference = {
+                column = "CountryB"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            STATE = {
+              field = "STATE"
+              columnreference = {
+                column = "StateB"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "ZipCodeB"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVOICE = {
+        record = "INVOICE"
+        fieldmappings = {
+          fieldmapping = {
+            ACCOUNT = {
+              field = "ACCOUNT"
+              columnreference = {
+                column = "AccountID"
+                file = "INVOICE"
+                type = "INTERNAL_ID"
+              }
+            }
+            APPROVALSTATUS = {
+              field = "APPROVALSTATUS"
+              value = "2"
+            }
+            CLASS = {
+              field = "CLASS"
+              columnreference = {
+                column = "RegionID"
+                file = "INVOICE"
+                type = "INTERNAL_ID"
+              }
+            }
+            custbody_hf_2nd_unit = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_2nd_unit.scriptid
+              columnreference = {
+                column = "U_V33_SecondUnit"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            custbody_hf_bdm_referral = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_bdm_referral.scriptid
+              columnreference = {
+                column = "U_HF_BDMReferral"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            custbody_hf_int_remarks = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_int_remarks.scriptid
+              columnreference = {
+                column = "Internal Remark"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            custbody_hf_order_creator = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_order_creator.scriptid
+              columnreference = {
+                column = "U_V33_OrderCreator"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            custbody_hf_order_type = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_order_type.scriptid
+              columnreference = {
+                column = "U_V33_OrdType"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            custbody_hf_ordersource = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_ordersource.scriptid
+              columnreference = {
+                column = "U_V33_Source"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            custbody_hf_original_date = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_original_date.scriptid
+              columnreference = {
+                column = "OrigDocDate"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            custbody_hf_rep_split1 = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_rep_split1.scriptid
+              value = "100.0%"
+            }
+            custbody_hf_trade_type = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_trade_type.scriptid
+              columnreference = {
+                column = "U_V33_TradeType"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            DUEDATE = {
+              field = "DUEDATE"
+              columnreference = {
+                column = "DocDueDate"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "Customer ID"
+                file = "INVOICE"
+                type = "INTERNAL_ID"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "DocNum"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              value = "2"
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "Memo"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            OTHERREFNUM = {
+              field = "OTHERREFNUM"
+              columnreference = {
+                column = "NumAtCard"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            TERMS = {
+              field = "TERMS"
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "DocDate"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            TRANID = {
+              field = "TRANID"
+              columnreference = {
+                column = "DocNum"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVOICE__BILLINGADDRESS@f = {
+        record = "INVOICE::BILLINGADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "StreetS"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ADDR2 = {
+              field = "ADDR2"
+              columnreference = {
+                column = "BlockS"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ATTENTION = {
+              field = "ATTENTION"
+              columnreference = {
+                column = "Address2S"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "CityS"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              columnreference = {
+                column = "CountryS"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            STATE = {
+              field = "STATE"
+              columnreference = {
+                column = "StateS"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "ZipCodeS"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | US | INVOICES"
+}

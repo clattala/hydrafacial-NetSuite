@@ -1,0 +1,82 @@
+netsuite.savedcsvimport custimport_333_6248126_158 {
+  scriptid = "custimport_333_6248126_158"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "NB_Service_ForPurchase_Update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "SERVICEPURCHASEITEM"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      SERVICEPURCHASEITEM = {
+        file = "SERVICEPURCHASEITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      SERVICEPURCHASEITEM_ITEMVENDOR@f = {
+        record = "SERVICEPURCHASEITEM:ITEMVENDOR"
+        fieldmappings = {
+          fieldmapping = {
+            PREFERREDVENDOR = {
+              field = "PREFERREDVENDOR"
+              columnreference = {
+                column = "Preferred Yes/No"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              columnreference = {
+                column = "Subsidiary"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+            VENDOR = {
+              field = "VENDOR"
+              columnreference = {
+                column = "Vendor"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      SERVICEPURCHASEITEM = {
+        record = "SERVICEPURCHASEITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "NB_Service_ForPurchase_Update"
+}

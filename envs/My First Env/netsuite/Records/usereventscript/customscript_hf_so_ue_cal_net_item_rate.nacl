@@ -1,0 +1,74 @@
+netsuite.usereventscript customscript_hf_so_ue_cal_net_item_rate {
+  scriptid = "customscript_hf_so_ue_cal_net_item_rate"
+  name = "HF | UE | SO | Calculate Net Item Rate"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_hf_ue_calculate_net_item_rate_js@duuuuuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_subsidiary_1 = {
+        scriptid = "custscript_hf_subsidiary_1"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "HF | Subsidiary"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+      custscript_hf_currency = {
+        scriptid = "custscript_hf_currency"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "HF | Currency"
+        searchlevel = "2"
+        storevalue = true
+        index = 1
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_ue_so_cal_net_item_rate = {
+        scriptid = "customdeploy_hf_ue_so_cal_net_item_rate"
+        allemployees = false
+        alllocalizationcontexts = true
+        allpartners = false
+        allroles = true
+        custscript_hf_currency = "Canadian Dollar"
+        custscript_hf_subsidiary_1 = "HF-United States"
+        executioncontext = "ACTION|ADVANCEDREVREC|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CONSOLRATEADJUSTOR|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OTHER|PAYMENTGATEWAY|PAYMENTPOSTBACK|PLATFORMEXTENSION|PORTLET|PROMOTIONS|RECORDACTION|RESTLET|RESTWEBSERVICES|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WEBAPPLICATION|WEBSERVICES|WEBSTORE|WORKBOOKBUILDER|WORKFLOW"
+        isdeployed = true
+        loglevel = "ERROR"
+        recordtype = "SALESORDER"
+        status = "RELEASED"
+      }
+      customdeploy_hf_ue_cashcal_net_item_rate = {
+        scriptid = "customdeploy_hf_ue_cashcal_net_item_rate"
+        allemployees = false
+        alllocalizationcontexts = true
+        allpartners = false
+        allroles = true
+        executioncontext = "ACTION|ADVANCEDREVREC|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CONSOLRATEADJUSTOR|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OTHER|PAYMENTGATEWAY|PAYMENTPOSTBACK|PLATFORMEXTENSION|PORTLET|PROMOTIONS|RECORDACTION|RESTLET|RESTWEBSERVICES|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WEBSERVICES|WORKBOOKBUILDER|WORKFLOW"
+        isdeployed = false
+        loglevel = "ERROR"
+        recordtype = "CASHSALE"
+        status = "TESTING"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | UE | SO | Calculate Net Item Rate"
+}

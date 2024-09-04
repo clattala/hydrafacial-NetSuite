@@ -1,0 +1,51 @@
+netsuite.mapreducescript customscript_hf_loyalty_adjustments {
+  scriptid = "customscript_hf_loyalty_adjustments"
+  name = "HF | Loyalty - Process Adjustments"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_loyalty_processLoyaltyAdjustments_js@ddv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_loyalty_adjustments_2 = {
+        scriptid = "customdeploy_hf_loyalty_adjustments_2"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | Loyalty - Process Adjustments"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2023-08-29"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+      customdeploy_hf_loyalty_adjustments = {
+        scriptid = "customdeploy_hf_loyalty_adjustments"
+        buffersize = "1"
+        concurrencylimit = "3"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | Loyalty - Process Adjustments SCD"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            repeat = "PT30M"
+            startdate = "2023-08-22"
+            starttime = "15:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Loyalty - Process Adjustments"
+}

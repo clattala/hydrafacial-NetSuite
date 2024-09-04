@@ -1,0 +1,62 @@
+netsuite.workflow customworkflow_3rp_hf_dl_workflow1 {
+  scriptid = "customworkflow_3rp_hf_dl_workflow1"
+  description = "The workflow sends the Statement to Customer"
+  initoncreate = false
+  initonvieworupdate = false
+  initsavedsearchfilter = netsuite.savedsearch.instance.customsearch_3rp_hf_dl_search1.scriptid
+  islogenabled = false
+  keephistory = "ALWAYS"
+  name = "HF | UK | Send Customer Statement"
+  recordtypes = "CUSTOMER"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  recurrence = {
+    daily = {
+      everyxdays = 1
+      startdate = "2022-03-14"
+      starttime = "17:00:00Z"
+    }
+  }
+  initcondition = {
+    type = "VISUAL_BUILDER"
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate256 = {
+        scriptid = "workflowstate256"
+        donotexitworkflow = false
+        name = "Send Email with Statement"
+        positionx = 433
+        positiony = 133
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            sendemailaction = {
+              workflowaction1004 = {
+                scriptid = "workflowaction1004"
+                attachmenttype = "SPECIFIC"
+                conditionsavedsearch = netsuite.savedsearch.instance.customsearch_3rp_hf_dl_search1.scriptid
+                includeformat = "PDF"
+                includerecordlink = false
+                recipienttype = "CURRENTRECORD"
+                schedulemode = "DELAY"
+                sender = "[ACCOUNT_SPECIFIC_VALUE]"
+                sendertype = "SPECIFIC"
+                template = netsuite.emailtemplate.instance.custemailtmpl_16_6248126_448.scriptid
+                usetemplate = true
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | UK | Send Customer Statement"
+}

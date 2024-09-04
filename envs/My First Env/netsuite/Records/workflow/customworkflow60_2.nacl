@@ -1,0 +1,235 @@
+netsuite.workflow customworkflow60_2 {
+  scriptid = "customworkflow60_2"
+  description = '''
+Auto email new customer invoices every 30min on the hour to the customers.
+
+For this workflow to work the following criteria must be met.
+1. Must be a invoice not already sent to customer using this workflow.
+2. The "default invoice email" field in Customer record musn't be empty.
+3. The "Enable auto invoicing" field must be checked in the customer record
+'''
+  initoncreate = false
+  initonvieworupdate = false
+  initsavedsearchfilter = netsuite.savedsearch.instance.customsearch_hfsaeinvoice_uk.scriptid
+  islogenabled = false
+  keephistory = "ALWAYS"
+  name = "HF | UK | Customer Inv Email Automation"
+  recordtypes = "INVOICE|CASHSALE"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  recurrence = {
+    every30minutes = {
+      startdate = "2022-03-08"
+    }
+  }
+  initcondition = {
+    type = "VISUAL_BUILDER"
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate229 = {
+        scriptid = "workflowstate229"
+        donotexitworkflow = false
+        name = "Auto Send Invoice (HF UK)"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            sendemailaction = {
+              workflowaction936 = {
+                scriptid = "workflowaction936"
+                attachmenttype = "SPECIFIC"
+                body = "<p style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box; margin: 0px; color: rgb(36, 36, 36); font-family: &quot;Segoe UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);\"><span style=\"font-size: 11pt; font-style: inherit; font-weight: inherit;\">Dear </span><span style=\"font-size: 11pt; font-style: inherit;\"><b>{entity}</b></span><span style=\"font-size: 11pt; font-style: inherit; font-weight: inherit;\">,</span></p><p style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box; margin: 0px; color: rgb(36, 36, 36); font-family: &quot;Segoe UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);\"><br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\"><span style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box; font-size: 11pt; font-style: inherit; font-weight: inherit;\">Attached is your invoice.<br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\"><br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\">Kind Regards,<br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\"><br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\">THE HYDRAFACIAL COMPANY</span></p>"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                includeformat = "PDF"
+                includerecordlink = false
+                includetransaction = true
+                recipientfield = netsuite.entitycustomfield.instance.custentity_hf_default_inv_email.scriptid
+                recipientjoinfield = "STDBODYCUSTOMER"
+                recipienttype = "FIELD"
+                schedulemode = "DELAY"
+                sender = "[ACCOUNT_SPECIFIC_VALUE]"
+                sendertype = "SPECIFIC"
+                subject = "Re: Your Hydrafacial Invoice {tranid} is Enclosed"
+                usetemplate = false
+                initcondition = {
+                  formula = "isEmpty(\"Entity:Invoice Email | CC\") = 'T' AND isEmpty(\"Entity:Invoice Email | CC 2\") = 'T' AND isEmpty(\"Entity:Invoice Email | CC 3\") = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Entity_Invoice_Email___CC@fssgs = {
+                        name = "Entity:Invoice Email | CC"
+                        value = "STDBODYENTITY:[scriptid=custentity_hf_invemail_cc1]"
+                      }
+                      Entity_Invoice_Email___CC_2@fssgss = {
+                        name = "Entity:Invoice Email | CC 2"
+                        value = "STDBODYENTITY:[scriptid=custentity_hf_invemail_cc2]"
+                      }
+                      Entity_Invoice_Email___CC_3@fssgss = {
+                        name = "Entity:Invoice Email | CC 3"
+                        value = "STDBODYENTITY:[scriptid=custentity_hf_invemail_cc3]"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction937 = {
+                scriptid = "workflowaction937"
+                attachmenttype = "SPECIFIC"
+                body = "<p style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box; margin: 0px; color: rgb(36, 36, 36); font-family: &quot;Segoe UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);\"><span style=\"font-size: 11pt; font-style: inherit; font-weight: inherit;\">Dear </span><span style=\"font-size: 11pt; font-style: inherit;\"><b>{entity}</b></span><span style=\"font-size: 11pt; font-style: inherit; font-weight: inherit;\">,</span></p><p style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box; margin: 0px; color: rgb(36, 36, 36); font-family: &quot;Segoe UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);\"><br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\"><span style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box; font-size: 11pt; font-style: inherit; font-weight: inherit;\">Attached is your invoice.<br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\"><br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\">Kind Regards,<br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\"><br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\">THE HYDRAFACIAL COMPANY</span></p>"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                includeformat = "PDF"
+                includerecordlink = false
+                includetransaction = true
+                recipientccemail = "{entity.custentity_hf_invemail_cc1}"
+                recipientfield = netsuite.entitycustomfield.instance.custentity_hf_default_inv_email.scriptid
+                recipientjoinfield = "STDBODYCUSTOMER"
+                recipienttype = "FIELD"
+                schedulemode = "DELAY"
+                sender = "[ACCOUNT_SPECIFIC_VALUE]"
+                sendertype = "SPECIFIC"
+                subject = "Re: Your Hydrafacial Invoice {tranid} is Enclosed"
+                usetemplate = false
+                initcondition = {
+                  formula = "isEmpty(\"Entity:Invoice Email | CC\") = 'F' AND isEmpty(\"Entity:Invoice Email | CC 2\") = 'T' AND isEmpty(\"Entity:Invoice Email | CC 3\") = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Entity_Invoice_Email___CC@fssgs = {
+                        name = "Entity:Invoice Email | CC"
+                        value = "STDBODYENTITY:[scriptid=custentity_hf_invemail_cc1]"
+                      }
+                      Entity_Invoice_Email___CC_2@fssgss = {
+                        name = "Entity:Invoice Email | CC 2"
+                        value = "STDBODYENTITY:[scriptid=custentity_hf_invemail_cc2]"
+                      }
+                      Entity_Invoice_Email___CC_3@fssgss = {
+                        name = "Entity:Invoice Email | CC 3"
+                        value = "STDBODYENTITY:[scriptid=custentity_hf_invemail_cc3]"
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+              workflowaction938 = {
+                scriptid = "workflowaction938"
+                attachmenttype = "SPECIFIC"
+                body = "<p style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box; margin: 0px; color: rgb(36, 36, 36); font-family: &quot;Segoe UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);\"><span style=\"font-size: 11pt; font-style: inherit; font-weight: inherit;\">Dear </span><span style=\"font-size: 11pt; font-style: inherit;\"><b>{entity}</b></span><span style=\"font-size: 11pt; font-style: inherit; font-weight: inherit;\">,</span></p><p style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box; margin: 0px; color: rgb(36, 36, 36); font-family: &quot;Segoe UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);\"><br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\"><span style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box; font-size: 11pt; font-style: inherit; font-weight: inherit;\">Attached is your invoice.<br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\"><br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\">Kind Regards,<br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\"><br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\">THE HYDRAFACIAL COMPANY</span></p>"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                includeformat = "PDF"
+                includerecordlink = false
+                includetransaction = true
+                recipientccemail = "{entity.custentity_hf_invemail_cc1},{entity.custentity_hf_invemail_cc2}"
+                recipientfield = netsuite.entitycustomfield.instance.custentity_hf_default_inv_email.scriptid
+                recipientjoinfield = "STDBODYCUSTOMER"
+                recipienttype = "FIELD"
+                schedulemode = "DELAY"
+                sender = "[ACCOUNT_SPECIFIC_VALUE]"
+                sendertype = "SPECIFIC"
+                subject = "Re: Your Hydrafacial Invoice {tranid} is Enclosed"
+                usetemplate = false
+                initcondition = {
+                  formula = "isEmpty(\"Entity:Invoice Email | CC\") = 'F' AND isEmpty(\"Entity:Invoice Email | CC 2\") = 'F' AND isEmpty(\"Entity:Invoice Email | CC 3\") = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Entity_Invoice_Email___CC@fssgs = {
+                        name = "Entity:Invoice Email | CC"
+                        value = "STDBODYENTITY:[scriptid=custentity_hf_invemail_cc1]"
+                      }
+                      Entity_Invoice_Email___CC_2@fssgss = {
+                        name = "Entity:Invoice Email | CC 2"
+                        value = "STDBODYENTITY:[scriptid=custentity_hf_invemail_cc2]"
+                      }
+                      Entity_Invoice_Email___CC_3@fssgss = {
+                        name = "Entity:Invoice Email | CC 3"
+                        value = "STDBODYENTITY:[scriptid=custentity_hf_invemail_cc3]"
+                      }
+                    }
+                  }
+                }
+                index = 2
+                isInactive = false
+              }
+              workflowaction939 = {
+                scriptid = "workflowaction939"
+                attachmenttype = "SPECIFIC"
+                body = "<p style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box; margin: 0px; color: rgb(36, 36, 36); font-family: &quot;Segoe UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);\"><span style=\"font-size: 11pt; font-style: inherit; font-weight: inherit;\">Dear </span><span style=\"font-size: 11pt; font-style: inherit;\"><b>{entity}</b></span><span style=\"font-size: 11pt; font-style: inherit; font-weight: inherit;\">,</span></p><p style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box; margin: 0px; color: rgb(36, 36, 36); font-family: &quot;Segoe UI&quot;, system-ui, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, sans-serif; font-size: 14px; background-color: rgb(255, 255, 255);\"><br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\"><span style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box; font-size: 11pt; font-style: inherit; font-weight: inherit;\">Attached is your invoice.<br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\"><br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\">Kind Regards,<br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\"><br style=\"-webkit-font-smoothing: antialiased; box-sizing: border-box;\">THE HYDRAFACIAL COMPANY</span></p>"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                includeformat = "PDF"
+                includerecordlink = false
+                includetransaction = true
+                recipientccemail = "{entity.custentity_hf_invemail_cc1},{entity.custentity_hf_invemail_cc2},{entity.custentity_hf_invemail_cc3}"
+                recipientfield = netsuite.entitycustomfield.instance.custentity_hf_default_inv_email.scriptid
+                recipientjoinfield = "STDBODYCUSTOMER"
+                recipienttype = "FIELD"
+                schedulemode = "DELAY"
+                sender = "[ACCOUNT_SPECIFIC_VALUE]"
+                sendertype = "SPECIFIC"
+                subject = "Re: Your Hydrafacial Invoice {tranid} is Enclosed"
+                usetemplate = false
+                initcondition = {
+                  formula = "isEmpty(\"Entity:Invoice Email | CC\") = 'F' AND isEmpty(\"Entity:Invoice Email | CC 2\") = 'F' AND isEmpty(\"Entity:Invoice Email | CC 3\") = 'F'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Entity_Invoice_Email___CC@fssgs = {
+                        name = "Entity:Invoice Email | CC"
+                        value = "STDBODYENTITY:[scriptid=custentity_hf_invemail_cc1]"
+                      }
+                      Entity_Invoice_Email___CC_2@fssgss = {
+                        name = "Entity:Invoice Email | CC 2"
+                        value = "STDBODYENTITY:[scriptid=custentity_hf_invemail_cc2]"
+                      }
+                      Entity_Invoice_Email___CC_3@fssgss = {
+                        name = "Entity:Invoice Email | CC 3"
+                        value = "STDBODYENTITY:[scriptid=custentity_hf_invemail_cc3]"
+                      }
+                    }
+                  }
+                }
+                index = 3
+                isInactive = false
+              }
+            }
+            setfieldvalueaction = {
+              workflowaction940 = {
+                scriptid = "workflowaction940"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_inv_emailed.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuedate = "TODAY"
+                valuetype = "DATE"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _generated_dependencies = [
+    {
+      reference = netsuite.entitycustomfield.instance.custentity_hf_invemail_cc1.scriptid
+    },
+    {
+      reference = netsuite.entitycustomfield.instance.custentity_hf_invemail_cc2.scriptid
+    },
+    {
+      reference = netsuite.entitycustomfield.instance.custentity_hf_invemail_cc3.scriptid
+    },
+  ]
+  _alias = "HF | UK | Customer Inv Email Automation"
+}

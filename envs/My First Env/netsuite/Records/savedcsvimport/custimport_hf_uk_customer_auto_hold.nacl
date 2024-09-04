@@ -1,0 +1,58 @@
+netsuite.savedcsvimport custimport_hf_uk_customer_auto_hold {
+  scriptid = "custimport_hf_uk_customer_auto_hold"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "to change the value of Hold field to 'Auto' for all UK Customer records - Sarah Hawkings's Request [#INC-13163]"
+  entryform = netsuite.entryForm.instance.custform_243_6248126_sb1_305.scriptid
+  ignorereadonly = true
+  importname = "UK Customer Hold Auto"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CUSTOMER"
+  runserversuitescript = false
+  usemultithread = false
+  validatemandatorycustfields = false
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMER = {
+        file = "CUSTOMER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMER = {
+        record = "CUSTOMER"
+        fieldmappings = {
+          fieldmapping = {
+            CREDITHOLDOVERRIDE = {
+              field = "CREDITHOLDOVERRIDE"
+              value = "AUTO"
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "UK Customer Hold Auto"
+}

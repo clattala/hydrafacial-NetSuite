@@ -1,0 +1,291 @@
+netsuite.publisheddashboard custpubdashboard_emea_rsd_country_manager {
+  scriptid = "custpubdashboard_emea_rsd_country_manager"
+  center = netsuite.center.instance.custcenter_hf_sales_team.scriptid
+  locknewbar = true
+  lockshortcuts = true
+  name = "EMEA RSD Dashboard"
+  notes = "This dashboard is for EMEA roles like RSD, Country Manager"
+  roles = {
+    role = [
+      {
+        role = netsuite.role.instance.customrole_hfuk_ctry_mgr.scriptid
+      },
+      {
+        role = netsuite.role.instance.customrole_hfuk_rsd.scriptid
+      },
+    ]
+  }
+  dashboards = {
+    dashboard = [
+      {
+        centertab = "BASICCENTERSUPPORT"
+        layout = "TWO_COLUMN"
+        mode = "UNLOCKED"
+        leftcolumn = {
+          quicksearch = [
+            {
+              defaultgeneraltype = "ENTITY_ENTITY_NAME"
+              isminimized = false
+              searchtype = "GENERIC"
+            },
+          ]
+          settings = [
+            {
+              isminimized = false
+            },
+          ]
+        }
+        centercolumn = {
+          tasklinks = [
+            {
+              isminimized = false
+            },
+          ]
+        }
+      },
+      {
+        centertab = "BASICCENTERACTIVITIES"
+        layout = "TWO_COLUMN"
+        mode = "UNLOCKED"
+        leftcolumn = {
+          calendar = [
+            {
+              isminimized = false
+              numberofrecordsinagenda = 7
+              recordstodisplayinagenda = "TODAY_ONLY"
+              showblockingcalls = true
+              showblockingtasks = true
+              showcampaignevents = false
+              showcanceledevents = false
+              showevents = true
+              shownonblockingcalls = true
+              shownonblockingtasks = true
+              showresourceallocations = false
+              showweekendsinmonthlyview = true
+            },
+          ]
+          quicksearch = [
+            {
+              defaultgeneraltype = "ACTIVITY"
+              isminimized = false
+              searchtype = "GENERIC"
+            },
+          ]
+          tasklinks = [
+            {
+              isminimized = false
+            },
+          ]
+          settings = [
+            {
+              isminimized = false
+            },
+          ]
+        }
+        centercolumn = {
+          calendar = [
+            {
+              isminimized = false
+              numberofrecordsinagenda = 7
+              recordstodisplayinagenda = "TODAY_ONLY"
+              showblockingcalls = true
+              showblockingtasks = true
+              showcampaignevents = false
+              showcanceledevents = false
+              showevents = true
+              shownonblockingcalls = true
+              shownonblockingtasks = true
+              showresourceallocations = false
+              showweekendsinmonthlyview = true
+            },
+          ]
+          list = [
+            {
+              allowinlineediting = true
+              isminimized = false
+              size = 10
+              type = "TASK"
+            },
+            {
+              allowinlineediting = true
+              isminimized = false
+              size = 10
+              type = "CALL"
+            },
+          ]
+          scheduler = [
+            {
+              isminimized = false
+            },
+          ]
+        }
+      },
+      {
+        centertab = "BASICCENTERPROJECTDASHBOARD"
+        layout = "TWO_COLUMN"
+        mode = "UNLOCKED"
+        leftcolumn = {
+          pdquicklinks = [
+            {
+              isminimized = false
+            },
+          ]
+          pdinfo = [
+            {
+              isminimized = false
+            },
+          ]
+        }
+        centercolumn = {
+          pdpl = [
+            {
+              isminimized = false
+            },
+          ]
+        }
+      },
+      {
+        centertab = netsuite.centertab.instance.custcentertab_hf_sales_crm.scriptid
+        layout = "TWO_COLUMN"
+        mode = "UNLOCKED"
+      },
+      {
+        centertab = "BASICCENTERHOMEHOME"
+        layout = "TWO_COLUMN"
+        mode = "UNLOCKED"
+        leftcolumn = {
+          reminders = [
+            {
+              isminimized = false
+              showzeroresults = true
+              other = {
+                reminder = [
+                  {
+                    id = "[scriptid=customsearch_atlas_items_on_bo_rpt]"
+                  },
+                  {
+                    id = "[scriptid=customsearch_atlas_orders_today_rem]"
+                  },
+                  {
+                    id = "[scriptid=customsearch_atlas_new_customer_rem]"
+                  },
+                  {
+                    id = "[scriptid=customsearch_atlas_inv_over30d_100k_rem]"
+                  },
+                ]
+              }
+            },
+          ]
+          shortcuts = [
+            {
+              isminimized = false
+            },
+          ]
+          enhsnapshots = [
+            {
+              backgroundtype = "GLOBAL_BACKGROUND"
+              charttheme = "MATCH_COLOR_THEME_LIGHT"
+              charttype = "AREA"
+              custom = "F"
+              daterange = "LAST_MONTH"
+              graphlayout = "COLUMN"
+              hierarchylevel = "3"
+              isgraph = "T"
+              isminimized = false
+              listtopx = "TOP_15"
+              orderdesc = "T"
+              periodrange = "THIS_PERIOD"
+              snapshot = "FORECAST_STATUS"
+              topx = "TOP_15"
+            },
+          ]
+          settings = [
+            {
+              isminimized = false
+            },
+          ]
+        }
+        centercolumn = {
+          customsearch = [
+            {
+              allowinlineediting = false
+              backgroundtype = "GLOBAL_BACKGROUND"
+              charttheme = "GLOBAL_THEME"
+              drilldown = "IN_PORTLET"
+              isminimized = false
+              resultssize = 10
+              savedsearch = "[scriptid=customsearch_hf_emea_forecast_processing]"
+            },
+            {
+              allowinlineediting = true
+              backgroundtype = "GLOBAL_BACKGROUND"
+              charttheme = "GLOBAL_THEME"
+              drilldown = "NEW_PAGE"
+              isminimized = false
+              resultssize = 10
+              savedsearch = "[scriptid=customsearch_hf_emea_lead_status_source]"
+            },
+            {
+              allowinlineediting = false
+              backgroundtype = "GLOBAL_BACKGROUND"
+              charttheme = "GLOBAL_THEME"
+              drilldown = "IN_PORTLET"
+              isminimized = false
+              resultssize = 100
+              savedsearch = "[scriptid=customsearch_hf_de_lead_conversion]"
+            },
+          ]
+          enhsnapshots = [
+            {
+              backgroundtype = "GLOBAL_BACKGROUND"
+              charttheme = "GLOBAL_THEME"
+              charttype = "AREA"
+              custom = "T"
+              customsnapshot = "23"
+              daterange = "LAST_MONTH"
+              graphlayout = "COLUMN"
+              hierarchylevel = "3"
+              isgraph = "T"
+              isminimized = false
+              listtopx = "300"
+              orderby = "leadcount,x,numcustomers,x,x"
+              orderdesc = "T"
+              periodrange = "THIS_PERIOD"
+              snapshot = "QUICK_REPORT"
+              topx = "TOP_50"
+            },
+            {
+              backgroundtype = "GLOBAL_BACKGROUND"
+              charttheme = "MATCH_COLOR_THEME_LIGHT"
+              charttype = "AREA"
+              custom = "T"
+              customsnapshot = "16"
+              daterange = "THIS_MONTH_TO_DATE"
+              graphlayout = "COLUMN"
+              hierarchylevel = "3"
+              isgraph = "T"
+              isminimized = false
+              listtopx = "TOP_20"
+              orderby = "rev,tranline,revenue,x,x"
+              orderdesc = "T"
+              periodrange = "THIS_PERIOD"
+              snapshot = "ITEM_SALES_DOLLARS"
+              topx = "TOP_10"
+            },
+          ]
+          kpireport = [
+            {
+              isminimized = false
+              orientation = "KPIs on Left"
+              reportid = "QUOTE AND SALES"
+              restrict = "All"
+              showdates = false
+              trend = true
+            },
+          ]
+        }
+      },
+    ]
+  }
+  _alias = "EMEA RSD Dashboard"
+}

@@ -1,0 +1,54 @@
+netsuite.mapreducescript customscript_a1w_comm_qty_dnload {
+  scriptid = "customscript_a1w_comm_qty_dnload"
+  description = "Checks valid Sales orders for changes in committed quantity in any of the lines. Any found will be submitted for download to A1WMS."
+  name = "Warehouse Edge Committed Quantity Sweep"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = "[/SuiteBundles/Bundle 279187/CommQtyMR.js]"
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_submit_direct = {
+        scriptid = "custscript_submit_direct"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        description = "When checked, this will submit a direct WCF download call to the Integration server. If unchecked it will only submit a Download Queue (DLQ) record. NOTE that this script will always submit the DLQ record regardless of this setting."
+        displaytype = "NORMAL"
+        fieldtype = "CHECKBOX"
+        isformula = false
+        ismandatory = false
+        label = "Submit Direct WCF Download"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_a1w_comm_qty_dnload = {
+        scriptid = "customdeploy_a1w_comm_qty_dnload"
+        buffersize = "1"
+        custscript_submit_direct = false
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "Warehouse Edge Committed Quantity Sweep"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            repeat = "PT15M"
+            startdate = "2017-02-16"
+            starttime = "08:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "Warehouse Edge Committed Quantity Sweep"
+}

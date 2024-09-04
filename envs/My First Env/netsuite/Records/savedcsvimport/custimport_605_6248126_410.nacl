@@ -1,0 +1,111 @@
+netsuite.savedcsvimport custimport_605_6248126_410 {
+  scriptid = "custimport_605_6248126_410"
+  charencoding = "UTF_8"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "CN | Customer Payment"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "CUSTOMERPAYMENT"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_318_6248126_sb1_155.scriptid
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = true
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMERPAYMENT = {
+        file = "CUSTOMERPAYMENT"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMERPAYMENT_APPLY@f = {
+        record = "CUSTOMERPAYMENT:APPLY"
+        fieldmappings = {
+          fieldmapping = {
+            AMOUNT = {
+              field = "AMOUNT"
+              columnreference = {
+                column = "Payment Amount"
+                file = "CUSTOMERPAYMENT"
+                type = "NAME"
+              }
+            }
+            DOC = {
+              field = "DOC"
+              columnreference = {
+                column = "Invoice"
+                file = "CUSTOMERPAYMENT"
+                type = "INTERNAL_ID"
+              }
+            }
+          }
+        }
+      }
+      CUSTOMERPAYMENT = {
+        record = "CUSTOMERPAYMENT"
+        fieldmappings = {
+          fieldmapping = {
+            ACCOUNT = {
+              field = "ACCOUNT"
+              value = "448"
+            }
+            CUSTOMER = {
+              field = "CUSTOMER"
+              columnreference = {
+                column = "Customer"
+                file = "CUSTOMERPAYMENT"
+                type = "NAME"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "External ID"
+                file = "CUSTOMERPAYMENT"
+                type = "NAME"
+              }
+            }
+            HANDLINGMODE = {
+              field = "HANDLINGMODE"
+              value = "PROCESS"
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "Memo"
+                file = "CUSTOMERPAYMENT"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "Date"
+                file = "CUSTOMERPAYMENT"
+                type = "NAME"
+              }
+            }
+            UNDEPFUNDS = {
+              field = "UNDEPFUNDS"
+              value = "F"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "CN | Customer Payment"
+}

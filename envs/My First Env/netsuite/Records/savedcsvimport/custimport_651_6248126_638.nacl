@@ -1,0 +1,60 @@
+netsuite.savedcsvimport custimport_651_6248126_638 {
+  scriptid = "custimport_651_6248126_638"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_assembly.scriptid
+  ignorereadonly = true
+  importname = "Insp_Assemblies"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "ASSEMBLYITEM"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      ASSEMBLYITEM = {
+        file = "ASSEMBLYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      ASSEMBLYITEM = {
+        record = "ASSEMBLYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            custitem_hf_holdcode = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_holdcode.scriptid
+              columnreference = {
+                column = "Inspection req"
+                file = "ASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "internal ID"
+                file = "ASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Insp_Assemblies"
+}

@@ -1,0 +1,75 @@
+netsuite.savedcsvimport custimport_63_6248126_898 {
+  scriptid = "custimport_63_6248126_898"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hydrafacial_event_form.scriptid
+  ignorereadonly = true
+  importname = "Demo Attendee Update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "CALENDAREVENT"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CALENDAREVENT = {
+        file = "CALENDAREVENT"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CALENDAREVENT = {
+        record = "CALENDAREVENT"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "CALENDAREVENT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CALENDAREVENT_ATTENDEE@f = {
+        record = "CALENDAREVENT:ATTENDEE"
+        fieldmappings = {
+          fieldmapping = {
+            ATTENDANCE = {
+              field = "ATTENDANCE"
+              value = "REQUIRED"
+            }
+            ATTENDEE = {
+              field = "ATTENDEE"
+              columnreference = {
+                column = "Attendee"
+                file = "CALENDAREVENT"
+                type = "NAME"
+              }
+            }
+            RESPONSE = {
+              field = "RESPONSE"
+              value = "ACCEPTED"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Demo Attendee Update"
+}

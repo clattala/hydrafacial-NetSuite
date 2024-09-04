@@ -1,0 +1,210 @@
+netsuite.workflow customworkflow24 {
+  scriptid = "customworkflow24"
+  description = "Workflow to send Warehouse Edge Order Locking on Purchase Order, Return Authorization, Sales Order, Transfer Order, Vendor Return Authorization, Work Order transactions"
+  initoncreate = true
+  initonvieworupdate = true
+  islogenabled = false
+  keephistory = "ALWAYS"
+  name = "HF | US | Warehouse Edge Order Locking"
+  recordtypes = "PURCHASEORDER|RETURNAUTHORIZATION|SALESORDER|TRANSFERORDER|VENDORRETURNAUTHORIZATION|WORKORDER"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        Subsidiary__Main_@sjk = {
+          name = "Subsidiary (Main)"
+          value = "STDBODYSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate99 = {
+        scriptid = "workflowstate99"
+        donotexitworkflow = false
+        name = "Initial State"
+        positionx = 243
+        positiony = 143
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition272 = {
+              scriptid = "workflowtransition272"
+              tostate = netsuite.workflow.instance.customworkflow24.workflowstates.workflowstate.workflowstate100.scriptid
+              initcondition = {
+                formula = "isChecked(\"Locked in Warehouse Edge\") = 'T'"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Locked_in_Warehouse_Edge@s = {
+                      name = "Locked in Warehouse Edge"
+                      value = netsuite.transactionbodycustomfield.instance.custbody_a1wms_orderlocked.scriptid
+                    }
+                  }
+                }
+              }
+              index = 0
+            }
+          }
+        }
+        index = 0
+      }
+      workflowstate100 = {
+        scriptid = "workflowstate100"
+        donotexitworkflow = false
+        name = "Record Locked"
+        positionx = 243
+        positiony = 253
+        workflowactions = {
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            lockrecordaction = {
+              workflowaction282 = {
+                scriptid = "workflowaction282"
+                contexttypes = "CSVIMPORT|CUSTOMMASSUPDATE|OFFLINECLIENT|PAYMENTPOSTBACK|PORTLET|SCHEDULED|USEREVENT|USERINTERFACE|WEBSTORE"
+                initcondition = {
+                  formula = "\"User Role\" NOT IN (\"Role1\",\"Role2\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = "[scriptid=customrole1071]"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+            addbuttonaction = {
+              workflowaction283 = {
+                scriptid = "workflowaction283"
+                checkconditionbeforeexecution = true
+                label = "Unlock Record"
+                saverecordfirst = false
+                initcondition = {
+                  formula = "\"User Role\" IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1124.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1120.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1237.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+            removebuttonaction = {
+              workflowaction284 = {
+                scriptid = "workflowaction284"
+                buttonid = "CLOSEREMAINING"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition273 = {
+              scriptid = "workflowtransition273"
+              contexttypes = "WEBSERVICES"
+              tostate = netsuite.workflow.instance.customworkflow24.workflowstates.workflowstate.workflowstate101.scriptid
+              triggertype = "BEFORELOAD"
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 0
+            }
+            workflowtransition274 = {
+              scriptid = "workflowtransition274"
+              buttonaction = netsuite.workflow.instance.customworkflow24.workflowstates.workflowstate.workflowstate100.workflowactions.BEFORELOAD.addbuttonaction.workflowaction283.scriptid
+              tostate = netsuite.workflow.instance.customworkflow24.workflowstates.workflowstate.workflowstate101.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 1
+            }
+          }
+        }
+        index = 1
+      }
+      workflowstate101 = {
+        scriptid = "workflowstate101"
+        donotexitworkflow = false
+        name = "Unlock Record"
+        positionx = 243
+        positiony = 353
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldvalueaction = {
+              workflowaction285 = {
+                scriptid = "workflowaction285"
+                field = netsuite.transactionbodycustomfield.instance.custbody_a1wms_orderlocked.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 2
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | US | Warehouse Edge Order Locking"
+}

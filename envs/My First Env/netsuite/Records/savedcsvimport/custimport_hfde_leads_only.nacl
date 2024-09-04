@@ -1,0 +1,181 @@
+netsuite.savedcsvimport custimport_hfde_leads_only {
+  scriptid = "custimport_hfde_leads_only"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_de_customer.scriptid
+  ignorereadonly = true
+  importname = "HF | DE | Leads"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "LEAD"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      LEAD = {
+        file = "LEAD"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      LEAD = {
+        record = "LEAD"
+        fieldmappings = {
+          fieldmapping = {
+            CATEGORY = {
+              field = "CATEGORY"
+              columnreference = {
+                column = "Source"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            COMMENTS = {
+              field = "COMMENTS"
+              columnreference = {
+                column = "Shared Notes Clean"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            COMPANYNAME = {
+              field = "COMPANYNAME"
+              columnreference = {
+                column = "NS Company Name"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            custentity_hf_channel = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_channel.scriptid
+              columnreference = {
+                column = "Channel"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            custentity_hf_globalregion = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_globalregion.scriptid
+              columnreference = {
+                column = "Global Region"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            custentity_hf_legacy_id = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_legacy_id.scriptid
+              columnreference = {
+                column = "Lead External ID"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            custentity_hf_salesgroup = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_salesgroup.scriptid
+              columnreference = {
+                column = "Sales Group"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            EMAIL = {
+              field = "EMAIL"
+              columnreference = {
+                column = "Lead/Prospect Company Email"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            ENTITYSTATUS = {
+              field = "ENTITYSTATUS"
+              columnreference = {
+                column = "Status (Removed Converted)"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "Lead External ID"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            ISPERSON = {
+              field = "ISPERSON"
+              value = "F"
+            }
+            MOBILEPHONE = {
+              field = "MOBILEPHONE"
+              columnreference = {
+                column = "Mobile Phone"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            PHONE = {
+              field = "PHONE"
+              columnreference = {
+                column = "Phone"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            PRICELEVEL = {
+              field = "PRICELEVEL"
+              value = "1"
+            }
+            SALUTATION = {
+              field = "SALUTATION"
+              columnreference = {
+                column = "Salutation"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "6"
+            }
+            TERMS = {
+              field = "TERMS"
+              value = "15"
+            }
+            TITLE = {
+              field = "TITLE"
+              columnreference = {
+                column = "Title"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+            URL = {
+              field = "URL"
+              columnreference = {
+                column = "Website"
+                file = "LEAD"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | DE | Leads"
+}

@@ -1,0 +1,194 @@
+netsuite.savedcsvimport custimport_hfde_weclapp_so {
+  scriptid = "custimport_hfde_weclapp_so"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | DE | WeClapp Orders"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "SALESORDER"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_hf_de_sales_order.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      SALESORDER = {
+        file = "SALESORDER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      SALESORDER = {
+        record = "SALESORDER"
+        fieldmappings = {
+          fieldmapping = {
+            CURRENCY = {
+              field = "CURRENCY"
+              columnreference = {
+                column = "Currency"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            custbody_hf_de_fin_leasing_company = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_de_fin_leasing_company.scriptid
+              columnreference = {
+                column = "FINANCIAL LEASING PARTNER ??"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            custbody_hf_rep_split1 = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_rep_split1.scriptid
+              value = "100.0%"
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "Internal ID"
+                file = "SALESORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "ExternalID"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              columnreference = {
+                column = "Location (Header) Internal ID"
+                file = "SALESORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            OTHERREFNUM = {
+              field = "OTHERREFNUM"
+              columnreference = {
+                column = "Order #"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            SHIPDATE = {
+              field = "SHIPDATE"
+              value = "11/3/2022"
+            }
+            SHIPMETHOD = {
+              field = "SHIPMETHOD"
+              columnreference = {
+                column = "NS Shipping Method ??"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            SHIPPINGCOST = {
+              field = "SHIPPINGCOST"
+              columnreference = {
+                column = "Shipping Cost"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            TERMS = {
+              field = "TERMS"
+              columnreference = {
+                column = "Terms"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              value = "10/28/2022"
+            }
+          }
+        }
+      }
+      SALESORDER_ITEM_INVENTORYDETAIL_INVENTORYASSIGNMENT@f = {
+        record = "SALESORDER:ITEM:INVENTORYDETAIL:INVENTORYASSIGNMENT"
+        fieldmappings = {
+          fieldmapping = {
+            INTERNALID = {
+              field = "INTERNALID"
+              columnreference = {
+                column = "Internal ID"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      SALESORDER_ITEM@f = {
+        record = "SALESORDER:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item Internal ID"
+                file = "SALESORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              columnreference = {
+                column = "Location (Item) Internal ID"
+                file = "SALESORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            PRICE = {
+              field = "PRICE"
+              columnreference = {
+                column = "Price Level"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "Qty"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            RATE = {
+              field = "RATE"
+              columnreference = {
+                column = "UnitPrice ??"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            TAXCODE = {
+              field = "TAXCODE"
+              value = "5770"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | DE | WeClapp Orders"
+}

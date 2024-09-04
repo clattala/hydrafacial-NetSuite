@@ -1,0 +1,317 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+<head>
+	<link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+	<#if .locale == "zh_CN">
+		<link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+	<#elseif .locale == "zh_TW">
+		<link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+	<#elseif .locale == "ja_JP">
+		<link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+	<#elseif .locale == "ko_KR">
+		<link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+	<#elseif .locale == "th_TH">
+		<link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+	</#if>
+    <macrolist>
+        <macro id="nlheader">
+            <table width="100%"><tr>
+	<td width="60%">
+	<table style="width: 100%; margin-bottom:0px; padding-bottom:0px;">
+								<tr>
+									<td width="100%">
+										<#if subsidiary.logo?length != 0> <img src="${subsidiary.logo@url}" style="float: left; margin: 7px; height: 37px; width: 150px;" /> </#if>
+									</td>
+								</tr>
+							</table>
+							<table style="width: 100%; position: relative; top: +10px;">
+								<tr>
+									<td width="50%">
+										<table style="font-weight:bold; padding-bottom:10px; margin-bottom:5px;"
+											width="100%">
+											<tr>
+												<td>${subsidiary.shippingaddress_text}</td>
+											</tr>
+											
+										</table>
+									</td>
+									
+								</tr>
+							</table>
+	</td>
+	<td align="right" width="40%">
+	<table width="100%"><tr>
+		<td style="width:65%; font-size:16px; font-weight:bold;">Deposit Confirmation</td>
+		</tr></table>
+
+	<table class="hdr-desc" width="100%">
+      <tr>
+      <td><b>Customer:</b></td>
+      <td>${record.customer?keep_before(" ")}
+</td></tr>
+      <tr>
+		<td><b>Deposit #  :</b></td>
+		<td>${record.tranid}</td>
+		</tr>
+		<tr>
+		<td><b>Payment Date :</b></td>
+		<td>${record.trandate?string('dd/MM/yyyy')}</td>
+		</tr>
+		
+		<tr>
+		<td><b>Page:</b></td>
+		<td><pagenumber/> of <totalpages/></td>
+		</tr></table>
+	</td>
+	</tr></table>
+        </macro>
+        <macro id="nlfooter">
+          <table style="margin-top:10px;" width="100%">
+              <tr>
+                <td align="center">For customer services please call 01788 572007 and for all accounting related queries (including making payments) please reach out to your credit controller or email AR-UK@hydrafacial.com</td>
+              </tr>
+              
+          </table>
+        </macro>
+    </macrolist>
+    <style type="text/css">* {
+        font-family: NotoSans, sans-serif;
+		}
+		
+        table {
+			font-size: 9pt;
+			table-layout: fixed;
+            vertical-align: middle;
+            align: center;
+		}
+		td p { align:left }
+         table.hdr-desc {
+            margin-top:10px;
+        }
+
+        table.hdr-desc tr td {
+            padding: 5px;
+            font-size:10pt;
+        }
+table.billto-shipto {
+            width:95%;
+            margin-top:10px;
+        }
+
+        table.billto-shipto tr td {
+            
+            padding:6px;
+            border: 1px  black;
+            border-bottom:none;
+        }
+
+        table.billto-shipto tr:last-child td {
+            border-bottom: 1px  black;
+        }
+
+        table.section-2 tr td{
+            padding:6px;
+            border: 1px solid black;
+            border-bottom:none;
+            border-right:none;
+        }
+
+        table.section-2 tr:nth-child(odd) td{
+            color: #808080;
+        }
+
+        table.section-2 tr:nth-child(even) td{
+            color: black;
+        }
+
+        table.section-2 tr td:last-child{
+            border-right: 1px solid black;
+        }
+
+        table.section-2 tr:last-child td{
+            border-bottom: 1px solid black;
+        }
+
+        table.item-table th {
+            font-weight: bold;
+            padding: 8px;
+            border:1px solid black;
+            border-right:none;
+        }
+
+        table.item-table th:last-child {
+            border-right:1px solid black;
+        }
+
+        table.item-table td {
+            font-size:8pt;
+            padding: 6px;
+            border:1px solid black;
+            <!--  border-top:none; -->
+            border-right:none;
+        }
+
+        table.item-table td:last-child {
+            border-right:1px solid black;
+        }
+
+        table.installment-table {
+            padding:10px;
+            border: 1px solid black;
+          <!--  border-top:none; -->
+        }
+
+        table.installment-table td {
+            font-size:8pt;
+            padding: 6px;
+        }
+
+        table.remittance-information-table td {
+            border: 1px solid black;
+            border-collapse: collapse;
+          	font-size: 8pt;
+        }
+      table.section-2 tr td{
+            padding:6px;
+            border: 1px black;
+            border-bottom:none;
+            border-right:none;
+        }
+
+        
+
+        table.section-2 tr:nth-child(even) td{
+            color: black;
+        }
+
+        table.section-2 tr td:last-child{
+            border-right: 1px black;
+        }
+
+        table.section-2 tr:last-child td{
+            border-bottom: 1px black;
+        }
+
+</style>
+</head>
+<body header="nlheader" header-height="22%" footer="nlfooter" footer-height="8%" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+    <table style="margin-top:50px;" width="100%"><tr>
+	<td align="left">
+	<table class="billto-shipto"><tr>
+		<td><b>Bill To</b></td>
+		</tr>
+		<tr>
+		<td height="100px">${record.customer.billaddress}</td>
+		</tr></table>
+	</td>
+	<td align="right">
+	<table class="billto-shipto"><tr>
+		<td><b>Ship To</b></td>
+		</tr>
+		<tr>
+		<td height="100px">${record.customer.shipaddress}</td>
+		</tr></table>
+	</td>
+	</tr></table>
+
+  <table class="section-2" style="margin-top:15px;" width="100%"><tr>
+	<td align="center"><b>Customer ID</b></td>
+	<td align="center"><b>Customer Name</b></td>
+	</tr>
+	<tr>
+	<td align="center">${record.customer?keep_before(" ")}</td>
+	<td align="center">${record.customer?keep_after(" ")}</td>
+	</tr>
+    
+  </table>
+
+  <table class="itemtable" style="width: 100%; margin:20px 0;border-bottom:2px solid #0D47A1;">
+		<!-- start apply sublist -->
+		<#list record.apply as apply>
+		<#if apply_index==0>
+		<thead>
+			<tr style="font-weight:bold;border-bottom:1px dotted #0D47A1;">
+				<td> # </td>
+				<td> Invoice Num </td>
+				<td> Date </td>
+				<td>${apply.applyduedate@label}</td>
+				<td>Installment number</td>
+				<td align="right"> Amount </td>
+			</tr>
+		</thead>
+		</#if>
+			<tr>
+				<td> ${apply_index+1} </td>
+				<td> ${apply.refnum} </td>
+				<td> ${apply.applydate?string('dd/MM/yyyy')} </td>
+				<td>${apply.applyduedate?string('dd/MM/yyyy')}</td>
+			  <td>${apply.installmentnumber}</td>
+
+				<td align="right"> ${apply.amount} </td>
+			</tr>
+		</#list>
+		<!-- end apply -->
+		   
+		</table>
+  
+ <p>
+            <b> Total Deposit :</b> ${record.payment}
+<br/>
+  <br/> 
+       <b>Deposit details</b>
+  </p>
+
+    <table width="100%">
+        <tr align="left">
+            <td> <b>Method:</b> </td>
+          
+        </tr>
+      <tr>
+            <td> ${record.paymentmethod} </td>
+</tr>
+        
+          <#if record.paymentmethod=='Check'>
+            <tr>
+                        <td> <b>Check No</b> </td>
+            </tr>
+          <tr>
+            <td>${record.checknumber}</td>
+            </tr>
+          <#elseif record.paymentmethod!='ACH'>
+            <tr>
+                        <td> <b>Card# </b></td></tr>
+            <tr>
+                        <td> ${record.paymentoption} </td></tr>
+            </#if>
+          
+     
+        
+        
+    </table>
+  
+  
+
+ 
+
+<!-- <table style="margin-top:10px;" width="100%"><tr>
+	<td align="center">Order online and earn 1.5% online store credit* - Register here at <a href="https://hydrafacial.store/register">https://hydrafacial.store/register</a></td>
+	</tr>
+	<tr>
+	<td align="center">*Limits apply - see store for details.</td>
+	</tr>
+</table> -->
+<!-- <table class="item-table" style="margin-top:15px;" width="100%"><tr style="color:#808080;">
+	<td align="center" colspan="1" style="border-top:1px solid black;">Customer No.</td>
+	<td align="center" colspan="1" style="border-top:1px solid black;">Ship Via</td>
+	<td align="center" colspan="1" style="border-top:1px solid black;">PO No.</td>
+	<td align="center" colspan="1" style="border-top:1px solid black;">Terms</td>
+	</tr>
+	<tr>
+	<td align="center" colspan="1">${record.entity}</td>
+	<td align="center" colspan="1">${record.shipmethod}</td>
+	<td align="center" colspan="1">${record.otherrefnum}</td>
+	<td align="center" colspan="1">${record.terms}</td>
+	</tr></table> -->
+
+</body>
+</pdf>

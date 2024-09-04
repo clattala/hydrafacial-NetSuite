@@ -1,0 +1,144 @@
+netsuite.workflow customworkflow_a1w_delete_close {
+  scriptid = "customworkflow_a1w_delete_close"
+  description = "Workflow to send Warehouse Edge Close Deletion on Intercompany Transfer Order, Purchase Order, Return Authorization, Sales Order, Transfer Order, Vendor Return Authorization, Work Order transactions"
+  initoncreate = false
+  initonvieworupdate = true
+  inittriggertype = "BEFORELOAD"
+  islogenabled = false
+  keephistory = "ONLYWHENTESTING"
+  name = "HF | US | Warehouse Edge Close Deletion"
+  recordtypes = "INTERCOMPANYTRANSFERORDER|PURCHASEORDER|RETURNAUTHORIZATION|SALESORDER|TRANSFERORDER|VENDORRETURNAUTHORIZATION|WORKORDER"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        Subsidiary__Main_@sjk = {
+          name = "Subsidiary (Main)"
+          value = "STDBODYSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate102 = {
+        scriptid = "workflowstate102"
+        donotexitworkflow = false
+        name = "InitialState"
+        positionx = 243
+        positiony = 133
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition275 = {
+              scriptid = "workflowtransition275"
+              tostate = netsuite.workflow.instance.customworkflow_a1w_delete_close.workflowstates.workflowstate.workflowstate103.scriptid
+              initcondition = {
+                formula = "\"Status\" IN (\"Transaction Status1\",\"Transaction Status2\",\"Transaction Status3\",\"Transaction Status4\",\"Transaction Status5\",\"Transaction Status6\") AND isChecked(\"Download To Warehouse Edge\") = 'T'"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Status = {
+                      name = "Status"
+                      value = "STDBODYSTATUS"
+                    }
+                    Transaction_Status1@s = {
+                      name = "Transaction Status1"
+                      selectrecordtype = "-164"
+                      value = "24"
+                    }
+                    Transaction_Status2@s = {
+                      name = "Transaction Status2"
+                      selectrecordtype = "-164"
+                      value = "51"
+                    }
+                    Transaction_Status3@s = {
+                      name = "Transaction Status3"
+                      selectrecordtype = "-164"
+                      value = "42"
+                    }
+                    Transaction_Status4@s = {
+                      name = "Transaction Status4"
+                      selectrecordtype = "-164"
+                      value = "18"
+                    }
+                    Transaction_Status5@s = {
+                      name = "Transaction Status5"
+                      selectrecordtype = "-164"
+                      value = "33"
+                    }
+                    Transaction_Status6@s = {
+                      name = "Transaction Status6"
+                      selectrecordtype = "-164"
+                      value = "60"
+                    }
+                    Download_To_Warehouse_Edge@s = {
+                      name = "Download To Warehouse Edge"
+                      value = netsuite.transactionbodycustomfield.instance.custbody_a1wms_dnloadtowms.scriptid
+                    }
+                  }
+                }
+              }
+              index = 0
+            }
+          }
+        }
+        index = 0
+      }
+      workflowstate103 = {
+        scriptid = "workflowstate103"
+        donotexitworkflow = false
+        name = "SendDelete"
+        positionx = 243
+        positiony = 223
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            customaction = {
+              workflowaction286 = {
+                scriptid = "workflowaction286"
+                schedulemode = "DELAY"
+                scripttype = netsuite.workflowactionscript.instance.customscript_a1w_delete_close.scriptid
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition276 = {
+              scriptid = "workflowtransition276"
+              tostate = netsuite.workflow.instance.customworkflow_a1w_delete_close.workflowstates.workflowstate.workflowstate104.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 0
+            }
+          }
+        }
+        index = 1
+      }
+      workflowstate104 = {
+        scriptid = "workflowstate104"
+        donotexitworkflow = true
+        name = "FinalState"
+        positionx = 243
+        positiony = 313
+        index = 2
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | US | Warehouse Edge Close Deletion"
+}

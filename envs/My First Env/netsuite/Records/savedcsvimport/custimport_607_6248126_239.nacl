@@ -1,0 +1,80 @@
+netsuite.savedcsvimport custimport_607_6248126_239 {
+  scriptid = "custimport_607_6248126_239"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "PO Closed - Items"
+  ignorereadonly = true
+  importname = "PO Closed - Items"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = true
+  overwritesublists = false
+  recordtype = "PURCHASEORDER"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_328_6248126_sb1_516.scriptid
+  usemultithread = true
+  validatemandatorycustfields = false
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      PURCHASEORDER = {
+        file = "PURCHASEORDER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      PURCHASEORDER_ITEM@f = {
+        record = "PURCHASEORDER:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            AMOUNT = {
+              field = "AMOUNT"
+              columnreference = {
+                column = "Amount"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            ISCLOSED = {
+              field = "ISCLOSED"
+              value = "T"
+            }
+            LINE = {
+              field = "LINE"
+              columnreference = {
+                column = "Line ID"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      PURCHASEORDER = {
+        record = "PURCHASEORDER"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "PO Closed - Items"
+}

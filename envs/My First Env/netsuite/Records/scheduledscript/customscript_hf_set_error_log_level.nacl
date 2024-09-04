@@ -1,0 +1,48 @@
+netsuite.scheduledscript customscript_hf_set_error_log_level {
+  scriptid = "customscript_hf_set_error_log_level"
+  name = "HF SS Set Log Level to Error"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_hf_ss_seterrorLoglevel_js@duuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_changeloglevel_search = {
+        scriptid = "custscript_hf_changeloglevel_search"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Log Level Search"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = "-119"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy1 = {
+        scriptid = "customdeploy1"
+        custscript_hf_changeloglevel_search = netsuite.savedsearch.instance.customsearch_hf_change_log_level.scriptid
+        isdeployed = true
+        loglevel = "DEBUG"
+        status = "NOTSCHEDULED"
+        title = "HF SS Set Log Level to Error"
+        recurrence = {
+          single = {
+            startdate = "2024-06-04"
+            starttime = "20:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF SS Set Log Level to Error"
+}

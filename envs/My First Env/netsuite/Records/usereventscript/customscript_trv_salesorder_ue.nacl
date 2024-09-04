@@ -1,0 +1,86 @@
+netsuite.usereventscript customscript_trv_salesorder_ue {
+  scriptid = "customscript_trv_salesorder_ue"
+  description = "Sales Order Customizations"
+  name = "HF | Sales Order | User Event"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_trevera_salesOrderUserEvent_js@ddv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_co_tax_item = {
+        scriptid = "custscript_hf_co_tax_item"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Colorado Tax Item"
+        onparentdelete = "SET_NULL"
+        searchlevel = "2"
+        selectrecordtype = "-10"
+        storevalue = true
+        index = 0
+      }
+      custscript_hf_so_ue_subsidiary_us = {
+        scriptid = "custscript_hf_so_ue_subsidiary_us"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = true
+        label = "US Subsidiary"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = "-117"
+        storevalue = true
+        index = 1
+      }
+      custscript_hf_so_ue_subsidiary_uk = {
+        scriptid = "custscript_hf_so_ue_subsidiary_uk"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = true
+        label = "UK Subsidiary"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = "-117"
+        storevalue = true
+        index = 2
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_trv_salesorder_ue = {
+        scriptid = "customdeploy_trv_salesorder_ue"
+        allemployees = true
+        alllocalizationcontexts = true
+        allpartners = false
+        allroles = true
+        custscript_hf_co_tax_item = "[ACCOUNT_SPECIFIC_VALUE]"
+        custscript_hf_so_ue_subsidiary_uk = "[ACCOUNT_SPECIFIC_VALUE]"
+        custscript_hf_so_ue_subsidiary_us = "[ACCOUNT_SPECIFIC_VALUE]"
+        executioncontext = "ACTION|ADVANCEDREVREC|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CONSOLRATEADJUSTOR|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OTHER|PAYMENTGATEWAY|PAYMENTPOSTBACK|PLATFORMEXTENSION|PORTLET|PROMOTIONS|RECORDACTION|RESTLET|RESTWEBSERVICES|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WEBAPPLICATION|WEBSERVICES|WEBSTORE|WORKBOOKBUILDER|WORKFLOW"
+        isdeployed = true
+        loglevel = "AUDIT"
+        recordtype = "SALESORDER"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Sales Order | User Event"
+}

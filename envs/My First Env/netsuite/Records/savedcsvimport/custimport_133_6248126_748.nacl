@@ -1,0 +1,69 @@
+netsuite.savedcsvimport custimport_133_6248126_748 {
+  scriptid = "custimport_133_6248126_748"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Update all Ireland customers with the Euro currency."
+  entryform = netsuite.entryForm.instance.custformhydrafacial_customer.scriptid
+  ignorereadonly = true
+  importname = "Ireland Customers"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CUSTOMER"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = false
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMER = {
+        file = "CUSTOMER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMER = {
+        record = "CUSTOMER"
+        fieldmappings = {
+          fieldmapping = {
+            CURRENCY = {
+              field = "CURRENCY"
+              value = "4"
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CUSTOMER_CURRENCY@f = {
+        record = "CUSTOMER:CURRENCY"
+        fieldmappings = {
+          fieldmapping = {
+            CURRENCY = {
+              field = "CURRENCY"
+              value = "4"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Ireland Customers"
+}

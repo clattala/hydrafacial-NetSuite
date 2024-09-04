@@ -1,0 +1,53 @@
+netsuite.mapreducescript customscript_hf_mr_wo_bom_updated {
+  scriptid = "customscript_hf_mr_wo_bom_updated"
+  name = "HF_MR_WO_BOM_Updated"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_MR_WO_BOM_Updated_js@duuuuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_wo_planned_bom_update = {
+        scriptid = "custscript_wo_planned_bom_update"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "SAVED SEARCH ID"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = "-119"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_mr_wo_bom_updated = {
+        scriptid = "customdeploy_hf_mr_wo_bom_updated"
+        buffersize = "1"
+        concurrencylimit = "1"
+        custscript_wo_planned_bom_update = netsuite.savedsearch.instance.customsearch_wo_planned_bom_update.scriptid
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF_MR_WO_BOM_Updated"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2022-08-24"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF_MR_WO_BOM_Updated"
+}

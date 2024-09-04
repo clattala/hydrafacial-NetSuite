@@ -1,0 +1,151 @@
+netsuite.savedcsvimport custimport_hf_us_return_auth {
+  scriptid = "custimport_hf_us_return_auth"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | US | RETURN AUTHORIZATIONS"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "RETURNAUTHORIZATION"
+  runserversuitescript = false
+  transactionform = "[scriptid=custform_366_6248126_sb1_911]"
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      RETURNAUTHORIZATION = {
+        file = "RETURNAUTHORIZATION"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      RETURNAUTHORIZATION = {
+        record = "RETURNAUTHORIZATION"
+        fieldmappings = {
+          fieldmapping = {
+            CUSTBODY_HF_RMA_REASON = {
+              field = "CUSTBODY_HF_RMA_REASON"
+              columnreference = {
+                column = "U_HF_RMAReason"
+                file = "RETURNAUTHORIZATION"
+                type = "NAME"
+              }
+            }
+            CUSTBODY_HF_RMA_TYPE = {
+              field = "CUSTBODY_HF_RMA_TYPE"
+              columnreference = {
+                column = "U_HF_RMAType"
+                file = "RETURNAUTHORIZATION"
+                type = "NAME"
+              }
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "CustomerID"
+                file = "RETURNAUTHORIZATION"
+                type = "INTERNAL_ID"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "ExternalID"
+                file = "RETURNAUTHORIZATION"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              columnreference = {
+                column = "Location"
+                file = "RETURNAUTHORIZATION"
+                type = "INTERNAL_ID"
+              }
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "PO#"
+                file = "RETURNAUTHORIZATION"
+                type = "NAME"
+              }
+            }
+            ORDERSTATUS = {
+              field = "ORDERSTATUS"
+              value = "A"
+            }
+            OTHERREFNUM = {
+              field = "OTHERREFNUM"
+              columnreference = {
+                column = "Memo"
+                file = "RETURNAUTHORIZATION"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "DocDate"
+                file = "RETURNAUTHORIZATION"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      RETURNAUTHORIZATION_ITEM@f = {
+        record = "RETURNAUTHORIZATION:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            custcol_line_number = {
+              field = netsuite.transactioncolumncustomfield.instance.custcol_line_number.scriptid
+              columnreference = {
+                column = "Line"
+                file = "RETURNAUTHORIZATION"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "ItemID"
+                file = "RETURNAUTHORIZATION"
+                type = "INTERNAL_ID"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "Quantity"
+                file = "RETURNAUTHORIZATION"
+                type = "NAME"
+              }
+            }
+            RATE = {
+              field = "RATE"
+              columnreference = {
+                column = "Price"
+                file = "RETURNAUTHORIZATION"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | US | RETURN AUTHORIZATIONS"
+}

@@ -1,0 +1,41 @@
+netsuite.scheduledscript customscript_trv_update_warranty_status {
+  scriptid = "customscript_trv_update_warranty_status"
+  name = "HF | Update Customer Warranty Status"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_trevera_updateWarrantyFieldScheduled_js@ddv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_update_warranty_status_schd = {
+        scriptid = "customdeploy_update_warranty_status_schd"
+        isdeployed = false
+        loglevel = "DEBUG"
+        status = "NOTSCHEDULED"
+        title = "HF | Update Customer Warranty Staus"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            repeat = "PT1H"
+            startdate = "2021-10-04"
+            starttime = "07:00:00Z"
+          }
+        }
+      }
+      customdeploy_hf_update_warranty_status = {
+        scriptid = "customdeploy_hf_update_warranty_status"
+        isdeployed = true
+        loglevel = "DEBUG"
+        status = "NOTSCHEDULED"
+        title = "HydraFacial | Update Customer Warranty S"
+        recurrence = {
+          single = {
+            startdate = "2021-09-08"
+            starttime = "00:30:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Update Customer Warranty Status"
+}

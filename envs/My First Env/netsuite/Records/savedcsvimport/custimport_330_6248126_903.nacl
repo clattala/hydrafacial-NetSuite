@@ -1,0 +1,66 @@
+netsuite.savedcsvimport custimport_330_6248126_903 {
+  scriptid = "custimport_330_6248126_903"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Customer Price Level and Price Tier update"
+  entryform = netsuite.entryForm.instance.custformhydrafacial_customer.scriptid
+  ignorereadonly = true
+  importname = "Customer_PriceLevel_Tier_upd"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CUSTOMER"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMER = {
+        file = "CUSTOMER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMER = {
+        record = "CUSTOMER"
+        fieldmappings = {
+          fieldmapping = {
+            custentity_hf_exclude_tier_pricelevel = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_exclude_tier_pricelevel.scriptid
+              value = "T"
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            PRICELEVEL = {
+              field = "PRICELEVEL"
+              columnreference = {
+                column = "Price Level"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Customer_PriceLevel_Tier_upd"
+}

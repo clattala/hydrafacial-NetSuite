@@ -1,0 +1,114 @@
+netsuite.scheduledscript customscript_ss_hpf_annual {
+  scriptid = "customscript_ss_hpf_annual"
+  defaultfunction = "scheduled"
+  name = "China Annual Cleaning"
+  notifyadmins = false
+  notifyemails = "mark.huang@hitpointcloud.com"
+  notifyowner = false
+  scriptfile = "[/SuiteBundles/Bundle 191307/ss_hpf_annual_cleaning.js]"
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_nj_sub_id = {
+        scriptid = "custscript_nj_sub_id"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "nj subsidiary"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+      custscript_nj_period = {
+        scriptid = "custscript_nj_period"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "nj period"
+        searchlevel = "2"
+        storevalue = true
+        index = 1
+      }
+      custscript_nj_account = {
+        scriptid = "custscript_nj_account"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "nj account"
+        searchlevel = "2"
+        storevalue = true
+        index = 2
+      }
+      custscript_nj_sdate = {
+        scriptid = "custscript_nj_sdate"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "nj start date"
+        searchlevel = "2"
+        storevalue = true
+        index = 3
+      }
+      custscript_nj_edate = {
+        scriptid = "custscript_nj_edate"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "nj end date"
+        searchlevel = "2"
+        storevalue = true
+        index = 4
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_ss_hpf_annual = {
+        scriptid = "customdeploy_ss_hpf_annual"
+        isdeployed = true
+        loglevel = "DEBUG"
+        status = "NOTSCHEDULED"
+        title = "ss_hpf_annual_cleaning"
+        recurrence = {
+          single = {
+            startdate = "2016-02-25"
+            starttime = "02:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  libraries = {
+    library = [
+      {
+        scriptfile = "[/SuiteBundles/Bundle 191307/hitpointCloudScriptTool.js]"
+      },
+    ]
+  }
+  isInactive = false
+  _alias = "China Annual Cleaning"
+}

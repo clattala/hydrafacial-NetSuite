@@ -1,0 +1,57 @@
+netsuite.savedcsvimport custimport_hf_apac_emp_csm_rep_update {
+  scriptid = "custimport_hf_apac_emp_csm_rep_update"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "This map is used for updating the CSN Rep field on the employee record. Please refer the fresh service ticket 14219 (https://helpdesk.beautyhealth.com/a/tickets/14219?current_tab=details)"
+  entryform = netsuite.entryForm.instance.custform_583_6248126_321.scriptid
+  ignorereadonly = true
+  importname = "APAC Employee_CSM Role update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "EMPLOYEE"
+  runserversuitescript = false
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      EMPLOYEE = {
+        file = "EMPLOYEE"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      EMPLOYEE = {
+        record = "EMPLOYEE"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "EMPLOYEE"
+                type = "NAME"
+              }
+            }
+            ISSALESREP = {
+              field = "ISSALESREP"
+              value = "T"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "APAC Employee_CSM Role update"
+}

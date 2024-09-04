@@ -1,0 +1,247 @@
+netsuite.workflow customworkflow36 {
+  scriptid = "customworkflow36"
+  description = "This workflow is to navigate between the records - Expense Report, Vendor Bill, Vendor Prepayment, Customer Payment, PO and Invoice"
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = true
+  initonvieworupdate = true
+  islogenabled = false
+  keephistory = "ALWAYS"
+  name = "HF | APAC | SWC Reject Reason"
+  recordtypes = netsuite.customrecord_swc_rejectreason.attr.scriptid
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    type = "VISUAL_BUILDER"
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate153 = {
+        scriptid = "workflowstate153"
+        donotexitworkflow = false
+        name = "Reject Reason"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            lockrecordaction = {
+              workflowaction457 = {
+                scriptid = "workflowaction457"
+                eventtypes = "EDIT|VIEW"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          AFTERSUBMIT = {
+            triggertype = "AFTERSUBMIT"
+            gotorecordaction = {
+              workflowaction456 = {
+                scriptid = "workflowaction456"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                ineditmode = false
+                recordidfield = netsuite.customrecord_swc_rejectreason.field.custom_custrecord_swc_expensere.scriptid
+                recordtype = "EXPENSEREPORT"
+                initcondition = {
+                  formula = "\"Transaction:Type\" IN (\"Transaction Type1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Transaction_Type@f = {
+                        name = "Transaction:Type"
+                        value = "[scriptid=customrecord_swc_rejectreason.custrecord_swc_expensere]:STDBODYTRANTYPE"
+                      }
+                      Transaction_Type1@s = {
+                        name = "Transaction Type1"
+                        selectrecordtype = "-100"
+                        value = "EXPENSEREPORT"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction662 = {
+                scriptid = "workflowaction662"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                ineditmode = false
+                recordidfield = netsuite.customrecord_swc_rejectreason.field.custom_custrecord_swc_expensere.scriptid
+                recordtype = "VENDORBILL"
+                initcondition = {
+                  formula = "\"Transaction:Type\" IN (\"Transaction Type1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Transaction_Type@f = {
+                        name = "Transaction:Type"
+                        value = "[scriptid=customrecord_swc_rejectreason.custrecord_swc_expensere]:STDBODYTRANTYPE"
+                      }
+                      Transaction_Type1@s = {
+                        name = "Transaction Type1"
+                        selectrecordtype = "-100"
+                        value = "VENDORBILL"
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+              workflowaction671 = {
+                scriptid = "workflowaction671"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                ineditmode = false
+                recordidfield = netsuite.customrecord_swc_rejectreason.field.custom_custrecord_swc_expensere.scriptid
+                recordtype = "VENDORPREPAYMENT"
+                initcondition = {
+                  formula = "\"Transaction:Type\" IN (\"Transaction Type1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Transaction_Type@f = {
+                        name = "Transaction:Type"
+                        value = "[scriptid=customrecord_swc_rejectreason.custrecord_swc_expensere]:STDBODYTRANTYPE"
+                      }
+                      Transaction_Type1@s = {
+                        name = "Transaction Type1"
+                        selectrecordtype = "-100"
+                        value = "VENDORPREPAYMENT"
+                      }
+                    }
+                  }
+                }
+                index = 2
+                isInactive = false
+              }
+              workflowaction672 = {
+                scriptid = "workflowaction672"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                ineditmode = false
+                recordidfield = netsuite.customrecord_swc_rejectreason.field.custom_custrecord_swc_expensere.scriptid
+                recordtype = "VENDORPAYMENT"
+                initcondition = {
+                  formula = "\"Transaction:Type\" IN (\"Transaction Type1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Transaction_Type@f = {
+                        name = "Transaction:Type"
+                        value = "[scriptid=customrecord_swc_rejectreason.custrecord_swc_expensere]:STDBODYTRANTYPE"
+                      }
+                      Transaction_Type1@s = {
+                        name = "Transaction Type1"
+                        selectrecordtype = "-100"
+                        value = "VENDORPAYMENT"
+                      }
+                    }
+                  }
+                }
+                index = 3
+                isInactive = false
+              }
+              workflowaction673 = {
+                scriptid = "workflowaction673"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                ineditmode = false
+                recordidfield = netsuite.customrecord_swc_rejectreason.field.custom_custrecord_swc_expensere.scriptid
+                recordtype = "CUSTOMERPAYMENT"
+                initcondition = {
+                  formula = "\"Transaction:Type\" IN (\"Transaction Type1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Transaction_Type@f = {
+                        name = "Transaction:Type"
+                        value = "[scriptid=customrecord_swc_rejectreason.custrecord_swc_expensere]:STDBODYTRANTYPE"
+                      }
+                      Transaction_Type1@s = {
+                        name = "Transaction Type1"
+                        selectrecordtype = "-100"
+                        value = "CUSTOMERPAYMENT"
+                      }
+                    }
+                  }
+                }
+                index = 4
+                isInactive = false
+              }
+              workflowaction774 = {
+                scriptid = "workflowaction774"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                ineditmode = false
+                recordidfield = netsuite.customrecord_swc_rejectreason.field.custom_custrecord_swc_expensere.scriptid
+                recordtype = "PURCHASEORDER"
+                initcondition = {
+                  formula = "\"Transaction:Type\" IN (\"Transaction Type1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Transaction_Type@f = {
+                        name = "Transaction:Type"
+                        value = "[scriptid=customrecord_swc_rejectreason.custrecord_swc_expensere]:STDBODYTRANTYPE"
+                      }
+                      Transaction_Type1@s = {
+                        name = "Transaction Type1"
+                        selectrecordtype = "-100"
+                        value = "PURCHASEORDER"
+                      }
+                    }
+                  }
+                }
+                index = 5
+                isInactive = false
+              }
+              workflowaction926 = {
+                scriptid = "workflowaction926"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                ineditmode = false
+                recordidfield = netsuite.customrecord_swc_rejectreason.field.custom_custrecord_swc_expensere.scriptid
+                recordtype = "INVOICE"
+                initcondition = {
+                  formula = "\"Transaction:Type\" IN (\"Transaction Type1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Transaction_Type@f = {
+                        name = "Transaction:Type"
+                        value = "[scriptid=customrecord_swc_rejectreason.custrecord_swc_expensere]:STDBODYTRANTYPE"
+                      }
+                      Transaction_Type1@s = {
+                        name = "Transaction Type1"
+                        selectrecordtype = "-100"
+                        value = "INVOICE"
+                      }
+                    }
+                  }
+                }
+                fieldsettings = {
+                  fieldsetting = {
+                    STDBODYNEXTAPPROVER = {
+                      targetfield = "STDBODYNEXTAPPROVER"
+                      valuefield = netsuite.customrecord_swc_rejectreason.field.custom_custrecord_swc_rejector.scriptid
+                      index = 0
+                    }
+                  }
+                }
+                index = 6
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _generated_dependencies = [
+    {
+      reference = netsuite.customrecord_swc_rejectreason.field.custom_custrecord_swc_expensere.scriptid
+    },
+  ]
+  _alias = "HF | APAC | SWC Reject Reason"
+}

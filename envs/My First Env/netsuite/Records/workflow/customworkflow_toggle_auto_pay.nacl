@@ -1,0 +1,141 @@
+netsuite.workflow customworkflow_toggle_auto_pay {
+  scriptid = "customworkflow_toggle_auto_pay"
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = false
+  initonvieworupdate = true
+  islogenabled = false
+  keephistory = "ALWAYS"
+  name = "HF | US | Toggle Auto Payment"
+  recordtypes = "INVOICE"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"User Role\" IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\") AND \"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        User_Role@s = {
+          name = "User Role"
+          value = "STDUSERROLE"
+        }
+        Role1 = {
+          name = "Role1"
+          selectrecordtype = "-118"
+          value = "ADMINISTRATOR"
+        }
+        Role2 = {
+          name = "Role2"
+          selectrecordtype = "-118"
+          value = netsuite.role.instance.customrole1221.scriptid
+        }
+        Role3 = {
+          name = "Role3"
+          selectrecordtype = "-118"
+          value = netsuite.role.instance.customrole1099.scriptid
+        }
+        Role4 = {
+          name = "Role4"
+          selectrecordtype = "-118"
+          value = netsuite.role.instance.customrole1236.scriptid
+        }
+        Role5 = {
+          name = "Role5"
+          selectrecordtype = "-118"
+          value = netsuite.role.instance.customrole1235.scriptid
+        }
+        Subsidiary__Main_@sjk = {
+          name = "Subsidiary (Main)"
+          value = "STDBODYSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate269 = {
+        scriptid = "workflowstate269"
+        donotexitworkflow = false
+        name = "Initiate Toggle Button"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            addbuttonaction = {
+              workflowaction1124 = {
+                scriptid = "workflowaction1124"
+                checkconditionbeforeexecution = true
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                label = "Toggle Auto Payment"
+                saverecordfirst = true
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition486 = {
+              scriptid = "workflowtransition486"
+              buttonaction = netsuite.workflow.instance.customworkflow_toggle_auto_pay.workflowstates.workflowstate.workflowstate269.workflowactions.BEFORELOAD.addbuttonaction.workflowaction1124.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_toggle_auto_pay.workflowstates.workflowstate.workflowstate270.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 0
+            }
+          }
+        }
+        index = 0
+      }
+      workflowstate270 = {
+        scriptid = "workflowstate270"
+        donotexitworkflow = false
+        name = "Toggle Auto Payment"
+        positionx = 243
+        positiony = 293
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            customaction = {
+              workflowaction1125 = {
+                scriptid = "workflowaction1125"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                schedulemode = "DELAY"
+                scripttype = netsuite.workflowactionscript.instance.customscript_hf_toggle_auto_pay_scr_flag.scriptid
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                parametersettings = {
+                  parametersetting = {
+                    customscript_hf_toggle_auto_pay_scr_flag_custscript_hf_run_auto_pay_script_y@uuuuuuvuuuuuu = {
+                      targetparameter = netsuite.workflowactionscript.instance.customscript_hf_toggle_auto_pay_scr_flag.scriptcustomfields.scriptcustomfield.custscript_hf_run_auto_pay_script_y.scriptid
+                    }
+                    customscript_hf_toggle_auto_pay_scr_flag_custscript_hf_run_auto_pay_script_n@uuuuuuvuuuuuu = {
+                      targetparameter = netsuite.workflowactionscript.instance.customscript_hf_toggle_auto_pay_scr_flag.scriptcustomfields.scriptcustomfield.custscript_hf_run_auto_pay_script_n.scriptid
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 1
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | US | Toggle Auto Payment"
+}

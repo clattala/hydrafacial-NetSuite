@@ -1,0 +1,64 @@
+netsuite.scheduledscript customscript_trv_cleaningkits_automation {
+  scriptid = "customscript_trv_cleaningkits_automation"
+  description = "Script generates monthly promotion for cleaning kits and sends email to customer that it is available."
+  name = "HF | Cleaning Kits Automation"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_trevera_cleaningKitsAutomation_js@ddv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_cleanningkit_email_templat = {
+        scriptid = "custscript_hf_cleanningkit_email_templat"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = true
+        label = "Email Template"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = "-120"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_cleaningkits_automation_sch = {
+        scriptid = "customdeploy_cleaningkits_automation_sch"
+        custscript_hf_cleanningkit_email_templat = "[ACCOUNT_SPECIFIC_VALUE]"
+        isdeployed = false
+        loglevel = "DEBUG"
+        status = "NOTSCHEDULED"
+        title = "HF | Cleaning Kits Automation"
+        recurrence = {
+          monthly = {
+            everyxmonths = 1
+            startdate = "2021-10-01"
+            starttime = "13:00:00Z"
+          }
+        }
+      }
+      customdeploy_hf_cleaning_kits_automation = {
+        scriptid = "customdeploy_hf_cleaning_kits_automation"
+        custscript_hf_cleanningkit_email_templat = "[ACCOUNT_SPECIFIC_VALUE]"
+        isdeployed = true
+        loglevel = "DEBUG"
+        status = "NOTSCHEDULED"
+        title = "HF - Cleaning Kits Automation"
+        recurrence = {
+          single = {
+            startdate = "2021-09-10"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Cleaning Kits Automation"
+}

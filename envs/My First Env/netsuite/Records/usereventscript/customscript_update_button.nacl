@@ -1,0 +1,37 @@
+netsuite.usereventscript customscript_update_button {
+  scriptid = "customscript_update_button"
+  description = "This script is to display a button and call Suitelet for updating promise dates on PO"
+  name = "HF | UE | Update Button on PO"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_UE_Update_Button_PO_js@duuuuv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_update_button = {
+        scriptid = "customdeploy_update_button"
+        allemployees = false
+        alllocalizationcontexts = true
+        allpartners = false
+        allroles = false
+        audslctrole = "ADMINISTRATOR|[scriptid=customrole1044]|[scriptid=customrole_hf_supply_chain_manager]"
+        executioncontext = "ACTION|ADVANCEDREVREC|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CONSOLRATEADJUSTOR|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OTHER|PAYMENTGATEWAY|PAYMENTPOSTBACK|PLATFORMEXTENSION|PORTLET|PROMOTIONS|RECORDACTION|RESTLET|RESTWEBSERVICES|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WEBSERVICES|WORKBOOKBUILDER|WORKFLOW"
+        isdeployed = true
+        loglevel = "ERROR"
+        recordtype = "PURCHASEORDER"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _generated_dependencies = [
+    {
+      reference = netsuite.role.instance.customrole1044.scriptid
+    },
+    {
+      reference = netsuite.role.instance.customrole_hf_supply_chain_manager.scriptid
+    },
+  ]
+  _alias = "HF | UE | Update Button on PO"
+}

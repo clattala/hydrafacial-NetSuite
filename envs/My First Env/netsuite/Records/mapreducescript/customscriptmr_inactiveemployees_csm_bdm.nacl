@@ -1,0 +1,73 @@
+netsuite.mapreducescript customscriptmr_inactiveemployees_csm_bdm {
+  scriptid = "customscriptmr_inactiveemployees_csm_bdm"
+  name = "HF MR Inactive CSM BDM Employees"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_hf_mr_inactiveEmployees_csm_bdm_js@duuuuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_active_uk_employee = {
+        scriptid = "custscript_hf_active_uk_employee"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Active UK employee to replace with"
+        onparentdelete = "SET_NULL"
+        searchlevel = "2"
+        selectrecordtype = "-4"
+        storevalue = true
+        index = 0
+      }
+      custscript_hf_de_active_employee = {
+        scriptid = "custscript_hf_de_active_employee"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Active DE Employee with replace with"
+        onparentdelete = "SET_NULL"
+        searchlevel = "2"
+        selectrecordtype = "-4"
+        storevalue = true
+        index = 1
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy1 = {
+        scriptid = "customdeploy1"
+        buffersize = "1"
+        concurrencylimit = "1"
+        custscript_hf_active_uk_employee = "[ACCOUNT_SPECIFIC_VALUE]"
+        custscript_hf_de_active_employee = "[ACCOUNT_SPECIFIC_VALUE]"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF MR Inactive CSM BDM Employees"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            repeat = "PT15M"
+            startdate = "2023-11-15"
+            starttime = "18:30:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF MR Inactive CSM BDM Employees"
+}

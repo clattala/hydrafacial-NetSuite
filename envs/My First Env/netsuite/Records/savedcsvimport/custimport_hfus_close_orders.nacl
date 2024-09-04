@@ -1,0 +1,72 @@
+netsuite.savedcsvimport custimport_hfus_close_orders {
+  scriptid = "custimport_hfus_close_orders"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Used to mass close orders by line"
+  ignorereadonly = true
+  importname = "HF | US | CLOSE ORDERS"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "SALESORDER"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_hydrafacial_sales_order_1.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      SALESORDER = {
+        file = "SALESORDER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      SALESORDER = {
+        record = "SALESORDER"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      SALESORDER_ITEM@f = {
+        record = "SALESORDER:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ISCLOSED = {
+              field = "ISCLOSED"
+              value = "T"
+            }
+            LINE = {
+              field = "LINE"
+              columnreference = {
+                column = "Line ID"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | US | CLOSE ORDERS"
+}

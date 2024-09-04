@@ -1,0 +1,143 @@
+netsuite.savedcsvimport custimport_hfde_invoices {
+  scriptid = "custimport_hfde_invoices"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | DE | Invoices"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVOICE"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_hf_de_invoice.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVOICE = {
+        file = "INVOICE"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVOICE_ITEM@f = {
+        record = "INVOICE:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            AMOUNT = {
+              field = "AMOUNT"
+              columnreference = {
+                column = "Amount"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item: Internal ID"
+                file = "INVOICE"
+                type = "INTERNAL_ID"
+              }
+            }
+            TAXCODE = {
+              field = "TAXCODE"
+              value = "6"
+            }
+          }
+        }
+      }
+      INVOICE = {
+        record = "INVOICE"
+        fieldmappings = {
+          fieldmapping = {
+            ACCOUNT = {
+              field = "ACCOUNT"
+              value = "119"
+            }
+            CURRENCY = {
+              field = "CURRENCY"
+              columnreference = {
+                column = "Currency"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            custbody_hf_original_date = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_original_date.scriptid
+              columnreference = {
+                column = "Original Invoice Date"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            DUEDATE = {
+              field = "DUEDATE"
+              columnreference = {
+                column = "Due Date"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "Customer Internal ID ??"
+                file = "INVOICE"
+                type = "INTERNAL_ID"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "External ID"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              value = "47"
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "Description/Memo"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            OTHERREFNUM = {
+              field = "OTHERREFNUM"
+              columnreference = {
+                column = "invoice no."
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "Invoice Date"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | DE | Invoices"
+}

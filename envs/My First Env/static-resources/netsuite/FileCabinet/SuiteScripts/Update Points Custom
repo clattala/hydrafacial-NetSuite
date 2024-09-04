@@ -1,0 +1,208 @@
+/**
+ * Module Description
+ * 
+ * Version    Date            Author           Remarks
+ * 1.00       01 Jan 2020     Rakesh K
+ * 1.00       23 April 2021   Pooja R     Added feature for customer inactive script checkbox.
+
+ */
+
+/**
+ * @param {Object} dataIn Parameter object
+ * @returns {Object} Output object 
+ */
+
+ function updatePoints(dataIn) {
+
+	//var annexRecId = '';
+   var scisAccount = nlapiLookupField('customrecord_annex_cloud_site_details', '1', ['custrecord_customer_site_account_type', 'custrecord_annex_multi_site_config','custrecord_annex_cloud_update_script']);
+   var accountType = defVal(scisAccount.custrecord_customer_site_account_type);
+   var multiSiteConfField = defVal(scisAccount.custrecord_annex_multi_site_config);
+   var inactiveUpdatePointsScript = defVal(scisAccount.custrecord_annex_cloud_update_script);
+   nlapiLogExecution('debug','inactiveUpdatePointsScript==>',inactiveUpdatePointsScript);
+   
+   if (inactiveUpdatePointsScript != 'F') {
+			
+
+   if(defVal(dataIn)){
+	   nlapiLogExecution('DEBUG','update Points',JSON.stringify(dataIn));
+   var CustomerToProceess = dataIn.length;
+   nlapiLogExecution('DEBUG', 'CustomerToProceess',CustomerToProceess)
+   if(CustomerToProceess > 50)
+   {
+	   var scriptLimitCross  = {
+				"status":"error",
+				 "error":"Cannot be proccess more than 50 Customers"
+	   }
+	   return scriptLimitCross;
+   }
+   var fieldUpdate = [];
+   var fieldValueUpdate = [];
+   var errorArr=[];
+   var successRcdUpdate = 0;
+   var errorRcdUpdate = 0;
+   var updateStatus=false;
+	   for(var i=0;i<CustomerToProceess;i++)
+	   {
+           var finalTier;
+		   var customerId = dataIn[i].customer_id;
+       var Loyalty_Id= dataIn[i].loyalty_id
+       var OptinStatus= dataIn[i].opt_status;
+		   var available_points = dataIn[i].pointsDetails.available_points;
+		   var points_used = dataIn[i].pointsDetails.points_used;
+		   var lifetime_points = dataIn[i].pointsDetails.lifetime_points;
+		   var current_tier = dataIn[i].pointsDetails.current_tier;
+		   var points_to_next_tier = dataIn[i].pointsDetails.points_to_next_tier;
+		var next_tier = dataIn[i].pointsDetails.next_tier;
+		current_tier = current_tier.replace(" Overrides","");
+		next_tier = next_tier.replace(" Overrides","");
+		   var spend_Amount_To_Next_Tier = dataIn[i].pointsDetails.spend_Amount_To_Next_Tier;
+			
+			 
+			
+			nlapiLogExecution("debug",'spendAmountToNextTier value==>',spend_Amount_To_Next_Tier);
+			nlapiLogExecution("debug",'pointsToNextTier value==>',points_to_next_tier);
+
+			if(spend_Amount_To_Next_Tier){
+				finalTier = spend_Amount_To_Next_Tier;
+
+			}else if(points_to_next_tier){
+				finalTier = points_to_next_tier;
+			}
+            
+			nlapiLogExecution("debug",'finalTier value==>',finalTier);
+
+
+		   var points_expiring = dataIn[i].pointsDetails.points_expiring;
+		   
+		   var hold_points = dataIn[i].pointsDetails.hold_points;
+		   var points_to_next_reward = dataIn[i].pointsDetails.points_to_next_reward;
+		   var upcoming_points_expire_date =  dataIn[i].pointsDetails.upcoming_points_expire_date;
+		   if(dataIn[i].pointsDetails.upcoming_points_expire_date){
+		   upcoming_points_expire_date = nlapiStringToDate(upcoming_points_expire_date);
+		   //upcoming_points_expire_date = nlapiDateToString(upcoming_points_expire_date);
+		   }
+		   var points_expired = dataIn[i].pointsDetails.points_expired;
+		   
+		   
+		   
+		   if(Loyalty_Id)
+		   {
+		   	   fieldUpdate.push('custentity_annex_cloud_pi_loyalty_id');
+			   fieldValueUpdate.push(Loyalty_Id);
+		   }
+		   if(OptinStatus)
+		   {
+		   	   fieldUpdate.push('custentity_annex_cloud_loyalty_program');
+			   fieldValueUpdate.push(OptinStatus);
+		   }
+		   
+		   
+		   if(available_points)
+		   {
+			   fieldUpdate.push('custentity_annex_cloud_li_available_poin');
+			   fieldValueUpdate.push(available_points);
+		   }
+	   
+		   if(points_used)
+		   {
+			   fieldUpdate.push('custentity_annex_cloud_li_points_used');
+			   fieldValueUpdate.push(points_used);
+		   }
+		   if(lifetime_points)
+		   {
+			   fieldUpdate.push('custentity_annex_cloud_lfetme_pnts');
+			   fieldValueUpdate.push(lifetime_points);
+		   }
+		   if(current_tier)
+		   {
+			   fieldUpdate.push('custentity_annex_cloud_li_current_tier');
+			   fieldValueUpdate.push(current_tier);
+		   }
+		   if(finalTier)
+		   {
+			   fieldUpdate.push('custentity_annex_cloud_li_pnt_to_nxt_rwd');
+			   fieldValueUpdate.push(finalTier);
+		   }
+		   if(points_expiring)
+		   {
+			   fieldUpdate.push('custentity_annex_cloud_li_points_expirin');
+			   fieldValueUpdate.push(points_expiring);
+		   }
+		   
+		   
+		   if(hold_points)
+		   {
+			   fieldUpdate.push('custentity_annex_cloud_hold_points');
+			   fieldValueUpdate.push(hold_points);
+		   }
+		   if(next_tier)
+		   {
+			   fieldUpdate.push('custentity_annex_cloud_li_points_to_next');
+			   fieldValueUpdate.push(next_tier);
+		   }
+		   if(upcoming_points_expire_date)
+		   {
+			   fieldUpdate.push('custentity_annex_cloud_li_up_pnts_ex_dte');
+			   upcoming_points_expire_date = upcoming_points_expire_date.split(" "||"0")[0]
+			   fieldValueUpdate.push(upcoming_points_expire_date);
+		   }
+		   if(points_expired)
+		   {
+			   fieldUpdate.push('custentity_annex_cloud_li_points_expired');
+			   fieldValueUpdate.push(points_expired);
+		   }
+	   
+		   
+		   
+		   try{
+			   nlapiLogExecution('DEBUG','customerId',customerId)
+			   nlapiLogExecution('DEBUG','fieldUpdate && fieldValueUpdate',fieldUpdate+'=='+fieldValueUpdate)
+			   nlapiSubmitField('customer', customerId, fieldUpdate, fieldValueUpdate);
+			   updateStatus = true;
+			   successRcdUpdate++;
+		   }
+		   catch(e)
+		   {
+			   nlapiLogExecution('DEBUG', 'catch',e)
+			   var errObj={
+					   "status":"error",
+					   "customer_id":customerId,
+					   "error":e.message
+			   }
+			   errorArr.push(errObj);
+			   errorRcdUpdate++;
+		   }
+		   
+	   }
+	   if(errorRcdUpdate >0 || !updateStatus){
+	   return {
+		   "status":"error",
+		   "record_update":successRcdUpdate,
+		   "record_not_update":errorRcdUpdate,
+		   "record_not_update_reason":errorArr
+	   };
+	   }
+	   
+	   return {
+		   "status":"success",
+		   "message":"Customers successfully Updated"
+	   };
+   }else{
+	   return {
+		   "status":"error",
+		   "message":"Data is Empty"
+	   };
+   }
+
+ }
+
+}
+
+function defVal(value)
+{		
+	   if(value == null || value == undefined || value == 'undefined' || value == ' ')
+	   value = '';	    
+	   return value;
+
+}

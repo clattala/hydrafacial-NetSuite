@@ -1,0 +1,28 @@
+netsuite.usereventscript customscript_hf_loyalty_points_ue {
+  scriptid = "customscript_hf_loyalty_points_ue"
+  name = "HF | Loyalty | Points UE"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_loyalty_loyaltyPointsUserEvent_js@ddv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_loyalty_points_ue = {
+        scriptid = "customdeploy_hf_loyalty_points_ue"
+        allemployees = false
+        alllocalizationcontexts = true
+        allpartners = false
+        allroles = true
+        audemployee = "[ACCOUNT_SPECIFIC_VALUE]|[ACCOUNT_SPECIFIC_VALUE]"
+        executioncontext = "CSVIMPORT|USERINTERFACE"
+        isdeployed = true
+        loglevel = "ERROR"
+        recordtype = netsuite.customrecord_hf_loyalty.attr.scriptid
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Loyalty | Points UE"
+}

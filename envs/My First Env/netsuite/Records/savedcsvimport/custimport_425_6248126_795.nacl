@@ -1,0 +1,124 @@
+netsuite.savedcsvimport custimport_425_6248126_795 {
+  scriptid = "custimport_425_6248126_795"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Vendor Intercompany Prices"
+  entryform = netsuite.entryForm.instance.custform_hf_inventory_part_form.scriptid
+  ignorereadonly = true
+  importname = "HF | GBL | Item Vendor IC"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVENTORYITEM"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVENTORYITEM = {
+        file = "INVENTORYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVENTORYITEM_ITEMVENDOR@f = {
+        line = 2
+        record = "INVENTORYITEM:ITEMVENDOR"
+        fieldmappings = {
+          fieldmapping = {
+            PURCHASEPRICE = {
+              field = "PURCHASEPRICE"
+              columnreference = {
+                column = "Germany"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "6"
+            }
+            VENDOR = {
+              field = "VENDOR"
+              value = "25612"
+            }
+          }
+        }
+      }
+      INVENTORYITEM_ITEMVENDOR_2@fu = {
+        line = 1
+        record = "INVENTORYITEM:ITEMVENDOR"
+        fieldmappings = {
+          fieldmapping = {
+            PURCHASEPRICE = {
+              field = "PURCHASEPRICE"
+              columnreference = {
+                column = "China"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "5"
+            }
+            VENDOR = {
+              field = "VENDOR"
+              value = "25612"
+            }
+          }
+        }
+      }
+      INVENTORYITEM_ITEMVENDOR_3@fu = {
+        record = "INVENTORYITEM:ITEMVENDOR"
+        fieldmappings = {
+          fieldmapping = {
+            PURCHASEPRICE = {
+              field = "PURCHASEPRICE"
+              columnreference = {
+                column = "UK"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "11"
+            }
+            VENDOR = {
+              field = "VENDOR"
+              value = "25612"
+            }
+          }
+        }
+      }
+      INVENTORYITEM = {
+        record = "INVENTORYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "Item Number"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | GBL | Item Vendor IC"
+}

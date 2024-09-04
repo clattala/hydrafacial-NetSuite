@@ -1,0 +1,120 @@
+netsuite.savedcsvimport custimport_382_6248126_972 {
+  scriptid = "custimport_382_6248126_972"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Customer - Bill Address (zipcode)"
+  entryform = netsuite.entryForm.instance.custformhydrafacial_customer.scriptid
+  ignorereadonly = true
+  importname = "Customer - Bill Address (zipcode)"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CUSTOMER"
+  runserversuitescript = false
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMER = {
+        file = "CUSTOMER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMER = {
+        record = "CUSTOMER"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CUSTOMER_ADDRESSBOOK_ADDRESSBOOKADDRESS@f = {
+        record = "CUSTOMER:ADDRESSBOOK:ADDRESSBOOKADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "Billing Address 1"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ADDRESSEE = {
+              field = "ADDRESSEE"
+              columnreference = {
+                column = "Name"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "Billing City"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              value = "US"
+            }
+            STATE = {
+              field = "STATE"
+              columnreference = {
+                column = "Billing State"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "Billing Zip"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CUSTOMER_ADDRESSBOOK@f = {
+        record = "CUSTOMER:ADDRESSBOOK"
+        fieldmappings = {
+          fieldmapping = {
+            DEFAULTBILLING = {
+              field = "DEFAULTBILLING"
+              value = "T"
+            }
+            LABEL = {
+              field = "LABEL"
+              value = "New Primary Address"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Customer - Bill Address (zipcode)"
+}

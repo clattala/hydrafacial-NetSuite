@@ -1,0 +1,82 @@
+netsuite.usereventscript customscript_so_ue_mark_inventory {
+  scriptid = "customscript_so_ue_mark_inventory"
+  name = "HF | UE | SO Mark Inventory"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_UE_Mark_InventoryCheck_SO_js@duuuuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_inventory_check_search = {
+        scriptid = "custscript_inventory_check_search"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Inventory check Search"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = "-119"
+        storevalue = true
+        index = 0
+      }
+      custscript_hf_germany_form = {
+        scriptid = "custscript_hf_germany_form"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "Germany Form"
+        searchlevel = "2"
+        storevalue = true
+        index = 1
+      }
+      custscript_hf_dhl_location = {
+        scriptid = "custscript_hf_dhl_location"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "DHL Germany location"
+        searchlevel = "2"
+        storevalue = true
+        index = 2
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hfde_check_inv = {
+        scriptid = "customdeploy_hfde_check_inv"
+        allemployees = true
+        alllocalizationcontexts = true
+        allpartners = false
+        allroles = true
+        audsubsidiary = "[ACCOUNT_SPECIFIC_VALUE]"
+        custscript_hf_dhl_location = 47
+        custscript_hf_germany_form = "490,494"
+        custscript_inventory_check_search = netsuite.savedsearch.instance.customsearch_hf_inv_check_line.scriptid
+        executioncontext = "ACTION|ADVANCEDREVREC|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CONSOLRATEADJUSTOR|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OTHER|PAYMENTGATEWAY|PAYMENTPOSTBACK|PLATFORMEXTENSION|PORTLET|PROMOTIONS|RECORDACTION|RESTLET|RESTWEBSERVICES|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WEBSERVICES|WORKBOOKBUILDER|WORKFLOW"
+        isdeployed = true
+        loglevel = "ERROR"
+        recordtype = "SALESORDER"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | UE | SO Mark Inventory"
+}

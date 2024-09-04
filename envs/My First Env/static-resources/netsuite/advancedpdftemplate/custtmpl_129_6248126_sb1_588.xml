@@ -1,0 +1,200 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+<head>
+	<link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+	<#if .locale == "zh_CN">
+		<link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+	<#elseif .locale == "zh_TW">
+		<link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+	<#elseif .locale == "ja_JP">
+		<link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+	<#elseif .locale == "ko_KR">
+		<link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+	<#elseif .locale == "th_TH">
+		<link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+	</#if>
+    <style type="text/css">* {
+		font-family: Arial, sans-serif;
+		font-size: 8pt;
+		}
+        .check table, .voucher1 table, .voucher2 table {
+            position: relative;
+            overflow: hidden;
+            font-size: 8pt;
+            padding: 0;
+        }
+		td p { align:left }
+</style>
+</head>
+<body padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+    <#list records as check>
+<div style="position: relative;font-family: Helvetica,sans-serif;height: 150pt;width: 612pt;page-break-inside: avoid;font-size: 8pt;">
+<table style="position: absolute;overflow: hidden;left: 412pt;top: -2pt;height: 13pt;width: 70pt;"><tr>
+	<td>${check.trandate}</td>
+	</tr></table>
+
+<table style="position: absolute;overflow: hidden;left: 36pt;top: -2pt;height: 13pt;width: 157pt;"><tr>
+	<td>${check.entity}</td>
+	</tr></table>
+<#if check.item?has_content || check.expense?has_content|| check.apply?has_content || check.credit?has_content>
+
+<table border="1" style="font-size:12pt;left:36pt;overflow:hidden;position:absolute;top:10pt;width:436pt;"><#list check.expense as expense><tr>
+	<td>${expense.account}</td>
+	<td>${expense.date}</td>
+	<td>${expense.description}</td>
+	<td align="right">${expense.amount}</td>
+	</tr>
+	</#list><#list check.item as item>
+	<tr>
+	<td>&nbsp;</td>
+	<td>${item.date}</td>
+	<td>${item.item}, ${item.description}</td>
+	<td align="right">${item.amount}</td>
+	</tr>
+	</#list><#if check.apply?has_content><#list check.apply as apply><#assign x = apply_index></#list>
+	<tr>
+	<td border="1">Date</td>
+	<td border="1">Description</td>
+	<td align="right" border="1">Orig. Amt.</td>
+	<td align="right" border="1">Amt. Due</td>
+	<td align="right" border="1">Discount</td>
+	<td align="right" border="1">Amount</td>
+	</tr>
+	<#list check.apply as apply>
+<#if apply.disc?has_content>
+	<#assign x = apply.total + apply.disc>
+</#if>
+	<tr>
+	<td border-left="1" border-right="1">${apply.applydate}</td>
+	<td border-right="1">${apply.refnum}</td>
+	<td border-right="1">${apply.total}</td>
+	<td border-right="1">${apply.due}</td>
+	<td border-right="1"><#if apply.disc?has_content>${apply.discamt}</#if></td>
+	<td align="right" border-right="1">${apply.amount}</td>
+	</tr>
+	</#list></#if><#if check.credit?has_content><#list check.credit as credit>
+	<tr>
+	<td>${credit.creditdate}</td>
+	<td>${credit.type}</td>
+	<td>${credit.refnum}</td>
+	<td>${credit.due}</td>
+	<td>${credit.disc}</td>
+	<td align="right">${credit.amount}</td>
+	</tr>
+	</#list></#if>
+  </table>
+</#if>
+
+<table style="position: absolute;overflow: hidden;left: 148pt;top: 198pt;height: 13pt;width: 325pt;"><tr>
+	<td>${check.memo}</td>
+	</tr></table>
+
+<table style="position: absolute;overflow: hidden;left: 9pt;top: 198pt;height: 13pt;width: 134pt;"><tr>
+	<td>${check.total}</td>
+	</tr>
+  </table>
+</div>
+
+<div style="position: relative;font-family: Helvetica,sans-serif;top= 15pt;height: 250pt;width: 612pt;page-break-inside: avoid;font-size: 6pt;">
+  <table style="position: absolute;overflow: hidden;left: 468pt;top: 110pt;height: 18pt;width: 108pt;font-size: 6pt;">
+    <tr>
+      <td>${check.trandate}</td>
+      </tr>
+    </table>
+
+  <table style="position: absolute;overflow: hidden;left: 50pt;top: 200pt;height: 18pt;width: 393pt;"><tr></tr></table>
+
+  <table style="position: absolute;overflow: hidden;left: 463pt;top: 154pt;height: 18pt;width: 111pt;font-size: 6pt;"><tr>
+      <td>***<#if (check.usertotal?length > 0)>${check.usertotal?replace("$", "")}<#else>${check.total?replace("$", "")}</#if></td>
+      </tr></table>
+
+  <table style="position: absolute;overflow: hidden;left: 2pt;top: 154pt;height: 18pt;width: 572pt;font-size: 6pt;"><tr>
+      <td>${check.totalwords}*******</td>
+      </tr></table>
+
+  <table style="position: absolute;overflow: hidden;left: 37pt;top: 200pt;height: 80pt;width: 537pt;font-size: 6pt;text-transform:uppercase;"><tr>
+      <td>${check.address}</td>
+      </tr>
+    </table>
+
+  <table style="position: absolute;overflow: hidden; left: 307pt;top: 158pt;height: 139px;width: 572pt;">
+    <tr>
+      <td style="text-align:right;">
+        <div style="float:right;display:inline-block">
+          <img src="https://6248126.app.netsuite.com/core/media/media.nl?id=64298&amp;c=6248126&amp;h=8SQZI1Abp5hwnDSj5-174ZlXPPhoE2OPHiRK0B4t2N3a2NMu" style="position:absolute;width:250px; height:139px;float:right;display:inline-block" />
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div style="position: relative;font-family: Helvetica,sans-serif;height: 150pt;width: 612pt;page-break-inside: avoid;font-size: 8pt;margin-top:100pt;">
+<table style="position: absolute;overflow: hidden;left: 412pt;top: -2pt;height: 13pt;width: 70pt;"><tr>
+	<td>${check.trandate}</td>
+	</tr></table>
+
+<table style="position: absolute;overflow: hidden;left: 36pt;top: -2pt;height: 13pt;width: 157pt;">
+  <tr>
+	<td>${check.entity}</td>
+  </tr>
+  </table>
+<#if check.item?has_content || check.expense?has_content|| check.apply?has_content || check.credit?has_content>
+
+<table border="1" style="font-size:12pt;left:36pt;overflow:hidden;position:absolute;top:10pt;width:436pt;"><#list check.expense as expense><tr>
+	<td>${expense.account}</td>
+	<td>${expense.date}</td>
+	<td>${expense.description}</td>
+	<td align="right">${expense.amount}</td>
+	</tr>
+	</#list><#list check.item as item>
+	<tr>
+	<td>&nbsp;</td>
+	<td>${item.date}</td>
+	<td>${item.item}, ${item.description}</td>
+	<td align="right">${item.amount}</td>
+	</tr>
+	</#list><#if check.apply?has_content><#list check.apply as apply><#assign x = apply_index></#list>
+	<tr>
+	<td border="1">Date</td>
+	<td border="1">Description</td>
+	<td align="right" border="1">Orig. Amt.</td>
+	<td align="right" border="1">Amt. Due</td>
+	<td align="right" border="1">Discount</td>
+	<td align="right" border="1">Amount</td>
+	</tr>
+	<#list check.apply as apply>
+<#if apply.disc?has_content>
+	<#assign x = apply.total + apply.disc>
+</#if>
+	<tr>
+	<td border-left="1" border-right="1">${apply.applydate}</td>
+	<td border-right="1">${apply.refnum}</td>
+	<td border-right="1">${apply.total}</td>
+	<td border-right="1">${apply.due}</td>
+    <td border-right="1"><#if apply.disc?has_content>${apply.discamt}</#if></td>
+	<td align="right" border-right="1">${apply.amount}</td>
+	</tr>
+	</#list></#if><#if check.credit?has_content><#list check.credit as credit>
+	<tr>
+	<td style="border-color: rgb(0, 0, 0);">${credit.creditdate}</td>
+	<td>${credit.type}</td>
+	<td>${credit.refnum}</td>
+	<td>${credit.due}</td>
+	<td>${credit.disc}</td>
+	<td align="right">${credit.amount}</td>
+	</tr>
+	</#list></#if></table>
+</#if>
+
+<table style="position: absolute;overflow: hidden;left: 148pt;top: 204pt;height: 13pt;width: 325pt;"><tr>
+	<td>${check.memo}</td>
+	</tr></table>
+
+<table style="position: absolute;overflow: hidden;left: 9pt;top: 204pt;height: 13pt;width: 134pt;"><tr>
+	<td>${check.total}</td>
+	</tr></table>
+</div>
+  <pbr />
+</#list>
+</body>
+</pdf>

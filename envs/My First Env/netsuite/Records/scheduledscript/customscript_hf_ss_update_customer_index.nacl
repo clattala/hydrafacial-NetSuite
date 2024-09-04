@@ -1,0 +1,84 @@
+netsuite.scheduledscript customscript_hf_ss_update_customer_index {
+  scriptid = "customscript_hf_ss_update_customer_index"
+  description = "This script updates the Doctor index present checkbox on the Customer record based on the Doctor index on the Contact level using the two searches."
+  name = "HF SS Update Customer index"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_hf_ss_updateCustomerIndex_js@duuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_dr_index_true = {
+        scriptid = "custscript_hf_dr_index_true"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Doctor Index True Search"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = "-119"
+        storevalue = true
+        index = 0
+      }
+      custscript_hf_dr_index_false = {
+        scriptid = "custscript_hf_dr_index_false"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Doctor Index False Search"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = "-119"
+        storevalue = true
+        index = 1
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy1 = {
+        scriptid = "customdeploy1"
+        custscript_hf_dr_index_false = netsuite.savedsearch.instance.customsearch_hf_dr_index_false.scriptid
+        custscript_hf_dr_index_true = netsuite.savedsearch.instance.customsearch_hf_dr_index_true.scriptid
+        isdeployed = true
+        loglevel = "DEBUG"
+        status = "NOTSCHEDULED"
+        title = "HF SS Update Customer index"
+        recurrence = {
+          single = {
+            startdate = "2024-07-29"
+            starttime = "12:30:00Z"
+          }
+        }
+      }
+      customdeploy2 = {
+        scriptid = "customdeploy2"
+        custscript_hf_dr_index_false = netsuite.savedsearch.instance.customsearch_hf_dr_index_false.scriptid
+        custscript_hf_dr_index_true = netsuite.savedsearch.instance.customsearch_hf_dr_index_true.scriptid
+        isdeployed = true
+        loglevel = "DEBUG"
+        status = "SCHEDULED"
+        title = "HF SS Update Customer index 2"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            repeat = "PT15M"
+            startdate = "2024-08-08"
+            starttime = "11:30:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF SS Update Customer index"
+}

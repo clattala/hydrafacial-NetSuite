@@ -1,0 +1,53 @@
+netsuite.mapreducescript customscript_pop_so_lines_inv_fifo_mr {
+  scriptid = "customscript_pop_so_lines_inv_fifo_mr"
+  name = "Populate SOLines With Inventory FEFO_MR2"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_assignInventoryNumbersFEFO_MR2_js@duv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_sos_with_no_inv_nums_search = {
+        scriptid = "custscript_sos_with_no_inv_nums_search"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "Search to Use"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_pop_so_lines_inv_fifo_mr = {
+        scriptid = "customdeploy_pop_so_lines_inv_fifo_mr"
+        buffersize = "1"
+        concurrencylimit = "1"
+        custscript_sos_with_no_inv_nums_search = "customsearch_inv_fifo_mr"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "Populate SOLines With Inventory FIFO_MR2"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            repeat = "PT15M"
+            startdate = "2021-09-16"
+            starttime = "19:30:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "Populate SOLines With Inventory FEFO_MR2"
+}

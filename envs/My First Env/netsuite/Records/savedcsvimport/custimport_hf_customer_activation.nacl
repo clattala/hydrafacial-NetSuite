@@ -1,0 +1,58 @@
+netsuite.savedcsvimport custimport_hf_customer_activation {
+  scriptid = "custimport_hf_customer_activation"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "SR# 20921"
+  entryform = netsuite.entryForm.instance.custform_642_6248126_432.scriptid
+  ignorereadonly = true
+  importname = "Customer Activation"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CUSTOMER"
+  runserversuitescript = false
+  usemultithread = false
+  validatemandatorycustfields = false
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMER = {
+        file = "CUSTOMER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMER = {
+        record = "CUSTOMER"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ISINACTIVE = {
+              field = "ISINACTIVE"
+              value = "F"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Customer Activation"
+}

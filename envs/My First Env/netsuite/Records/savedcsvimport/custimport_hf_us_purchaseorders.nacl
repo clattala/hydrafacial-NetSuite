@@ -1,0 +1,203 @@
+netsuite.savedcsvimport custimport_hf_us_purchaseorders {
+  scriptid = "custimport_hf_us_purchaseorders"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | US | PURCHASE ORDERS"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "PURCHASEORDER"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_328_6248126_sb1_516.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      PURCHASEORDER = {
+        file = "PURCHASEORDER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      PURCHASEORDER_ITEM@f = {
+        record = "PURCHASEORDER:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            AMOUNT = {
+              field = "AMOUNT"
+              columnreference = {
+                column = "Amount"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            custcol_hf_delivery_date = {
+              field = netsuite.transactioncolumncustomfield.instance.custcol_hf_delivery_date.scriptid
+              columnreference = {
+                column = "Date Requested"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            DESCRIPTION = {
+              field = "DESCRIPTION"
+              columnreference = {
+                column = "Description"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            EXPECTEDRECEIPTDATE = {
+              field = "EXPECTEDRECEIPTDATE"
+              columnreference = {
+                column = "Expected Receipt Date"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "ItemID"
+                file = "PURCHASEORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            LINE = {
+              field = "LINE"
+              columnreference = {
+                column = "LineNum"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              columnreference = {
+                column = "Location"
+                file = "PURCHASEORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "OpenQty"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            RATE = {
+              field = "RATE"
+              columnreference = {
+                column = "Rate"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            TAXCODE = {
+              field = "TAXCODE"
+              value = "2152"
+            }
+          }
+        }
+      }
+      PURCHASEORDER = {
+        record = "PURCHASEORDER"
+        fieldmappings = {
+          fieldmapping = {
+            APPROVALSTATUS = {
+              field = "APPROVALSTATUS"
+              value = "1"
+            }
+            DUEDATE = {
+              field = "DUEDATE"
+              columnreference = {
+                column = "HeaderShip"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "VendorID"
+                file = "PURCHASEORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "DocNum"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              columnreference = {
+                column = "Location"
+                file = "PURCHASEORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "Memo"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            OTHERREFNUM = {
+              field = "OTHERREFNUM"
+              columnreference = {
+                column = "VendorPO"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            TERMS = {
+              field = "TERMS"
+              columnreference = {
+                column = "Terms"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "DocDate"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+            TRANID = {
+              field = "TRANID"
+              columnreference = {
+                column = "DocNum"
+                file = "PURCHASEORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | US | PURCHASE ORDERS"
+}

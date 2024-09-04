@@ -1,0 +1,122 @@
+netsuite.workflow customworkflow_hf_auto_email_ops {
+  scriptid = "customworkflow_hf_auto_email_ops"
+  description = "Auto email Operations when Syndeo form is attached to the Sales order"
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = true
+  initonvieworupdate = true
+  islogenabled = false
+  keephistory = "ALWAYS"
+  name = "HF | US | Email To Ops for Syndeo Orders"
+  recordtypes = "SALESORDER"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "isEmpty(\"Syndeo Form URL\") = 'F' AND isChecked(\"Syndeo Email sent to Operations\") = 'F'"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        Syndeo_Form_URL@s = {
+          name = "Syndeo Form URL"
+          value = netsuite.transactionbodycustomfield.instance.custbody_hf_syndeo_sharepoint_url.scriptid
+        }
+        Syndeo_Email_sent_to_Operations@s = {
+          name = "Syndeo Email sent to Operations"
+          value = netsuite.transactionbodycustomfield.instance.custbody_hf_syndeo_notification_email.scriptid
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate257 = {
+        scriptid = "workflowstate257"
+        donotexitworkflow = false
+        name = "Send Email Notification"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          AFTERSUBMIT = {
+            triggertype = "AFTERSUBMIT"
+            sendemailaction = {
+              workflowaction1016 = {
+                scriptid = "workflowaction1016"
+                attachmenttype = "SPECIFIC"
+                body = "Please approve the new PO for the Syndeo name plate order&nbsp;{tranid}&nbsp;received from customer : {entity}.<br><br>Click the link below to access the order details in NetSuite."
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                includerecordlink = true
+                includetransaction = false
+                recipientccemail = "mcameron@hydrafacial.com"
+                recipientemail = "supplychain@hydrafacial.com"
+                recipienttype = "ADDRESS"
+                schedulemode = "DELAY"
+                senderfield = "STDUSERUSER"
+                sendertype = "FIELD"
+                subject = "Re: Create a new PO for a Syndeo Name Plate order {tranid}"
+                usetemplate = false
+                initcondition = {
+                  formula = "isChecked(\"Syndeo Email sent to Operations\") = 'F'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Syndeo_Email_sent_to_Operations@s = {
+                        name = "Syndeo Email sent to Operations"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_hf_syndeo_notification_email.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+            setfieldvalueaction = {
+              workflowaction1019 = {
+                scriptid = "workflowaction1019"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_a1wms_dnloadtowms.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "{custbody_hf_syndeo_notification_email.id}='F' and {custbody_hf_syndeo_sharepoint_url} is not null"
+                  type = "FORMULA"
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1018 = {
+                scriptid = "workflowaction1018"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_syndeo_notification_email.scriptid
+                schedulemode = "DELAY"
+                valuechecked = true
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "isChecked(\"Syndeo Email sent to Operations\") = 'F' AND isEmpty(\"Syndeo Form URL\") = 'F'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Syndeo_Email_sent_to_Operations@s = {
+                        name = "Syndeo Email sent to Operations"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_hf_syndeo_notification_email.scriptid
+                      }
+                      Syndeo_Form_URL@s = {
+                        name = "Syndeo Form URL"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_hf_syndeo_sharepoint_url.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | US | Email To Ops for Syndeo Orders"
+}

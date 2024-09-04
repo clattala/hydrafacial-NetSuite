@@ -1,0 +1,28 @@
+netsuite.usereventscript customscript_ue_approve_jpm_payment {
+  scriptid = "customscript_ue_approve_jpm_payment"
+  description = "Make JP Morgan Bill Payment as Approved if the map reduce script doesn't get the jp morgan reference id"
+  name = "HF UE Bill Payment info"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_UE_BillPaymentApproval_js@duuv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_ue_approve_jpm_payment = {
+        scriptid = "customdeploy_ue_approve_jpm_payment"
+        allemployees = true
+        alllocalizationcontexts = true
+        allpartners = false
+        allroles = true
+        executioncontext = "ACTION|ADVANCEDREVREC|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CONSOLRATEADJUSTOR|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OTHER|PAYMENTGATEWAY|PAYMENTPOSTBACK|PLATFORMEXTENSION|PORTLET|PROMOTIONS|RECORDACTION|RESTLET|RESTWEBSERVICES|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WEBSERVICES|WORKBOOKBUILDER|WORKFLOW"
+        isdeployed = true
+        loglevel = "DEBUG"
+        recordtype = netsuite.customrecord_jpmc_transactions.attr.scriptid
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF UE Bill Payment info"
+}

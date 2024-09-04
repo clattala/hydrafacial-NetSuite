@@ -1,0 +1,43 @@
+netsuite.usereventscript customscript_trv_promo_rec_change {
+  scriptid = "customscript_trv_promo_rec_change"
+  description = "Runs when a record changes. Calls MR script that will update promotion records with new eligibility."
+  name = "Trevera Promotions | Record Change"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_trevera_warrantyRecordUE_js@ddv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_trv_promo_warranty_change = {
+        scriptid = "customdeploy_trv_promo_warranty_change"
+        allemployees = false
+        alllocalizationcontexts = true
+        allpartners = false
+        allroles = true
+        audsubsidiary = "[ACCOUNT_SPECIFIC_VALUE]"
+        executioncontext = "OCRPLUGIN|USERINTERFACE|WEBSTORE|WORKFLOW"
+        isdeployed = true
+        loglevel = "ERROR"
+        recordtype = "[scriptid=customrecord_wrm_warrantyreg]"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+      customdeploy_trv_promo_customer_change = {
+        scriptid = "customdeploy_trv_promo_customer_change"
+        allemployees = false
+        alllocalizationcontexts = true
+        allpartners = false
+        allroles = true
+        audsubsidiary = "[ACCOUNT_SPECIFIC_VALUE]"
+        executioncontext = "ACTION|ADVANCEDREVREC|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CONSOLRATEADJUSTOR|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OTHER|PAYMENTGATEWAY|PAYMENTPOSTBACK|PLATFORMEXTENSION|PORTLET|PROMOTIONS|RECORDACTION|RESTLET|RESTWEBSERVICES|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WEBSERVICES|WORKBOOKBUILDER|WORKFLOW"
+        isdeployed = false
+        loglevel = "ERROR"
+        recordtype = "CUSTOMER"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "Trevera Promotions | Record Change"
+}

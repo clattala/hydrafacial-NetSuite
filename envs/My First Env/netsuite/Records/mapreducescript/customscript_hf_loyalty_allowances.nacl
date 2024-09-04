@@ -1,0 +1,115 @@
+netsuite.mapreducescript customscript_hf_loyalty_allowances {
+  scriptid = "customscript_hf_loyalty_allowances"
+  name = "HF | Loyalty - Process Allowances"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_loyalty_processRepAllowances_js@ddv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_loyalty_adjust_results = {
+        scriptid = "custscript_hf_loyalty_adjust_results"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "Number Results"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+      custscript_hf_loyalty_yearly = {
+        scriptid = "custscript_hf_loyalty_yearly"
+        accesslevel = "2"
+        applyformatting = true
+        checkspelling = false
+        defaultchecked = false
+        description = "By default, month for year is considered 1. If you populate this with a value, the script will consider that month as the start of the year."
+        displaytype = "NORMAL"
+        fieldtype = "INTEGER"
+        help = "By default, month for year is considered 1. If you populate this with a value, the script will consider that month as the start of the year."
+        isformula = false
+        ismandatory = false
+        label = "Month for Start of Year"
+        searchlevel = "2"
+        storevalue = true
+        index = 1
+      }
+      custscript_hf_loyalty_quarters = {
+        scriptid = "custscript_hf_loyalty_quarters"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        description = '''
+By default the quarterly months are 1, 4, 7 and 10. If populated with a different value, the script will consider those months as the quarters.
+      
+      Enter as a comma separated string. ex 1,4,7,10
+'''
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        help = '''
+By default the quarterly months are 1, 4, 7 and 10. If populated with a different value, the script will consider those months as the quarters.
+      
+      Enter as a comma separated string. ex 1,4,7,10
+'''
+        isformula = false
+        ismandatory = false
+        label = "Months for Quarter"
+        searchlevel = "2"
+        storevalue = true
+        index = 2
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_loy_proc_allowances = {
+        scriptid = "customdeploy_hf_loy_proc_allowances"
+        buffersize = "1"
+        concurrencylimit = "1"
+        custscript_hf_loyalty_quarters = "1,4,7,10"
+        custscript_hf_loyalty_yearly = 1
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | Loyalty - Process Allowances - One Time"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2024-04-30"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+      customdeploy_hf_loyalty_allowances = {
+        scriptid = "customdeploy_hf_loyalty_allowances"
+        buffersize = "1"
+        concurrencylimit = "1"
+        custscript_hf_loyalty_quarters = "1,4,7,10"
+        custscript_hf_loyalty_yearly = 1
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | Loyalty - Process Allowances"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            startdate = "2024-04-24"
+            starttime = "03:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Loyalty - Process Allowances"
+}

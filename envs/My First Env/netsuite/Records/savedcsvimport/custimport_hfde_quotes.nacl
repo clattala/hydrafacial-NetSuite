@@ -1,0 +1,175 @@
+netsuite.savedcsvimport custimport_hfde_quotes {
+  scriptid = "custimport_hfde_quotes"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | DE | Quotes"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "ESTIMATE"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_hf_de_quote.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      ESTIMATE = {
+        file = "ESTIMATE"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      ESTIMATE_ITEM@f = {
+        record = "ESTIMATE:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item : Internal ID"
+                file = "ESTIMATE"
+                type = "INTERNAL_ID"
+              }
+            }
+            PRICE = {
+              field = "PRICE"
+              columnreference = {
+                column = "Price Level"
+                file = "ESTIMATE"
+                type = "NAME"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "Qty"
+                file = "ESTIMATE"
+                type = "NAME"
+              }
+            }
+            RATE = {
+              field = "RATE"
+              columnreference = {
+                column = "PriceNet"
+                file = "ESTIMATE"
+                type = "NAME"
+              }
+            }
+            TAXCODE = {
+              field = "TAXCODE"
+              value = "5770"
+            }
+          }
+        }
+      }
+      ESTIMATE = {
+        record = "ESTIMATE"
+        fieldmappings = {
+          fieldmapping = {
+            CURRENCY = {
+              field = "CURRENCY"
+              columnreference = {
+                column = "Currency"
+                file = "ESTIMATE"
+                type = "NAME"
+              }
+            }
+            custbody_hf_legacy_id = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_legacy_id.scriptid
+              columnreference = {
+                column = "WeClappID"
+                file = "ESTIMATE"
+                type = "NAME"
+              }
+            }
+            DUEDATE = {
+              field = "DUEDATE"
+              columnreference = {
+                column = "Expiry Date"
+                file = "ESTIMATE"
+                type = "NAME"
+              }
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "Lead External ID / Customer External ID"
+                file = "ESTIMATE"
+                type = "EXTERNAL_ID"
+              }
+            }
+            ENTITYSTATUS = {
+              field = "ENTITYSTATUS"
+              columnreference = {
+                column = "Status"
+                file = "ESTIMATE"
+                type = "NAME"
+              }
+            }
+            EXPECTEDCLOSEDATE = {
+              field = "EXPECTEDCLOSEDATE"
+              columnreference = {
+                column = "Expiry Date"
+                file = "ESTIMATE"
+                type = "NAME"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "ExternalID"
+                file = "ESTIMATE"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              value = "47"
+            }
+            OPPORTUNITY = {
+              field = "OPPORTUNITY"
+              columnreference = {
+                column = "OppInternalID"
+                file = "ESTIMATE"
+                type = "INTERNAL_ID"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "6"
+            }
+            TERMS = {
+              field = "TERMS"
+              columnreference = {
+                column = "Terms"
+                file = "ESTIMATE"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "Date"
+                file = "ESTIMATE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | DE | Quotes"
+}

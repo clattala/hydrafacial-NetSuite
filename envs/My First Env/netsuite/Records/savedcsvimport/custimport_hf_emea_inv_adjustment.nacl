@@ -1,0 +1,160 @@
+netsuite.savedcsvimport custimport_hf_emea_inv_adjustment {
+  scriptid = "custimport_hf_emea_inv_adjustment"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | EMEA| INVENTORY ADJUSTMENT"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVENTORYADJUSTMENT"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_hydrafacial_inventory_adjustment.scriptid
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVENTORYADJUSTMENT_INVENTORY@f = {
+        file = "INVENTORYADJUSTMENT:INVENTORY"
+        foreignkey = "ExternalID"
+        primarykey = "LineNum"
+      }
+      INVENTORYADJUSTMENT_INVENTORY_INVENTORYDETAIL@f = {
+        file = "INVENTORYADJUSTMENT:INVENTORY:INVENTORYDETAIL"
+        foreignkey = "Line"
+      }
+      INVENTORYADJUSTMENT = {
+        file = "INVENTORYADJUSTMENT"
+        primarykey = "ExternalID"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVENTORYADJUSTMENT = {
+        record = "INVENTORYADJUSTMENT"
+        fieldmappings = {
+          fieldmapping = {
+            ACCOUNT = {
+              field = "ACCOUNT"
+              columnreference = {
+                column = "Account"
+                file = "INVENTORYADJUSTMENT"
+                type = "INTERNAL_ID"
+              }
+            }
+            ADJLOCATION = {
+              field = "ADJLOCATION"
+              value = "20"
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "MEMO"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "10"
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              value = "10/30/2021"
+            }
+          }
+        }
+      }
+      INVENTORYADJUSTMENT_INVENTORY@f = {
+        record = "INVENTORYADJUSTMENT:INVENTORY"
+        fieldmappings = {
+          fieldmapping = {
+            ADJUSTQTYBY = {
+              field = "ADJUSTQTYBY"
+              columnreference = {
+                column = "TotalQuantity"
+                file = "INVENTORYADJUSTMENT:INVENTORY"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "InternalID"
+                file = "INVENTORYADJUSTMENT:INVENTORY"
+                type = "INTERNAL_ID"
+              }
+            }
+            LINE = {
+              field = "LINE"
+              columnreference = {
+                column = "LineNum"
+                file = "INVENTORYADJUSTMENT:INVENTORY"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              columnreference = {
+                column = "Location"
+                file = "INVENTORYADJUSTMENT:INVENTORY"
+                type = "INTERNAL_ID"
+              }
+            }
+            UNITCOST = {
+              field = "UNITCOST"
+              columnreference = {
+                column = "Unit Cost (EURO)"
+                file = "INVENTORYADJUSTMENT:INVENTORY"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVENTORYADJUSTMENT_INVENTORY_INVENTORYDETAIL_INVENTORYASSIGNMENT@f = {
+        record = "INVENTORYADJUSTMENT:INVENTORY:INVENTORYDETAIL:INVENTORYASSIGNMENT"
+        fieldmappings = {
+          fieldmapping = {
+            EXPIRATIONDATE = {
+              field = "EXPIRATIONDATE"
+              columnreference = {
+                column = "Expiration"
+                file = "INVENTORYADJUSTMENT:INVENTORY:INVENTORYDETAIL"
+                type = "NAME"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "DetailQty"
+                file = "INVENTORYADJUSTMENT:INVENTORY:INVENTORYDETAIL"
+                type = "NAME"
+              }
+            }
+            RECEIPTINVENTORYNUMBER = {
+              field = "RECEIPTINVENTORYNUMBER"
+              columnreference = {
+                column = "Detail"
+                file = "INVENTORYADJUSTMENT:INVENTORY:INVENTORYDETAIL"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | EMEA| INVENTORY ADJUSTMENT"
+}

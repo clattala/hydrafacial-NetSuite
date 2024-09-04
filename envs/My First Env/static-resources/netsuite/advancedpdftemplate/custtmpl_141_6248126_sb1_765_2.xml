@@ -1,0 +1,314 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd">
+<pdf>
+<head>
+	<link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+	<#if .locale == "zh_CN">
+		<link name="NotoSansCJKsc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKsc_Regular}" src-bold="${nsfont.NotoSansCJKsc_Bold}" bytes="2" />
+	<#elseif .locale == "zh_TW">
+		<link name="NotoSansCJKtc" type="font" subtype="opentype" src="${nsfont.NotoSansCJKtc_Regular}" src-bold="${nsfont.NotoSansCJKtc_Bold}" bytes="2" />
+	<#elseif .locale == "ja_JP">
+		<link name="NotoSansCJKjp" type="font" subtype="opentype" src="${nsfont.NotoSansCJKjp_Regular}" src-bold="${nsfont.NotoSansCJKjp_Bold}" bytes="2" />
+	<#elseif .locale == "ko_KR">
+		<link name="NotoSansCJKkr" type="font" subtype="opentype" src="${nsfont.NotoSansCJKkr_Regular}" src-bold="${nsfont.NotoSansCJKkr_Bold}" bytes="2" />
+	<#elseif .locale == "th_TH">
+		<link name="NotoSansThai" type="font" subtype="opentype" src="${nsfont.NotoSansThai_Regular}" src-bold="${nsfont.NotoSansThai_Bold}" bytes="2" />
+	</#if>
+    <macrolist>
+        <macro id="nlheader">
+            <table class="header-tbl-1" width="100%"><tr>
+	<td width="30%"><#if companyInformation.logoUrl?length != 0><img src="${companyInformation.logoUrl}" style="float: left; margin: 7px; width:70%;height:70%;" /> </#if></td>
+	<td style="padding-left:10px;" width="30%">
+	<table style="font-weight:bold; padding-bottom:10px; margin-bottom:5px;" width="100%"><tr>
+		<td>3600 E.Burnett St.</td>
+		</tr>
+		<tr>
+		<td>Long Beach CA 90815</td>
+		</tr>
+		<tr>
+		<td>USA</td>
+		</tr></table>
+
+	<table style="font-weight:bold; padding-bottom:10px;" width="100%"><tr>
+		<td>Voice: 800-603-4996</td>
+		</tr>
+		<tr>
+		<td>Fax: 562-494-1792</td>
+		</tr>
+		<tr>
+		<td>USA</td>
+		</tr></table>
+	</td>
+	<td align="right" width="40%">
+	<table width="100%"><tr>
+		<td style="background-color:#E1AD01; width:2%;">&nbsp;</td>
+		<td style="width:98%; font-size:20px; font-weight:bold;">Order Confirmation</td>
+		</tr></table>
+
+	<table class="hdr-desc" width="100%"><tr>
+		<td>Order No:</td>
+		<td>${record.tranid}</td>
+		</tr>
+		<tr>
+		<td>Order Date:</td>
+		<td>${record.trandate}</td>
+		</tr>
+		<tr>
+		<td>Ship By:</td>
+		<td>${record.record}</td>
+		</tr>
+		<tr>
+		<td>Page:</td>
+		<td><pagenumber/> of <totalpages/></td>
+		</tr></table>
+	</td>
+	</tr></table>
+        </macro>
+        <macro id="nlfooter">
+            &nbsp;
+        </macro>
+    </macrolist>
+    <style type="text/css">body #page2, #page3, #page4  { 
+            header:nlheaderrest;
+        }
+
+        * {
+        font-family: NotoSans, sans-serif;
+		}
+		
+        table {
+			font-size: 9pt;
+			table-layout: fixed;
+            vertical-align: middle;
+            align: center;
+		}
+
+        table.hdr-desc {
+            margin-top:10px;
+        }
+
+        table.hdr-desc tr td {
+            padding: 5px;
+            font-weight:bold;
+            font-size:10pt;
+        }
+
+        table.hdr-desc tr td:first-child {
+            color: #808080;
+        }
+
+        table.billto-shipto {
+            width:85%;
+            margin-top:10px;
+            font-weight:bold;   
+        }
+
+        table.billto-shipto tr td {
+            font-weight: bold;
+            padding:6px;
+            border: 1px solid black;
+            border-bottom:none;
+        }
+
+        table.billto-shipto tr:last-child td {
+            border-bottom: 1px solid black;
+        }
+
+        table.section-2 tr td{
+            padding:6px;
+            border: 1px solid black;
+            border-bottom:none;
+            border-right:none;
+        }
+
+        table.section-2 tr:nth-child(odd) td{
+            color: #808080;
+        }
+
+        table.section-2 tr:nth-child(even) td{
+            color: black;
+        }
+
+        table.section-2 tr td:last-child{
+            border-right: 1px solid black;
+        }
+
+        table.section-2 tr:last-child td{
+            border-bottom: 1px solid black;
+        }
+
+        table.item-table th {
+            font-weight: bold;
+            padding: 8px;
+            border:1px solid black;
+            border-right:none;
+        }
+
+        table.item-table th:last-child {
+            border-right:1px solid black;
+        }
+
+        table.item-table td {
+            font-size:8pt;
+            padding: 6px;
+            border:1px solid black;
+            border-top:none;
+            border-right:none;
+        }
+
+        table.item-table td:last-child {
+            border-right:1px solid black;
+        }
+
+        table.nonbordered-tbl tr td {
+            border:none;
+        }
+</style>
+</head>
+<body header="nlheader" header-height="18%" footer="nlfooter" footer-height="20pt" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+    <table style="margin-top:15px;" width="100%"><tr>
+	<td align="left">
+	<table class="billto-shipto"><tr>
+		<td>Bill To</td>
+		</tr>
+		<tr>
+		<td>${record.billaddress}</td>
+		</tr></table>
+	</td>
+	<td align="right">
+	<table class="billto-shipto"><tr>
+		<td>Ship To</td>
+		</tr>
+		<tr>
+		<td>${record.shipaddress}</td>
+		</tr></table>
+	</td>
+	</tr></table>
+
+<table class="section-2" style="margin-top:15px;" width="100%"><tr>
+	<td align="center">Customer ID</td>
+	<td align="center">PO Number</td>
+	<td align="center">Sales Rep Name</td>
+	</tr>
+	<tr>
+	<td align="center">${record.entity}</td>
+	<td align="center">${record.otherrefnum}</td>
+	<td align="center">${record.salesrep}</td>
+	</tr>
+	<tr>
+	<td align="center">Contact Person</td>
+	<td align="center">Shipping Method</td>
+	<td align="center">Payment Terms</td>
+	</tr>
+	<tr>
+	<td align="center">${record.custbody1}</td>
+	<td align="center">${record.shipmethod.displayname}</td>
+	<td align="center">${record.terms}</td>
+	</tr></table>
+<!-- <table style="margin-top:10px;" width="100%"><tr>
+	<td align="center">Order online and earn 1.5% online store credit* - Register here at <a href="https://hydrafacial.store/register">https://hydrafacial.store/register</a></td>
+	</tr>
+	<tr>
+	<td align="center">*Limits apply - see store for details.</td>
+	</tr>
+</table>-->
+
+<table class="item-table" style="margin-top:10px;" width="100%"><tr>
+	<th align="center" colspan="1">Quantity</th>
+	<th align="center" colspan="1">Unit</th>
+	<th align="center" colspan="2">Item No.</th>
+	<th align="center" colspan="4">Description</th>
+	<th align="center" colspan="1">Unit<br />Price</th>
+	<th align="center" colspan="1">Amount</th>
+	</tr>
+	<#if record.item?has_content><!-- start items --><#list record.item as item>
+	<tr>
+	<td align="center" colspan="1">${item.quantity}</td>
+	<td align="center" colspan="1">${item.saleunit}</td>
+	<td align="center" colspan="2">${item.item}</td>
+	<td align="center" colspan="4">${item.description}</td>
+	<td align="center" colspan="1">${item.rate}</td>
+	<td align="center" colspan="1">${item.amount}</td>
+	</tr>
+	</#list></#if>
+	<tr>
+	<td align="left" colspan="10">
+	<table style="border:none;margin:top:10px;" width="100%"><tr>
+		<td align="left" style="border:0;">
+		<table class="nonbordered-tbl" style="border:0;" width="30%"><tr>
+			<td align="left" style="background-color:#E1AD01;" width="1%">&nbsp;</td>
+			<td align="left" width="90%"><b>Freight/Tax: </b></td>
+			</tr></table>
+
+		<table class="nonbordered-tbl" style="border:0;" width="80%"><tr style="border-bottom:1px dotted #0D47A1;">
+			<td align="left" width="10%"><b># </b></td>
+			<td align="left" width="50%"><b>Description </b></td>
+			<td align="right" width="40%"><b>Total </b></td>
+			</tr>
+			<tr style="border-bottom:1px dotted #0D47A1;">
+			<td align="left" width="10%">1</td>
+			<td align="left" width="50%">Shipping &amp; Handling</td>
+			<td align="right" width="40%">${record.shipcost}</td>
+			</tr>
+			<tr style="border-bottom:2px solid #0D47A1;">
+			<td align="left" width="10%">2</td>
+			<td align="left" width="50%">Tax</td>
+			<td align="right" width="40%">${record.taxtotal}</td>
+			</tr></table>
+		</td>
+		<td style="border:none;">
+		<table class="nonbordered-tbl" style="margin-top:30px;border:0;" width="80%"><tr>
+			<td align="left" width="50%">Order Subtotal:</td>
+			<td align="right" width="50%"><b>${record.subtotal} </b></td>
+			</tr>
+			<tr>
+			<td align="left" width="50%">Total Before Freight/Tax:</td>
+			<td align="right" width="50%"><b>${record.subtotal} </b></td>
+			</tr>
+			<tr>
+			<td align="left" width="50%">Total Freight/Tax:</td>
+			<td align="right" width="50%"><b>${record.taxtotal} </b></td>
+			</tr></table>
+
+		<table class="nonbordered-tbl" style="border:0;" width="80%"><tr>
+			<td align="left" style="background-color:#E1AD01;" width="2%">&nbsp;</td>
+			<td align="left" width="48%"><b>Total Before Freight/Tax: </b></td>
+			<td align="right" width="50%"><b>${record.total} </b></td>
+			</tr></table>
+		</td>
+		</tr></table>
+	</td>
+	</tr></table>
+
+<table class="item-table" style="margin-top:15px;" width="100%"><tr style="color:#808080;">
+	<td align="center" colspan="1" style="border-top:1px solid black;">Customer No.</td>
+	<td align="center" colspan="1" style="border-top:1px solid black;">Ship Via</td>
+	<td align="center" colspan="1" style="border-top:1px solid black;">PO No.</td>
+	<td align="center" colspan="1" style="border-top:1px solid black;">Terms</td>
+	</tr>
+	<tr>
+	<td align="center" colspan="1">${record.entity}</td>
+	<td align="center" colspan="1">${record.shipmethod}</td>
+	<td align="center" colspan="1">${record.otherrefnum}</td>
+	<td align="center" colspan="1">${record.terms}</td>
+	</tr></table>
+
+<table style="font-weight:bold;margin-top:20px;" width="100%"><tr>
+	<td>TERMS &amp; CONDITIONS</td>
+	</tr>
+	<tr>
+	<td>All returned checks are subject to $25.00 handling fee.All amounts are in USD ($)</td>
+	</tr>
+	<tr>
+	<td>Incoterms:All goods are shipped Ex Works Edge Systems LLC, Signal Hill, CA - DBA The HydraFacial Company.</td>
+	</tr>
+	<tr>
+	<td>
+	<p>Return Policy:All sales are final, no returns. Any damage during transit must be reported to the carrier immediately at the time of delivery. For repairs please call 1-800-603-4996, option 2, to obtain a return material autorization (RMA) number and RMA form needs to be completed and included with the return.</p>
+	</td>
+	</tr></table>
+
+<table style="color:#0D47A1;margin-top:20px;" width="100%"><tr>
+	<td>Note: Our manufacturing and legal address will be changing soon. This address change may impact your registration licenses for both the HydraFacial systems and for the HydraFacial cosmetics. Please reach out to Regulatory Affairs(regulatoryaffairs@hydrafacial.com) to provide the regulatory impact in your respective country and required documents to update your registrations.</td>
+	</tr></table>
+</body>
+</pdf>

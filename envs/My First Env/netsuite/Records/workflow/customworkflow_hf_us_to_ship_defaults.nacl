@@ -1,0 +1,241 @@
+netsuite.workflow customworkflow_hf_us_to_ship_defaults {
+  scriptid = "customworkflow_hf_us_to_ship_defaults"
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = true
+  initonvieworupdate = true
+  islogenabled = false
+  keephistory = "ONLYWHENTESTING"
+  name = "HF | US | TO Set Shipping defaults"
+  recordtypes = "TRANSFERORDER"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        Subsidiary__Main_@sjk = {
+          name = "Subsidiary (Main)"
+          value = "STDBODYSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+        __Subsidiary__2@_00123nn_00125 = {
+          name = "{#Subsidiary#}2"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate405 = {
+        scriptid = "workflowstate405"
+        donotexitworkflow = false
+        name = "Set Defaults"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          BEFOREUSEREDIT = {
+            triggertype = "BEFOREUSEREDIT"
+            setfieldvalueaction = {
+              workflowaction1774 = {
+                scriptid = "workflowaction1774"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_ship_pymt_type.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hf_shiptype_3.customvalues.customvalue.val_12595_6248126_sb1_514.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "isEmpty(\"SHIP PAYMENT TYPE\") = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      SHIP_PAYMENT_TYPE@s = {
+                        name = "SHIP PAYMENT TYPE"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_hf_ship_pymt_type.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1775 = {
+                scriptid = "workflowaction1775"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_shipper.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hf_shipper.customvalues.customvalue.val_11201048_6248126_sb1_314.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "isEmpty(\"Shipper\") = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Shipper = {
+                        name = "Shipper"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_hf_shipper.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+            }
+          }
+          AFTERFIELDEDIT = {
+            triggertype = "AFTERFIELDEDIT"
+            setfieldvalueaction = {
+              workflowaction1776 = {
+                scriptid = "workflowaction1776"
+                clienttriggerfields = netsuite.transactionbodycustomfield.instance.custbody_hf_order_type.scriptid
+                clienttriggerfieldsissublistfield = false
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_shipper.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hf_shipper.customvalues.customvalue.val_11201048_6248126_sb1_314.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Order Type\" IN (\"HF | Order Type1\",\"HF | Order Type2\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Order_Type@s = {
+                        name = "Order Type"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_hf_order_type.scriptid
+                      }
+                      HF___Order_Type1@sgss = {
+                        name = "HF | Order Type1"
+                        selectrecordtype = netsuite.customlist.instance.customlist_hf_order_type.scriptid
+                        value = netsuite.customlist.instance.customlist_hf_order_type.customvalues.customvalue.val_20238998_6248126_sb2_416.scriptid
+                      }
+                      HF___Order_Type2@sgss = {
+                        name = "HF | Order Type2"
+                        selectrecordtype = netsuite.customlist.instance.customlist_hf_order_type.scriptid
+                        value = netsuite.customlist.instance.customlist_hf_order_type.customvalues.customvalue.val_20238999_6248126_sb2_596.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1777 = {
+                scriptid = "workflowaction1777"
+                clienttriggerfields = netsuite.transactionbodycustomfield.instance.custbody_hf_order_type.scriptid
+                clienttriggerfieldsissublistfield = false
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_shipper.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hf_shipper.customvalues.customvalue.val_11201047_6248126_sb1_411.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Order Type\" IN (\"HF | Order Type1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Order_Type@s = {
+                        name = "Order Type"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_hf_order_type.scriptid
+                      }
+                      HF___Order_Type1@sgss = {
+                        name = "HF | Order Type1"
+                        selectrecordtype = netsuite.customlist.instance.customlist_hf_order_type.scriptid
+                        value = netsuite.customlist.instance.customlist_hf_order_type.customvalues.customvalue.val_20239000_6248126_sb2_468.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+              workflowaction1778 = {
+                scriptid = "workflowaction1778"
+                clienttriggerfields = netsuite.transactionbodycustomfield.instance.custbody_hf_order_type.scriptid
+                clienttriggerfieldsissublistfield = false
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_shipper.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hf_shipper.customvalues.customvalue.val_11201049_6248126_sb1_795.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Order Type\" IN (\"HF | Order Type1\",\"HF | Order Type2\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Order_Type@s = {
+                        name = "Order Type"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_hf_order_type.scriptid
+                      }
+                      HF___Order_Type1@sgss = {
+                        name = "HF | Order Type1"
+                        selectrecordtype = netsuite.customlist.instance.customlist_hf_order_type.scriptid
+                        value = netsuite.customlist.instance.customlist_hf_order_type.customvalues.customvalue.val_20239000_6248126_sb2_468.scriptid
+                      }
+                      HF___Order_Type2@sgss = {
+                        name = "HF | Order Type2"
+                        selectrecordtype = netsuite.customlist.instance.customlist_hf_order_type.scriptid
+                        value = netsuite.customlist.instance.customlist_hf_order_type.customvalues.customvalue.val_4791626_6248126_sb3_174.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 2
+                isInactive = false
+              }
+              workflowaction1780 = {
+                scriptid = "workflowaction1780"
+                clienttriggerfields = netsuite.transactionbodycustomfield.instance.custbody_hf_order_type.scriptid
+                clienttriggerfieldsissublistfield = false
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_shipper.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hf_shipper.customvalues.customvalue.val_11201050_6248126_sb1_440.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Order Type\" IN (\"HF | Order Type1\",\"HF | Order Type2\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Order_Type@s = {
+                        name = "Order Type"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_hf_order_type.scriptid
+                      }
+                      HF___Order_Type1@sgss = {
+                        name = "HF | Order Type1"
+                        selectrecordtype = netsuite.customlist.instance.customlist_hf_order_type.scriptid
+                        value = netsuite.customlist.instance.customlist_hf_order_type.customvalues.customvalue.val_20239001_6248126_sb2_954.scriptid
+                      }
+                      HF___Order_Type2@sgss = {
+                        name = "HF | Order Type2"
+                        selectrecordtype = netsuite.customlist.instance.customlist_hf_order_type.scriptid
+                        value = netsuite.customlist.instance.customlist_hf_order_type.customvalues.customvalue.val_20239002_6248126_sb2_890.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 3
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | US | TO Set Shipping defaults"
+}

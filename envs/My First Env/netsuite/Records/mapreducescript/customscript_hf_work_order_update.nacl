@@ -1,0 +1,33 @@
+netsuite.mapreducescript customscript_hf_work_order_update {
+  scriptid = "customscript_hf_work_order_update"
+  name = "HF | Work Order Update"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_sc_mr_work_order_update_js@duuuuv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_work_order_update = {
+        scriptid = "customdeploy_hf_work_order_update"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | Work Order Update"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            repeat = "PT2H"
+            startdate = "2022-06-15"
+            starttime = "15:30:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Work Order Update"
+}

@@ -1,0 +1,171 @@
+netsuite.savedcsvimport custimport_hf_inv_transpricing {
+  scriptid = "custimport_hf_inv_transpricing"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_inventory_part_form.scriptid
+  ignorereadonly = true
+  importname = "HF | Inv| Transfer Price Vendors"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVENTORYITEM"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVENTORYITEM = {
+        file = "INVENTORYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVENTORYITEM_ITEMVENDOR@f = {
+        line = 3
+        record = "INVENTORYITEM:ITEMVENDOR"
+        fieldmappings = {
+          fieldmapping = {
+            PURCHASEPRICE = {
+              field = "PURCHASEPRICE"
+              columnreference = {
+                column = "Germany-UK"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "11"
+            }
+            VENDOR = {
+              field = "VENDOR"
+              value = "25614"
+            }
+          }
+        }
+      }
+      INVENTORYITEM_ITEMVENDOR_2@fu = {
+        line = 2
+        record = "INVENTORYITEM:ITEMVENDOR"
+        fieldmappings = {
+          fieldmapping = {
+            PURCHASEPRICE = {
+              field = "PURCHASEPRICE"
+              columnreference = {
+                column = "Germany"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "6"
+            }
+            VENDOR = {
+              field = "VENDOR"
+              value = "25612"
+            }
+          }
+        }
+      }
+      INVENTORYITEM_ITEMVENDOR_3@fu = {
+        line = 1
+        record = "INVENTORYITEM:ITEMVENDOR"
+        fieldmappings = {
+          fieldmapping = {
+            PURCHASEPRICE = {
+              field = "PURCHASEPRICE"
+              columnreference = {
+                column = "China"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "5"
+            }
+            VENDOR = {
+              field = "VENDOR"
+              value = "25612"
+            }
+          }
+        }
+      }
+      INVENTORYITEM_ITEMVENDOR_4@fu = {
+        record = "INVENTORYITEM:ITEMVENDOR"
+        fieldmappings = {
+          fieldmapping = {
+            PURCHASEPRICE = {
+              field = "PURCHASEPRICE"
+              columnreference = {
+                column = "UK"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "10"
+            }
+            VENDOR = {
+              field = "VENDOR"
+              value = "25612"
+            }
+          }
+        }
+      }
+      INVENTORYITEM_ITEMVENDOR_5@fu = {
+        line = 4
+        record = "INVENTORYITEM:ITEMVENDOR"
+        fieldmappings = {
+          fieldmapping = {
+            PURCHASEPRICE = {
+              field = "PURCHASEPRICE"
+              columnreference = {
+                column = "UK-Germany"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "6"
+            }
+            VENDOR = {
+              field = "VENDOR"
+              value = "25619"
+            }
+          }
+        }
+      }
+      INVENTORYITEM = {
+        record = "INVENTORYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | Inv| Transfer Price Vendors"
+}

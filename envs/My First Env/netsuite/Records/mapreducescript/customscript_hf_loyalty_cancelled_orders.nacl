@@ -1,0 +1,32 @@
+netsuite.mapreducescript customscript_hf_loyalty_cancelled_orders {
+  scriptid = "customscript_hf_loyalty_cancelled_orders"
+  name = "HF | Loyalty - Reprocess Cancelled Order"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_loyalty_reprocessCancelledOrders_js@ddv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_loyalty_cancelled_orders = {
+        scriptid = "customdeploy_hf_loyalty_cancelled_orders"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | Loyalty - Reprocess Cancelled Order"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            startdate = "2024-05-02"
+            starttime = "03:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Loyalty - Reprocess Cancelled Order"
+}

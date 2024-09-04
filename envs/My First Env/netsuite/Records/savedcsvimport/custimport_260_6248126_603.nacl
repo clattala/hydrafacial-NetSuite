@@ -1,0 +1,141 @@
+netsuite.savedcsvimport custimport_260_6248126_603 {
+  scriptid = "custimport_260_6248126_603"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "Inventory Transfer With Lot"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVENTORYTRANSFER"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_hydrafacial_inventory_transfer.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVENTORYTRANSFER = {
+        file = "INVENTORYTRANSFER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVENTORYTRANSFER = {
+        record = "INVENTORYTRANSFER"
+        fieldmappings = {
+          fieldmapping = {
+            custbody_hf_rep_split1 = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_rep_split1.scriptid
+              value = "100.0%"
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "External id"
+                file = "INVENTORYTRANSFER"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              value = "3"
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "3"
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              value = "8/20/2022"
+            }
+            TRANSFERLOCATION = {
+              field = "TRANSFERLOCATION"
+              value = "2"
+            }
+          }
+        }
+      }
+      INVENTORYTRANSFER_INVENTORY@f = {
+        record = "INVENTORYTRANSFER:INVENTORY"
+        fieldmappings = {
+          fieldmapping = {
+            ADJUSTQTYBY = {
+              field = "ADJUSTQTYBY"
+              columnreference = {
+                column = "Quantity to Transfer"
+                file = "INVENTORYTRANSFER"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item"
+                file = "INVENTORYTRANSFER"
+                type = "INTERNAL_ID"
+              }
+            }
+            LINE = {
+              field = "LINE"
+              columnreference = {
+                column = "LineID"
+                file = "INVENTORYTRANSFER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVENTORYTRANSFER_INVENTORY_INVENTORYDETAIL_INVENTORYASSIGNMENT@f = {
+        record = "INVENTORYTRANSFER:INVENTORY:INVENTORYDETAIL:INVENTORYASSIGNMENT"
+        fieldmappings = {
+          fieldmapping = {
+            ISSUEINVENTORYNUMBER = {
+              field = "ISSUEINVENTORYNUMBER"
+              columnreference = {
+                column = "Inventory Detail / Lot"
+                file = "INVENTORYTRANSFER"
+                type = "NAME"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "Quantity"
+                file = "INVENTORYTRANSFER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVENTORYTRANSFER_INVENTORY_INVENTORYDETAIL@f = {
+        record = "INVENTORYTRANSFER:INVENTORY:INVENTORYDETAIL"
+        fieldmappings = {
+          fieldmapping = {
+            SURROGATESUBRECORDID = {
+              field = "SURROGATESUBRECORDID"
+              columnreference = {
+                column = "Surrogate Subrecord"
+                file = "INVENTORYTRANSFER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Inventory Transfer With Lot"
+}

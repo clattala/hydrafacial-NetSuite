@@ -1,0 +1,55 @@
+netsuite.scheduledscript customscript_hf_ss_delete_old_csv {
+  scriptid = "customscript_hf_ss_delete_old_csv"
+  description = "NGO-5673 : Script to delete CSV files in a folder which are older than 30 days in file cabinet"
+  name = "HF SS Delete Old CSV files"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_SS_Delete_Older_CSV_js@duuuuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_delete_files_in_folder = {
+        scriptid = "custscript_delete_files_in_folder"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "Folder to check old files"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_ss_delete_old_csv = {
+        scriptid = "customdeploy_hf_ss_delete_old_csv"
+        custscript_delete_files_in_folder = 2163974
+        isdeployed = true
+        loglevel = "DEBUG"
+        status = "NOTSCHEDULED"
+        title = "HF SS Delete Old CSV files"
+        recurrence = {
+          weekly = {
+            everyxweeks = 1
+            friday = false
+            monday = true
+            saturday = true
+            startdate = "2022-12-16"
+            starttime = "07:00:00Z"
+            sunday = false
+            thursday = false
+            tuesday = false
+            wednesday = true
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF SS Delete Old CSV files"
+}

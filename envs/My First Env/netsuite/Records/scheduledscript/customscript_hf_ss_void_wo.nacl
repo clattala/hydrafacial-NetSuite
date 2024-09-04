@@ -1,0 +1,83 @@
+netsuite.scheduledscript customscript_hf_ss_void_wo {
+  scriptid = "customscript_hf_ss_void_wo"
+  description = "NGO-6576 : To void the workorders which are present in the CSV file"
+  name = "HF SS Void WorkOrders"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_SS_VoidTransactions_js@duuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_void_file = {
+        scriptid = "custscript_hf_void_file"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "Void Workorders File"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+      custscript_hf_inform_user = {
+        scriptid = "custscript_hf_inform_user"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Receiver User"
+        onparentdelete = "SET_NULL"
+        searchlevel = "2"
+        selectrecordtype = "-4"
+        storevalue = true
+        index = 1
+      }
+      custscript_hf_email_sender = {
+        scriptid = "custscript_hf_email_sender"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Sender Email"
+        onparentdelete = "SET_NULL"
+        searchlevel = "2"
+        selectrecordtype = "-4"
+        storevalue = true
+        index = 2
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_ss_void_wo = {
+        scriptid = "customdeploy_hf_ss_void_wo"
+        custscript_hf_email_sender = "[ACCOUNT_SPECIFIC_VALUE]"
+        custscript_hf_inform_user = "[ACCOUNT_SPECIFIC_VALUE]"
+        custscript_hf_void_file = 7106061
+        isdeployed = true
+        loglevel = "ERROR"
+        status = "NOTSCHEDULED"
+        title = "HF SS Void WorkOrders"
+        recurrence = {
+          single = {
+            startdate = "2023-02-20"
+            starttime = "12:30:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF SS Void WorkOrders"
+}

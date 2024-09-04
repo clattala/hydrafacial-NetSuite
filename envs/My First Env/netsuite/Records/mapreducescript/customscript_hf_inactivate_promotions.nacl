@@ -1,0 +1,31 @@
+netsuite.mapreducescript customscript_hf_inactivate_promotions {
+  scriptid = "customscript_hf_inactivate_promotions"
+  name = "HF | Inactivate Promotions"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_trevera_inactivatePromotionsMR_js@ddv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_inactivate_promotions = {
+        scriptid = "customdeploy_hf_inactivate_promotions"
+        buffersize = "1"
+        concurrencylimit = "2"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | Inactivate Promotions"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2024-04-30"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Inactivate Promotions"
+}

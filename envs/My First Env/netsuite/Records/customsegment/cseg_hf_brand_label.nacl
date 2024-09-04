@@ -1,0 +1,66 @@
+netsuite.customsegment cseg_hf_brand_label {
+  scriptid = "cseg_hf_brand_label"
+  defaultrecordaccesslevel = "EDIT"
+  defaultsearchaccesslevel = "VIEW"
+  description = "This identifies which BeautyHealth brand this line applies to. If blank it is Hydrafacial."
+  displaytype = "NORMAL"
+  fieldtype = "SELECT"
+  hasglimpact = true
+  help = "This identifies which BeautyHealth brand this line applies to. If blank it is Hydrafacial."
+  ismandatory = false
+  label = "Brand Label"
+  recordtype = netsuite.customrecord_cseg_hf_brand_label.attr.scriptid
+  valuesdisplayorder = "SUBLIST"
+  segmentapplication = {
+    transactionbody = {
+      applications = {
+        application = {
+          PURCHASE = {
+            id = "PURCHASE"
+            isapplied = true
+          }
+          JOURNALENTRY = {
+            id = "JOURNALENTRY"
+            isapplied = true
+          }
+        }
+      }
+    }
+    items = {
+      subtype = "BOTH"
+    }
+  }
+  permissions = {
+    permission = {
+      customrole1652 = {
+        role = netsuite.role.instance.customrole1652.scriptid
+        valuemgmtaccesslevel = "VIEW"
+      }
+      customrole1174 = {
+        recordaccesslevel = "EDIT"
+        role = netsuite.role.instance.customrole1174.scriptid
+        searchaccesslevel = "VIEW"
+        valuemgmtaccesslevel = "EDIT"
+      }
+      customrole1240 = {
+        recordaccesslevel = "EDIT"
+        role = netsuite.role.instance.customrole1240.scriptid
+        searchaccesslevel = "VIEW"
+        valuemgmtaccesslevel = "EDIT"
+      }
+      customrole1499 = {
+        recordaccesslevel = "EDIT"
+        role = netsuite.role.instance.customrole1499.scriptid
+        searchaccesslevel = "VIEW"
+        valuemgmtaccesslevel = "EDIT"
+      }
+      customrole1249 = {
+        recordaccesslevel = "EDIT"
+        role = netsuite.role.instance.customrole1249.scriptid
+        searchaccesslevel = "VIEW"
+        valuemgmtaccesslevel = "EDIT"
+      }
+    }
+  }
+  _alias = "Brand Label"
+}

@@ -1,0 +1,194 @@
+netsuite.savedsearch customsearch_dhl_cancelled_orders {
+  scriptid = "customsearch_dhl_cancelled_orders"
+  dependencies = {
+    dependency = [
+      netsuite.transactionbodycustomfield.instance.custbody_hf_dhl_order_status.scriptid,
+      netsuite.transactionbodycustomfield.instance.custbody_swc_bdm.scriptid,
+      netsuite.customlist.instance.customlist_hf_dhl_ord_statuslist.scriptid,
+    ]
+  }
+  definition = "75d01a34b6a89f83ce014999303be9799391c02f817c6563879f9bd1a16ad0c8@GZC@2024.1.16@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"
+  search_filter = [
+    {
+      FLAG_DATE_TIME_SECOND = false
+      FLAG_FROM_AVAILABLE_FILTER = false
+      FLAG_NOT = false
+      FLAG_OR = false
+      FIELD_OR_CLAUSE_STATUS = "N"
+      FIELD_NUM_LEFT_PARENS = 0
+      FIELD_NUM_RIGHT_PARENS = 0
+      FIELD_FILTER_NAME = "Transaction_TYPE"
+      FIELD_ATTRIBUTE = "ANYOF"
+      FIELD_TYPE = "SELECT"
+      RECORDS = [
+        {
+          KEY_ID = 0
+          FIELD_VALUE = "SalesOrd"
+        },
+      ]
+    },
+    {
+      FLAG_DATE_TIME_SECOND = false
+      FLAG_FROM_AVAILABLE_FILTER = false
+      FLAG_NOT = false
+      FLAG_OR = false
+      FIELD_OR_CLAUSE_STATUS = "N"
+      FIELD_NUM_LEFT_PARENS = 0
+      FIELD_NUM_RIGHT_PARENS = 0
+      FIELD_FILTER_NAME = "CUSTBODY_HF_DHL_ORDER_STATUS"
+      FIELD_ATTRIBUTE = "ANYOF"
+      FIELD_TYPE = "SELECT"
+      RECORDS = [
+        {
+          KEY_ID = 0
+          FIELD_VALUE = "VAL_5334025_6248126_SB1_204"
+        },
+      ]
+    },
+    {
+      FLAG_DATE_TIME_SECOND = false
+      FLAG_FROM_AVAILABLE_FILTER = false
+      FLAG_NOT = false
+      FLAG_OR = false
+      FIELD_OR_CLAUSE_STATUS = "N"
+      FIELD_NUM_LEFT_PARENS = 0
+      FIELD_NUM_RIGHT_PARENS = 0
+      FIELD_FILTER_NAME = "Transaction_SUBSIDIARY"
+      FIELD_ATTRIBUTE = "ANYOF"
+      FIELD_TYPE = "SELECT"
+      RECORDS = [
+        {
+          KEY_ID = 0
+          FIELD_VALUE = "6"
+        },
+      ]
+    },
+    {
+      FLAG_DATE_TIME_SECOND = false
+      FLAG_FROM_AVAILABLE_FILTER = false
+      FLAG_NOT = false
+      FLAG_OR = false
+      FIELD_OR_CLAUSE_STATUS = "N"
+      FIELD_NUM_LEFT_PARENS = 0
+      FIELD_NUM_RIGHT_PARENS = 0
+      FIELD_FILTER_NAME = "Transaction_STATUS"
+      FIELD_ATTRIBUTE = "NONEOF"
+      FIELD_TYPE = "SELECT"
+      RECORDS = [
+        {
+          KEY_ID = 0
+          FIELD_VALUE = "SalesOrd:H"
+        },
+      ]
+    },
+    {
+      FLAG_DATE_TIME_SECOND = false
+      FLAG_FROM_AVAILABLE_FILTER = false
+      FLAG_NOT = false
+      FLAG_OR = false
+      FIELD_OR_CLAUSE_STATUS = "N"
+      FIELD_NUM_LEFT_PARENS = 0
+      FIELD_NUM_RIGHT_PARENS = 0
+      FIELD_FILTER_NAME = "Transaction_MAINLINE"
+      FIELD_ATTRIBUTE = "T"
+      FIELD_TYPE = "CHECKBOX"
+    },
+  ]
+  return_fields = [
+    {
+      FIELD_ALIAS = "Transaction_NUMBER"
+      FIELD_INDEX = 1
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Transaction_TRANDATE"
+      FIELD_INDEX = 2
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Transaction_AMOUNT"
+      FIELD_INDEX = 3
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Transaction_STATUS"
+      FIELD_INDEX = 4
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTBODY_HF_DHL_ORDER_STATUS"
+      FIELD_INDEX = 5
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Transaction_SALESREP"
+      FIELD_INDEX = 6
+      FIELD_LABEL = "CSM"
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTBODY_SWC_BDM"
+      FIELD_INDEX = 7
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Transaction_SUBSIDIARY"
+      FIELD_INDEX = 8
+      FIELD_FORMULA_ERROR = false
+    },
+  ]
+  sort_columns = [
+    {
+      KEY_FIELD = "Transaction_TRANDATE"
+      FILELD_ORDER = 1
+      FLAG_DESCENDING = true
+    },
+  ]
+  audience = {
+    FLAG_AUDIENCE_ALL_CUSTOMERS = false
+    FLAG_AUDIENCE_ALL_EMPLOYEES = false
+    FLAG_AUDIENCE_ALL_PARTNERS = false
+    FLAG_AUDIENCE_ALL_ROLES = true
+    FLAG_AUDIENCE_ALL_VENDORS = false
+  }
+  KEY_SCRIPT_ID = "customsearch_dhl_cancelled_orders"
+  FIELD_DEFAULT_NAME = "HF | DE | DHL Cancelled Orders"
+  FIELD_SEARCH_TYPE = "Transaction"
+  FLAG_PUBLIC = true
+  FLAG_LIST = false
+  FLAG_PORTLET = true
+  FLAG_MACHINE = false
+  FLAG_REMINDER = true
+  FLAG_SHOW_LINK = false
+  FLAG_PREFERRED_LIST = false
+  FLAG_PREFERRED_PORTLET = false
+  FLAG_PREFERRED_MACHINE = false
+  FLAG_PREFERRED_FORM = false
+  FLAG_PREFERRED_RESULTS = false
+  FLAG_VIEW_AS_REPORT = false
+  FLAG_VIEW_AS_GRAPH = false
+  FLAG_VIEW_AS_GRID = false
+  FLAG_UNRESTRICTED = false
+  FLAG_DISABLE_DRILL_DOWN = false
+  FIELD_CURRENCY_RATE_TYPE = "ACCTTYPE"
+  FLAG_HIDE_FILTER_DROPDOWNS = false
+  KEY_DEFAULT_TEXT_FIELD_FILTER = "STARTSWITH"
+  FLAG_AVAILABLE_AS_FEED = false
+  FLAG_GLOBAL_EDIT = false
+  FLAG_CSV = false
+  FLAG_EXCEL = false
+  FLAG_PDF = false
+  FLAG_TRIGGERED_ALERT = false
+  FLAG_SCHEDULED_ALERT = false
+  FLAG_SCHEDULED_ALERT_SUMMARIES = false
+  FLAG_SEND_EMPTY_RESULTS = false
+  FLAG_ALERT_ALLOW_SUBSCRIBE = false
+  FLAG_ALERT_INCLUDE_VIEW_LINK = false
+  FLAG_HAS_TOTALS = false
+  FLAG_INCLUDE_PERIOD_END_TRANSACTIONS = false
+  FLAG_BUILT_IN = false
+  FLAG_SEND_ON_UPDATE = false
+  FLAG_SHOW_AUDIT_TRAIL = false
+  KEY_AUDIENCE = 0
+  _alias = "HF | DE | DHL Cancelled Orders"
+}

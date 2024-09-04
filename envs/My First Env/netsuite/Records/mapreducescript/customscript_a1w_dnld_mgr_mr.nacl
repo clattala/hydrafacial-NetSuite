@@ -1,0 +1,88 @@
+netsuite.mapreducescript customscript_a1w_dnld_mgr_mr {
+  scriptid = "customscript_a1w_dnld_mgr_mr"
+  name = "Warehouse Edge Download Queue Manager"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = "[/SuiteBundles/Bundle 279187/DLQMgrMR.js]"
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_max_per_type = {
+        scriptid = "custscript_max_per_type"
+        accesslevel = "2"
+        applyformatting = true
+        checkspelling = false
+        defaultchecked = false
+        description = "Specify this value to limit the number of downloads per type for each run of the DLQ manager script. Leave blank or zero to specify no limit."
+        displaytype = "NORMAL"
+        fieldtype = "INTEGER"
+        isformula = false
+        ismandatory = false
+        label = "Max Downloads Per Type"
+        searchlevel = "2"
+        storevalue = true
+        roleaccesses = {
+          roleaccess = {
+            ADMINISTRATOR = {
+              accesslevel = "2"
+              role = "ADMINISTRATOR"
+              searchlevel = "2"
+            }
+            customrole_aw1ms_integration = {
+              accesslevel = "2"
+              role = netsuite.role.instance.customrole_aw1ms_integration.scriptid
+              searchlevel = "2"
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_a1w_dlq_mgr_sched = {
+        scriptid = "customdeploy_a1w_dlq_mgr_sched"
+        buffersize = "1"
+        concurrencylimit = "1"
+        custscript_max_per_type = 0
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "Warehouse Edge DLQ Manager - Schedulable"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            repeat = "PT15M"
+            startdate = "2017-01-05"
+            starttime = "08:00:00Z"
+          }
+        }
+      }
+      customdeploy_a1w_dnld_mgr_mr = {
+        scriptid = "customdeploy_a1w_dnld_mgr_mr"
+        buffersize = "1"
+        concurrencylimit = "1"
+        custscript_max_per_type = 0
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "Warehouse Edge Download Queue Manager"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            startdate = "2017-01-05"
+            starttime = "22:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "Warehouse Edge Download Queue Manager"
+}

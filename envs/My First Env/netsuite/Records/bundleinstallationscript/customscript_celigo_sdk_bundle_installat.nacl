@@ -1,0 +1,52 @@
+netsuite.bundleinstallationscript customscript_celigo_sdk_bundle_installat {
+  scriptid = "customscript_celigo_sdk_bundle_installat"
+  afterinstallfunction = "Celigo.ScriptManager.afterInstall"
+  afterupdatefunction = "Celigo.ScriptManager.afterUpdate"
+  beforeinstallfunction = "Celigo.ScriptManager.beforeInstall"
+  beforeuninstallfunction = "Celigo.ScriptManager.beforeUninstall"
+  beforeupdatefunction = "Celigo.ScriptManager.beforeUpdate"
+  name = "Celigo Integrator Bundle Installation"
+  notifyadmins = false
+  notifyowner = false
+  scriptfile = "[/SuiteBundles/Bundle 20038/Celigo.build.IntegratorUi.closure.js]"
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy1 = {
+        scriptid = "customdeploy1"
+        isdeployed = true
+        loglevel = "DEBUG"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+        title = "Celigo SDK Bundle Installation"
+      }
+    }
+  }
+  libraries = {
+    library = [
+      {
+        scriptfile = "[/SuiteBundles/Bundle 20038/Celigo_Basis.closure.js]"
+      },
+      {
+        scriptfile = "[/SuiteBundles/Bundle 20038/Celigo_LicensingServices.closure.js]"
+      },
+      {
+        scriptfile = "[/SuiteBundles/Bundle 20038/Celigo.build.Integrator.closure.js]"
+      },
+      {
+        scriptfile = "[/SuiteBundles/Bundle 20038/Celigo_Adaptor.closure.js]"
+      },
+      {
+        scriptfile = "[/SuiteBundles/Bundle 20038/BundleInstallCombineClosures.js]"
+      },
+      {
+        scriptfile = "[/SuiteBundles/Bundle 20038/CeligoSecureHelper.js]"
+      },
+      {
+        scriptfile = "[/SuiteBundles/Bundle 20038/Celigo_CustomBuildConfig.js]"
+      },
+    ]
+  }
+  isInactive = false
+  bundle = netsuite.bundle.instance.bundle_20038
+  _alias = "Celigo Integrator Bundle Installation"
+}

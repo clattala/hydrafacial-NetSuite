@@ -1,0 +1,83 @@
+netsuite.savedcsvimport custimport_86_6248126_638 {
+  scriptid = "custimport_86_6248126_638"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_assembly.scriptid
+  ignorereadonly = true
+  importname = "Item Price List update  for UK - RK"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "LOTNUMBEREDASSEMBLYITEM"
+  runserversuitescript = false
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      LOTNUMBEREDASSEMBLYITEM = {
+        file = "LOTNUMBEREDASSEMBLYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      LOTNUMBEREDASSEMBLYITEM_BACKENDPRICING@f = {
+        record = "LOTNUMBEREDASSEMBLYITEM:BACKENDPRICING"
+        fieldmappings = {
+          fieldmapping = {
+            CURRENCY = {
+              field = "CURRENCY"
+              value = "2"
+            }
+            PRICE = {
+              field = "PRICE"
+              columnreference = {
+                column = "QTY 1"
+                file = "LOTNUMBEREDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            PRICELEVEL = {
+              field = "PRICELEVEL"
+              value = "1"
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              value = "0"
+            }
+          }
+        }
+      }
+      LOTNUMBEREDASSEMBLYITEM = {
+        record = "LOTNUMBEREDASSEMBLYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "SKU Internal ID"
+                file = "LOTNUMBEREDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "11"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Item Price List update  for UK - RK"
+}

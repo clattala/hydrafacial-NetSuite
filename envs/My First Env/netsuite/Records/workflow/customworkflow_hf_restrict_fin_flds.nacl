@@ -1,0 +1,881 @@
+netsuite.workflow customworkflow_hf_restrict_fin_flds {
+  scriptid = "customworkflow_hf_restrict_fin_flds"
+  description = "Restrict some of the Financial Fields if the user it not Administrator and if the user is not from the Accounting Team"
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = true
+  initonvieworupdate = true
+  islogenabled = true
+  keephistory = "ALWAYS"
+  name = "HF | GBL | Restrict Financial Fields"
+  recordtypes = "CUSTOMER"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"Subsidiary\" NOT IN (\"{#Subsidiary#}1\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        Subsidiary = {
+          name = "Subsidiary"
+          value = "STDENTITYSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate232 = {
+        scriptid = "workflowstate232"
+        donotexitworkflow = false
+        name = "Restrict Fields"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            setdisplaytypeaction = {
+              workflowaction946 = {
+                scriptid = "workflowaction946"
+                displaytype = "INLINE"
+                field = "STDENTITYTERMS"
+                issublistfield = false
+                initcondition = {
+                  formula = "\"User Role\" NOT IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\",\"Role9\",\"Role10\",\"Role11\",\"Role12\",\"Role13\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1096.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1099.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1236.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1235.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1488.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_apac_accounting_mgr.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1178.scriptid
+                      }
+                      Role9 = {
+                        name = "Role9"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1187.scriptid
+                      }
+                      Role10 = {
+                        name = "Role10"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1222.scriptid
+                      }
+                      Role11 = {
+                        name = "Role11"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1221_0.scriptid
+                      }
+                      Role12 = {
+                        name = "Role12"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1167.scriptid
+                      }
+                      Role13 = {
+                        name = "Role13"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1529.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction947 = {
+                scriptid = "workflowaction947"
+                displaytype = "INLINE"
+                field = "STDENTITYCREDITLIMIT"
+                issublistfield = false
+                initcondition = {
+                  formula = "\"User Role\" NOT IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\",\"Role9\",\"Role10\",\"Role11\",\"Role12\",\"Role13\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1096.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1099.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1236.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1235.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1488.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1187.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1178.scriptid
+                      }
+                      Role9 = {
+                        name = "Role9"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_apac_accounting_mgr.scriptid
+                      }
+                      Role10 = {
+                        name = "Role10"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1222.scriptid
+                      }
+                      Role11 = {
+                        name = "Role11"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1221_0.scriptid
+                      }
+                      Role12 = {
+                        name = "Role12"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1167.scriptid
+                      }
+                      Role13 = {
+                        name = "Role13"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1529.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+              workflowaction948 = {
+                scriptid = "workflowaction948"
+                displaytype = "INLINE"
+                field = "STDENTITYCREDITHOLDOVERRIDE"
+                issublistfield = false
+                initcondition = {
+                  formula = "\"User Role\" NOT IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\",\"Role9\",\"Role10\",\"Role11\",\"Role12\",\"Role13\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1096.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1099.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1236.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1235.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_apac_accounting_mgr.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1488.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1187.scriptid
+                      }
+                      Role9 = {
+                        name = "Role9"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1178.scriptid
+                      }
+                      Role10 = {
+                        name = "Role10"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1167.scriptid
+                      }
+                      Role11 = {
+                        name = "Role11"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1222.scriptid
+                      }
+                      Role12 = {
+                        name = "Role12"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1221_0.scriptid
+                      }
+                      Role13 = {
+                        name = "Role13"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1529.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 2
+                isInactive = false
+              }
+              workflowaction949 = {
+                scriptid = "workflowaction949"
+                displaytype = "INLINE"
+                field = netsuite.entitycustomfield.instance.custentity_hf_default_inv_email.scriptid
+                issublistfield = false
+                initcondition = {
+                  formula = "\"User Role\" NOT IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\",\"Role9\",\"Role10\",\"Role11\",\"Role12\",\"Role13\",\"Role14\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1096.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1099.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1236.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1235.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1222.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1221.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1488.scriptid
+                      }
+                      Role9 = {
+                        name = "Role9"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1187.scriptid
+                      }
+                      Role10 = {
+                        name = "Role10"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1178.scriptid
+                      }
+                      Role11 = {
+                        name = "Role11"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_apac_accounting_mgr.scriptid
+                      }
+                      Role12 = {
+                        name = "Role12"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1167.scriptid
+                      }
+                      Role13 = {
+                        name = "Role13"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1221_0.scriptid
+                      }
+                      Role14 = {
+                        name = "Role14"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1529.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 3
+                isInactive = false
+              }
+              workflowaction950 = {
+                scriptid = "workflowaction950"
+                displaytype = "INLINE"
+                field = netsuite.entitycustomfield.instance.custentity_hf_invemail_cc1.scriptid
+                issublistfield = false
+                initcondition = {
+                  formula = "\"User Role\" NOT IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\",\"Role9\",\"Role10\",\"Role11\",\"Role12\",\"Role13\",\"Role14\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1096.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1099.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1236.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1235.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1222.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1221.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1488.scriptid
+                      }
+                      Role9 = {
+                        name = "Role9"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1187.scriptid
+                      }
+                      Role10 = {
+                        name = "Role10"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1178.scriptid
+                      }
+                      Role11 = {
+                        name = "Role11"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_apac_accounting_mgr.scriptid
+                      }
+                      Role12 = {
+                        name = "Role12"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1167.scriptid
+                      }
+                      Role13 = {
+                        name = "Role13"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1221_0.scriptid
+                      }
+                      Role14 = {
+                        name = "Role14"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1529.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 4
+                isInactive = false
+              }
+              workflowaction951 = {
+                scriptid = "workflowaction951"
+                displaytype = "INLINE"
+                field = netsuite.entitycustomfield.instance.custentity_hf_invemail_cc2.scriptid
+                issublistfield = false
+                initcondition = {
+                  formula = "\"User Role\" NOT IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\",\"Role9\",\"Role10\",\"Role11\",\"Role12\",\"Role13\",\"Role14\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1096.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1099.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1236.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1235.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1222.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1221.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1488.scriptid
+                      }
+                      Role9 = {
+                        name = "Role9"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1187.scriptid
+                      }
+                      Role10 = {
+                        name = "Role10"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1178.scriptid
+                      }
+                      Role11 = {
+                        name = "Role11"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_apac_accounting_mgr.scriptid
+                      }
+                      Role12 = {
+                        name = "Role12"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1167.scriptid
+                      }
+                      Role13 = {
+                        name = "Role13"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1221_0.scriptid
+                      }
+                      Role14 = {
+                        name = "Role14"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1529.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 5
+                isInactive = false
+              }
+              workflowaction952 = {
+                scriptid = "workflowaction952"
+                displaytype = "INLINE"
+                field = netsuite.entitycustomfield.instance.custentity_hf_invemail_cc3.scriptid
+                issublistfield = false
+                initcondition = {
+                  formula = "\"User Role\" NOT IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\",\"Role9\",\"Role10\",\"Role11\",\"Role12\",\"Role13\",\"Role14\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1096.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1099.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1236.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1235.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1222.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1221.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1488.scriptid
+                      }
+                      Role9 = {
+                        name = "Role9"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1187.scriptid
+                      }
+                      Role10 = {
+                        name = "Role10"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1178.scriptid
+                      }
+                      Role11 = {
+                        name = "Role11"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_apac_accounting_mgr.scriptid
+                      }
+                      Role12 = {
+                        name = "Role12"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1167.scriptid
+                      }
+                      Role13 = {
+                        name = "Role13"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1221_0.scriptid
+                      }
+                      Role14 = {
+                        name = "Role14"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1529.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 6
+                isInactive = false
+              }
+              workflowaction953 = {
+                scriptid = "workflowaction953"
+                displaytype = "DISABLED"
+                field = netsuite.entitycustomfield.instance.custentity_hf_invemail_receive_invoices.scriptid
+                issublistfield = false
+                initcondition = {
+                  formula = "\"User Role\" NOT IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\",\"Role9\",\"Role10\",\"Role11\",\"Role12\",\"Role13\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1096.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1099.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1236.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1235.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1488.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1187.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1178.scriptid
+                      }
+                      Role9 = {
+                        name = "Role9"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_apac_accounting_mgr.scriptid
+                      }
+                      Role10 = {
+                        name = "Role10"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1167.scriptid
+                      }
+                      Role11 = {
+                        name = "Role11"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1222.scriptid
+                      }
+                      Role12 = {
+                        name = "Role12"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1221_0.scriptid
+                      }
+                      Role13 = {
+                        name = "Role13"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1529.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 7
+                isInactive = false
+              }
+              workflowaction954 = {
+                scriptid = "workflowaction954"
+                displaytype = "INLINE"
+                field = netsuite.entitycustomfield.instance.custentity_ar_rep.scriptid
+                issublistfield = false
+                initcondition = {
+                  formula = "\"User Role\" NOT IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\",\"Role9\",\"Role10\",\"Role11\",\"Role12\",\"Role13\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1096.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1099.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1236.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1235.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1488.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1187.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1178.scriptid
+                      }
+                      Role9 = {
+                        name = "Role9"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_apac_accounting_mgr.scriptid
+                      }
+                      Role10 = {
+                        name = "Role10"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1167.scriptid
+                      }
+                      Role11 = {
+                        name = "Role11"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1222.scriptid
+                      }
+                      Role12 = {
+                        name = "Role12"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1221_0.scriptid
+                      }
+                      Role13 = {
+                        name = "Role13"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1529.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 8
+                isInactive = false
+              }
+              workflowaction1338 = {
+                scriptid = "workflowaction1338"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                displaytype = "INLINE"
+                field = "STDENTITYCREDITLIMIT"
+                issublistfield = false
+                initcondition = {
+                  formula = "\"Subsidiary\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\",\"{#Subsidiary#}3\") OR \"User Role\" NOT IN (\"Role1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary = {
+                        name = "Subsidiary"
+                        value = "STDENTITYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__2@_00123nn_00125 = {
+                        name = "{#Subsidiary#}2"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__3@_00123nn_00125 = {
+                        name = "{#Subsidiary#}3"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                    }
+                  }
+                }
+                index = 9
+                isInactive = true
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | GBL | Restrict Financial Fields"
+}

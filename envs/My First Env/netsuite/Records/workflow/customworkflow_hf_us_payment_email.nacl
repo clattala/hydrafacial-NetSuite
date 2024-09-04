@@ -1,0 +1,131 @@
+netsuite.workflow customworkflow_hf_us_payment_email {
+  scriptid = "customworkflow_hf_us_payment_email"
+  description = "This workflow sends the payment receipt email with pdf for the US customers."
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = true
+  initonvieworupdate = false
+  islogenabled = true
+  keephistory = "ALWAYS"
+  name = "HF | US | Send Payment Email"
+  recordtypes = "CUSTOMERDEPOSIT|CUSTOMERPAYMENT"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\") AND \"Memo\" != 'VOID'"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        Subsidiary__Main_@sjk = {
+          name = "Subsidiary (Main)"
+          value = "STDBODYSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+        Memo = {
+          name = "Memo"
+          value = "STDBODYMEMO"
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate396 = {
+        scriptid = "workflowstate396"
+        donotexitworkflow = false
+        name = "Send Email"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          AFTERSUBMIT = {
+            triggertype = "AFTERSUBMIT"
+            sendemailaction = {
+              workflowaction1735 = {
+                scriptid = "workflowaction1735"
+                attachmenttype = "SPECIFIC"
+                body = "<p style=\"margin-bottom:0px;margin-left:0px;margin-top:0px;\"><span class=\"ui-provider a b c d e f g h i j k l m n o p q r s t u v w x y z ab ac ae af ag ah ai aj ak\" style=\"font-size:inherit;\" dir=\"ltr\">Dear {customer}</span></p><p style=\"margin-bottom:0px;margin-left:0px;margin-top:0px;\"> </p><p style=\"margin-bottom:0px;margin-left:0px;margin-top:0px;\"><span class=\"ui-provider a b c d e f g h i j k l m n o p q r s t u v w x y z ab ac ae af ag ah ai aj ak\" style=\"font-size:inherit;\" dir=\"ltr\">Thank you for your recent payment.</span><br /><span class=\"ui-provider a b c d e f g h i j k l m n o p q r s t u v w x y z ab ac ae af ag ah ai aj ak\" style=\"font-size:inherit;\" dir=\"ltr\">We have successfully received it and attached the payment receipt for your records.</span></p><p style=\"margin-bottom:0px;margin-left:0px;margin-top:0px;\"> </p><p style=\"margin-bottom:0px;margin-left:0px;margin-top:0px;\"><span class=\"ui-provider a b c d e f g h i j k l m n o p q r s t u v w x y z ab ac ae af ag ah ai aj ak\" style=\"font-size:inherit;\" dir=\"ltr\"> Sincerely,</span></p><p style=\"margin-bottom:0px;margin-left:0px;margin-top:0px;\"> </p><p style=\"margin-bottom:0px;margin-left:0px;margin-top:0px;\"><span class=\"ui-provider a b c d e f g h i j k l m n o p q r s t u v w x y z ab ac ae af ag ah ai aj ak\" style=\"font-size:inherit;\" dir=\"ltr\"> THE HYDRAFACIAL COMPANY</span></p>"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                eventtypes = "CREATE"
+                includeformat = "PDF"
+                includerecordlink = false
+                includetransaction = true
+                recipientfield = netsuite.entitycustomfield.instance.custentity_hf_default_inv_email.scriptid
+                recipientjoinfield = "STDBODYPAYMENTCUSTOMER"
+                recipienttype = "FIELD"
+                schedulemode = "DELAY"
+                sender = "[ACCOUNT_SPECIFIC_VALUE]"
+                sendertype = "SPECIFIC"
+                subject = "Receipt of Your Recent Payment {tranid}"
+                usetemplate = false
+                initcondition = {
+                  formula = "isEmpty(\"Customer (Payments and Deposits):Invoice email | Default\") = 'F'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Customer__Payments_and_Deposits__Invoice_email___Default@sjsskfssgs = {
+                        name = "Customer (Payments and Deposits):Invoice email | Default"
+                        value = "STDBODYPAYMENTCUSTOMER:[scriptid=custentity_hf_default_inv_email]"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1736 = {
+                scriptid = "workflowaction1736"
+                attachmenttype = "SPECIFIC"
+                body = "<p><span class=\"ui-provider a b c d e f g h i j k l m n o p q r s t u v w x y z ab ac ae af ag ah ai aj ak\" dir=\"ltr\">Hello,</span></p><p>This Customer {customer} doesn't have a Default Invoice email setup so the communication about this payment has not been sent. </p>"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                includeformat = "PDF"
+                includerecordlink = false
+                includetransaction = true
+                recipientemail = "ar@hydrafacial.com"
+                recipienttype = "ADDRESS"
+                schedulemode = "DELAY"
+                sender = "[ACCOUNT_SPECIFIC_VALUE]"
+                sendertype = "SPECIFIC"
+                subject = "Payment {tranid} not notified to Customer {customer}"
+                usetemplate = false
+                initcondition = {
+                  formula = "isEmpty(\"Customer (Payments and Deposits):Invoice email | Default\") = 'T' AND \"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Customer__Payments_and_Deposits__Invoice_email___Default@sjsskfssgs = {
+                        name = "Customer (Payments and Deposits):Invoice email | Default"
+                        value = "STDBODYPAYMENTCUSTOMER:[scriptid=custentity_hf_default_inv_email]"
+                      }
+                      Subsidiary__Main_@sjk = {
+                        name = "Subsidiary (Main)"
+                        value = "STDBODYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _generated_dependencies = [
+    {
+      reference = netsuite.entitycustomfield.instance.custentity_hf_default_inv_email.scriptid
+    },
+  ]
+  _alias = "HF | US | Send Payment Email"
+}

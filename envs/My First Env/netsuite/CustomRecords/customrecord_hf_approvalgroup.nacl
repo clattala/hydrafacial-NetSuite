@@ -1,0 +1,328 @@
+type netsuite.customrecord_hf_approvalgroup {
+  annotations {
+    serviceid scriptid {
+    }
+    string recordname {
+    }
+    string customsegment {
+    }
+    netsuite.customrecordtype_accesstype accesstype {
+    }
+    boolean allowattachments {
+    }
+    boolean allowinlineediting {
+    }
+    boolean allowinlinedeleting {
+    }
+    boolean allowinlinedetaching {
+    }
+    boolean allowmobileaccess {
+    }
+    boolean allownumberingoverride {
+    }
+    boolean allowquickadd {
+    }
+    boolean allowquicksearch {
+    }
+    boolean allowuiaccess {
+    }
+    string description {
+    }
+    boolean enabledle {
+    }
+    boolean enablekeywords {
+    }
+    boolean enablemailmerge {
+    }
+    boolean enablenametranslation {
+    }
+    boolean enablenumbering {
+    }
+    boolean enableoptimisticlocking {
+    }
+    boolean enablesystemnotes {
+    }
+    boolean hierarchical {
+    }
+    string numberingprefix {
+    }
+    string numberingsuffix {
+    }
+    string numberingmindigits {
+    }
+    string numberinginit {
+    }
+    string icon {
+    }
+    boolean iconbuiltin {
+    }
+    netsuite.generic_custom_record_icon iconindex {
+    }
+    boolean includeinsearchmenu {
+    }
+    boolean includename {
+    }
+    boolean isordered {
+    }
+    boolean showcreationdate {
+    }
+    boolean showcreationdateonlist {
+    }
+    boolean showid {
+    }
+    boolean showlastmodified {
+    }
+    boolean showlastmodifiedonlist {
+    }
+    boolean shownotes {
+    }
+    boolean showowner {
+    }
+    boolean showownerallowchange {
+    }
+    boolean showowneronlist {
+    }
+    netsuite.customrecordtype_instances instances {
+    }
+    netsuite.customrecordtype_links links {
+    }
+    netsuite.customrecordtype_permissions permissions {
+    }
+    netsuite.customrecordtype_recordsublists recordsublists {
+    }
+    netsuite.customrecordtype_subtabs subtabs {
+    }
+    string application_id {
+    }
+    netsuite.bundle bundle {
+    }
+    hidden_string source {
+    }
+    hidden_string internalId {
+    }
+    boolean isInactive {
+    }
+  }
+  string scriptid {
+    _required = true
+  }
+  serviceid internalId {
+    _hidden_value = true
+  }
+  netsuite.customRecordTranslationsList translationsList {
+  }
+  unknown custom_custrecord_hf_apprgrp_transtype {
+    scriptid = "custrecord_hf_apprgrp_transtype"
+    accesslevel = "2"
+    allowquickadd = false
+    applyformatting = false
+    checkspelling = false
+    defaultchecked = false
+    description = "The transaction type for this approver group"
+    displaytype = "NORMAL"
+    encryptatrest = false
+    fieldtype = "SELECT"
+    globalsearch = false
+    isformula = false
+    ismandatory = true
+    isparent = false
+    label = "Transaction Type"
+    onparentdelete = "NO_ACTION"
+    rolerestrict = false
+    searchlevel = "2"
+    selectrecordtype = "-100"
+    showinlist = true
+    storevalue = true
+    index = 0
+  }
+  "List<netsuite.subsidiary>" custom_custrecord_hf_apprgrp_subsidiary {
+    scriptid = "custrecord_hf_apprgrp_subsidiary"
+    accesslevel = "2"
+    allowquickadd = false
+    applyformatting = false
+    checkspelling = false
+    defaultchecked = false
+    description = "Indicates the subsidiary the approval group would apply to. Note that if a subsidiary is provided, the requestor field would be ignored."
+    displaytype = "NORMAL"
+    encryptatrest = false
+    fieldtype = "MULTISELECT"
+    globalsearch = false
+    help = "Indicates the subsidiary the approval group would apply to. Note that if a subsidiary is provided, the requestor field would be ignored."
+    isformula = false
+    ismandatory = false
+    isparent = false
+    label = "Subsidiary"
+    onparentdelete = "NO_ACTION"
+    rolerestrict = false
+    searchlevel = "2"
+    selectrecordtype = "-117"
+    showinlist = true
+    storevalue = true
+    index = 1
+  }
+  "List<netsuite.employee>" custom_custrecord_hf_apprgrp_requestors {
+    scriptid = "custrecord_hf_apprgrp_requestors"
+    accesslevel = "2"
+    allowquickadd = false
+    applyformatting = false
+    checkspelling = false
+    defaultchecked = false
+    description = "The requestors for this group."
+    displaytype = "NORMAL"
+    encryptatrest = false
+    fieldtype = "MULTISELECT"
+    globalsearch = false
+    help = "The requestors for this group."
+    isformula = false
+    ismandatory = false
+    isparent = true
+    label = "Requestors"
+    onparentdelete = "SET_NULL"
+    parentsubtab = netsuite.subtab.instance.custtab_hf_approvalrouting.scriptid
+    rolerestrict = false
+    searchlevel = "2"
+    selectrecordtype = "-4"
+    showinlist = false
+    storevalue = true
+    index = 2
+  }
+  "List<netsuite.employee>" custom_custrecord_hf_apprgrp_approvers {
+    scriptid = "custrecord_hf_apprgrp_approvers"
+    accesslevel = "2"
+    allowquickadd = false
+    applyformatting = false
+    checkspelling = false
+    defaultchecked = false
+    description = "The approvers for this group."
+    displaytype = "NORMAL"
+    encryptatrest = false
+    fieldtype = "MULTISELECT"
+    globalsearch = false
+    isformula = false
+    ismandatory = true
+    isparent = false
+    label = "Approvers"
+    onparentdelete = "SET_NULL"
+    rolerestrict = false
+    searchlevel = "2"
+    selectrecordtype = "-4"
+    showinlist = true
+    storevalue = true
+    index = 3
+  }
+  "List<netsuite.employee>" custom_custrecord_hf_apprgrp_notifyusers {
+    scriptid = "custrecord_hf_apprgrp_notifyusers"
+    accesslevel = "2"
+    allowquickadd = false
+    applyformatting = false
+    checkspelling = false
+    defaultchecked = false
+    description = "The users to notify for approval emails."
+    displaytype = "NORMAL"
+    encryptatrest = false
+    fieldtype = "MULTISELECT"
+    globalsearch = false
+    help = "The users to notify for approval emails."
+    isformula = false
+    ismandatory = false
+    isparent = false
+    label = "Notify Users"
+    onparentdelete = "SET_NULL"
+    rolerestrict = false
+    searchlevel = "2"
+    selectrecordtype = "-4"
+    showinlist = false
+    storevalue = true
+    index = 4
+  }
+  scriptid = "customrecord_hf_approvalgroup"
+  accesstype = "NONENEEDED"
+  allowattachments = true
+  allowinlinedeleting = false
+  allowinlinedetaching = true
+  allowinlineediting = false
+  allowmobileaccess = false
+  allownumberingoverride = false
+  allowquickadd = false
+  allowquicksearch = false
+  allowuiaccess = true
+  enabledle = false
+  enablekeywords = true
+  enablemailmerge = false
+  enablenametranslation = false
+  enablenumbering = false
+  enableoptimisticlocking = true
+  enablesystemnotes = true
+  externalrolepermissionlevel = "NONE"
+  hierarchical = false
+  iconbuiltin = true
+  includeinsearchmenu = true
+  includename = true
+  isordered = false
+  publicpermissionlevel = "NONE"
+  recordname = "Approval Group"
+  showcreationdate = false
+  showcreationdateonlist = false
+  showid = false
+  showlastmodified = false
+  showlastmodifiedonlist = false
+  shownotes = true
+  showowner = false
+  showownerallowchange = false
+  showowneronlist = false
+  links = {
+    link = {
+      BASICSETUPCUSTOM = {
+        linkcategory = "BASICSETUPCUSTOM"
+        linktasktype = "LIST"
+      }
+    }
+  }
+  metadataType = "customrecordtype"
+  isInactive = false
+  _alias = "Approval Group"
+  _self_important_values = [
+    {
+      value = "description"
+      highlighted = true
+      indexed = false
+    },
+    {
+      value = "scriptid"
+      highlighted = true
+      indexed = false
+    },
+    {
+      value = "isInactive"
+      highlighted = true
+      indexed = true
+    },
+    {
+      value = "bundle"
+      highlighted = true
+      indexed = true
+    },
+  ]
+  _important_values = [
+    {
+      value = "name"
+      highlighted = true
+      indexed = false
+    },
+    {
+      value = "scriptid"
+      highlighted = true
+      indexed = false
+    },
+    {
+      value = "isInactive"
+      highlighted = true
+      indexed = true
+    },
+    {
+      value = "bundle"
+      highlighted = true
+      indexed = true
+    },
+  ]
+}

@@ -1,0 +1,35 @@
+netsuite.workflowactionscript customscript_hf_wa_rejection_reason {
+  scriptid = "customscript_hf_wa_rejection_reason"
+  name = "HF WA Rejection Reason"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_WF_Redirect_to_RejectionSuitelet_js@duuuuv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_wa_rejection_reason = {
+        scriptid = "customdeploy_hf_wa_rejection_reason"
+        allemployees = true
+        allpartners = false
+        allroles = true
+        isdeployed = true
+        loglevel = "DEBUG"
+        recordtype = "PURCHASEREQUISITION"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+      customdeploy_hf_wa_bill_reject_reason = {
+        scriptid = "customdeploy_hf_wa_bill_reject_reason"
+        allemployees = false
+        allpartners = false
+        allroles = false
+        isdeployed = true
+        loglevel = "DEBUG"
+        recordtype = "VENDORBILL"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF WA Rejection Reason"
+}

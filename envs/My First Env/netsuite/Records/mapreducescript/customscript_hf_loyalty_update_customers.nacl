@@ -1,0 +1,31 @@
+netsuite.mapreducescript customscript_hf_loyalty_update_customers {
+  scriptid = "customscript_hf_loyalty_update_customers"
+  name = "HF | Loyalty - Update Customers"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_loyalty_setLoyaltyDataOnCustomers_js@ddv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_loyalty_update_customers = {
+        scriptid = "customdeploy_hf_loyalty_update_customers"
+        buffersize = "1"
+        concurrencylimit = "3"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | Loyalty - Update Customers"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2023-07-29"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Loyalty - Update Customers"
+}

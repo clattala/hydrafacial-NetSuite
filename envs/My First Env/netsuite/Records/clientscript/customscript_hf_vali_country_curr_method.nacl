@@ -1,0 +1,46 @@
+netsuite.clientscript customscript_hf_vali_country_curr_method {
+  scriptid = "customscript_hf_vali_country_curr_method"
+  name = "HF | Validate Country, Currency, Method"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  scriptfile = netsuite.file.instance.SuiteScripts_hf_cs_validate_country_currency_js@duuuuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_validation = {
+        scriptid = "custscript_validation"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXTAREA"
+        isformula = false
+        ismandatory = false
+        label = "Validation"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_vali_country_curr_method = {
+        scriptid = "customdeploy_hf_vali_country_curr_method"
+        allemployees = false
+        alllocalizationcontexts = true
+        allpartners = false
+        allroles = true
+        custscript_validation = "{\"united states\":{\"currency\":[\"us dollar\"],\"method\":[\"DOMESTIC\"]}}"
+        executioncontext = "ACTION|ADVANCEDREVREC|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CONSOLRATEADJUSTOR|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OTHER|PAYMENTGATEWAY|PAYMENTPOSTBACK|PLATFORMEXTENSION|PORTLET|PROMOTIONS|RECORDACTION|RESTLET|RESTWEBSERVICES|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WEBSERVICES|WORKBOOKBUILDER|WORKFLOW"
+        isdeployed = true
+        loglevel = "ERROR"
+        recordtype = netsuite.customrecord_2663_entity_bank_details.attr.scriptid
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Validate Country, Currency, Method"
+}

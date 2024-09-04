@@ -1,0 +1,159 @@
+netsuite.savedcsvimport custimport_115_6248126_901 {
+  scriptid = "custimport_115_6248126_901"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "UK Open Invoices"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVOICE"
+  runserversuitescript = true
+  transactionform = "[scriptid=custform_225_6248126_sb1_191]"
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVOICE = {
+        file = "INVOICE"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVOICE_ITEM@f = {
+        record = "INVOICE:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            AMOUNT = {
+              field = "AMOUNT"
+              columnreference = {
+                column = "item amount"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "sub"
+                file = "INVOICE"
+                type = "INTERNAL_ID"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "itemLine_quantity"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            RATE = {
+              field = "RATE"
+              columnreference = {
+                column = "item rate"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            TAXCODE = {
+              field = "TAXCODE"
+              value = "3119"
+            }
+          }
+        }
+      }
+      INVOICE = {
+        record = "INVOICE"
+        fieldmappings = {
+          fieldmapping = {
+            CURRENCY = {
+              field = "CURRENCY"
+              value = "2"
+            }
+            DUEDATE = {
+              field = "DUEDATE"
+              columnreference = {
+                column = "dueDate"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "customer"
+                file = "INVOICE"
+                type = "INTERNAL_ID"
+              }
+            }
+            EXCHANGERATE = {
+              field = "EXCHANGERATE"
+              value = "1"
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "externalid"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              columnreference = {
+                column = "Location"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "memo"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            POSTINGPERIOD = {
+              field = "POSTINGPERIOD"
+              value = "66"
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "11"
+            }
+            TERMS = {
+              field = "TERMS"
+              columnreference = {
+                column = "terms"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "tranDate"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "UK Open Invoices"
+}

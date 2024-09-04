@@ -1,0 +1,257 @@
+netsuite.savedcsvimport custimport_hf_us_credit_memos {
+  scriptid = "custimport_hf_us_credit_memos"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | US | CREDIT MEMOS2"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "CREDITMEMO"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_hydrafacial_credit_memo.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CREDITMEMO = {
+        file = "CREDITMEMO"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CREDITMEMO = {
+        record = "CREDITMEMO"
+        fieldmappings = {
+          fieldmapping = {
+            ACCOUNT = {
+              field = "ACCOUNT"
+              columnreference = {
+                column = "AccountID"
+                file = "CREDITMEMO"
+                type = "INTERNAL_ID"
+              }
+            }
+            CLASS = {
+              field = "CLASS"
+              columnreference = {
+                column = "RegionID"
+                file = "CREDITMEMO"
+                type = "INTERNAL_ID"
+              }
+            }
+            custbody_ava_taxoverride = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_ava_taxoverride.scriptid
+              value = "T"
+            }
+            custbody_hf_rep_split1 = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_rep_split1.scriptid
+              value = "100.0%"
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "CustomerID"
+                file = "CREDITMEMO"
+                type = "INTERNAL_ID"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              value = "2"
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "Memo"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            OTHERREFNUM = {
+              field = "OTHERREFNUM"
+              columnreference = {
+                column = "NumAtCard"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "DocDate"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            TRANID = {
+              field = "TRANID"
+              columnreference = {
+                column = "DocNum"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CREDITMEMO__BILLINGADDRESS@f = {
+        record = "CREDITMEMO::BILLINGADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "StreetB"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            ADDR2 = {
+              field = "ADDR2"
+              columnreference = {
+                column = "BlockB"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "CityB"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              columnreference = {
+                column = "CountryB"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            STATE = {
+              field = "STATE"
+              columnreference = {
+                column = "StateB"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "ZipCodeB"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CREDITMEMO__SHIPPINGADDRESS@f = {
+        record = "CREDITMEMO::SHIPPINGADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "StreetS"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            ADDR2 = {
+              field = "ADDR2"
+              columnreference = {
+                column = "BlockS"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            ATTENTION = {
+              field = "ATTENTION"
+              columnreference = {
+                column = "Address2S"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "CityS"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              columnreference = {
+                column = "CountryS"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            STATE = {
+              field = "STATE"
+              columnreference = {
+                column = "StateS"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "ZipCodeS"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CREDITMEMO_ITEM@f = {
+        record = "CREDITMEMO:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            AMOUNT = {
+              field = "AMOUNT"
+              columnreference = {
+                column = "Balance"
+                file = "CREDITMEMO"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item"
+                file = "CREDITMEMO"
+                type = "INTERNAL_ID"
+              }
+            }
+            TAXCODE = {
+              field = "TAXCODE"
+              value = "2152"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | US | CREDIT MEMOS2"
+}

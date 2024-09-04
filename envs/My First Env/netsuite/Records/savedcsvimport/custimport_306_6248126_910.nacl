@@ -1,0 +1,151 @@
+netsuite.savedcsvimport custimport_306_6248126_910 {
+  scriptid = "custimport_306_6248126_910"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | DE | Vendor Credits"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "VENDORCREDIT"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_321_6248126_sb1_261.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      VENDORCREDIT = {
+        file = "VENDORCREDIT"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      VENDORCREDIT = {
+        record = "VENDORCREDIT"
+        fieldmappings = {
+          fieldmapping = {
+            ACCOUNT = {
+              field = "ACCOUNT"
+              value = "111"
+            }
+            CURRENCY = {
+              field = "CURRENCY"
+              columnreference = {
+                column = "Currency"
+                file = "VENDORCREDIT"
+                type = "NAME"
+              }
+            }
+            custbody_hf_original_due_date = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_original_due_date.scriptid
+              columnreference = {
+                column = "Due Date"
+                file = "VENDORCREDIT"
+                type = "NAME"
+              }
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "Vendor ID"
+                file = "VENDORCREDIT"
+                type = "INTERNAL_ID"
+              }
+            }
+            EXCHANGERATE = {
+              field = "EXCHANGERATE"
+              columnreference = {
+                column = "Exchange Rate"
+                file = "VENDORCREDIT"
+                type = "NAME"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "ExternalID"
+                file = "VENDORCREDIT"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              value = "47"
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "Memo"
+                file = "VENDORCREDIT"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "6"
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "Date"
+                file = "VENDORCREDIT"
+                type = "NAME"
+              }
+            }
+            TRANID = {
+              field = "TRANID"
+              columnreference = {
+                column = "Vendor Reference"
+                file = "VENDORCREDIT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      VENDORCREDIT_ITEM@f = {
+        record = "VENDORCREDIT:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            AMOUNT = {
+              field = "AMOUNT"
+              columnreference = {
+                column = "Amount"
+                file = "VENDORCREDIT"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item ID"
+                file = "VENDORCREDIT"
+                type = "INTERNAL_ID"
+              }
+            }
+            TAX1AMT = {
+              field = "TAX1AMT"
+              value = "0"
+            }
+            TAXCODE = {
+              field = "TAXCODE"
+              value = "5773"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | DE | Vendor Credits"
+}

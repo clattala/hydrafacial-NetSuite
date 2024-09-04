@@ -1,0 +1,60 @@
+netsuite.savedcsvimport custimport_314_6248126_279 {
+  scriptid = "custimport_314_6248126_279"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_inventory_part_form.scriptid
+  ignorereadonly = true
+  importname = "NB_Serialized_Inventory_Update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "SERIALIZEDINVENTORYITEM"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      SERIALIZEDINVENTORYITEM = {
+        file = "SERIALIZEDINVENTORYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      SERIALIZEDINVENTORYITEM = {
+        record = "SERIALIZEDINVENTORYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            custitem_hf_procurement_method_fld = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_procurement_method_fld.scriptid
+              columnreference = {
+                column = "Procurement Method"
+                file = "SERIALIZEDINVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "SERIALIZEDINVENTORYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "NB_Serialized_Inventory_Update"
+}

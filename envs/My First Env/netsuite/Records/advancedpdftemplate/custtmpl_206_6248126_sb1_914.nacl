@@ -1,0 +1,81 @@
+netsuite.advancedpdftemplate custtmpl_206_6248126_sb1_914 {
+  scriptid = "custtmpl_206_6248126_sb1_914"
+  standard = "STDTMPLEMPTY"
+  description = '''
+&lt;?xml version="1.0"?&gt;&lt;!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd"&gt;
+&lt;pdf&gt;
+ &lt;head&gt;
+  &lt;link name="NotoSans" type="font" subtype="truetype" src="\${nsfont.NotoSans_Regular}" src-bold="\${nsfont.NotoSans_Bold}" src-italic="\${nsfont.NotoSans_Italic}" src-bolditalic="\${nsfont.NotoSans_BoldItalic}" bytes="2" /&gt;
+  &lt;#if .locale == "zh_CN"&gt;
+  &lt;link name="NotoSansCJKsc" type="font" subtype="opentype" src="\${nsfont.NotoSansCJKsc_Regular}" src-bold="\${nsfont.NotoSansCJKsc_Bold}" bytes="2" /&gt;
+  &lt;#elseif .locale == "zh_TW"&gt;
+  &lt;link name="NotoSansCJKtc" type="font" subtype="opentype" src="\${nsfont.NotoSansCJKtc_Regular}" src-bold="\${nsfont.NotoSansCJKtc_Bold}" bytes="2" /&gt;
+  &lt;#elseif .locale == "ja_JP"&gt;
+  &lt;link name="NotoSansCJKjp" type="font" subtype="opentype" src="\${nsfont.NotoSansCJKjp_Regular}" src-bold="\${nsfont.NotoSansCJKjp_Bold}" bytes="2" /&gt;
+  &lt;#elseif .locale == "ko_KR"&gt;
+  &lt;link name="NotoSansCJKkr" type="font" subtype="opentype" src="\${nsfont.NotoSansCJKkr_Regular}" src-bold="\${nsfont.NotoSansCJKkr_Bold}" bytes="2" /&gt;
+  &lt;#elseif .locale == "th_TH"&gt;
+  &lt;link name="NotoSansThai" type="font" subtype="opentype" src="\${nsfont.NotoSansThai_Regular}" src-bold="\${nsfont.NotoSansThai_Bold}" bytes="2" /&gt;
+  &lt;/#if&gt;
+  &lt;macrolist&gt;
+     &lt;macro id="nlheader"&gt;
+        &lt;table width="100%"&gt;
+           &lt;tr&gt;
+              &lt;td width="60%"&gt;&lt;#if companyInformation.logoUrl?length !=0&gt;&lt;img src="\${companyInformation.logoUrl}" style="float: left; margin: 7px; width:50%;height:50%" /&gt; &lt;/#if&gt;&lt;/td&gt;
+              
+           &lt;/tr&gt;
+        &lt;/table&gt;
+        &lt;table width="100%"&gt;
+           &lt;tr&gt;
+              &lt;td width="60%" style="font-weight:bold;"&gt;
+                \${salesorder.billaddress}
+              &lt;/td&gt;
+              &lt;td align="right" width="40%" style="font-weight:bold; padding-bottom:10px; margin-bottom:5px;"&gt;
+                Hydrafacial Germany GmbH &lt;br /&gt;
+                Stichlingstrasse 1 &lt;br /&gt;
+                60327 Frankfurt am Main &lt;br /&gt;
+                Deutschland &lt;br /&gt;
+                E-mail: kundenservice@hydrafacial.com &lt;br /&gt;
+                www.hydrafacial.de &lt;br /&gt;
+              &lt;/td&gt;
+           &lt;/tr&gt;
+        &lt;/table&gt;
+     &lt;/macro&gt; 
+		 
+     &lt;macro id="nlfooter"&gt;
+      	&lt;table width="100%"&gt;
+          &lt;tr&gt;
+             &lt;td width="40%"&gt;&nbsp;&lt;/td&gt;
+             &lt;td width="30%"&gt;&nbsp;&lt;/td&gt;
+             &lt;td width="30%" align="right"&gt;Seite : &lt;pagenumber/&gt; of &lt;totalpages/&gt;&lt;/td&gt;
+          &lt;/tr&gt;
+       &lt;/table&gt;
+        &lt;table style="margin-top:10px;" width="100%"&gt;
+          &lt;tr&gt;
+              &lt;td width ="30%" style="font-weight:bold"&gt; Hydrafacial Germany GmbH&lt;br/&gt;
+                 Registergericht Frankfurt&lt;br/&gt;
+                 HRB 127913 &lt;/td&gt;
+              &lt;td width = "35%" style="font-weight:bold"&gt;Wiesbadener Volksbank &lt;br/&gt;
+                 IBAN : DE57 5109 0000 0001 0495 00&lt;br/&gt;
+                 BIC : WIBADE5W &lt;/td&gt;
+              &lt;td width = "35%" style="font-weight:bold"&gt; Ust-Id.-Nr: DE81454802&lt;br/&gt;
+                 WEEE-Reg.-Nr: DE 83534493&lt;br/&gt;
+                 Geschaftsfuhrem: Arnold Jonathan,&lt;br/&gt;
+                 Eikenberg, Katharina&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/table&gt;
+     &lt;/macro&gt;
+  &lt;/macrolist&gt;
+  &lt;style type="text/css"&gt;
+     * {
+     font-family: NotoSans, san
+'''
+  displaysourcecode = true
+  preferred = true
+  printtype = "PACKINGSLIP"
+  title = "HydraFacial | Germany | Packing Slip"
+  trantype = "CUSTINVC"
+  content = file("netsuite/advancedpdftemplate/custtmpl_206_6248126_sb1_914.xml")
+  isInactive = false
+  _alias = "HydraFacial | Germany | Packing Slip"
+}

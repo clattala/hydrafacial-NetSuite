@@ -1,0 +1,1114 @@
+netsuite.workflow customworkflow_hf_approval_billpay {
+  scriptid = "customworkflow_hf_approval_billpay"
+  description = "Workflow to approve bill payments, or automatically approve JPM generated payments."
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = true
+  initonvieworupdate = true
+  islogenabled = false
+  keephistory = "ALWAYS"
+  name = "HF | GBL | Vendor Payment Approval"
+  recordtypes = "VENDORPAYMENT|VENDORPREPAYMENT"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\",\"{#Subsidiary#}3\",\"{#Subsidiary#}4\",\"{#Subsidiary#}5\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        Subsidiary__Main_@sjk = {
+          name = "Subsidiary (Main)"
+          value = "STDBODYSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+        __Subsidiary__2@_00123nn_00125 = {
+          name = "{#Subsidiary#}2"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+        __Subsidiary__3@_00123nn_00125 = {
+          name = "{#Subsidiary#}3"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+        __Subsidiary__4@_00123nn_00125 = {
+          name = "{#Subsidiary#}4"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+        __Subsidiary__5@_00123nn_00125 = {
+          name = "{#Subsidiary#}5"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate320 = {
+        scriptid = "workflowstate320"
+        donotexitworkflow = false
+        name = "Create"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldvalueaction = {
+              workflowaction1394 = {
+                scriptid = "workflowaction1394"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDBODYAPPROVALSTATUS"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = "1"
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1395 = {
+                scriptid = "workflowaction1395"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_bill_payment_method.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuefield = netsuite.entitycustomfield.instance.custentity_vend_payment_method.scriptid
+                valuejoinfield = "STDBODYVENDOR"
+                valuetype = "FIELD"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 1
+                isInactive = false
+              }
+            }
+          }
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            setdisplaytypeaction = {
+              workflowaction1396 = {
+                scriptid = "workflowaction1396"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                displaytype = "INLINE"
+                field = "STDBODYAPPROVALSTATUS"
+                issublistfield = false
+                initcondition = {
+                  formula = "\"User Role\" NOT IN (\"Role1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          AFTERSUBMIT = {
+            triggertype = "AFTERSUBMIT"
+            customaction = {
+              workflowaction1403 = {
+                scriptid = "workflowaction1403"
+                contexttypes = "MAPREDUCE"
+                eventtypes = "EDIT"
+                schedulemode = "DELAY"
+                scripttype = netsuite.workflowactionscript.instance.customscript_hf_wa_jpm_payment_approve.scriptid
+                initcondition = {
+                  formula = "\"Type\" IN (\"Transaction Type1\") AND \"Approval Status\" IN (\"Approval Status1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Type = {
+                        name = "Type"
+                        value = "STDBODYTRANTYPE"
+                      }
+                      Transaction_Type1@s = {
+                        name = "Transaction Type1"
+                        selectrecordtype = "-100"
+                        value = "VENDORPAYMENT"
+                      }
+                      Approval_Status@s = {
+                        name = "Approval Status"
+                        value = "STDBODYAPPROVALSTATUS"
+                      }
+                      Approval_Status1@s = {
+                        name = "Approval Status1"
+                        selectrecordtype = "-243"
+                        value = "1"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = true
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition554 = {
+              scriptid = "workflowtransition554"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate321.scriptid
+              initcondition = {
+                formula = "\"Type\" IN (\"Transaction Type1\")"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Type = {
+                      name = "Type"
+                      value = "STDBODYTRANTYPE"
+                    }
+                    Transaction_Type1@s = {
+                      name = "Transaction Type1"
+                      selectrecordtype = "-100"
+                      value = "VENDORPREPAYMENT"
+                    }
+                  }
+                }
+              }
+              index = 0
+            }
+            workflowtransition558 = {
+              scriptid = "workflowtransition558"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate321.scriptid
+              initcondition = {
+                formula = "\"Type\" IN (\"Transaction Type1\") AND isEmpty(\"J.P. Morgan Reference ID\") = 'T'"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Type = {
+                      name = "Type"
+                      value = "STDBODYTRANTYPE"
+                    }
+                    Transaction_Type1@s = {
+                      name = "Transaction Type1"
+                      selectrecordtype = "-100"
+                      value = "VENDORPAYMENT"
+                    }
+                    J_P__Morgan_Reference_ID@vvsss = {
+                      name = "J.P. Morgan Reference ID"
+                      value = netsuite.transactionbodycustomfield.instance.custbody_jpmc_bill_id.scriptid
+                    }
+                  }
+                }
+              }
+              index = 1
+            }
+            workflowtransition559 = {
+              scriptid = "workflowtransition559"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate323.scriptid
+              initcondition = {
+                formula = "\"Type\" IN (\"Transaction Type1\") AND isEmpty(\"J.P. Morgan Reference ID\") = 'F'"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Type = {
+                      name = "Type"
+                      value = "STDBODYTRANTYPE"
+                    }
+                    Transaction_Type1@s = {
+                      name = "Transaction Type1"
+                      selectrecordtype = "-100"
+                      value = "VENDORPAYMENT"
+                    }
+                    J_P__Morgan_Reference_ID@vvsss = {
+                      name = "J.P. Morgan Reference ID"
+                      value = netsuite.transactionbodycustomfield.instance.custbody_jpmc_bill_id.scriptid
+                    }
+                  }
+                }
+              }
+              index = 2
+            }
+            workflowtransition602 = {
+              scriptid = "workflowtransition602"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate321.scriptid
+              initcondition = {
+                formula = "isChecked(\"For Electronic Bank Payment\") = 'T' AND \"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\")"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    For_Electronic_Bank_Payment@s = {
+                      name = "For Electronic Bank Payment"
+                      value = "[scriptid=custbody_9997_is_for_ep_eft]"
+                    }
+                    Subsidiary__Main_@sjk = {
+                      name = "Subsidiary (Main)"
+                      value = "STDBODYSUBSIDIARY"
+                    }
+                    __Subsidiary__1@_00123nn_00125 = {
+                      name = "{#Subsidiary#}1"
+                      selectrecordtype = "-117"
+                      value = "[ACCOUNT_SPECIFIC_VALUE]"
+                    }
+                  }
+                }
+              }
+              index = 3
+            }
+            workflowtransition603 = {
+              scriptid = "workflowtransition603"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate321.scriptid
+              initcondition = {
+                formula = "isChecked(\"For Electronic Bank Payment\") = 'F' AND \"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\",\"{#Subsidiary#}3\",\"{#Subsidiary#}4\")"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    For_Electronic_Bank_Payment@s = {
+                      name = "For Electronic Bank Payment"
+                      value = "[scriptid=custbody_9997_is_for_ep_eft]"
+                    }
+                    Subsidiary__Main_@sjk = {
+                      name = "Subsidiary (Main)"
+                      value = "STDBODYSUBSIDIARY"
+                    }
+                    __Subsidiary__1@_00123nn_00125 = {
+                      name = "{#Subsidiary#}1"
+                      selectrecordtype = "-117"
+                      value = "[ACCOUNT_SPECIFIC_VALUE]"
+                    }
+                    __Subsidiary__2@_00123nn_00125 = {
+                      name = "{#Subsidiary#}2"
+                      selectrecordtype = "-117"
+                      value = "[ACCOUNT_SPECIFIC_VALUE]"
+                    }
+                    __Subsidiary__3@_00123nn_00125 = {
+                      name = "{#Subsidiary#}3"
+                      selectrecordtype = "-117"
+                      value = "[ACCOUNT_SPECIFIC_VALUE]"
+                    }
+                    __Subsidiary__4@_00123nn_00125 = {
+                      name = "{#Subsidiary#}4"
+                      selectrecordtype = "-117"
+                      value = "[ACCOUNT_SPECIFIC_VALUE]"
+                    }
+                  }
+                }
+              }
+              index = 4
+            }
+          }
+        }
+        index = 0
+      }
+      workflowstate321 = {
+        scriptid = "workflowstate321"
+        donotexitworkflow = false
+        name = "Submit For Approval"
+        positionx = 243
+        positiony = 253
+        workflowactions = {
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            addbuttonaction = {
+              workflowaction1397 = {
+                scriptid = "workflowaction1397"
+                checkconditionbeforeexecution = true
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                label = "Submit For Approval"
+                saverecordfirst = true
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition555 = {
+              scriptid = "workflowtransition555"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate321.workflowactions.BEFORELOAD.addbuttonaction.workflowaction1397.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate322.scriptid
+              initcondition = {
+                formula = "isEmpty(\"J.P. Morgan Reference ID\") = 'T'"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    J_P__Morgan_Reference_ID@vvsss = {
+                      name = "J.P. Morgan Reference ID"
+                      value = netsuite.transactionbodycustomfield.instance.custbody_jpmc_bill_id.scriptid
+                    }
+                  }
+                }
+              }
+              index = 0
+            }
+            workflowtransition562 = {
+              scriptid = "workflowtransition562"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate323.scriptid
+              triggertype = "AFTERSUBMIT"
+              initcondition = {
+                formula = "isEmpty(\"J.P. Morgan Reference ID\") = 'F'"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    J_P__Morgan_Reference_ID@vvsss = {
+                      name = "J.P. Morgan Reference ID"
+                      value = netsuite.transactionbodycustomfield.instance.custbody_jpmc_bill_id.scriptid
+                    }
+                  }
+                }
+              }
+              index = 1
+            }
+            workflowtransition564 = {
+              scriptid = "workflowtransition564"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate321.workflowactions.BEFORELOAD.addbuttonaction.workflowaction1397.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate323.scriptid
+              initcondition = {
+                formula = "isEmpty(\"J.P. Morgan Reference ID\") = 'F'"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    J_P__Morgan_Reference_ID@vvsss = {
+                      name = "J.P. Morgan Reference ID"
+                      value = netsuite.transactionbodycustomfield.instance.custbody_jpmc_bill_id.scriptid
+                    }
+                  }
+                }
+              }
+              index = 2
+            }
+            workflowtransition604 = {
+              scriptid = "workflowtransition604"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate321.workflowactions.BEFORELOAD.addbuttonaction.workflowaction1397.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate322.scriptid
+              initcondition = {
+                formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\")"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Subsidiary__Main_@sjk = {
+                      name = "Subsidiary (Main)"
+                      value = "STDBODYSUBSIDIARY"
+                    }
+                    __Subsidiary__1@_00123nn_00125 = {
+                      name = "{#Subsidiary#}1"
+                      selectrecordtype = "-117"
+                      value = "[ACCOUNT_SPECIFIC_VALUE]"
+                    }
+                  }
+                }
+              }
+              index = 3
+            }
+          }
+        }
+        index = 1
+      }
+      workflowstate322 = {
+        scriptid = "workflowstate322"
+        donotexitworkflow = false
+        name = "Pending Approval"
+        positionx = 243
+        positiony = 363
+        workflowactions = {
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            addbuttonaction = {
+              workflowaction1398 = {
+                scriptid = "workflowaction1398"
+                checkconditionbeforeexecution = true
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                label = "Approve"
+                saverecordfirst = false
+                initcondition = {
+                  formula = "\"User Role\" IN (\"Role1\") OR ( \"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\",\"{#Subsidiary#}3\") AND \"User Role\" IN (\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\",\"Role9\") ) OR ( \"Subsidiary (Main)\" IN (\"{#Subsidiary#}4\",\"{#Subsidiary#}5\",\"{#Subsidiary#}6\",\"{#Subsidiary#}7\") AND \"User Role\" IN (\"Role10\",\"Role11\") ) OR ( \"Subsidiary (Main)\" IN (\"{#Subsidiary#}8\",\"{#Subsidiary#}9\",\"{#Subsidiary#}10\") AND \"User Role\" IN (\"Role12\",\"Role13\",\"Role14\") )"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Subsidiary__Main_@sjk = {
+                        name = "Subsidiary (Main)"
+                        value = "STDBODYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__2@_00123nn_00125 = {
+                        name = "{#Subsidiary#}2"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__3@_00123nn_00125 = {
+                        name = "{#Subsidiary#}3"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1096.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1502.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1499.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1498.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1506.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1114.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1192.scriptid
+                      }
+                      Role9 = {
+                        name = "Role9"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1239.scriptid
+                      }
+                      __Subsidiary__4@_00123nn_00125 = {
+                        name = "{#Subsidiary#}4"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__5@_00123nn_00125 = {
+                        name = "{#Subsidiary#}5"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__6@_00123nn_00125 = {
+                        name = "{#Subsidiary#}6"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__7@_00123nn_00125 = {
+                        name = "{#Subsidiary#}7"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      Role10 = {
+                        name = "Role10"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_apac_accounting_mgr.scriptid
+                      }
+                      Role11 = {
+                        name = "Role11"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1167.scriptid
+                      }
+                      __Subsidiary__8@_00123nn_00125 = {
+                        name = "{#Subsidiary#}8"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__9@_00123nn_00125 = {
+                        name = "{#Subsidiary#}9"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__10@_00123nn_00125 = {
+                        name = "{#Subsidiary#}10"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      Role12 = {
+                        name = "Role12"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1251.scriptid
+                      }
+                      Role13 = {
+                        name = "Role13"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1199.scriptid
+                      }
+                      Role14 = {
+                        name = "Role14"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1258.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1412 = {
+                scriptid = "workflowaction1412"
+                checkconditionbeforeexecution = true
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                label = "Correct"
+                saverecordfirst = false
+                initcondition = {
+                  formula = "\"User Role\" IN (\"Role1\") OR ( \"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\",\"{#Subsidiary#}3\") AND \"User Role\" IN (\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\",\"Role9\") ) OR ( \"Subsidiary (Main)\" IN (\"{#Subsidiary#}4\",\"{#Subsidiary#}5\",\"{#Subsidiary#}6\",\"{#Subsidiary#}7\") AND \"User Role\" IN (\"Role10\",\"Role11\") ) OR ( \"Subsidiary (Main)\" IN (\"{#Subsidiary#}8\",\"{#Subsidiary#}9\",\"{#Subsidiary#}10\") AND \"User Role\" IN (\"Role12\",\"Role13\",\"Role14\") )"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Subsidiary__Main_@sjk = {
+                        name = "Subsidiary (Main)"
+                        value = "STDBODYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__2@_00123nn_00125 = {
+                        name = "{#Subsidiary#}2"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__3@_00123nn_00125 = {
+                        name = "{#Subsidiary#}3"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1096.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1502.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1499.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1506.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1192.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1239.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1498.scriptid
+                      }
+                      Role9 = {
+                        name = "Role9"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1114.scriptid
+                      }
+                      __Subsidiary__4@_00123nn_00125 = {
+                        name = "{#Subsidiary#}4"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__5@_00123nn_00125 = {
+                        name = "{#Subsidiary#}5"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__6@_00123nn_00125 = {
+                        name = "{#Subsidiary#}6"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__7@_00123nn_00125 = {
+                        name = "{#Subsidiary#}7"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      Role10 = {
+                        name = "Role10"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_apac_accounting_mgr.scriptid
+                      }
+                      Role11 = {
+                        name = "Role11"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1167.scriptid
+                      }
+                      __Subsidiary__8@_00123nn_00125 = {
+                        name = "{#Subsidiary#}8"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__9@_00123nn_00125 = {
+                        name = "{#Subsidiary#}9"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__10@_00123nn_00125 = {
+                        name = "{#Subsidiary#}10"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      Role12 = {
+                        name = "Role12"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1251.scriptid
+                      }
+                      Role13 = {
+                        name = "Role13"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1199.scriptid
+                      }
+                      Role14 = {
+                        name = "Role14"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1258.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+              workflowaction1399 = {
+                scriptid = "workflowaction1399"
+                checkconditionbeforeexecution = true
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                label = "Reject"
+                saverecordfirst = false
+                initcondition = {
+                  formula = "\"User Role\" IN (\"Role1\") OR ( \"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\",\"{#Subsidiary#}3\") AND \"User Role\" IN (\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\",\"Role9\") ) OR ( \"Subsidiary (Main)\" IN (\"{#Subsidiary#}4\",\"{#Subsidiary#}5\",\"{#Subsidiary#}6\",\"{#Subsidiary#}7\") AND \"User Role\" IN (\"Role10\") ) OR ( \"Subsidiary (Main)\" IN (\"{#Subsidiary#}8\",\"{#Subsidiary#}9\",\"{#Subsidiary#}10\") AND \"User Role\" IN (\"Role11\",\"Role12\",\"Role13\") )"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Subsidiary__Main_@sjk = {
+                        name = "Subsidiary (Main)"
+                        value = "STDBODYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__2@_00123nn_00125 = {
+                        name = "{#Subsidiary#}2"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__3@_00123nn_00125 = {
+                        name = "{#Subsidiary#}3"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1096.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1502.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1499.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1506.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1114.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1498.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1192.scriptid
+                      }
+                      Role9 = {
+                        name = "Role9"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1239.scriptid
+                      }
+                      __Subsidiary__4@_00123nn_00125 = {
+                        name = "{#Subsidiary#}4"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__5@_00123nn_00125 = {
+                        name = "{#Subsidiary#}5"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__6@_00123nn_00125 = {
+                        name = "{#Subsidiary#}6"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__7@_00123nn_00125 = {
+                        name = "{#Subsidiary#}7"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      Role10 = {
+                        name = "Role10"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_apac_accounting_mgr.scriptid
+                      }
+                      __Subsidiary__8@_00123nn_00125 = {
+                        name = "{#Subsidiary#}8"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__9@_00123nn_00125 = {
+                        name = "{#Subsidiary#}9"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      __Subsidiary__10@_00123nn_00125 = {
+                        name = "{#Subsidiary#}10"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      Role11 = {
+                        name = "Role11"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1251.scriptid
+                      }
+                      Role12 = {
+                        name = "Role12"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1199.scriptid
+                      }
+                      Role13 = {
+                        name = "Role13"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1258.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 2
+                isInactive = false
+              }
+            }
+            lockrecordaction = {
+              workflowaction1410 = {
+                scriptid = "workflowaction1410"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                initcondition = {
+                  formula = "\"User Role\" NOT IN (\"Role1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition556 = {
+              scriptid = "workflowtransition556"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate322.workflowactions.BEFORELOAD.addbuttonaction.workflowaction1398.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate323.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 0
+            }
+            workflowtransition557 = {
+              scriptid = "workflowtransition557"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate322.workflowactions.BEFORELOAD.addbuttonaction.workflowaction1399.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate324.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 1
+            }
+            workflowtransition561 = {
+              scriptid = "workflowtransition561"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate322.workflowactions.BEFORELOAD.addbuttonaction.workflowaction1412.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate321.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 2
+            }
+          }
+        }
+        index = 2
+      }
+      workflowstate323 = {
+        scriptid = "workflowstate323"
+        donotexitworkflow = false
+        name = "Approved"
+        positionx = 243
+        positiony = 473
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldvalueaction = {
+              workflowaction1400 = {
+                scriptid = "workflowaction1400"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WEBAPPLICATION|WEBSTORE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDBODYAPPROVALSTATUS"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = "2"
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            lockrecordaction = {
+              workflowaction1413 = {
+                scriptid = "workflowaction1413"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                initcondition = {
+                  formula = "\"User Role\" NOT IN (\"Role1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+            addbuttonaction = {
+              workflowaction1414 = {
+                scriptid = "workflowaction1414"
+                checkconditionbeforeexecution = true
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                label = "Unlock"
+                saverecordfirst = false
+                initcondition = {
+                  formula = "\"User Role\" IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1096.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1502.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1499.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole_apac_accounting_mgr.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1251.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1199.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1258.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition563 = {
+              scriptid = "workflowtransition563"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate323.workflowactions.BEFORELOAD.addbuttonaction.workflowaction1414.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_approval_billpay.workflowstates.workflowstate.workflowstate321.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 0
+            }
+          }
+        }
+        index = 3
+      }
+      workflowstate324 = {
+        scriptid = "workflowstate324"
+        donotexitworkflow = true
+        name = "Rejected"
+        positionx = 443
+        positiony = 363
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldvalueaction = {
+              workflowaction1401 = {
+                scriptid = "workflowaction1401"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDBODYAPPROVALSTATUS"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = "3"
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            lockrecordaction = {
+              workflowaction1402 = {
+                scriptid = "workflowaction1402"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 4
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | GBL | Vendor Payment Approval"
+}

@@ -1,0 +1,309 @@
+<?xml version="1.0"?><!DOCTYPE pdf PUBLIC "-//big.faceless.org//report" "report-1.1.dtd"><pdfset><#if statements?has_content><#list statements as statement>
+<pdf>
+<head>
+	<link name="NotoSans" type="font" subtype="truetype" src="${nsfont.NotoSans_Regular}" src-bold="${nsfont.NotoSans_Bold}" src-italic="${nsfont.NotoSans_Italic}" src-bolditalic="${nsfont.NotoSans_BoldItalic}" bytes="2" />
+    <macrolist>
+        <macro id="nlheader">
+            <table class="header" style="width: 100%;">
+
+                <tr>
+
+                    <td>
+                        <table style="border-bottom:1px dotted #0D47A1;margin:10px 0;">
+                            <tr>
+
+                                <td align="left" width="60%" style="font-size:20px; font-weight:bold;">
+                                    <span> THE HYDRAFACIAL COMPANY </span>
+                                </td>
+
+                                <td align="right" style="width:40%; font-size:20px; font-weight:bold;padding-bottom:2px;">
+                                    <span style="background-color:#E1AD01; width:2%;">
+                                        &nbsp;
+                                    </span>
+                                    &nbsp; Customer Statement
+                                </td>
+
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <table style="border-bottom:1px dotted #0D47A1;margin:10px 0;">
+                            <tr>
+
+                                <td>
+                                    <span style="color:grey;">Posting Date: </span>
+                                </td>
+
+                                <td>
+                                    <b>From:&nbsp; ${statement.startdate}</b>
+                                </td>
+
+                                <td>
+                                    <b>To:&nbsp; ${statement.trandate}</b>
+                                </td>
+
+                                <td align="right;">
+                                    <span style="color:grey;">Aging Date:&nbsp;</span><b> </b><br/><br/>
+                                    <span style="color:grey;">Aged By:&nbsp;</span><b> </b><br/><br/>
+                                    <span style="color:grey;">Customer Group:&nbsp;</span><b> All </b><br/><br/>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    <span style="color:grey;">BP: </span>
+                                </td>
+
+                                <td>
+                                    <b>From&nbsp; </b>
+                                </td>
+
+                                <td>
+                                    <b>To&nbsp; </b>
+                                </td>
+
+                                <td align="right;">
+                                    &nbsp;
+                                </td>
+
+                            </tr>
+
+                        </table>
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <table style="margin:10px 0;">
+
+                            <tr>
+                                <td> <b>${customer.entityid}</b> </td>
+                                <td> </td>
+                                <td align="right" style="color:#a8a8a8;"> Currency: </td> &#36; ${customer.currency}
+                            </tr>
+
+                        </table>
+
+                        <table class="profile-info-section" style="border-bottom:1px dotted #0D47A1;margin:10px 0;">
+                            <tr>
+                                <td> 
+                                    <span class="lighttag">Phone #:&nbsp;</span>${customer.phone}
+                                </td>
+                                <td> 
+                                    <span class="lighttag">Contact Person:&nbsp;</span>
+                                </td>
+                                <td> 
+                                    <span class="lighttag">Credit Limit:&nbsp;</span>${customer.creditlimit}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> 
+                                    <span class="lighttag">Fax #:&nbsp;</span>${customer.phone}
+                                </td>
+                                <td> 
+                                    <span class="lighttag">Sales Employee:&nbsp;</span>
+                                </td>
+                                <td> 
+                                    <span class="lighttag">Commitment Limit:&nbsp;</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"> 
+                                    <span class="lighttag">Address:</span><br/>${statement.billaddress}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"> 
+                                    <span class="lighttag">Connect BP:&nbsp;</span>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+
+                </tr>
+
+            </table>
+        </macro>
+        <macro id="nlfooter">
+            <table class="footer" style="width: 100%;"><tr>
+	<td align="right"><pagenumber/> of <totalpages/></td>
+	</tr></table>
+        </macro>
+    </macrolist>
+    <style type="text/css">* {
+            font-family: NotoSans, sans-serif;
+		}
+		table {
+            width:100%;
+			font-size: 9pt;
+			table-layout: fixed;
+		}
+         th {
+             font-weight: bold;
+             font-size: 8pt;
+             vertical-align: middle;
+             padding: 5px 6px 3px;
+             color: #333333;
+         }
+         td {
+             padding: 4px 6px;
+         }
+		 td p { align:left }
+         b {
+             font-weight: bold;
+             color: #333333;
+         }
+         table.header td {
+             padding: 0;
+             font-size: 10pt;
+         }
+         table.footer td {
+             padding: 0;
+             font-size: 8pt;
+         }
+         table.itemtable th {
+             padding-bottom: 10px;
+             padding-top: 10px;
+         }
+         table.body td {
+             padding-top: 2px;
+         }
+         td.addressheader {
+             font-weight: bold;
+             font-size: 8pt;
+             padding-top: 6px;
+             padding-bottom: 2px;
+         }
+         td.address {
+             padding-top: 0;
+         }
+         span.title {
+             font-size: 28pt;
+         }
+         span.number {
+             font-size: 16pt;
+         }
+         div.remittanceSlip {
+             width: 100%;
+             /* To ensure minimal height of remittance slip */
+             height: 200pt;
+             page-break-inside: avoid;
+             page-break-after: avoid;
+         }
+         hr {
+             border-top: 1px dashed #d3d3d3;
+             width: 100%;
+             color: #ffffff;
+             background-color: #ffffff;
+             height: 1px;
+         }
+
+        table.profile-info-section td {
+            padding:3px;
+        }
+
+        .lighttag {
+            color: #a8a8a8;
+        }
+
+        table.aging {
+            border-bottom:2px solid #0D47A1;
+        }
+
+        table.aging th {
+            border-top:2px solid #0D47A1;
+            border-bottom:2px solid #0D47A1;
+        }
+
+        table.aging td {
+            border-bottom:1px dotted #0D47A1;
+        }
+
+</style>
+</head>
+<body header="nlheader" header-height="35%" footer="nlfooter" footer-height="20pt" padding="0.5in 0.5in 0.5in 0.5in" size="Letter">
+<#if statement.lines?has_content>
+
+<table class="itemtable" style="width: 100%; margin-top: 10px;"><!-- start items --><#list statement.lines as line><#if line_index==0>
+<thead>
+	<tr>
+	<th colspan="3">${line.datecol@label}</th>
+	<th colspan="12">${line.description@label}</th>
+	<th align="right" colspan="3">${line.charge@label}</th>
+	<th align="right" colspan="4">${line.payment@label}</th>
+	<th align="right" colspan="4">${line.balance@label}</th>
+	</tr>
+</thead>
+</#if><tr>
+	<td colspan="3">${line.datecol}</td>
+	<td colspan="12">${line.description}</td>
+	<td align="right" colspan="3">${line.charge}</td>
+	<td align="right" colspan="4">${line.payment}</td>
+	<td align="right" colspan="4">${line.balance}</td>
+	</tr>
+	</#list><!-- end items --></table>
+
+<table class="aging" style="width: 100%; margin-top: 10px;"><tr>
+	<th>${statement.amountDue@label}</th>
+    <th>${statement.aging1@label}</th>
+	<th>${statement.aging2@label}</th>
+	<th>${statement.aging3@label}</th>
+	<th>${statement.aging4@label}</th>
+	<th>${statement.aging5@label}</th>
+	<th>${statement.agingbal@label}</th>
+	</tr>
+	<tr>
+	<td>${statement.amountDue}</td>
+	<td>${statement.aging1}</td>
+	<td>${statement.aging2}</td>
+	<td>${statement.aging3}</td>
+	<td>${statement.aging4}</td>
+	<td>${statement.aging5}</td>
+	<td>${statement.agingbal}</td>
+	</tr></table>
+</#if><#if preferences.RETURNFORM && remittanceSlip??>
+
+<hr />
+<div class="remittanceSlip">
+<table style="width: 100%; margin-top: 10px;"><tr>
+	<td><span class="nameandaddress">${companyInformation.companyName}</span></td>
+	<td align="right"><span class="number">${remittanceSlip@title}</span></td>
+	</tr></table>
+
+<table style="width: 100%; margin-top: 10px;"><tr>
+	<th>${remittanceSlip.customername@label}</th>
+	<th>${statement.trandate@label}</th>
+	<th>${statement.amountDue@label}</th>
+	<th>${remittanceSlip.amountPaid@label}</th>
+	</tr>
+	<tr>
+	<td>${companyInformation.addressText}</td>
+	<td>${statement.trandate}</td>
+	<td align="right">${statement.amountDue}</td>
+	<td>&nbsp;</td>
+	</tr></table>
+
+<table style="width: 100%;"><tr>
+	<th>${remittanceSlip.ccinfo@label}</th>
+	<th>${remittanceSlip.companyaddress@label}</th>
+	</tr>
+	<tr>
+	<td>${remittanceSlip.ccinfo}</td>
+	<td>${companyInformation.addressText}</td>
+	</tr></table>
+</div>
+</#if></body></pdf></#list><#else><pdf><head></head><body>
+
+<p>Please use Single Currency Advanced Printing Template</p>
+</body>
+</pdf></#if></pdfset>

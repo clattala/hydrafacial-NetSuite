@@ -1,0 +1,182 @@
+netsuite.savedcsvimport custimport_hf_inv_itemimport {
+  scriptid = "custimport_hf_inv_itemimport"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  description = "To mass import inventory items"
+  entryform = netsuite.entryForm.instance.custform_hf_inventory_part_form.scriptid
+  ignorereadonly = true
+  importname = "HF | INVENTORY ITEM IMPORT"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVENTORYITEM"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+    roles = netsuite.role.instance.customrole1177.scriptid
+  }
+  filemappings = {
+    filemapping = {
+      INVENTORYITEM = {
+        file = "INVENTORYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVENTORYITEM = {
+        record = "INVENTORYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ATPMETHOD = {
+              field = "ATPMETHOD"
+              value = "CUMULATIVE_ATP_WITH_LOOK_AHEAD"
+            }
+            custitem_hf_abc_class = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_abc_class.scriptid
+              columnreference = {
+                column = "ABC CLASSIFICATION"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_commproperty = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_commproperty.scriptid
+              columnreference = {
+                column = "COMMISSION PROPERTY"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_freightdesc = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_freightdesc.scriptid
+              columnreference = {
+                column = "COMMODITY DESCRIPTION"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_hierarchy_lvl1 = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_hierarchy_lvl1.scriptid
+              columnreference = {
+                column = "PRODUCT TYPE"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_hierarchy_lvl2 = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_hierarchy_lvl2.scriptid
+              columnreference = {
+                column = "PRODUCT BRAND"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_hierarchy_lvl3 = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_hierarchy_lvl3.scriptid
+              columnreference = {
+                column = "PRODUCT CATEGORY"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_hierarchy_lvl4 = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_hierarchy_lvl4.scriptid
+              columnreference = {
+                column = "PRODUCT SUB-CATEGORY"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_itemgroup = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_itemgroup.scriptid
+              columnreference = {
+                column = "ITEM GROUP"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_revision = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_revision.scriptid
+              columnreference = {
+                column = "Revision"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_tariffcode = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_tariffcode.scriptid
+              columnreference = {
+                column = "TARIFF CODE"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            DISPLAYNAME = {
+              field = "DISPLAYNAME"
+              columnreference = {
+                column = "DISPLAY NAME"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            ITEMID = {
+              field = "ITEMID"
+              columnreference = {
+                column = "ITEM NAME/NUMBER"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            PURCHASEDESCRIPTION = {
+              field = "PURCHASEDESCRIPTION"
+              columnreference = {
+                column = "PURCHASE DESCRIPTION"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            SALESDESCRIPTION = {
+              field = "SALESDESCRIPTION"
+              columnreference = {
+                column = "SALES DESCRIPTION"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "3"
+            }
+            TAXSCHEDULE = {
+              field = "TAXSCHEDULE"
+              value = "1"
+            }
+            UNITSTYPE = {
+              field = "UNITSTYPE"
+              columnreference = {
+                column = "PRIMARY UNITS TYPE"
+                file = "INVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            WEIGHT = {
+              field = "WEIGHT"
+              value = "0.35"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | INVENTORY ITEM IMPORT"
+}

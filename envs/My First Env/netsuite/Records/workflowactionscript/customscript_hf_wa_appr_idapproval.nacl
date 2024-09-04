@@ -1,0 +1,49 @@
+netsuite.workflowactionscript customscript_hf_wa_appr_idapproval {
+  scriptid = "customscript_hf_wa_appr_idapproval"
+  description = "Identifies any active approval group information related to the transaction requestor."
+  name = "HF | WA | AR - Identify Approval"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  returntype = "TEXT"
+  scriptfile = netsuite.file.instance.SuiteScripts_workflowaction_HF_WA_ApprovalRouting_IdentifyGrp_js@dduuuv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy3 = {
+        scriptid = "customdeploy3"
+        allemployees = true
+        allpartners = false
+        allroles = true
+        isdeployed = true
+        loglevel = "ERROR"
+        recordtype = "ADVINTERCOMPANYJOURNALENTRY"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+      customdeploy2 = {
+        scriptid = "customdeploy2"
+        allemployees = true
+        allpartners = false
+        allroles = true
+        isdeployed = true
+        loglevel = "ERROR"
+        recordtype = "CREDITMEMO"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+      customdeploy_hf_wa_appr_idapproval = {
+        scriptid = "customdeploy_hf_wa_appr_idapproval"
+        allemployees = true
+        allpartners = false
+        allroles = true
+        isdeployed = true
+        loglevel = "ERROR"
+        recordtype = "JOURNALENTRY"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | WA | AR - Identify Approval"
+}

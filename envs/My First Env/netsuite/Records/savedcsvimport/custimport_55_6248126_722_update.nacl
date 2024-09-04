@@ -1,0 +1,90 @@
+netsuite.savedcsvimport custimport_55_6248126_722_update {
+  scriptid = "custimport_55_6248126_722_update"
+  charencoding = "GB18030"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HFC Open Inventory Update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVENTORYADJUSTMENT"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_354_6248126_sb1_226.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVENTORYADJUSTMENT = {
+        file = "INVENTORYADJUSTMENT"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVENTORYADJUSTMENT = {
+        record = "INVENTORYADJUSTMENT"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVENTORYADJUSTMENT_INVENTORY@f = {
+        record = "INVENTORYADJUSTMENT:INVENTORY"
+        fieldmappings = {
+          fieldmapping = {
+            LINE = {
+              field = "LINE"
+              columnreference = {
+                column = "Line ID"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVENTORYADJUSTMENT_INVENTORY_INVENTORYDETAIL_INVENTORYASSIGNMENT@f = {
+        record = "INVENTORYADJUSTMENT:INVENTORY:INVENTORYDETAIL:INVENTORYASSIGNMENT"
+        fieldmappings = {
+          fieldmapping = {
+            INTERNALID = {
+              field = "INTERNALID"
+              columnreference = {
+                column = "Inventory Assignment Internal ID"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+            RECEIPTINVENTORYNUMBER = {
+              field = "RECEIPTINVENTORYNUMBER"
+              columnreference = {
+                column = "Number"
+                file = "INVENTORYADJUSTMENT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HFC Open Inventory Update"
+}

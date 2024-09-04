@@ -1,0 +1,117 @@
+{
+    "type": "object",
+    "subtab": {
+        "id": "treveraHeader",
+        "title": "Header",
+        "description": "Header additionas Page",
+        "group": "trevera_global_group"
+    },
+    "properties": {
+        "trevera.header.customServiceNumber": {
+            "group": "trevera_global_group",
+            "subtab": "treveraHeader",
+            "type": "string",
+            "title": "Customer Service Phone",
+            "description": "customServiceNumber"
+        },
+        "trevera.header.logoTagline": {
+            "group": "trevera_global_group",
+            "subtab": "treveraHeader",
+            "type": "string",
+            "title": "Logo Tagline",
+            "description": "logo tagline"
+        },
+        "trevera.header.showSocialMediaLinks": {
+            "group": "trevera_global_group",
+            "subtab": "treveraHeader",
+            "type": "boolean",
+            "title": "Show Social in Header",
+            "description": "show links in header"
+        },
+        "trevera.header.showSearchControl": {
+            "group": "trevera_global_group",
+            "subtab": "treveraHeader",
+            "type": "boolean",
+            "title": "Show Search Control",
+            "description": "dont hide search"
+        },
+        "trevera.header.excludeCategoriesFromNavigation": {
+            "group": "trevera_global_group",
+            "subtab": "treveraHeader",
+            "type": "string",
+            "title": "Excluded Categories",
+            "description": "Comma separated list of IDs of Categories to exclude"
+        },
+        "trevera.header.parentCategoryOverride": {
+            "group": "trevera_global_group",
+            "subtab": "treveraHeader",
+            "type": "string",
+            "title": "Parent Category Override",
+            "description": "Parent Category Override"
+        },
+        "trevera.header.rightLinks": {
+            "group": "trevera_global_group",
+            "subtab": "treveraHeader",
+            "type": "array",
+            "title": "Header Sublinks",
+            "description": "Header Sublinks",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "link": {
+                        "type": "string",
+                        "title": "Link URL",
+                        "description": "Link URL",
+                        "mandatory": true
+                    },
+                    "linkText": {
+                        "type": "string",
+                        "title": "Link Text",
+                        "description": "Link Text",
+                        "mandatory": true
+                    },
+                    "permissions": {
+                        "type": "string",
+                        "title": "Show for Channel",
+                        "description": "Ids of channels to show this link for"
+                    }
+                }
+            }
+        }
+    },
+    "modifications": [
+        {
+            "target": "$.properties[navigationData].items.properties",
+            "action": "add",
+            "value": {
+                "categoryIDForSubMenu": {
+                    "type": "string",
+                    "title": "Sub Menu Category ID",
+                    "description": "Enter a commerce category ID to use that as the submenu"
+                }
+            }
+        },
+        {
+            "target": "$.properties[navigationData].items.properties",
+            "action": "add",
+            "value": {
+                "textOverride": {
+                    "type": "string",
+                    "title": "Text",
+                    "description": "Base implementation overrides any navigation data with a placeholder attribute set so we set it in two places"
+                }
+            }
+        },
+        {
+            "target": "$.properties[navigationData].items.properties",
+            "action": "add",
+            "value": {
+                "subMenuDeepness": {
+                    "type": "string",
+                    "title": "Sub Menu Deepness",
+                    "description": "how many sub categories to show"
+                }
+            }
+        }
+    ]
+}

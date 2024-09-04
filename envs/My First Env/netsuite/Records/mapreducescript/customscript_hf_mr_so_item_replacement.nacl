@@ -1,0 +1,69 @@
+netsuite.mapreducescript customscript_hf_mr_so_item_replacement {
+  scriptid = "customscript_hf_mr_so_item_replacement"
+  name = "HF MR SO Item Replacement"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_MR_Replace_SO_items_js@duuuuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_item_to_replace = {
+        scriptid = "custscript_item_to_replace"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Item to Replace with"
+        onparentdelete = "SET_NULL"
+        searchlevel = "2"
+        selectrecordtype = "-10"
+        storevalue = true
+        index = 0
+      }
+      custscript_replaced_item = {
+        scriptid = "custscript_replaced_item"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Replaced Item"
+        onparentdelete = "SET_NULL"
+        searchlevel = "2"
+        selectrecordtype = "-10"
+        storevalue = true
+        index = 1
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_mr_so_item_replacement = {
+        scriptid = "customdeploy_hf_mr_so_item_replacement"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF MR SO Item Replacement"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2022-05-30"
+            starttime = "12:30:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF MR SO Item Replacement"
+}

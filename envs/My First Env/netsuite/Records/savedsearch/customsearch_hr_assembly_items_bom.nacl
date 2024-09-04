@@ -1,0 +1,251 @@
+netsuite.savedsearch customsearch_hr_assembly_items_bom {
+  scriptid = "customsearch_hr_assembly_items_bom"
+  dependencies = {
+    dependency = [
+      "[scriptid=custitem_atlas_item_planner]",
+      netsuite.itemcustomfield.instance.custitem_hf_abc_class.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_commproperty.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_decimals.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_expires.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_freightdesc.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_has_no_parent.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_holdcode.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_itemgroup.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_mainbuyer.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_parentitem.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_revision.scriptid,
+      netsuite.itemcustomfield.instance.custitem_hf_tariffcode.scriptid,
+      "[scriptid=custitem_sps_item_synch]",
+      netsuite.customlist.instance.customlist_hf_commprop_list.scriptid,
+      "[scriptid=customrecord_atlas_item_planner]",
+      netsuite.customrecord_cseg_atlas_hb_slchn.attr.scriptid,
+      netsuite.customrecord_cseg_hf_project.attr.scriptid,
+      netsuite.customrecord_hf_itemgroup.attr.scriptid,
+      "[type=itemcustomfield, scriptid=cseg_atlas_hb_slchn]",
+      "[type=itemcustomfield, scriptid=cseg_hf_project]",
+    ]
+  }
+  definition = "b3d111df386c50c8a4631d0fa4d710524c4bd3ddc5dc6227e5967809357b5391@GZC@2024.1.16@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"
+  search_filter = [
+    {
+      FLAG_DATE_TIME_SECOND = false
+      FLAG_FROM_AVAILABLE_FILTER = false
+      FLAG_NOT = false
+      FLAG_OR = false
+      FIELD_OR_CLAUSE_STATUS = "N"
+      FIELD_NUM_LEFT_PARENS = 0
+      FIELD_NUM_RIGHT_PARENS = 0
+      FIELD_FILTER_NAME = "Item_TYPE"
+      FIELD_ATTRIBUTE = "ANYOF"
+      FIELD_TYPE = "SELECT"
+      RECORDS = [
+        {
+          KEY_ID = 0
+          FIELD_VALUE = "Assembly"
+        },
+      ]
+    },
+    {
+      FLAG_DATE_TIME_SECOND = false
+      FLAG_FROM_AVAILABLE_FILTER = false
+      FLAG_NOT = false
+      FLAG_OR = false
+      FIELD_OR_CLAUSE_STATUS = "N"
+      FIELD_NUM_LEFT_PARENS = 0
+      FIELD_NUM_RIGHT_PARENS = 0
+      FIELD_FILTER_NAME = "Item_ISINACTIVE"
+      FIELD_ATTRIBUTE = "F"
+      FIELD_TYPE = "CHECKBOX"
+    },
+  ]
+  return_fields = [
+    {
+      FIELD_ALIAS = "Item_INTERNALID"
+      FIELD_INDEX = 1
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Item_NAME"
+      FIELD_INDEX = 2
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "AB_AssemblyItemBom_BILLOFMATERIALS"
+      FIELD_INDEX = 3
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_REVISION"
+      FIELD_INDEX = 4
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_HAS_NO_PARENT"
+      FIELD_INDEX = 5
+      FIELD_FORMULA_ERROR = false
+    },
+  ]
+  detail_fields = [
+    {
+      FIELD_ALIAS = "Item_NAME"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Item_DISPLAYNAME"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Item_DESCRIPTION"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Item_TYPE"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "Item_PRICE"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_ATLAS_ITEM_PLANNER"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_TARIFFCODE"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_COMMPROPERTY"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_FREIGHTDESC"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_REVISION"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_ITEMGROUP"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_MAINBUYER"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_PARENTITEM"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_ABC_CLASS"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_HOLDCODE"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_EXPIRES"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_HF_DECIMALS"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_SPS_ITEM_SYNCH"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_CSEG_ATLAS_HB_SLCHN"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+    {
+      FIELD_ALIAS = "CUSTITEM_CSEG_HF_PROJECT"
+      FIELD_INDEX = 6
+      FIELD_FORMULA_ERROR = false
+    },
+  ]
+  sort_columns = [
+    {
+      KEY_FIELD = "Item_NAME"
+      FILELD_ORDER = 1
+      FLAG_DESCENDING = false
+    },
+  ]
+  audience = {
+    FLAG_AUDIENCE_ALL_CUSTOMERS = false
+    FLAG_AUDIENCE_ALL_EMPLOYEES = false
+    FLAG_AUDIENCE_ALL_PARTNERS = false
+    FLAG_AUDIENCE_ALL_ROLES = true
+    FLAG_AUDIENCE_ALL_VENDORS = false
+  }
+  KEY_SCRIPT_ID = "customsearch_hr_assembly_items_bom"
+  FIELD_DEFAULT_NAME = "Assembly Items - Bill of Materials"
+  FIELD_SEARCH_TYPE = "Item"
+  FLAG_PUBLIC = true
+  FLAG_LIST = false
+  FLAG_PORTLET = false
+  FLAG_MACHINE = false
+  FLAG_REMINDER = false
+  FLAG_SHOW_LINK = false
+  FLAG_PREFERRED_LIST = false
+  FLAG_PREFERRED_PORTLET = false
+  FLAG_PREFERRED_MACHINE = false
+  FLAG_PREFERRED_FORM = false
+  FLAG_PREFERRED_RESULTS = false
+  FLAG_VIEW_AS_REPORT = false
+  FLAG_VIEW_AS_GRAPH = false
+  FLAG_VIEW_AS_GRID = false
+  FLAG_UNRESTRICTED = false
+  FLAG_DISABLE_DRILL_DOWN = false
+  FLAG_HIDE_FILTER_DROPDOWNS = false
+  KEY_DEFAULT_TEXT_FIELD_FILTER = "STARTSWITH"
+  FLAG_AVAILABLE_AS_FEED = false
+  FLAG_GLOBAL_EDIT = false
+  FLAG_CSV = false
+  FLAG_EXCEL = false
+  FLAG_PDF = false
+  FLAG_TRIGGERED_ALERT = false
+  FLAG_SCHEDULED_ALERT = false
+  FLAG_SCHEDULED_ALERT_SUMMARIES = false
+  FLAG_SEND_EMPTY_RESULTS = false
+  FLAG_ALERT_ALLOW_SUBSCRIBE = false
+  FLAG_ALERT_INCLUDE_VIEW_LINK = true
+  FLAG_HAS_TOTALS = false
+  FLAG_INCLUDE_PERIOD_END_TRANSACTIONS = false
+  FLAG_BUILT_IN = false
+  FLAG_SEND_ON_UPDATE = false
+  FLAG_SHOW_AUDIT_TRAIL = false
+  KEY_AUDIENCE = 0
+  _generated_dependencies = [
+    {
+      reference = netsuite.customsegment.instance.cseg_atlas_hb_slchn.scriptid
+    },
+    {
+      reference = netsuite.customsegment.instance.cseg_hf_project.scriptid
+    },
+  ]
+  _alias = "Assembly Items - Bill of Materials"
+}

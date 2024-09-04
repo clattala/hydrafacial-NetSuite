@@ -1,0 +1,143 @@
+netsuite.savedcsvimport custimport_hf_transfer_order {
+  scriptid = "custimport_hf_transfer_order"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | US | TRANSFER ORDERS"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "TRANSFERORDER"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_hydrafacial_transfer_order.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      TRANSFERORDER = {
+        file = "TRANSFERORDER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      TRANSFERORDER_ITEM@f = {
+        record = "TRANSFERORDER:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item ID"
+                file = "TRANSFERORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "Quantity"
+                file = "TRANSFERORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      TRANSFERORDER = {
+        record = "TRANSFERORDER"
+        fieldmappings = {
+          fieldmapping = {
+            custbody_hf_transfer_customer = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_transfer_customer.scriptid
+              columnreference = {
+                column = "Customer ID"
+                file = "TRANSFERORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "External ID"
+                file = "TRANSFERORDER"
+                type = "NAME"
+              }
+            }
+            INCOTERM = {
+              field = "INCOTERM"
+              value = "1"
+            }
+            LOCATION = {
+              field = "LOCATION"
+              columnreference = {
+                column = "From Location"
+                file = "TRANSFERORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "Memo"
+                file = "TRANSFERORDER"
+                type = "NAME"
+              }
+            }
+            ORDERSTATUS = {
+              field = "ORDERSTATUS"
+              value = "B"
+            }
+            SHIPDATE = {
+              field = "SHIPDATE"
+              columnreference = {
+                column = "Ship Date"
+                file = "TRANSFERORDER"
+                type = "NAME"
+              }
+            }
+            SHIPMETHOD = {
+              field = "SHIPMETHOD"
+              columnreference = {
+                column = "SHIPPING METHOD"
+                file = "TRANSFERORDER"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              columnreference = {
+                column = "Subsidiary"
+                file = "TRANSFERORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              value = "3/7/2022"
+            }
+            TRANSFERLOCATION = {
+              field = "TRANSFERLOCATION"
+              columnreference = {
+                column = "To Location"
+                file = "TRANSFERORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | US | TRANSFER ORDERS"
+}

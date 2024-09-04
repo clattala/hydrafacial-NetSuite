@@ -1,0 +1,52 @@
+netsuite.mapreducescript customscript_a1w_dlq_clean_mr {
+  scriptid = "customscript_a1w_dlq_clean_mr"
+  name = "Warehouse Edge Download Queue Cleanup"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = "[/SuiteBundles/Bundle 279187/DLQCleanMR.js]"
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_update_original = {
+        scriptid = "custscript_update_original"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = true
+        description = "If checked, the TimeStamp and Error custom fields will be updated on the original Record with values echoed from the A1W Integration server."
+        displaytype = "NORMAL"
+        fieldtype = "CHECKBOX"
+        isformula = false
+        ismandatory = false
+        label = "Update Original Record"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_a1w_dlq_clean_mr = {
+        scriptid = "customdeploy_a1w_dlq_clean_mr"
+        buffersize = "1"
+        concurrencylimit = "3"
+        custscript_update_original = true
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "Warehouse Edge Download Queue Cleanup"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2016-08-26"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "Warehouse Edge Download Queue Cleanup"
+}

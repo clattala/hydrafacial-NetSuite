@@ -1,0 +1,68 @@
+netsuite.savedcsvimport custimport_313_6248126_612 {
+  scriptid = "custimport_313_6248126_612"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_assembly.scriptid
+  ignorereadonly = true
+  importname = "NB_Assembly_Update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "ASSEMBLYITEM"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      ASSEMBLYITEM = {
+        file = "ASSEMBLYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      ASSEMBLYITEM = {
+        record = "ASSEMBLYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            custitem_hf_freightdesc = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_freightdesc.scriptid
+              columnreference = {
+                column = "Commodity Description"
+                file = "ASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_tariffcode = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_tariffcode.scriptid
+              columnreference = {
+                column = "Tariff Code"
+                file = "ASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "ASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "NB_Assembly_Update"
+}

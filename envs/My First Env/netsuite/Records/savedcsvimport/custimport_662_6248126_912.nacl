@@ -1,0 +1,57 @@
+netsuite.savedcsvimport custimport_662_6248126_912 {
+  scriptid = "custimport_662_6248126_912"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Payment Hold Checkbox Uncheck on Vendor Bill"
+  ignorereadonly = true
+  importname = "Vendor Bill update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "VENDORBILL"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_320_6248126_sb1_131.scriptid
+  usemultithread = false
+  validatemandatorycustfields = false
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      VENDORBILL = {
+        file = "VENDORBILL"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      VENDORBILL = {
+        record = "VENDORBILL"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "InternalID"
+                file = "VENDORBILL"
+                type = "NAME"
+              }
+            }
+            PAYMENTHOLD = {
+              field = "PAYMENTHOLD"
+              value = "F"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Vendor Bill update"
+}

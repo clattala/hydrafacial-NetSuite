@@ -1,0 +1,2051 @@
+netsuite.workflow customworkflow_hf_sales_order_appro_2 {
+  scriptid = "customworkflow_hf_sales_order_appro_2"
+  description = "This workflow is to validate the Terms/Payment Method, Shipping Method, Payment Authorization verification. This workflow also checks Order Type and Deposit amount and send the workflow to the next approver"
+  initoncreate = true
+  initonvieworupdate = true
+  islogenabled = false
+  keephistory = "ALWAYS"
+  name = "HF | US | Sales Order Approval Process"
+  recordtypes = "SALESORDER"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        Subsidiary__Main_@sjk = {
+          name = "Subsidiary (Main)"
+          value = "STDBODYSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+      }
+    }
+  }
+  workflowcustomfields = {
+    workflowcustomfield = {
+      custworkflow_so_cc_auth_check_2 = {
+        scriptid = "custworkflow_so_cc_auth_check_2"
+        applyformatting = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        label = "SO CC Auth Check"
+        storevalue = true
+        index = 0
+      }
+      custworkflow_so_terms_check_2 = {
+        scriptid = "custworkflow_so_terms_check_2"
+        applyformatting = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        label = "SO Terms Check"
+        storevalue = true
+        index = 1
+      }
+      custworkflow_so_inv_chck_2 = {
+        scriptid = "custworkflow_so_inv_chck_2"
+        applyformatting = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        label = "INVENTORY CHECK"
+        storevalue = true
+        index = 2
+      }
+      custworkflow_credit_limit_check_2 = {
+        scriptid = "custworkflow_credit_limit_check_2"
+        applyformatting = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        label = "Credit Limit Check"
+        storevalue = true
+        index = 3
+      }
+      custworkflow_90_days_overdue_2 = {
+        scriptid = "custworkflow_90_days_overdue_2"
+        applyformatting = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        label = "90 Days OverDue Check"
+        storevalue = true
+        index = 4
+      }
+      custworkflow_deposit_amt_2 = {
+        scriptid = "custworkflow_deposit_amt_2"
+        applyformatting = true
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "CURRENCY"
+        label = "Deposit Amount"
+        storevalue = true
+        index = 5
+      }
+      custworkflow_payment_event_amt_2 = {
+        scriptid = "custworkflow_payment_event_amt_2"
+        applyformatting = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        label = "Payment Event Amount"
+        storevalue = true
+        index = 6
+      }
+      custworkflow_credithold_check_2 = {
+        scriptid = "custworkflow_credithold_check_2"
+        applyformatting = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        label = "Credit Hold Check"
+        storevalue = true
+        index = 7
+      }
+      custworkflow_payment_event_status = {
+        scriptid = "custworkflow_payment_event_status"
+        applyformatting = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        label = "Payment Event Status"
+        storevalue = true
+        index = 8
+      }
+      custworkflow_intial_term_check = {
+        scriptid = "custworkflow_intial_term_check"
+        applyformatting = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        label = "Initial Term Check"
+        storevalue = true
+        index = 9
+      }
+      custworkflow_cust_satisfaction_check = {
+        scriptid = "custworkflow_cust_satisfaction_check"
+        applyformatting = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        label = "Cust Satisfaction Check"
+        storevalue = true
+        index = 10
+      }
+      custworkflow_discount_rate = {
+        scriptid = "custworkflow_discount_rate"
+        applyformatting = true
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "CURRENCY"
+        label = "Discount Rate"
+        storevalue = true
+        index = 11
+      }
+      custworkflow_down_payment_check = {
+        scriptid = "custworkflow_down_payment_check"
+        applyformatting = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        label = "Down Payment Validation"
+        storevalue = true
+        index = 12
+      }
+      custworkflow_term_with_down_payment = {
+        scriptid = "custworkflow_term_with_down_payment"
+        applyformatting = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        label = "Term With Down Payment"
+        storevalue = true
+        index = 13
+      }
+      custworkflow_terms_validation = {
+        scriptid = "custworkflow_terms_validation"
+        applyformatting = false
+        defaultchecked = false
+        description = "Terms Validation"
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        label = "Terms Validation"
+        storevalue = true
+        index = 14
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate220 = {
+        scriptid = "workflowstate220"
+        donotexitworkflow = false
+        name = "Submit For Approval"
+        positionx = 503
+        positiony = 93
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldvalueaction = {
+              workflowaction1592 = {
+                scriptid = "workflowaction1592"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                eventtypes = "COPY"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_order_priority.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1593 = {
+                scriptid = "workflowaction1593"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                eventtypes = "COPY"
+                field = netsuite.transactionbodycustomfield.instance.custbody_a1wms_backorders.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "0"
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 1
+                isInactive = false
+              }
+              workflowaction1594 = {
+                scriptid = "workflowaction1594"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                eventtypes = "COPY"
+                field = netsuite.transactionbodycustomfield.instance.custbody_pj_sssdelivery.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 2
+                isInactive = false
+              }
+              workflowaction1595 = {
+                scriptid = "workflowaction1595"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                eventtypes = "COPY"
+                field = netsuite.transactionbodycustomfield.instance.custbody_pj_sssigreq.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 3
+                isInactive = false
+              }
+              workflowaction1596 = {
+                scriptid = "workflowaction1596"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                eventtypes = "COPY"
+                field = "STDBODYSHIPCOMPLETE"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 4
+                isInactive = false
+              }
+              workflowaction1597 = {
+                scriptid = "workflowaction1597"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                eventtypes = "COPY"
+                field = netsuite.transactionbodycustomfield.instance.custbody_a1wms_dnloadtowms.scriptid
+                schedulemode = "DELAY"
+                valuechecked = true
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 5
+                isInactive = false
+              }
+            }
+          }
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            addbuttonaction = {
+              workflowaction868 = {
+                scriptid = "workflowaction868"
+                checkconditionbeforeexecution = false
+                contexttypes = "USERINTERFACE"
+                eventtypes = "VIEW"
+                label = "Submit for Approval"
+                saverecordfirst = true
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+            removebuttonaction = {
+              workflowaction869 = {
+                scriptid = "workflowaction869"
+                buttonid = "APPROVE"
+                contexttypes = "USERINTERFACE"
+                eventtypes = "VIEW"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          BEFOREUSERSUBMIT = {
+            triggertype = "BEFOREUSERSUBMIT"
+            showmessageaction = {
+              workflowaction871 = {
+                scriptid = "workflowaction871"
+                contexttypes = "USERINTERFACE"
+                messagetext = "Invoice Terms or Payment Method is required on the Billing Subtab"
+                initcondition = {
+                  formula = "isEmpty(\"Payment Method\") = 'T' AND isEmpty(\"Terms\") = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Payment_Method@s = {
+                        name = "Payment Method"
+                        value = "STDBODYPAYMENTMETHOD"
+                      }
+                      Terms = {
+                        name = "Terms"
+                        value = "STDBODYTERMS"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          BEFORESUBMIT = {
+            triggertype = "BEFORESUBMIT"
+            setfieldvalueaction = {
+              workflowaction872 = {
+                scriptid = "workflowaction872"
+                field = "STDBODYORDERSTATUS"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = "11"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\") AND \"Status\" NOT IN (\"Transaction Status1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary__Main_@sjk = {
+                        name = "Subsidiary (Main)"
+                        value = "STDBODYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      Status = {
+                        name = "Status"
+                        value = "STDBODYSTATUS"
+                      }
+                      Transaction_Status1@s = {
+                        name = "Transaction Status1"
+                        selectrecordtype = "-164"
+                        value = "13"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1598 = {
+                scriptid = "workflowaction1598"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_so_approval_status.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hfde_approval_status.customvalues.customvalue.val_10336125_6248126_722.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 1
+                isInactive = false
+              }
+              workflowaction1629 = {
+                scriptid = "workflowaction1629"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDBODYTERMS"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "isEmpty(\"Payment Method\") = 'F'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Payment_Method@s = {
+                        name = "Payment Method"
+                        value = "STDBODYPAYMENTMETHOD"
+                      }
+                    }
+                  }
+                }
+                index = 2
+                isInactive = false
+              }
+            }
+          }
+          AFTERSUBMIT = {
+            triggertype = "AFTERSUBMIT"
+            customaction = {
+              workflowaction962 = {
+                scriptid = "workflowaction962"
+                resultfield = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_payment_event_status.scriptid
+                schedulemode = "DELAY"
+                scripttype = netsuite.workflowactionscript.instance.customscript_get_paymentevent_status.scriptid
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                parametersettings = {
+                  parametersetting = {
+                    customscript_get_paymentevent_status_custscript_workflow_state@uuuvuu = {
+                      targetparameter = netsuite.workflowactionscript.instance.customscript_get_paymentevent_status.scriptcustomfields.scriptcustomfield.custscript_workflow_state.scriptid
+                      valuetext = "Enter & Submit For Approval"
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition422 = {
+              scriptid = "workflowtransition422"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate224.scriptid
+              triggertype = "AFTERSUBMIT"
+              initcondition = {
+                formula = "\"Subsidiary (Main)\" NOT IN (\"{#Subsidiary#}1\")"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Subsidiary__Main_@sjk = {
+                      name = "Subsidiary (Main)"
+                      value = "STDBODYSUBSIDIARY"
+                    }
+                    __Subsidiary__1@_00123nn_00125 = {
+                      name = "{#Subsidiary#}1"
+                      selectrecordtype = "-117"
+                      value = "[ACCOUNT_SPECIFIC_VALUE]"
+                    }
+                  }
+                }
+              }
+              index = 0
+            }
+            workflowtransition435 = {
+              scriptid = "workflowtransition435"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate220.workflowactions.BEFORELOAD.addbuttonaction.workflowaction868.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate235.scriptid
+              initcondition = {
+                formula = "\"Workflow:Payment Event Status\" = 'FAILED' AND isEmpty(\"Payment Method\") = 'F'"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Workflow_Payment_Event_Status@fss = {
+                      name = "Workflow:Payment Event Status"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_payment_event_status.scriptid
+                    }
+                    Payment_Method@s = {
+                      name = "Payment Method"
+                      value = "STDBODYPAYMENTMETHOD"
+                    }
+                  }
+                }
+              }
+              index = 1
+            }
+            workflowtransition437 = {
+              scriptid = "workflowtransition437"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate220.workflowactions.BEFORELOAD.addbuttonaction.workflowaction868.scriptid
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate236.scriptid
+              initcondition = {
+                formula = "isEmpty(\"Terms\") = 'T' AND isEmpty(\"Payment Method\") = 'T'"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Terms = {
+                      name = "Terms"
+                      value = "STDBODYTERMS"
+                    }
+                    Payment_Method@s = {
+                      name = "Payment Method"
+                      value = "STDBODYPAYMENTMETHOD"
+                    }
+                  }
+                }
+              }
+              index = 2
+            }
+            workflowtransition440 = {
+              scriptid = "workflowtransition440"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate220.workflowactions.BEFORELOAD.addbuttonaction.workflowaction868.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate237.scriptid
+              initcondition = {
+                formula = "isEmpty(\"Ship Via\") = 'T'"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Ship_Via@s = {
+                      name = "Ship Via"
+                      value = "STDBODYSHIPMETHOD"
+                    }
+                  }
+                }
+              }
+              index = 3
+            }
+            workflowtransition624 = {
+              scriptid = "workflowtransition624"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate220.workflowactions.BEFORELOAD.addbuttonaction.workflowaction868.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate374.scriptid
+              initcondition = {
+                formula = "(( isEmpty(\"Payment Method\") = 'F' AND \"Workflow:Payment Event Status\" = 'PASSED' AND isEmpty(\"Ship Via\") = 'F' ) OR ( isEmpty(\"Ship Via\") = 'F' AND isEmpty(\"Terms\") = 'F' ))"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Payment_Method@s = {
+                      name = "Payment Method"
+                      value = "STDBODYPAYMENTMETHOD"
+                    }
+                    Workflow_Payment_Event_Status@fss = {
+                      name = "Workflow:Payment Event Status"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_payment_event_status.scriptid
+                    }
+                    Ship_Via@s = {
+                      name = "Ship Via"
+                      value = "STDBODYSHIPMETHOD"
+                    }
+                    Terms = {
+                      name = "Terms"
+                      value = "STDBODYTERMS"
+                    }
+                  }
+                }
+              }
+              index = 4
+            }
+          }
+        }
+        index = 0
+      }
+      workflowstate221 = {
+        scriptid = "workflowstate221"
+        donotexitworkflow = false
+        name = "Financial Checks"
+        positionx = 803
+        positiony = 133
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            customaction = {
+              workflowaction_getdepositamount = {
+                scriptid = "workflowaction_getdepositamount"
+                resultfield = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_deposit_amt_2.scriptid
+                schedulemode = "DELAY"
+                scripttype = netsuite.workflowactionscript.instance.customscript_hf_wf_get_dep_amount_so.scriptid
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction881 = {
+                scriptid = "workflowaction881"
+                resultfield = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_payment_event_amt_2.scriptid
+                schedulemode = "DELAY"
+                scripttype = netsuite.workflowactionscript.instance.customscript_get_paymentevent_amount.scriptid
+                initcondition = {
+                  formula = "isEmpty(\"Payment Method\") = 'F'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Payment_Method@s = {
+                        name = "Payment Method"
+                        value = "STDBODYPAYMENTMETHOD"
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = true
+              }
+            }
+            setfieldvalueaction = {
+              workflowaction873 = {
+                scriptid = "workflowaction873"
+                field = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_so_cc_auth_check_2.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "FAILED"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "isEmpty(\"Credit Card #\") = 'F' AND isChecked(\"Credit Card Approved\") = 'F'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Credit_Card__@ssn = {
+                        name = "Credit Card #"
+                        value = "STDBODYCCNUMBER"
+                      }
+                      Credit_Card_Approved@s = {
+                        name = "Credit Card Approved"
+                        value = "STDBODYCCAPPROVED"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = true
+              }
+              workflowaction874 = {
+                scriptid = "workflowaction874"
+                field = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_so_cc_auth_check_2.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "PASSED"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "isEmpty(\"Payment Method\") = 'F' AND isChecked(\"Credit Card Approved\") = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Payment_Method@s = {
+                        name = "Payment Method"
+                        value = "STDBODYPAYMENTMETHOD"
+                      }
+                      Credit_Card_Approved@s = {
+                        name = "Credit Card Approved"
+                        value = "STDBODYCCAPPROVED"
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = true
+              }
+              workflowaction1434 = {
+                scriptid = "workflowaction1434"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_so_cc_auth_check_2.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "PASSED"
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 2
+                isInactive = false
+              }
+              workflowaction875 = {
+                scriptid = "workflowaction875"
+                field = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_so_terms_check_2.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "PASSED"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "(( \"Workflow:Term With Down Payment\" = 'F' AND \"Workflow:Terms Validation\" = 'T' ) OR ( \"Workflow:Term With Down Payment\" = 'T' AND \"Workflow:Terms Validation\" = 'T' AND \"Workflow:Down Payment Validation\" = 'T' ))"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Workflow_Term_With_Down_Payment@fsss = {
+                        name = "Workflow:Term With Down Payment"
+                        value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_term_with_down_payment.scriptid
+                      }
+                      Workflow_Terms_Validation@fs = {
+                        name = "Workflow:Terms Validation"
+                        value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_terms_validation.scriptid
+                      }
+                      Workflow_Down_Payment_Validation@fss = {
+                        name = "Workflow:Down Payment Validation"
+                        value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_down_payment_check.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 3
+                isInactive = false
+              }
+              workflowaction876 = {
+                scriptid = "workflowaction876"
+                field = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_so_terms_check_2.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "FAILED"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "( \"Workflow:Terms Validation\" = 'T' AND \"Workflow:Term With Down Payment\" = 'T' AND \"Workflow:Down Payment Validation\" = 'F' ) OR ( \"Workflow:Terms Validation\" = 'F' )"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Workflow_Terms_Validation@fs = {
+                        name = "Workflow:Terms Validation"
+                        value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_terms_validation.scriptid
+                      }
+                      Workflow_Term_With_Down_Payment@fsss = {
+                        name = "Workflow:Term With Down Payment"
+                        value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_term_with_down_payment.scriptid
+                      }
+                      Workflow_Down_Payment_Validation@fss = {
+                        name = "Workflow:Down Payment Validation"
+                        value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_down_payment_check.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 4
+                isInactive = false
+              }
+              workflowaction877 = {
+                scriptid = "workflowaction877"
+                field = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_credit_limit_check_2.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "PASSED"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "((TO_NUMBER(NVL({entity.creditlimit}, 0)) - {entity.balance} - {entity.unbilledorders}) >= 0) or ({total} = 0.00) or ({total} > 0.00 and {paymentmethod}<>' ')"
+                  type = "FORMULA"
+                }
+                index = 5
+                isInactive = false
+              }
+              workflowaction878 = {
+                scriptid = "workflowaction878"
+                field = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_credit_limit_check_2.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "FAILED"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = '''
+(((TO_NUMBER( NVL({entity.creditlimit}, 0) ) > 0)
+and
+(TO_NUMBER( NVL({entity.creditlimit}, 0) ) - TO_NUMBER(NVL({entity.balance}, 0 )) - TO_NUMBER(NVL ({entity.unbilledorders}, 0 ))) < 0))
+or
+((TO_NUMBER( NVL({entity.creditlimit}, 0) ) = 0) and ({total}>0))
+'''
+                  type = "FORMULA"
+                }
+                index = 6
+                isInactive = false
+              }
+              workflowaction879 = {
+                scriptid = "workflowaction879"
+                field = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_90_days_overdue_2.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "PASSED"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Customer:Days Overdue\" < 90 OR \"Total\" = 0.00"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Customer_Days_Overdue@fs = {
+                        name = "Customer:Days Overdue"
+                        value = "STDBODYCUSTOMER:STDENTITYDAYSOVERDUE"
+                      }
+                      Total = {
+                        name = "Total"
+                        value = "STDBODYTOTAL"
+                      }
+                    }
+                  }
+                }
+                index = 7
+                isInactive = false
+              }
+              workflowaction880 = {
+                scriptid = "workflowaction880"
+                field = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_90_days_overdue_2.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "FAILED"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Customer:Days Overdue\" >= 90"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Customer_Days_Overdue@fs = {
+                        name = "Customer:Days Overdue"
+                        value = "STDBODYCUSTOMER:STDENTITYDAYSOVERDUE"
+                      }
+                    }
+                  }
+                }
+                index = 8
+                isInactive = false
+              }
+              workflowaction1435 = {
+                scriptid = "workflowaction1435"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_payment_event_amt_2.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "PASSED"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Workflow:Payment Event Status\" = 'PASSED'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Workflow_Payment_Event_Status@fss = {
+                        name = "Workflow:Payment Event Status"
+                        value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_payment_event_status.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 9
+                isInactive = false
+              }
+              workflowaction882 = {
+                scriptid = "workflowaction882"
+                field = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_credithold_check_2.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "PASSED"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "({entity.credithold.id} = 'AUTO' or {entity.credithold} = 'AUTO') or ({entity.credithold.id} = 'OFF' or {entity.credithold} = 'OFF')"
+                  type = "FORMULA"
+                }
+                index = 10
+                isInactive = false
+              }
+              workflowaction883 = {
+                scriptid = "workflowaction883"
+                field = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_credithold_check_2.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "FAILED"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "{entity.credithold.id} = 'ON' or {entity.credithold} = 'On'"
+                  type = "FORMULA"
+                }
+                index = 11
+                isInactive = false
+              }
+            }
+          }
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            removebuttonaction = {
+              workflowaction884 = {
+                scriptid = "workflowaction884"
+                buttonid = "APPROVE"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition419 = {
+              scriptid = "workflowtransition419"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate223.scriptid
+              initcondition = {
+                formula = "\"Workflow:Payment Event Amount\" = 'FAILED' OR \"Workflow:SO CC Auth Check\" = 'FAILED' OR \"Workflow:90 Days OverDue Check\" = 'FAILED' OR (( \"Workflow:SO Terms Check\" = 'FAILED' OR \"Workflow:Credit Limit Check\" = 'FAILED' ) AND isEmpty(\"Terms\") = 'F' ) OR ( \"Workflow:Payment Event Status\" = 'FAILED' AND isEmpty(\"Payment Method\") = 'F' ) OR \"Workflow:Credit Hold Check\" = 'FAILED'"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Workflow_Payment_Event_Amount@fss = {
+                      name = "Workflow:Payment Event Amount"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_payment_event_amt_2.scriptid
+                    }
+                    Workflow_SO_CC_Auth_Check@fsss = {
+                      name = "Workflow:SO CC Auth Check"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_so_cc_auth_check_2.scriptid
+                    }
+                    Workflow_90_Days_OverDue_Check@fsss = {
+                      name = "Workflow:90 Days OverDue Check"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_90_days_overdue_2.scriptid
+                    }
+                    Workflow_SO_Terms_Check@fss = {
+                      name = "Workflow:SO Terms Check"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_so_terms_check_2.scriptid
+                    }
+                    Workflow_Credit_Limit_Check@fss = {
+                      name = "Workflow:Credit Limit Check"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_credit_limit_check_2.scriptid
+                    }
+                    Terms = {
+                      name = "Terms"
+                      value = "STDBODYTERMS"
+                    }
+                    Workflow_Payment_Event_Status@fss = {
+                      name = "Workflow:Payment Event Status"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_payment_event_status.scriptid
+                    }
+                    Payment_Method@s = {
+                      name = "Payment Method"
+                      value = "STDBODYPAYMENTMETHOD"
+                    }
+                    Workflow_Credit_Hold_Check@fss = {
+                      name = "Workflow:Credit Hold Check"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_credithold_check_2.scriptid
+                    }
+                  }
+                }
+              }
+              index = 0
+            }
+            workflowtransition433 = {
+              scriptid = "workflowtransition433"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate224.scriptid
+              initcondition = {
+                formula = "\"Workflow:Credit Hold Check\" = 'PASSED' AND (( \"Workflow:Payment Event Amount\" = 'PASSED' AND ( \"Workflow:Credit Limit Check\" = 'FAILED' OR \"Workflow:Credit Limit Check\" = 'PASSED' ) AND isEmpty(\"Payment Method\") = 'F' AND isEmpty(\"Credit Card #\") = 'F' ) OR ( \"Workflow:SO Terms Check\" = 'PASSED' AND \"Workflow:Credit Limit Check\" = 'PASSED' )) AND \"Workflow:90 Days OverDue Check\" = 'PASSED'"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Workflow_Credit_Hold_Check@fss = {
+                      name = "Workflow:Credit Hold Check"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_credithold_check_2.scriptid
+                    }
+                    Workflow_Payment_Event_Amount@fss = {
+                      name = "Workflow:Payment Event Amount"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_payment_event_amt_2.scriptid
+                    }
+                    Workflow_Credit_Limit_Check@fss = {
+                      name = "Workflow:Credit Limit Check"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_credit_limit_check_2.scriptid
+                    }
+                    Payment_Method@s = {
+                      name = "Payment Method"
+                      value = "STDBODYPAYMENTMETHOD"
+                    }
+                    Credit_Card__@ssn = {
+                      name = "Credit Card #"
+                      value = "STDBODYCCNUMBER"
+                    }
+                    Workflow_SO_Terms_Check@fss = {
+                      name = "Workflow:SO Terms Check"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_so_terms_check_2.scriptid
+                    }
+                    Workflow_90_Days_OverDue_Check@fsss = {
+                      name = "Workflow:90 Days OverDue Check"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_90_days_overdue_2.scriptid
+                    }
+                  }
+                }
+              }
+              index = 1
+            }
+          }
+        }
+        index = 1
+      }
+      workflowstate223 = {
+        scriptid = "workflowstate223"
+        donotexitworkflow = false
+        name = "Financial Check Failed"
+        positionx = 803
+        positiony = 253
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldvalueaction = {
+              workflowaction885 = {
+                scriptid = "workflowaction885"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_so_financecheck.scriptid
+                schedulemode = "DELAY"
+                valuechecked = true
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1609 = {
+                scriptid = "workflowaction1609"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_so_approval_status.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hfde_approval_status.customvalues.customvalue.val_5336256_6248126_sb1_284.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 1
+                isInactive = false
+              }
+            }
+          }
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            addbuttonaction = {
+              workflowaction886 = {
+                scriptid = "workflowaction886"
+                checkconditionbeforeexecution = true
+                contexttypes = "USERINTERFACE"
+                eventtypes = "VIEW"
+                label = "Approve"
+                saverecordfirst = false
+                initcondition = {
+                  formula = "\"User Role\" IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1114.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1096.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1221.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1099.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1236.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1235.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1488.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction887 = {
+                scriptid = "workflowaction887"
+                checkconditionbeforeexecution = true
+                contexttypes = "USERINTERFACE"
+                eventtypes = "VIEW"
+                label = "Reject"
+                saverecordfirst = false
+                initcondition = {
+                  formula = "\"User Role\" IN (\"Role1\",\"Role2\",\"Role3\",\"Role4\",\"Role5\",\"Role6\",\"Role7\",\"Role8\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                      Role2 = {
+                        name = "Role2"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1114.scriptid
+                      }
+                      Role3 = {
+                        name = "Role3"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1096.scriptid
+                      }
+                      Role4 = {
+                        name = "Role4"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1221.scriptid
+                      }
+                      Role5 = {
+                        name = "Role5"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1099.scriptid
+                      }
+                      Role6 = {
+                        name = "Role6"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1236.scriptid
+                      }
+                      Role7 = {
+                        name = "Role7"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1235.scriptid
+                      }
+                      Role8 = {
+                        name = "Role8"
+                        selectrecordtype = "-118"
+                        value = netsuite.role.instance.customrole1488.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+            }
+            removebuttonaction = {
+              workflowaction888 = {
+                scriptid = "workflowaction888"
+                buttonid = "APPROVE"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+            lockrecordaction = {
+              workflowaction963 = {
+                scriptid = "workflowaction963"
+                initcondition = {
+                  formula = "\"User Role\" NOT IN (\"Role1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition424 = {
+              scriptid = "workflowtransition424"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate223.workflowactions.BEFORELOAD.addbuttonaction.workflowaction887.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate225.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 0
+            }
+            workflowtransition434 = {
+              scriptid = "workflowtransition434"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate223.workflowactions.BEFORELOAD.addbuttonaction.workflowaction886.scriptid
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate224.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 1
+            }
+          }
+        }
+        index = 2
+      }
+      workflowstate224 = {
+        scriptid = "workflowstate224"
+        donotexitworkflow = true
+        name = "Approved"
+        positionx = 993
+        positiony = 353
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldvalueaction = {
+              workflowaction964 = {
+                scriptid = "workflowaction964"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_so_inventory_check.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction892 = {
+                scriptid = "workflowaction892"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDBODYORDERSTATUS"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = "12"
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 1
+                isInactive = false
+              }
+              workflowaction1612 = {
+                scriptid = "workflowaction1612"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_so_approval_status.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hfde_approval_status.customvalues.customvalue.val_5336258_6248126_sb1_568.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 2
+                isInactive = false
+              }
+            }
+          }
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            removebuttonaction = {
+              workflowaction894 = {
+                scriptid = "workflowaction894"
+                buttonid = "APPROVE"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          AFTERSUBMIT = {
+            triggertype = "AFTERSUBMIT"
+            setfieldvalueaction = {
+              workflowaction935 = {
+                scriptid = "workflowaction935"
+                contexttypes = "WEBAPPLICATION|WEBSTORE"
+                field = "STDBODYORDERSTATUS"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = "12"
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 3
+      }
+      workflowstate225 = {
+        scriptid = "workflowstate225"
+        donotexitworkflow = false
+        name = "Rejected"
+        positionx = 1013
+        positiony = 483
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldvalueaction = {
+              workflowaction895 = {
+                scriptid = "workflowaction895"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_so_financecheck.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction896 = {
+                scriptid = "workflowaction896"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_so_inventory_check.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 1
+                isInactive = false
+              }
+              workflowaction1610 = {
+                scriptid = "workflowaction1610"
+                field = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_cust_satisfaction_check.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "FAILED"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "isEmpty(\"Workflow:Cust Satisfaction Check\") = 'T' AND \"Order Type\" IN (\"HF | Order Type1\") AND \"Discount Rate\" < -200.00"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Workflow_Cust_Satisfaction_Check@fss = {
+                        name = "Workflow:Cust Satisfaction Check"
+                        value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_cust_satisfaction_check.scriptid
+                      }
+                      Order_Type@s = {
+                        name = "Order Type"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_hf_order_type.scriptid
+                      }
+                      HF___Order_Type1@sgss = {
+                        name = "HF | Order Type1"
+                        selectrecordtype = netsuite.customlist.instance.customlist_hf_order_type.scriptid
+                        value = netsuite.customlist.instance.customlist_hf_order_type.customvalues.customvalue.val_211604_6248126_sb1_173.scriptid
+                      }
+                      Discount_Rate@s = {
+                        name = "Discount Rate"
+                        value = "STDBODYDISCOUNTRATE"
+                      }
+                    }
+                  }
+                }
+                index = 2
+                isInactive = false
+              }
+              workflowaction1611 = {
+                scriptid = "workflowaction1611"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_so_approval_status.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hfde_approval_status.customvalues.customvalue.val_10336128_6248126_159.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 3
+                isInactive = false
+              }
+            }
+          }
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            removebuttonaction = {
+              workflowaction897 = {
+                scriptid = "workflowaction897"
+                buttonid = "APPROVE"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 4
+      }
+      workflowstate235 = {
+        scriptid = "workflowstate235"
+        description = "CHN-449: updated description workflow action 966 on 02/26/24"
+        donotexitworkflow = false
+        name = "Payment Authorization Verification"
+        positionx = 233
+        positiony = 423
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            returnusererroraction = {
+              workflowaction966 = {
+                scriptid = "workflowaction966"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                errortext = "Please check the payment event on the billing subtab - need a valid card authorization. Check to make sure authorization amount equals transaction total, if not, void the authorization on the order and generate a new authorization."
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition436 = {
+              scriptid = "workflowtransition436"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate220.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 0
+            }
+          }
+        }
+        index = 5
+      }
+      workflowstate236 = {
+        scriptid = "workflowstate236"
+        donotexitworkflow = false
+        name = "Terms/Payment Method Verification"
+        positionx = 233
+        positiony = 93
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            returnusererroraction = {
+              workflowaction967 = {
+                scriptid = "workflowaction967"
+                errortext = "Invoice Terms or Payment Method is required on the Billing Subtab. Go back and enter valid terms or credit card with an authorization."
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition438 = {
+              scriptid = "workflowtransition438"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate220.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 0
+            }
+          }
+        }
+        index = 6
+      }
+      workflowstate237 = {
+        scriptid = "workflowstate237"
+        donotexitworkflow = false
+        name = "Shipping  Method Verification"
+        positionx = 233
+        positiony = 193
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            returnusererroraction = {
+              workflowaction968 = {
+                scriptid = "workflowaction968"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                errortext = "Enter a valid shipping method on the shipping subtab or click on the 'Get Rates' button to get shipping cost from PaceJet."
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition439 = {
+              scriptid = "workflowtransition439"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate220.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 0
+            }
+          }
+        }
+        index = 7
+      }
+      workflowstate238 = {
+        scriptid = "workflowstate238"
+        donotexitworkflow = false
+        name = "Terms Verification"
+        positionx = 233
+        positiony = 313
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            returnusererroraction = {
+              workflowaction969 = {
+                scriptid = "workflowaction969"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                errortext = "Please enter valid terms or no of payments for this order (ex. Net 15) on the billing subtab."
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition441 = {
+              scriptid = "workflowtransition441"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate220.scriptid
+              initcondition = {
+                formula = "\"Workflow:Initial Term Check\" = 'FAILED' OR \"Workflow:Terms Validation\" = 'F'"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Workflow_Initial_Term_Check@fss = {
+                      name = "Workflow:Initial Term Check"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_intial_term_check.scriptid
+                    }
+                    Workflow_Terms_Validation@fs = {
+                      name = "Workflow:Terms Validation"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_terms_validation.scriptid
+                    }
+                  }
+                }
+              }
+              index = 0
+            }
+          }
+        }
+        index = 8
+      }
+      workflowstate374 = {
+        scriptid = "workflowstate374"
+        donotexitworkflow = false
+        name = "Validate Terms and Deposit"
+        positionx = 223
+        positiony = 513
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldvalueaction = {
+              workflowaction1599 = {
+                scriptid = "workflowaction1599"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_discount_rate.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueformula = "CASE WHEN ({discounttotal} is NOT NULL) THEN ABS({discounttotal}) ELSE 0.00 END"
+                valuetype = "FORMULA"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1603 = {
+                scriptid = "workflowaction1603"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_down_payment_check.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "F"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "\"Workflow:Term With Down Payment\" = 'F'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Workflow_Term_With_Down_Payment@fsss = {
+                        name = "Workflow:Term With Down Payment"
+                        value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_term_with_down_payment.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+            }
+            customaction = {
+              workflowaction1600 = {
+                scriptid = "workflowaction1600"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                resultfield = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_terms_validation.scriptid
+                schedulemode = "DELAY"
+                scripttype = netsuite.workflowactionscript.instance.customscript_hf_get_term_detail.scriptid
+                initcondition = {
+                  formula = "isEmpty(\"Terms\") = 'F'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Terms = {
+                        name = "Terms"
+                        value = "STDBODYTERMS"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1601 = {
+                scriptid = "workflowaction1601"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                resultfield = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_term_with_down_payment.scriptid
+                schedulemode = "DELAY"
+                scripttype = netsuite.workflowactionscript.instance.customscript_hf_is_term_wth_down_payment.scriptid
+                initcondition = {
+                  formula = "isEmpty(\"Terms\") = 'F'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Terms = {
+                        name = "Terms"
+                        value = "STDBODYTERMS"
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+              workflowaction1602 = {
+                scriptid = "workflowaction1602"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                resultfield = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_down_payment_check.scriptid
+                schedulemode = "DELAY"
+                scripttype = netsuite.workflowactionscript.instance.customscript_hf_get_term_down_payment.scriptid
+                initcondition = {
+                  formula = "isEmpty(\"Terms\") = 'F' AND \"Workflow:Term With Down Payment\" = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Terms = {
+                        name = "Terms"
+                        value = "STDBODYTERMS"
+                      }
+                      Workflow_Term_With_Down_Payment@fsss = {
+                        name = "Workflow:Term With Down Payment"
+                        value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_term_with_down_payment.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 2
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition625 = {
+              scriptid = "workflowtransition625"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate375.scriptid
+              initcondition = {
+                formula = "\"Order Type\" IN (\"HF | Order Type1\") AND \"Workflow:Discount Rate\" > 200.00"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Order_Type@s = {
+                      name = "Order Type"
+                      value = netsuite.transactionbodycustomfield.instance.custbody_hf_order_type.scriptid
+                    }
+                    HF___Order_Type1@sgss = {
+                      name = "HF | Order Type1"
+                      selectrecordtype = netsuite.customlist.instance.customlist_hf_order_type.scriptid
+                      value = netsuite.customlist.instance.customlist_hf_order_type.customvalues.customvalue.val_211604_6248126_sb1_173.scriptid
+                    }
+                    Workflow_Discount_Rate@fs = {
+                      name = "Workflow:Discount Rate"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_discount_rate.scriptid
+                    }
+                  }
+                }
+              }
+              index = 0
+            }
+            workflowtransition629 = {
+              scriptid = "workflowtransition629"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate221.scriptid
+              initcondition = {
+                formula = "(( isEmpty(\"Ship Via\") = 'F' AND \"Workflow:Terms Validation\" = 'T' AND isEmpty(\"Terms\") = 'F' ) OR ( isEmpty(\"Payment Method\") = 'F' AND isEmpty(\"Ship Via\") = 'F' AND \"Workflow:Payment Event Status\" = 'PASSED' )) AND ( \"Order Type\" NOT IN (\"HF | Order Type1\") OR ( \"Order Type\" IN (\"HF | Order Type1\") AND \"Workflow:Discount Rate\" <= 200.00 ))"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Ship_Via@s = {
+                      name = "Ship Via"
+                      value = "STDBODYSHIPMETHOD"
+                    }
+                    Workflow_Terms_Validation@fs = {
+                      name = "Workflow:Terms Validation"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_terms_validation.scriptid
+                    }
+                    Terms = {
+                      name = "Terms"
+                      value = "STDBODYTERMS"
+                    }
+                    Payment_Method@s = {
+                      name = "Payment Method"
+                      value = "STDBODYPAYMENTMETHOD"
+                    }
+                    Workflow_Payment_Event_Status@fss = {
+                      name = "Workflow:Payment Event Status"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_payment_event_status.scriptid
+                    }
+                    Order_Type@s = {
+                      name = "Order Type"
+                      value = netsuite.transactionbodycustomfield.instance.custbody_hf_order_type.scriptid
+                    }
+                    HF___Order_Type1@sgss = {
+                      name = "HF | Order Type1"
+                      selectrecordtype = netsuite.customlist.instance.customlist_hf_order_type.scriptid
+                      value = netsuite.customlist.instance.customlist_hf_order_type.customvalues.customvalue.val_211604_6248126_sb1_173.scriptid
+                    }
+                    Workflow_Discount_Rate@fs = {
+                      name = "Workflow:Discount Rate"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_discount_rate.scriptid
+                    }
+                  }
+                }
+              }
+              index = 1
+            }
+            workflowtransition630 = {
+              scriptid = "workflowtransition630"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate224.scriptid
+              initcondition = {
+                formula = "((( isEmpty(\"Payment Method\") = 'F' AND isEmpty(\"Ship Via\") = 'F' AND \"Workflow:Payment Event Status\" = 'PASSED' ) OR ( isEmpty(\"Terms\") = 'F' AND isEmpty(\"Ship Via\") = 'F' AND \"Workflow:Terms Validation\" = 'T' )) AND ( \"Customer:Credit Hold\" IN (\"Credit Hold Override Type1\",\"Credit Hold Override Type2\") AND \"Total\" = 0.00 )) AND ( \"Order Type\" NOT IN (\"HF | Order Type1\") OR ( \"Order Type\" IN (\"HF | Order Type1\") AND \"Workflow:Discount Rate\" <= 200.00 ))"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Payment_Method@s = {
+                      name = "Payment Method"
+                      value = "STDBODYPAYMENTMETHOD"
+                    }
+                    Ship_Via@s = {
+                      name = "Ship Via"
+                      value = "STDBODYSHIPMETHOD"
+                    }
+                    Workflow_Payment_Event_Status@fss = {
+                      name = "Workflow:Payment Event Status"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_payment_event_status.scriptid
+                    }
+                    Terms = {
+                      name = "Terms"
+                      value = "STDBODYTERMS"
+                    }
+                    Workflow_Terms_Validation@fs = {
+                      name = "Workflow:Terms Validation"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_terms_validation.scriptid
+                    }
+                    Customer_Credit_Hold@fs = {
+                      name = "Customer:Credit Hold"
+                      value = "STDBODYCUSTOMER:STDENTITYCREDITHOLDOVERRIDE"
+                    }
+                    Credit_Hold_Override_Type1@s = {
+                      name = "Credit Hold Override Type1"
+                      selectrecordtype = "-160"
+                      value = "1"
+                    }
+                    Credit_Hold_Override_Type2@s = {
+                      name = "Credit Hold Override Type2"
+                      selectrecordtype = "-160"
+                      value = "3"
+                    }
+                    Total = {
+                      name = "Total"
+                      value = "STDBODYTOTAL"
+                    }
+                    Order_Type@s = {
+                      name = "Order Type"
+                      value = netsuite.transactionbodycustomfield.instance.custbody_hf_order_type.scriptid
+                    }
+                    HF___Order_Type1@sgss = {
+                      name = "HF | Order Type1"
+                      selectrecordtype = netsuite.customlist.instance.customlist_hf_order_type.scriptid
+                      value = netsuite.customlist.instance.customlist_hf_order_type.customvalues.customvalue.val_211604_6248126_sb1_173.scriptid
+                    }
+                    Workflow_Discount_Rate@fs = {
+                      name = "Workflow:Discount Rate"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_discount_rate.scriptid
+                    }
+                  }
+                }
+              }
+              index = 2
+            }
+            workflowtransition631 = {
+              scriptid = "workflowtransition631"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate238.scriptid
+              initcondition = {
+                formula = "isEmpty(\"Payment Method\") = 'T' AND \"Workflow:Terms Validation\" = 'F' AND isEmpty(\"Terms\") = 'F'"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Payment_Method@s = {
+                      name = "Payment Method"
+                      value = "STDBODYPAYMENTMETHOD"
+                    }
+                    Workflow_Terms_Validation@fs = {
+                      name = "Workflow:Terms Validation"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_terms_validation.scriptid
+                    }
+                    Terms = {
+                      name = "Terms"
+                      value = "STDBODYTERMS"
+                    }
+                  }
+                }
+              }
+              index = 3
+            }
+          }
+        }
+        index = 9
+      }
+      workflowstate375 = {
+        scriptid = "workflowstate375"
+        donotexitworkflow = false
+        name = "Customer Satisfaction Check"
+        positionx = 1093
+        positiony = 83
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldvalueaction = {
+              workflowaction1604 = {
+                scriptid = "workflowaction1604"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_hf_so_approval_status.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hfde_approval_status.customvalues.customvalue.val_19160965_6248126_373.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            addbuttonaction = {
+              workflowaction1605 = {
+                scriptid = "workflowaction1605"
+                checkconditionbeforeexecution = true
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                label = "Approve"
+                saverecordfirst = true
+                initcondition = {
+                  formula = "(ABS({discounttotal})>200.00 and ABS({discounttotal})<=1000 and {userrole.id} in (1051,3,1218,1264, 1522)) or (ABS({discounttotal})>1000.00 and ABS({discounttotal})<=2000.00 and {userrole.id} in (3,1218, 1522)) or ({userrole.id} in (1218,3) and ABS({discounttotal})>2000.00)"
+                  type = "FORMULA"
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1606 = {
+                scriptid = "workflowaction1606"
+                checkconditionbeforeexecution = true
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                label = "Reject"
+                saverecordfirst = true
+                initcondition = {
+                  formula = "(ABS({discounttotal})>200.00 and ABS({discounttotal})<=1000 and {userrole.id} in (1051,3,1218,1264,1522)) or (ABS({discounttotal})>1000.00 and ABS({discounttotal})<=2000.00 and {userrole.id} in (3,1218,1522)) or ({userrole.id} in (1218,3) and ABS({discounttotal})>2000.00)"
+                  type = "FORMULA"
+                }
+                index = 1
+                isInactive = false
+              }
+            }
+            removebuttonaction = {
+              workflowaction1607 = {
+                scriptid = "workflowaction1607"
+                buttonid = "APPROVE"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+            lockrecordaction = {
+              workflowaction1608 = {
+                scriptid = "workflowaction1608"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                initcondition = {
+                  formula = "\"User Role\" NOT IN (\"Role1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      User_Role@s = {
+                        name = "User Role"
+                        value = "STDUSERROLE"
+                      }
+                      Role1 = {
+                        name = "Role1"
+                        selectrecordtype = "-118"
+                        value = "ADMINISTRATOR"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition626 = {
+              scriptid = "workflowtransition626"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate375.workflowactions.BEFORELOAD.addbuttonaction.workflowaction1605.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate221.scriptid
+              initcondition = {
+                formula = "(( isEmpty(\"Payment Method\") = 'F' AND \"Workflow:Payment Event Status\" = 'PASSED' AND isEmpty(\"Ship Via\") = 'F' ) OR ( isEmpty(\"Ship Via\") = 'F' AND \"Workflow:Terms Validation\" = 'T' ))"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Payment_Method@s = {
+                      name = "Payment Method"
+                      value = "STDBODYPAYMENTMETHOD"
+                    }
+                    Workflow_Payment_Event_Status@fss = {
+                      name = "Workflow:Payment Event Status"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_payment_event_status.scriptid
+                    }
+                    Ship_Via@s = {
+                      name = "Ship Via"
+                      value = "STDBODYSHIPMETHOD"
+                    }
+                    Workflow_Terms_Validation@fs = {
+                      name = "Workflow:Terms Validation"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_terms_validation.scriptid
+                    }
+                  }
+                }
+              }
+              index = 0
+            }
+            workflowtransition627 = {
+              scriptid = "workflowtransition627"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate375.workflowactions.BEFORELOAD.addbuttonaction.workflowaction1606.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate225.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 1
+            }
+            workflowtransition628 = {
+              scriptid = "workflowtransition628"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate375.workflowactions.BEFORELOAD.addbuttonaction.workflowaction1605.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowstates.workflowstate.workflowstate224.scriptid
+              initcondition = {
+                formula = "((( isEmpty(\"Payment Method\") = 'F' AND \"Workflow:Payment Event Status\" = 'PASSED' AND isEmpty(\"Ship Via\") = 'F' ) OR ( isEmpty(\"Ship Via\") = 'F' AND \"Workflow:Terms Validation\" = 'T' )) AND ( \"Customer:Credit Hold\" IN (\"Credit Hold Override Type1\",\"Credit Hold Override Type2\") AND \"Total\" = 0.00 ))"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    Payment_Method@s = {
+                      name = "Payment Method"
+                      value = "STDBODYPAYMENTMETHOD"
+                    }
+                    Workflow_Payment_Event_Status@fss = {
+                      name = "Workflow:Payment Event Status"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_payment_event_status.scriptid
+                    }
+                    Ship_Via@s = {
+                      name = "Ship Via"
+                      value = "STDBODYSHIPMETHOD"
+                    }
+                    Workflow_Terms_Validation@fs = {
+                      name = "Workflow:Terms Validation"
+                      value = netsuite.workflow.instance.customworkflow_hf_sales_order_appro_2.workflowcustomfields.workflowcustomfield.custworkflow_terms_validation.scriptid
+                    }
+                    Customer_Credit_Hold@fs = {
+                      name = "Customer:Credit Hold"
+                      value = "STDBODYCUSTOMER:STDENTITYCREDITHOLDOVERRIDE"
+                    }
+                    Credit_Hold_Override_Type1@s = {
+                      name = "Credit Hold Override Type1"
+                      selectrecordtype = "-160"
+                      value = "1"
+                    }
+                    Credit_Hold_Override_Type2@s = {
+                      name = "Credit Hold Override Type2"
+                      selectrecordtype = "-160"
+                      value = "3"
+                    }
+                    Total = {
+                      name = "Total"
+                      value = "STDBODYTOTAL"
+                    }
+                  }
+                }
+              }
+              index = 2
+            }
+          }
+        }
+        index = 10
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | US | Sales Order Approval Process"
+}

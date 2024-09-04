@@ -1,0 +1,127 @@
+netsuite.savedcsvimport custimport_109_6248126_839 {
+  scriptid = "custimport_109_6248126_839"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "Spain AR Import No VAT - MA"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVOICE"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_227_6248126_sb1_501.scriptid
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVOICE = {
+        file = "INVOICE"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVOICE_ITEM@f = {
+        record = "INVOICE:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              value = "1"
+            }
+            RATE = {
+              field = "RATE"
+              columnreference = {
+                column = "Rate/Balance"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVOICE = {
+        record = "INVOICE"
+        fieldmappings = {
+          fieldmapping = {
+            ACCOUNT = {
+              field = "ACCOUNT"
+              value = "119"
+            }
+            APPROVALSTATUS = {
+              field = "APPROVALSTATUS"
+              value = "2"
+            }
+            CURRENCY = {
+              field = "CURRENCY"
+              value = "4"
+            }
+            DUEDATE = {
+              field = "DUEDATE"
+              columnreference = {
+                column = "Due Date"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "Customer Ref"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "External ID"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              value = "20"
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "Invoice No./Memo"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "Invoice Date"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Spain AR Import No VAT - MA"
+}

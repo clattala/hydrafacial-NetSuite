@@ -1,0 +1,83 @@
+netsuite.savedcsvimport custimport_92_6248126_614 {
+  scriptid = "custimport_92_6248126_614"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_assembly.scriptid
+  ignorereadonly = true
+  importname = "Price list update - Rama"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "LOTNUMBEREDASSEMBLYITEM"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      LOTNUMBEREDASSEMBLYITEM = {
+        file = "LOTNUMBEREDASSEMBLYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      LOTNUMBEREDASSEMBLYITEM_BACKENDPRICING@f = {
+        record = "LOTNUMBEREDASSEMBLYITEM:BACKENDPRICING"
+        fieldmappings = {
+          fieldmapping = {
+            CURRENCY = {
+              field = "CURRENCY"
+              value = "2"
+            }
+            PRICE = {
+              field = "PRICE"
+              columnreference = {
+                column = "Rate"
+                file = "LOTNUMBEREDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+            PRICELEVEL = {
+              field = "PRICELEVEL"
+              value = "1"
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "QTY"
+                file = "LOTNUMBEREDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      LOTNUMBEREDASSEMBLYITEM = {
+        record = "LOTNUMBEREDASSEMBLYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            ITEMID = {
+              field = "ITEMID"
+              columnreference = {
+                column = "SKU#"
+                file = "LOTNUMBEREDASSEMBLYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "Price list update - Rama"
+}

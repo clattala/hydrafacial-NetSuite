@@ -1,0 +1,322 @@
+netsuite.savedcsvimport custimport_hfde_wc_orders {
+  scriptid = "custimport_hfde_wc_orders"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  description = "This template is for germany sales order coming from weclapp."
+  ignorereadonly = true
+  importname = "HF | DE | Weclapp SO-PN"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "SALESORDER"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_hf_de_sales_order.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      SALESORDER = {
+        file = "SALESORDER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      SALESORDER__BILLINGADDRESS@f = {
+        record = "SALESORDER::BILLINGADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "Address 2 : Bill Address 1"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            ADDRESSEE = {
+              field = "ADDRESSEE"
+              columnreference = {
+                column = "Address 2 : Bill Addresse"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            ATTENTION = {
+              field = "ATTENTION"
+              columnreference = {
+                column = "Address 2 : Billing Attention"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "Address 2 : Bill City"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              columnreference = {
+                column = "Address 2: Bill Country"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "Address 2 : Bill ZIP"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      SALESORDER = {
+        record = "SALESORDER"
+        fieldmappings = {
+          fieldmapping = {
+            CURRENCY = {
+              field = "CURRENCY"
+              columnreference = {
+                column = "Currency"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            custbody_hf_de_fin_leasing_company = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_de_fin_leasing_company.scriptid
+              columnreference = {
+                column = "FINANCIAL LEASING PARTNER ??"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            custbody_hf_rep_split1 = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_rep_split1.scriptid
+              value = "100.0%"
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "Internal ID"
+                file = "SALESORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "External ID"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              columnreference = {
+                column = "Location (Header) Internal ID"
+                file = "SALESORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            OTHERREFNUM = {
+              field = "OTHERREFNUM"
+              columnreference = {
+                column = "PO #"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            SHIPDATE = {
+              field = "SHIPDATE"
+              columnreference = {
+                column = "Ship Date"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            SHIPMETHOD = {
+              field = "SHIPMETHOD"
+              columnreference = {
+                column = "NS Shipping Method ??"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            SHIPPINGCOST = {
+              field = "SHIPPINGCOST"
+              columnreference = {
+                column = "Shipping Cost"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              columnreference = {
+                column = "Subsidiary Internal ID"
+                file = "SALESORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            TERMS = {
+              field = "TERMS"
+              columnreference = {
+                column = "Terms"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "Date"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      SALESORDER_ITEM@f = {
+        record = "SALESORDER:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            AMOUNT = {
+              field = "AMOUNT"
+              columnreference = {
+                column = "PriceNet ??"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            DESCRIPTION = {
+              field = "DESCRIPTION"
+              columnreference = {
+                column = "Item SKU"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item Internal ID"
+                file = "SALESORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              columnreference = {
+                column = "Location (Item) Internal ID"
+                file = "SALESORDER"
+                type = "INTERNAL_ID"
+              }
+            }
+            PRICE = {
+              field = "PRICE"
+              columnreference = {
+                column = "Price Level"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "Qty"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            RATE = {
+              field = "RATE"
+              columnreference = {
+                column = "UnitPrice ??"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            TAXCODE = {
+              field = "TAXCODE"
+              value = "5770"
+            }
+          }
+        }
+      }
+      SALESORDER__SHIPPINGADDRESS@f = {
+        record = "SALESORDER::SHIPPINGADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "Address 1: Ship Address 1"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            ADDRESSEE = {
+              field = "ADDRESSEE"
+              columnreference = {
+                column = "Address 1 : Shipp Addresse"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            ATTENTION = {
+              field = "ATTENTION"
+              columnreference = {
+                column = "Address 1 : Ship Attention"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "Address 1 : Shipping City"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              columnreference = {
+                column = "Address 1 : Ship Country"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "Address 1 : Ship Zip"
+                file = "SALESORDER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | DE | Weclapp SO-PN"
+}

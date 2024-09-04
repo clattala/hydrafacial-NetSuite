@@ -1,0 +1,200 @@
+netsuite.workflow customworkflow_hf_usnew_customerapproval {
+  scriptid = "customworkflow_hf_usnew_customerapproval"
+  description = "Put the customer on hold until approved by accounting"
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = true
+  initonvieworupdate = true
+  islogenabled = true
+  keephistory = "ALWAYS"
+  name = "HF | US | New Customer Approval"
+  recordtypes = "CUSTOMER"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"Subsidiary\" IN (\"{#Subsidiary#}1\",\"{#Subsidiary#}2\",\"{#Subsidiary#}3\") AND \"On Hold Reason\" IN (\"On Hold Reason1\",\"On Hold Reason2\",\"On Hold Reason3\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        Subsidiary = {
+          name = "Subsidiary"
+          value = "STDENTITYSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+        __Subsidiary__2@_00123nn_00125 = {
+          name = "{#Subsidiary#}2"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+        __Subsidiary__3@_00123nn_00125 = {
+          name = "{#Subsidiary#}3"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+        On_Hold_Reason@s = {
+          name = "On Hold Reason"
+          value = netsuite.entitycustomfield.instance.custentity_hf_holdreason.scriptid
+        }
+        On_Hold_Reason1@s = {
+          name = "On Hold Reason1"
+          selectrecordtype = netsuite.customlist.instance.customlist_hf_holdreason.scriptid
+          value = netsuite.customlist.instance.customlist_hf_holdreason.customvalues.customvalue.val_12402277_6248126_110.scriptid
+        }
+        On_Hold_Reason2@s = {
+          name = "On Hold Reason2"
+          selectrecordtype = netsuite.customlist.instance.customlist_hf_holdreason.scriptid
+          value = netsuite.customlist.instance.customlist_hf_holdreason.customvalues.customvalue.val_12402276_6248126_427.scriptid
+        }
+        On_Hold_Reason3@s = {
+          name = "On Hold Reason3"
+          selectrecordtype = netsuite.customlist.instance.customlist_hf_holdreason.scriptid
+          value = netsuite.customlist.instance.customlist_hf_holdreason.customvalues.customvalue.val_12402278_6248126_425.scriptid
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate327 = {
+        scriptid = "workflowstate327"
+        donotexitworkflow = false
+        name = "State 1: On Hold"
+        positionx = 343
+        positiony = 133
+        workflowactions = {
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            addbuttonaction = {
+              workflowaction1417 = {
+                scriptid = "workflowaction1417"
+                checkconditionbeforeexecution = true
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                label = "Re-Submit for approval"
+                saverecordfirst = true
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          AFTERSUBMIT = {
+            triggertype = "AFTERSUBMIT"
+            sendemailaction = {
+              workflowaction1418 = {
+                scriptid = "workflowaction1418"
+                attachmenttype = "SPECIFIC"
+                body = "Hello,<br><br>The customer has been put on hold, please review.<br><br>Hold Reason: {custentity_hf_holdreason}<br>Comments (If any): {custentity_on_hold_comments}&nbsp;"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                includerecordlink = true
+                recipientemail = "Salessupport@hydrafacial.com"
+                recipienttype = "ADDRESS"
+                schedulemode = "DELAY"
+                senderfield = "STDUSERUSER"
+                sendertype = "FIELD"
+                subject = "The customer has been put on Hold"
+                usetemplate = false
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        workflowtransitions = {
+          workflowtransition = {
+            workflowtransition565 = {
+              scriptid = "workflowtransition565"
+              buttonaction = netsuite.workflow.instance.customworkflow_hf_usnew_customerapproval.workflowstates.workflowstate.workflowstate327.workflowactions.BEFORELOAD.addbuttonaction.workflowaction1417.scriptid
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_usnew_customerapproval.workflowstates.workflowstate.workflowstate328.scriptid
+              initcondition = {
+                type = "VISUAL_BUILDER"
+              }
+              index = 0
+            }
+            workflowtransition566 = {
+              scriptid = "workflowtransition566"
+              contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+              tostate = netsuite.workflow.instance.customworkflow_hf_usnew_customerapproval.workflowstates.workflowstate.workflowstate329.scriptid
+              initcondition = {
+                formula = "\"On Hold Reason\" NOT IN (\"On Hold Reason1\",\"On Hold Reason2\",\"On Hold Reason3\")"
+                type = "VISUAL_BUILDER"
+                parameters = {
+                  parameter = {
+                    On_Hold_Reason@s = {
+                      name = "On Hold Reason"
+                      value = netsuite.entitycustomfield.instance.custentity_hf_holdreason.scriptid
+                    }
+                    On_Hold_Reason1@s = {
+                      name = "On Hold Reason1"
+                      selectrecordtype = netsuite.customlist.instance.customlist_hf_holdreason.scriptid
+                      value = netsuite.customlist.instance.customlist_hf_holdreason.customvalues.customvalue.val_12402277_6248126_110.scriptid
+                    }
+                    On_Hold_Reason2@s = {
+                      name = "On Hold Reason2"
+                      selectrecordtype = netsuite.customlist.instance.customlist_hf_holdreason.scriptid
+                      value = netsuite.customlist.instance.customlist_hf_holdreason.customvalues.customvalue.val_12402276_6248126_427.scriptid
+                    }
+                    On_Hold_Reason3@s = {
+                      name = "On Hold Reason3"
+                      selectrecordtype = netsuite.customlist.instance.customlist_hf_holdreason.scriptid
+                      value = netsuite.customlist.instance.customlist_hf_holdreason.customvalues.customvalue.val_12402278_6248126_425.scriptid
+                    }
+                  }
+                }
+              }
+              index = 1
+            }
+          }
+        }
+        index = 0
+      }
+      workflowstate328 = {
+        scriptid = "workflowstate328"
+        donotexitworkflow = false
+        name = "State 2: Hold Review"
+        positionx = 343
+        positiony = 263
+        workflowactions = {
+          ONENTRY = {
+            triggertype = "ONENTRY"
+            setfieldvalueaction = {
+              workflowaction1419 = {
+                scriptid = "workflowaction1419"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.entitycustomfield.instance.custentity_hf_holdreason.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valueselect = netsuite.customlist.instance.customlist_hf_holdreason.customvalues.customvalue.val_12402279_6248126_531.scriptid
+                valuetype = "STATIC"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 1
+      }
+      workflowstate329 = {
+        scriptid = "workflowstate329"
+        donotexitworkflow = false
+        name = "State 3: Exit"
+        positionx = 583
+        positiony = 133
+        index = 2
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | US | New Customer Approval"
+}

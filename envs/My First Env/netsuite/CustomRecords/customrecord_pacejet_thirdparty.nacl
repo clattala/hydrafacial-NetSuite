@@ -1,0 +1,420 @@
+type netsuite.customrecord_pacejet_thirdparty {
+  annotations {
+    serviceid scriptid {
+    }
+    string recordname {
+    }
+    string customsegment {
+    }
+    netsuite.customrecordtype_accesstype accesstype {
+    }
+    boolean allowattachments {
+    }
+    boolean allowinlineediting {
+    }
+    boolean allowinlinedeleting {
+    }
+    boolean allowinlinedetaching {
+    }
+    boolean allowmobileaccess {
+    }
+    boolean allownumberingoverride {
+    }
+    boolean allowquickadd {
+    }
+    boolean allowquicksearch {
+    }
+    boolean allowuiaccess {
+    }
+    string description {
+    }
+    boolean enabledle {
+    }
+    boolean enablekeywords {
+    }
+    boolean enablemailmerge {
+    }
+    boolean enablenametranslation {
+    }
+    boolean enablenumbering {
+    }
+    boolean enableoptimisticlocking {
+    }
+    boolean enablesystemnotes {
+    }
+    boolean hierarchical {
+    }
+    string numberingprefix {
+    }
+    string numberingsuffix {
+    }
+    string numberingmindigits {
+    }
+    string numberinginit {
+    }
+    string icon {
+    }
+    boolean iconbuiltin {
+    }
+    netsuite.generic_custom_record_icon iconindex {
+    }
+    boolean includeinsearchmenu {
+    }
+    boolean includename {
+    }
+    boolean isordered {
+    }
+    boolean showcreationdate {
+    }
+    boolean showcreationdateonlist {
+    }
+    boolean showid {
+    }
+    boolean showlastmodified {
+    }
+    boolean showlastmodifiedonlist {
+    }
+    boolean shownotes {
+    }
+    boolean showowner {
+    }
+    boolean showownerallowchange {
+    }
+    boolean showowneronlist {
+    }
+    netsuite.customrecordtype_instances instances {
+    }
+    netsuite.customrecordtype_links links {
+    }
+    netsuite.customrecordtype_permissions permissions {
+    }
+    netsuite.customrecordtype_recordsublists recordsublists {
+    }
+    netsuite.customrecordtype_subtabs subtabs {
+    }
+    string application_id {
+    }
+    netsuite.bundle bundle {
+    }
+    hidden_string source {
+    }
+    hidden_string internalId {
+    }
+    boolean isInactive {
+    }
+  }
+  string scriptid {
+    _required = true
+  }
+  serviceid internalId {
+    _hidden_value = true
+  }
+  netsuite.customRecordTranslationsList translationsList {
+  }
+  "List<netsuite.customer>" custom_custrecord_pacejet_thirdparty_customer {
+    scriptid = "custrecord_pacejet_thirdparty_customer"
+    accesslevel = "2"
+    allowquickadd = false
+    applyformatting = false
+    checkspelling = false
+    defaultchecked = false
+    displaytype = "NORMAL"
+    encryptatrest = false
+    fieldtype = "MULTISELECT"
+    globalsearch = false
+    help = "The NetSuite Customer ID for this record."
+    isformula = false
+    ismandatory = false
+    isparent = true
+    label = "Customer Link"
+    onparentdelete = "SET_NULL"
+    parentsubtab = netsuite.subtab.instance.custtab_pacejet_entity.scriptid
+    rolerestrict = false
+    searchlevel = "2"
+    selectrecordtype = "-2"
+    showinlist = true
+    storevalue = true
+    index = 0
+  }
+  unknown custom_custrecord_pacejet_thirdparty_carrier {
+    scriptid = "custrecord_pacejet_thirdparty_carrier"
+    accesslevel = "2"
+    allowquickadd = false
+    applyformatting = false
+    checkspelling = false
+    defaultchecked = false
+    description = "Carrier this account is tied to"
+    displaytype = "NORMAL"
+    encryptatrest = false
+    fieldtype = "SELECT"
+    globalsearch = false
+    help = '''
+The carrier used for the third party account.
+
+Note: Pacejet ignores the class of service for the selection made. Only the carrier selected is evaluated.
+
+For example, if this third party account is for UPS, and UPS Ground, UPS 2nd Day, or UPS Next Day was selected, then Pacejet would use UPS as the carrier.
+'''
+    isformula = false
+    ismandatory = false
+    isparent = false
+    label = "Carrier"
+    onparentdelete = "NO_ACTION"
+    rolerestrict = false
+    searchlevel = "2"
+    selectrecordtype = "-192"
+    showinlist = true
+    storevalue = true
+    index = 1
+  }
+  string custom_custrecord_pacejet_thirdparty_accountnum {
+    scriptid = "custrecord_pacejet_thirdparty_accountnum"
+    accesslevel = "2"
+    allowquickadd = false
+    applyformatting = false
+    checkspelling = false
+    defaultchecked = false
+    description = "Account number for this third party account"
+    displaytype = "NORMAL"
+    encryptatrest = false
+    fieldtype = "TEXT"
+    globalsearch = false
+    help = "The carrier account number that will be used for the shipment."
+    isformula = false
+    ismandatory = false
+    isparent = false
+    label = "Account Number"
+    rolerestrict = false
+    searchlevel = "2"
+    showinlist = true
+    storevalue = true
+    index = 2
+  }
+  unknown custom_custrecord_pacejet_thirdparty_address {
+    scriptid = "custrecord_pacejet_thirdparty_address"
+    accesslevel = "2"
+    allowquickadd = false
+    applyformatting = false
+    checkspelling = false
+    defaultchecked = false
+    description = "Which billing address does this third party account belong to?"
+    displaytype = "NORMAL"
+    encryptatrest = false
+    fieldtype = "SELECT"
+    globalsearch = false
+    help = '''
+The customer address record that will be used for determining the bill to postal code.
+
+Note: The customer address label is used for this selection.
+'''
+    isformula = false
+    ismandatory = false
+    isparent = false
+    label = "Billing Address"
+    onparentdelete = "NO_ACTION"
+    rolerestrict = false
+    searchlevel = "2"
+    selectrecordtype = "-137"
+    showinlist = true
+    storevalue = true
+    index = 3
+  }
+  string custom_custrecord_pacejet_thirdparty_carhelp {
+    scriptid = "custrecord_pacejet_thirdparty_carhelp"
+    accesslevel = "2"
+    allowquickadd = false
+    applyformatting = true
+    checkspelling = false
+    defaultchecked = false
+    displaytype = "STATICTEXT"
+    encryptatrest = false
+    fieldtype = "HELP"
+    globalsearch = false
+    help = '''
+You only need to select one class of service for each carrier company.  
+
+For example, if you set up a third party record for UPS Ground, you do not need to set up another record for UPS 2nd Day Air.
+'''
+    isformula = false
+    ismandatory = false
+    isparent = false
+    label = "Carrier Info"
+    rolerestrict = false
+    searchlevel = "2"
+    showinlist = false
+    storevalue = false
+    index = 4
+  }
+  boolean custom_custrecord_pacejet_thirdparty_isdefault {
+    scriptid = "custrecord_pacejet_thirdparty_isdefault"
+    accesslevel = "2"
+    allowquickadd = false
+    applyformatting = false
+    checkspelling = false
+    defaultchecked = false
+    description = '''
+Set this account as default if no ship address matches any records.  
+
+If there are multiple accounts with the same carrier, it will simply select the first default address it finds.
+'''
+    displaytype = "NORMAL"
+    encryptatrest = false
+    fieldtype = "CHECKBOX"
+    globalsearch = false
+    help = '''
+A flag to indicate this third party account is the default for the selected customer.
+
+When a third party account is not found for a ship to address, Pacejet will search the customer for a default account for the requested carrier. If a default is found, then that account information will be used instead.
+'''
+    isformula = false
+    ismandatory = false
+    isparent = false
+    label = "Default Account"
+    rolerestrict = false
+    searchlevel = "2"
+    showinlist = true
+    storevalue = true
+    index = 5
+  }
+  unknown custom_custrecord_pacejet_thirdparty_shipaddr {
+    scriptid = "custrecord_pacejet_thirdparty_shipaddr"
+    accesslevel = "2"
+    allowquickadd = false
+    applyformatting = false
+    checkspelling = false
+    defaultchecked = false
+    description = "Links a particular shipping address record for a customer to a billing account."
+    displaytype = "NORMAL"
+    encryptatrest = false
+    fieldtype = "SELECT"
+    globalsearch = false
+    help = '''
+The ship to address that will use the third party account information.
+
+Note: The customer address label is used for this selection.
+'''
+    isformula = false
+    ismandatory = false
+    isparent = false
+    label = "Ship to Address"
+    onparentdelete = "NO_ACTION"
+    rolerestrict = false
+    searchlevel = "2"
+    selectrecordtype = "-137"
+    showinlist = true
+    storevalue = true
+    index = 6
+  }
+  string custom_custrecord_pacejet_thirdparty_subsidiary {
+    scriptid = "custrecord_pacejet_thirdparty_subsidiary"
+    accesslevel = "2"
+    allowquickadd = false
+    applyformatting = false
+    checkspelling = false
+    defaultchecked = false
+    description = "Subsidiary of this Third Party Account"
+    displaytype = "HIDDEN"
+    encryptatrest = false
+    fieldtype = "TEXT"
+    globalsearch = false
+    isformula = false
+    ismandatory = false
+    isparent = false
+    label = "Subsidiary"
+    rolerestrict = false
+    searchlevel = "2"
+    showinlist = false
+    storevalue = true
+    index = 7
+  }
+  scriptid = "customrecord_pacejet_thirdparty"
+  accesstype = "NONENEEDED"
+  allowattachments = false
+  allowinlinedeleting = false
+  allowinlinedetaching = true
+  allowinlineediting = false
+  allowmobileaccess = false
+  allownumberingoverride = false
+  allowquickadd = false
+  allowquicksearch = false
+  allowuiaccess = true
+  enabledle = true
+  enablekeywords = true
+  enablemailmerge = false
+  enablenametranslation = false
+  enablenumbering = false
+  enableoptimisticlocking = false
+  enablesystemnotes = true
+  externalrolepermissionlevel = "NONE"
+  hierarchical = false
+  iconbuiltin = true
+  includeinsearchmenu = true
+  includename = true
+  isordered = false
+  publicpermissionlevel = "NONE"
+  recordname = "Pacejet Third Party Accounts"
+  showcreationdate = false
+  showcreationdateonlist = false
+  showid = false
+  showlastmodified = false
+  showlastmodifiedonlist = false
+  shownotes = false
+  showowner = false
+  showownerallowchange = false
+  showowneronlist = false
+  permissions = {
+    permission = {
+      customrole_pj_integration_useraccess = {
+        permittedlevel = "FULL"
+        permittedrole = netsuite.role.instance.customrole_pj_integration_useraccess.scriptid
+      }
+    }
+  }
+  metadataType = "customrecordtype"
+  isInactive = false
+  _alias = "Pacejet Third Party Accounts"
+  _self_important_values = [
+    {
+      value = "description"
+      highlighted = true
+      indexed = false
+    },
+    {
+      value = "scriptid"
+      highlighted = true
+      indexed = false
+    },
+    {
+      value = "isInactive"
+      highlighted = true
+      indexed = true
+    },
+    {
+      value = "bundle"
+      highlighted = true
+      indexed = true
+    },
+  ]
+  _important_values = [
+    {
+      value = "name"
+      highlighted = true
+      indexed = false
+    },
+    {
+      value = "scriptid"
+      highlighted = true
+      indexed = false
+    },
+    {
+      value = "isInactive"
+      highlighted = true
+      indexed = true
+    },
+    {
+      value = "bundle"
+      highlighted = true
+      indexed = true
+    },
+  ]
+}

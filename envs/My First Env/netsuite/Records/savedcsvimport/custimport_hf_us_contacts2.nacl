@@ -1,0 +1,137 @@
+netsuite.savedcsvimport custimport_hf_us_contacts2 {
+  scriptid = "custimport_hf_us_contacts2"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  entryform = "STANDARDCONTACTFORM"
+  ignorereadonly = true
+  importname = "HF | US |CONTACTS"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CONTACT"
+  runserversuitescript = false
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CONTACT = {
+        file = "CONTACT"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CONTACT = {
+        record = "CONTACT"
+        fieldmappings = {
+          fieldmapping = {
+            COMPANY = {
+              field = "COMPANY"
+              columnreference = {
+                column = "CustomerID"
+                file = "CONTACT"
+                type = "INTERNAL_ID"
+              }
+            }
+            custentity_hf_sf_contactid = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_sf_contactid.scriptid
+              columnreference = {
+                column = "U_ZED_SF_ContactID"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+            EMAIL = {
+              field = "EMAIL"
+              columnreference = {
+                column = "EMAIL"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+            FAX = {
+              field = "FAX"
+              columnreference = {
+                column = "Fax"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+            FIRSTNAME = {
+              field = "FIRSTNAME"
+              columnreference = {
+                column = "FirstName"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+            LASTNAME = {
+              field = "LASTNAME"
+              columnreference = {
+                column = "LastName"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+            MIDDLENAME = {
+              field = "MIDDLENAME"
+              columnreference = {
+                column = "MiddleName"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+            MOBILEPHONE = {
+              field = "MOBILEPHONE"
+              columnreference = {
+                column = "Mobile Phone"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+            OFFICEPHONE = {
+              field = "OFFICEPHONE"
+              columnreference = {
+                column = "Office Phone"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+            PHONE = {
+              field = "PHONE"
+              columnreference = {
+                column = "Main Phone"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "3"
+            }
+            TITLE = {
+              field = "TITLE"
+              columnreference = {
+                column = "Job Title"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | US |CONTACTS"
+}

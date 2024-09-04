@@ -1,0 +1,287 @@
+netsuite.workflow customworkflow_swc_sotest {
+  scriptid = "customworkflow_swc_sotest"
+  description = "APAC Sales Order validations to check if sales rep, sub customer, department and order type are empty"
+  initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+  initoncreate = true
+  initonvieworupdate = true
+  islogenabled = true
+  keephistory = "ALWAYS"
+  name = "HF | APAC | Sales Order Validations"
+  recordtypes = "SALESORDER"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    formula = "\"User Subsidiary\" IN (\"{#Subsidiary#}1\")"
+    type = "VISUAL_BUILDER"
+    parameters = {
+      parameter = {
+        User_Subsidiary@s = {
+          name = "User Subsidiary"
+          value = "STDUSERSUBSIDIARY"
+        }
+        __Subsidiary__1@_00123nn_00125 = {
+          name = "{#Subsidiary#}1"
+          selectrecordtype = "-117"
+          value = "[ACCOUNT_SPECIFIC_VALUE]"
+        }
+      }
+    }
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate172 = {
+        scriptid = "workflowstate172"
+        donotexitworkflow = false
+        name = "Sales Order Validations"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          BEFORELOAD = {
+            triggertype = "BEFORELOAD"
+            setfieldmandatoryaction = {
+              workflowaction632 = {
+                scriptid = "workflowaction632"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDBODYTERMS"
+                ismandatory = true
+                issublistfield = false
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          AFTERFIELDEDIT = {
+            triggertype = "AFTERFIELDEDIT"
+            setfieldvalueaction = {
+              workflowaction930 = {
+                scriptid = "workflowaction930"
+                clienttriggerfields = netsuite.transactionbodycustomfield.instance.custbody_swc_subcus.scriptid
+                clienttriggerfieldsissublistfield = false
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDBODYSALESREP"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuefield = "STDENTITYSALESREP"
+                valuejoinfield = netsuite.transactionbodycustomfield.instance.custbody_swc_subcus.scriptid
+                valuetype = "FIELD"
+                initcondition = {
+                  formula = "isEmpty(\"Sub Customer\") = 'F'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Sub_Customer@s = {
+                        name = "Sub Customer"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_swc_subcus.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction931 = {
+                scriptid = "workflowaction931"
+                clienttriggerfields = netsuite.transactionbodycustomfield.instance.custbody_swc_subcus.scriptid
+                clienttriggerfieldsissublistfield = false
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.transactionbodycustomfield.instance.custbody_swc_bdm.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuefield = netsuite.entitycustomfield.instance.custentity_hf_bdm.scriptid
+                valuejoinfield = netsuite.transactionbodycustomfield.instance.custbody_swc_subcus.scriptid
+                valuetype = "FIELD"
+                initcondition = {
+                  formula = "isEmpty(\"Sub Customer\") = 'F'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Sub_Customer@s = {
+                        name = "Sub Customer"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_swc_subcus.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+            }
+          }
+          AFTERFIELDSOURCING = {
+            triggertype = "AFTERFIELDSOURCING"
+            setfieldvalueaction = {
+              workflowaction912 = {
+                scriptid = "workflowaction912"
+                clienttriggerfields = "STDBODYENTITY"
+                clienttriggerfieldsissublistfield = false
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = "STDBODYDEPARTMENT"
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuefield = netsuite.entitycustomfield.instance.custentity1.scriptid
+                valuejoinfield = "STDBODYENTITY"
+                valuetype = "FIELD"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 0
+                isInactive = false
+              }
+            }
+          }
+          BEFOREUSERSUBMIT = {
+            triggertype = "BEFOREUSERSUBMIT"
+            returnusererroraction = {
+              workflowaction842 = {
+                scriptid = "workflowaction842"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                errortext = "Please choose sub customer"
+                initcondition = {
+                  formula = "\"APAC Order Type\" IN (\"APAC Order Type1\") AND isEmpty(\"Sub Customer\") = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      APAC_Order_Type@s = {
+                        name = "APAC Order Type"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_swc_apacsotype.scriptid
+                      }
+                      APAC_Order_Type1@s = {
+                        name = "APAC Order Type1"
+                        selectrecordtype = netsuite.customlist.instance.customlist_swc_sotype.scriptid
+                        value = netsuite.customlist.instance.customlist_swc_sotype.customvalues.customvalue.val_80928_6248126_889.scriptid
+                      }
+                      Sub_Customer@s = {
+                        name = "Sub Customer"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_swc_subcus.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction843 = {
+                scriptid = "workflowaction843"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                errortext = "Please choose original so"
+                initcondition = {
+                  formula = "\"APAC Order Type\" IN (\"APAC Order Type1\") AND isEmpty(\"Original SO\") = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      APAC_Order_Type@s = {
+                        name = "APAC Order Type"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_swc_apacsotype.scriptid
+                      }
+                      APAC_Order_Type1@s = {
+                        name = "APAC Order Type1"
+                        selectrecordtype = netsuite.customlist.instance.customlist_swc_sotype.scriptid
+                        value = netsuite.customlist.instance.customlist_swc_sotype.customvalues.customvalue.val_80927_6248126_427.scriptid
+                      }
+                      Original_SO@s = {
+                        name = "Original SO"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_swc_originso.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+              workflowaction924 = {
+                scriptid = "workflowaction924"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                errortext = "Please Choose Department"
+                initcondition = {
+                  formula = "\"Subsidiary (Main)\" IN (\"{#Subsidiary#}1\") AND isEmpty(\"Department (Main)\") = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Subsidiary__Main_@sjk = {
+                        name = "Subsidiary (Main)"
+                        value = "STDBODYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                      Department__Main_@sjk = {
+                        name = "Department (Main)"
+                        value = "STDBODYDEPARTMENT"
+                      }
+                    }
+                  }
+                }
+                index = 2
+                isInactive = false
+              }
+              workflowaction929 = {
+                scriptid = "workflowaction929"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                errortext = "E-portal No is required on LTO Order"
+                initcondition = {
+                  formula = "\"APAC Order Type\" IN (\"APAC Order Type1\") AND isEmpty(\"E-Portal No.\") = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      APAC_Order_Type@s = {
+                        name = "APAC Order Type"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_swc_apacsotype.scriptid
+                      }
+                      APAC_Order_Type1@s = {
+                        name = "APAC Order Type1"
+                        selectrecordtype = netsuite.customlist.instance.customlist_swc_sotype.scriptid
+                        value = netsuite.customlist.instance.customlist_swc_sotype.customvalues.customvalue.val_80925_6248126_192.scriptid
+                      }
+                      E_Portal_No_@bsv = {
+                        name = "E-Portal No."
+                        value = netsuite.transactionbodycustomfield.instance.custbody_swc_eno.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 3
+                isInactive = false
+              }
+              workflowaction934 = {
+                scriptid = "workflowaction934"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                errortext = "Please input Main LTO Order"
+                initcondition = {
+                  formula = "\"APAC Order Type\" IN (\"APAC Order Type1\") AND \"Main LTO Order\" = ''"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      APAC_Order_Type@s = {
+                        name = "APAC Order Type"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_swc_apacsotype.scriptid
+                      }
+                      APAC_Order_Type1@s = {
+                        name = "APAC Order Type1"
+                        selectrecordtype = netsuite.customlist.instance.customlist_swc_sotype.scriptid
+                        value = netsuite.customlist.instance.customlist_swc_sotype.customvalues.customvalue.val_80925_6248126_192.scriptid
+                      }
+                      Main_LTO_Order@s = {
+                        name = "Main LTO Order"
+                        value = netsuite.transactionbodycustomfield.instance.custbody_swc_mainlto.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 4
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | APAC | Sales Order Validations"
+}

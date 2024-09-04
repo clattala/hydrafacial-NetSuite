@@ -1,0 +1,88 @@
+netsuite.savedcsvimport custimport_113_6248126_894 {
+  scriptid = "custimport_113_6248126_894"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custformhydrafacial_customer.scriptid
+  ignorereadonly = true
+  importname = "HF | US | CONTACT ACCESS"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CUSTOMER"
+  runserversuitescript = false
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMER = {
+        file = "CUSTOMER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMER = {
+        record = "CUSTOMER"
+        fieldmappings = {
+          fieldmapping = {
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "CustomerID"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      CUSTOMER_CONTACTROLES@f = {
+        record = "CUSTOMER:CONTACTROLES"
+        fieldmappings = {
+          fieldmapping = {
+            CONTACT = {
+              field = "CONTACT"
+              columnreference = {
+                column = "ContactID"
+                file = "CUSTOMER"
+                type = "INTERNAL_ID"
+              }
+            }
+            GIVEACCESS = {
+              field = "GIVEACCESS"
+              value = "T"
+            }
+            PASSWORD = {
+              field = "PASSWORD"
+              columnreference = {
+                column = "Password"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ROLE = {
+              field = "ROLE"
+              value = "1063"
+            }
+            SENDEMAIL = {
+              field = "SENDEMAIL"
+              value = "F"
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | US | CONTACT ACCESS"
+}

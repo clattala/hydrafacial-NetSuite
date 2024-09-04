@@ -1,0 +1,64 @@
+netsuite.savedcsvimport custimport_265_6248126_902 {
+  scriptid = "custimport_265_6248126_902"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "rma - legacy reason upd"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "RETURNAUTHORIZATION"
+  runserversuitescript = false
+  transactionform = netsuite.transactionForm.instance.custform_hydrafacial_return_authorization_credit.scriptid
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      RETURNAUTHORIZATION = {
+        file = "RETURNAUTHORIZATION"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      RETURNAUTHORIZATION = {
+        record = "RETURNAUTHORIZATION"
+        fieldmappings = {
+          fieldmapping = {
+            custbody_hf_failure_reason = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_failure_reason.scriptid
+              columnreference = {
+                column = "Failure Reason"
+                file = "RETURNAUTHORIZATION"
+                type = "NAME"
+              }
+            }
+            custbody_hf_rma_reasons = {
+              field = netsuite.transactionbodycustomfield.instance.custbody_hf_rma_reasons.scriptid
+              value = "19"
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "RETURNAUTHORIZATION"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "rma - legacy reason upd"
+}

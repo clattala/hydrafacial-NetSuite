@@ -1,0 +1,55 @@
+netsuite.mapreducescript customscript_hf_mr_auto_inv_payment_gene {
+  scriptid = "customscript_hf_mr_auto_inv_payment_gene"
+  name = "HF | MR | Auto Invo - Payment Generation"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_hf_mr_invoice_to_customer_payment_js@duuuuuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_run_auto_pay_script = {
+        scriptid = "custscript_run_auto_pay_script"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        defaultselection = netsuite.customlist.instance.customlist_hf_run_auto_pay_options.customvalues.customvalue.val_4762988_6248126_sb3_688.scriptid
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = true
+        label = "Run Auto Payment Script"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = netsuite.customlist.instance.customlist_hf_run_auto_pay_options.scriptid
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_mr_auto_invo_pay_generat = {
+        scriptid = "customdeploy_hf_mr_auto_invo_pay_generat"
+        buffersize = "1"
+        concurrencylimit = "1"
+        custscript_run_auto_pay_script = netsuite.customlist.instance.customlist_hf_run_auto_pay_options.customvalues.customvalue.val_4762988_6248126_sb3_688.scriptid
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | MR | Auto Invo - Payment Generation"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            startdate = "2022-05-01"
+            starttime = "14:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | MR | Auto Invo - Payment Generation"
+}

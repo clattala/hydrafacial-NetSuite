@@ -1,0 +1,1 @@
+<span><div id="acpoints">{{acpoints}}</div></span>

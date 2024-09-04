@@ -1,0 +1,28 @@
+netsuite.scheduledscript customscript_jpmc_check_con_skd {
+  scriptid = "customscript_jpmc_check_con_skd"
+  name = "J.P. Morgan Connection Check Skd"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = "[/SuiteBundles/Bundle 259045/com.fispan.jpmcpay/connection/check_connection_service.js]"
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_jpmc_con_check_skd = {
+        scriptid = "customdeploy_jpmc_con_check_skd"
+        isdeployed = true
+        loglevel = "DEBUG"
+        status = "NOTSCHEDULED"
+        title = "J.P. Morgan Connection Check Skd"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            repeat = "PT15M"
+            startdate = "2019-07-16"
+            starttime = "07:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "J.P. Morgan Connection Check Skd"
+}

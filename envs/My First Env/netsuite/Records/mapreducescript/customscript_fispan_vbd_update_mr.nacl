@@ -1,0 +1,51 @@
+netsuite.mapreducescript customscript_fispan_vbd_update_mr {
+  scriptid = "customscript_fispan_vbd_update_mr"
+  name = "Entity Bank Details, Update Process"
+  notifyadmins = false
+  notifyowner = false
+  scriptfile = "[/SuiteBundles/Bundle 323878/com.fispan.vbd/installation/map-reduce-update.js]"
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_fispan_vbd_update_data = {
+        scriptid = "custscript_fispan_vbd_update_data"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "CLOBTEXT"
+        isformula = false
+        ismandatory = false
+        label = "Update Data"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_fispan_vbd_update_mr = {
+        scriptid = "customdeploy_fispan_vbd_update_mr"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "Vendor Bank Details, Update Process"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2021-07-09"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  bundle = netsuite.bundle.instance.bundle_323878
+  _alias = "Entity Bank Details, Update Process"
+}

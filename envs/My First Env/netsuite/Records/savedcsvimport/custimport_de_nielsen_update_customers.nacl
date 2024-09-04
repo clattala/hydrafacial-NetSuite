@@ -1,0 +1,94 @@
+netsuite.savedcsvimport custimport_de_nielsen_update_customers {
+  scriptid = "custimport_de_nielsen_update_customers"
+  charencoding = "UTF_8"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Updating Customer record's csm, bdm, subregion, nielsen and microregion"
+  entryform = netsuite.entryForm.instance.custform_hf_de_customer.scriptid
+  ignorereadonly = true
+  importname = "DE | Territories updates on accounts"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CUSTOMER"
+  runserversuitescript = true
+  usemultithread = false
+  validatemandatorycustfields = false
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = true
+  }
+  filemappings = {
+    filemapping = {
+      CUSTOMER = {
+        file = "CUSTOMER"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CUSTOMER = {
+        record = "CUSTOMER"
+        fieldmappings = {
+          fieldmapping = {
+            custentity_hf_bdm = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_bdm.scriptid
+              columnreference = {
+                column = "BDM"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            custentity_hf_subregion = {
+              field = netsuite.entitycustomfield.instance.custentity_hf_subregion.scriptid
+              columnreference = {
+                column = "Sub Region"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            custentity_hfde_microregion = {
+              field = netsuite.entitycustomfield.instance.custentity_hfde_microregion.scriptid
+              columnreference = {
+                column = "Microregion"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            custentity_hfde_nielsen = {
+              field = netsuite.entitycustomfield.instance.custentity_hfde_nielsen.scriptid
+              columnreference = {
+                column = "Nielsen"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+            SALESREP = {
+              field = "SALESREP"
+              columnreference = {
+                column = "CSM"
+                file = "CUSTOMER"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "DE | Territories updates on accounts"
+}

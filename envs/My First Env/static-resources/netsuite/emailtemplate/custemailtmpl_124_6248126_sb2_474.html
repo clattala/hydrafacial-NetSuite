@@ -1,0 +1,247 @@
+<style type="text/css">h1 {
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.3;
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #000000;
+    word-break: normal;
+    font-size: 26px;
+    margin: 0;
+    padding: 0 0 15px;
+}
+p {
+    text-align: left; font-weight: normal; line-height: 19px;
+    font-family: 'Roboto','Helvetica Neue',Helvetica,Arial,sans-serif; color: #000000; font-size: 14px; margin: 15px 0 0; padding: 0;
+}
+</style>
+<table style="border-top: 4px solid black; width: 100%;">
+<tbody>
+	<tr>
+	<td>
+	<table style="width: 640px; margin: 0 auto;">
+	<tbody>
+		<tr style="vertical-align: top; text-align: left; padding: 0;">
+		<td>
+		<p>Order Received<br />
+		Order number ${transaction.tranid}</p>
+		</td>
+		<td>
+		<div style="position: relative; text-align: right;height:50px;"><#if companyInformation.logoUrl?length != 0><a href="#" target="_blank"><img src="${companyInformation.logoUrl}" style="float: right; margin: 7px; height:100%;" /> </a> </#if></div>
+		</td>
+		<td class="expander" style="">&nbsp;</td>
+		</tr>
+		<!-- insert HERE --><!-- order summary -->
+		<tr style="vertical-align: top; text-align: left; padding: 0 0">
+		<td colspan="2">
+		<table class="row" style="">
+		<tbody>
+			<tr style="vertical-align: top; text-align: left; padding: 0;">
+			<td class="wrapper last" style="">
+			<table class="twelve column" style=""><!-- BEGIN ORDER INTRO -->
+			<tbody>
+				<tr style="vertical-align: top; text-align: left; padding: 0;">
+				<td style="">
+				<p style="text-align: left; ">${transaction.trandate?string.full}</p>
+
+				<h1 style="">Thanks for your order!</h1>
+
+				<p>Hey <#if customer.isPerson == "T" && ((customer.firstName)?has_content || (customer.lastName)?has_content)> ${customer.firstName} ${customer.lastName}<#elseif customer.isPerson == "F" && (customer.companyName)?has_content> ${customer.companyName}<#else> ${preferences.naming_customer}</#if>,<br />
+				<br />
+				Thank you for shopping at <a href="#" style="color: #3582bd; font-weight: 600; text-decoration: none;"><span style="font-weight: 600;">Hydrafacial</span></a>. Please find all the order details below and have a nice day.</p>
+				<#assign hasSpecialItem = false><#list transaction.item as item><#if item.internalid == 5436><#assign hasSpecialItem = true></#if></#list></td>
+				</tr>
+				<!-- END ORDER INTRO -->
+			</tbody>
+			</table>
+
+			<table class="twelve column" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; margin: 0 auto; padding: 0;
+                                                width: 100%"><!-- BEGIN ORDER SUMMARY -->
+			<tbody>
+				<tr style="vertical-align: top; text-align: left; padding: 0;">
+				<td>
+				<h3 style="text-align: left">Order Summary</h3>
+				</td>
+				</tr>
+			</tbody>
+			</table>
+
+			<table class="twelve column" style="width: 100%; border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; margin: 0
+                                                    auto; padding: 0;">
+			<tbody>
+				<tr style="vertical-align: top; text-align: left; padding: 0; border-bottom: 1px solid #cccccc; font-weight: bold">
+				<td class="seven" colspan="1" style="width:58.333333%;">
+				<p>Item</p>
+				</td>
+				<td class="two" style="width:16.666666%; text-align: center;">
+				<p style="text-align: center;">Quantity</p>
+				</td>
+				<td class="three" style="width:25%; text-align: right;">
+				<p style="text-align: right;">Unit Price</p>
+				</td>
+				</tr>
+				<!-- BEGIN ORDER ITEMS --><#list transaction.item as item>
+				<tr style="vertical-align: top; text-align: left; padding: 0; <#if item.itemType == " Discount"><#else>border-top:1px solid #ccc;</#if>"><!--<td class="two" style="width:16.666666%;text-align: left;" >
+                                                                    <#if item.custcol_custom_cart_image_url?has_content>
+                                                                        <img class="itemimage" height="140" src="${item.custcol_custom_cart_image_url}" style="height:140px;width:140px;" width="140"/>
+                                                                    <#else>
+                                                                    <#if itemimages[item.item.internalId]?has_content>
+                                                                        <img class="itemimage" height="140" src="${itemimages[item.item.internalId]}" style="height:140px;width:140px;" width="140"/>
+                                                                    </#if>
+                                                                </#if>
+                                                            </td>-->
+				<td class="seven" style="width:58.333333%;text-align: left;">
+				<p style="text-align: left;">${item.description}</p>
+
+				<p style="">${item.options}</p>
+
+				<p style="text-align: left; "><#if item.itemType == "Discount">Promotion: ${item.item} </#if></p>
+				<#if item.quantitybackordered >0}
+
+				<p style=""><label style="">This item is on backorder</label></p>
+				</#if></td>
+				<td class="two" style="width:16.666666%; text-align: center;">
+				<p style=" text-align: center;">${item.quantity}</p>
+				</td>
+				<td class="three" style="width: 25%; text-align: right;">
+				<p style=" text-align: right;">${item.rate} <#if item.custcol_trv_strikethrough_price?has_content> &nbsp;<span style="font-size: .87rem; color: #555;font-weight: 300;text-decoration: line-through;"> ${item.custcol_trv_strikethrough_price}</span> </#if></p>
+				</td>
+				</tr>
+				</#list><!-- END ORDER ITEMS -->
+			</tbody>
+			</table>
+			<!-- BEGIN ORDER TOTALS -->
+
+			<table class="twelve column" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; margin: 10px auto 30px; padding:0; width: 100%;  "><!-- SUBTOTAL -->
+			<tbody>
+				<tr style="vertical-align: top; text-align: left; padding: 0;border-top: 1px solid #ccc;">
+				<td class="five" colspan="2" style="width:41.666666%;">&nbsp;</td>
+				<td class="three" style="width:25%;">
+				<p style="">${transaction.subtotal@label}</p>
+				</td>
+				<td class="four" style="width:33.333333%;">
+				<p style="text-align: right">${transaction.subtotal}</p>
+				</td>
+				</tr>
+				<!-- DISCOUNT --><#if (transaction.discountTotal)?has_content>
+				<tr style="vertical-align: top; text-align: left; padding: 0;">
+				<td class="five" colspan="2" style="width:41.666666%;">&nbsp;</td>
+				<td class="three" style="width:25%;">
+				<p style="">Discount</p>
+				</td>
+				<td class="four" style="width:33.333333%;">
+				<p style="text-align: right">${transaction.discountTotal}</p>
+				</td>
+				</tr>
+				</#if><!-- SHIPPING COST -->
+				<tr style="vertical-align: top; text-align: left; padding: 0;">
+				<td class="five" colspan="2" style="width:41.666666%;">&nbsp;</td>
+				<td class="three" style="width:25%;">
+				<p style="">Shipping</p>
+				</td>
+				<td class="four" style="width:33.333333%;">
+				<p style="text-align: right">${transaction.shippingcost}</p>
+				</td>
+				</tr>
+				<!-- HANDLING COST
+                                                                                    <tr style="vertical-align: top; text-align: left; padding: 0;">
+                                                                                        <td class="five" colspan="2" style="width:41.666666%;" >
+                                                                                            &nbsp;
+                                                                                        </td>
+                                                                                        <td  class="three" style="width:25%;" >
+                                                                                            <p  style="">
+                                                                                                Handling
+                                                                                            </p>
+                                                                                        </td>
+                                                                                        <td  class="four" style="width:33.333333%;" >
+                                                                                            <p  style="text-align: right">
+                                                                                                ${transaction.handlingCost}
+                                                                                            </p>
+                                                                                        </td>
+                                                                                    </tr>--><!-- TAX -->
+				<tr style="vertical-align: top; text-align: left; padding: 0 0;">
+				<td class="five" colspan="2" style="width:41.666666%;padding-bottom: 15px">&nbsp;</td>
+				<td class="three" style="width:25%; padding-bottom: 15px">
+				<p style="">Sales Tax</p>
+				</td>
+				<td class="four" style="width:33.333333%; padding-bottom: 15px">
+				<p style="text-align: right">${transaction.taxtotal}</p>
+				</td>
+				</tr>
+				<!-- TOTAL -->
+				<tr style="vertical-align: top; text-align: left; padding: 0;">
+				<td class="five" colspan="2" style="width:41.666666%;">&nbsp;</td>
+				<td class="three" style="width:25%; padding: 10px 0 0; border-top: 1px solid #ccc;">
+				<p style="font-weight: bold;">${transaction.total@label}</p>
+				</td>
+				<td class="four" style="width:33.333333%; padding: 10px 0 0; border-top: 1px solid #ccc;">
+				<p style="font-weight: bold; text-align: right">${transaction.total}</p>
+				</td>
+				</tr>
+				<!-- END ORDER TOTALS -->
+			</tbody>
+			</table>
+
+			<table class="twelve column" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; margin: 0 auto 30px; padding: 0; width:
+                                    100%;"><!-- BEGIN ORDER BILLING and SHIPPING -->
+			<tbody>
+				<tr style="vertical-align: top; text-align: left; padding: 0;">
+				<td class="six" style="width: 50%">
+				<h3 style="">Billing Summary</h3>
+				<!-- BEGIN ORDER BILLING ADDRESS -->
+
+				<p style=""><b>${transaction.billaddress@label}</b><br />
+				${transaction.billaddress}<br />
+				<br />
+				<#if (transaction.paymentmethod)?has_content> <b>${transaction.paymentmethod@label}</b><br />
+				${transaction.paymentmethod} </#if></p>
+				<!-- END ORDER BILLING ADDRESS --></td>
+				<td class="six" style="width: 50%">
+				<h3 style="">Shipping Summary</h3>
+				<!-- BEGIN ORDER SHIPPING ADDRESS -->
+
+				<p style=""><b>${transaction.shipaddress@label}</b><br />
+				${transaction.shipaddress}<br />
+				<br />
+				<b>${transaction.shipmethod@label}</b><br />
+				${transaction.shipmethod}</p>
+				<!-- END ORDER SHIPPING ADDRESS --></td>
+				</tr>
+			</tbody>
+			</table>
+			<!-- END ORDER BILLING and SHIPPING --><!-- END ORDER SUMMARY -->
+
+			<table class="twelve column" style="width: 100%">
+			<tbody>
+				<tr style="vertical-align: top; text-align: left; padding: 0;">
+				<td style="">
+				<p style=""><!-- footer content here --></p>
+
+				<div style="">
+				<p style="">Any questions? Call us at 01788572007&nbsp;or email <a href="mailto:ordersuk@hydrafacial.com" rel="noreferrer" target="_blank">ordersuk@hydrafacial.com</a>&nbsp;. We are here to help.<br />
+				<br />
+				<br />
+				Let&#39;s Do This Together<br />
+				<b>HydraFacial</b><br />
+				<br />
+				PS : If You have not heard the news yet, our new delivery system is here!<br />
+				Learn more about Syndeo: <a href="https://hydrafacial.com/syndeo/"> <span style="color: #3582bd;text-decoration:underline">https://hydrafacial.com/syndeo/</span> </a></p>
+
+				<p style="font-size: 14px;">If you are a registered customer, you can <a href="#" style="font-weight: 600; text-decoration: underline;color:black; display:inline-block;">log in</a> to see your order status</p>
+				</div>
+				</td>
+				<td class="expander" style="">&nbsp;</td>
+				</tr>
+			</tbody>
+			</table>
+			<!-- BEGIN FOOTER SUMMARY --><!-- END FOOTER SUMMARY --></td>
+			</tr>
+		</tbody>
+		</table>
+		</td>
+		</tr>
+	</tbody>
+	</table>
+	</td>
+	</tr>
+</tbody>
+</table>

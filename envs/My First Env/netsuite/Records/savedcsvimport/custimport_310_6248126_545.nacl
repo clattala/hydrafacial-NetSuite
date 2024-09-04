@@ -1,0 +1,68 @@
+netsuite.savedcsvimport custimport_310_6248126_545 {
+  scriptid = "custimport_310_6248126_545"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "UPDATE"
+  decimaldelimiter = "PERIOD"
+  entryform = netsuite.entryForm.instance.custform_hf_inventory_part_form.scriptid
+  ignorereadonly = true
+  importname = "NB_Lot_Inventory_Update"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "LOTNUMBEREDINVENTORYITEM"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      LOTNUMBEREDINVENTORYITEM = {
+        file = "LOTNUMBEREDINVENTORYITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      LOTNUMBEREDINVENTORYITEM = {
+        record = "LOTNUMBEREDINVENTORYITEM"
+        fieldmappings = {
+          fieldmapping = {
+            custitem_hf_freightdesc = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_freightdesc.scriptid
+              columnreference = {
+                column = "Commodity Description"
+                file = "LOTNUMBEREDINVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            custitem_hf_tariffcode = {
+              field = netsuite.itemcustomfield.instance.custitem_hf_tariffcode.scriptid
+              columnreference = {
+                column = "Tariff Code"
+                file = "LOTNUMBEREDINVENTORYITEM"
+                type = "NAME"
+              }
+            }
+            ID = {
+              field = "ID"
+              columnreference = {
+                column = "Internal ID"
+                file = "LOTNUMBEREDINVENTORYITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "NB_Lot_Inventory_Update"
+}

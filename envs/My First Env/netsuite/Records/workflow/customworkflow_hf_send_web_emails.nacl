@@ -1,0 +1,107 @@
+netsuite.workflow customworkflow_hf_send_web_emails {
+  scriptid = "customworkflow_hf_send_web_emails"
+  description = "Send the emails based on the customer subsidiary."
+  initcontexts = "WEBSTORE"
+  initeventtypes = "CREATE"
+  initoncreate = true
+  initonvieworupdate = false
+  inittriggertype = "AFTERSUBMIT"
+  islogenabled = false
+  keephistory = "ONLYWHENTESTING"
+  name = "HF | GBL | Send Web Emails"
+  recordtypes = "SALESORDER"
+  releasestatus = "RELEASED"
+  runasadmin = true
+  initcondition = {
+    type = "VISUAL_BUILDER"
+  }
+  workflowstates = {
+    workflowstate = {
+      workflowstate358 = {
+        scriptid = "workflowstate358"
+        donotexitworkflow = false
+        name = "Send Emails"
+        positionx = 243
+        positiony = 133
+        workflowactions = {
+          AFTERSUBMIT = {
+            triggertype = "AFTERSUBMIT"
+            sendemailaction = {
+              workflowaction1535 = {
+                scriptid = "workflowaction1535"
+                attachmenttype = "SPECIFIC"
+                contexttypes = "WEBSTORE"
+                eventtypes = "CREATE"
+                includerecordlink = false
+                includetransaction = false
+                recipientfield = "STDBODYCUSTOMER"
+                recipienttype = "FIELD"
+                schedulemode = "DELAY"
+                sender = "[ACCOUNT_SPECIFIC_VALUE]"
+                sendertype = "SPECIFIC"
+                template = netsuite.emailtemplate.instance.custemailtmpl_hf_us_orderreceived.scriptid
+                usetemplate = true
+                initcondition = {
+                  formula = "\"Customer:Subsidiary\" IN (\"{#Subsidiary#}1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Customer_Subsidiary@f = {
+                        name = "Customer:Subsidiary"
+                        value = "STDBODYCUSTOMER:STDENTITYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 0
+                isInactive = false
+              }
+              workflowaction1536 = {
+                scriptid = "workflowaction1536"
+                attachmenttype = "SPECIFIC"
+                contexttypes = "WEBSTORE"
+                eventtypes = "CREATE"
+                includerecordlink = false
+                includetransaction = false
+                recipientfield = "STDBODYCUSTOMER"
+                recipienttype = "FIELD"
+                schedulemode = "DELAY"
+                sender = "[ACCOUNT_SPECIFIC_VALUE]"
+                sendertype = "SPECIFIC"
+                template = netsuite.emailtemplate.instance.custemailtmpl_124_6248126_sb2_474.scriptid
+                usetemplate = true
+                initcondition = {
+                  formula = "\"Customer:Subsidiary\" IN (\"{#Subsidiary#}1\")"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Customer_Subsidiary@f = {
+                        name = "Customer:Subsidiary"
+                        value = "STDBODYCUSTOMER:STDENTITYSUBSIDIARY"
+                      }
+                      __Subsidiary__1@_00123nn_00125 = {
+                        name = "{#Subsidiary#}1"
+                        selectrecordtype = "-117"
+                        value = "[ACCOUNT_SPECIFIC_VALUE]"
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = false
+              }
+            }
+          }
+        }
+        index = 0
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | GBL | Send Web Emails"
+}

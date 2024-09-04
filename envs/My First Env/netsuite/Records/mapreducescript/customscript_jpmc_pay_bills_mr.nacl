@@ -1,0 +1,95 @@
+netsuite.mapreducescript customscript_jpmc_pay_bills_mr {
+  scriptid = "customscript_jpmc_pay_bills_mr"
+  name = "J.P. Morgan Pay Bills"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = "[/SuiteBundles/Bundle 259045/com.fispan.jpmcpay/billPayments/pay_bills_mapreduce.js]"
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_jpmc_pay_bills_data = {
+        scriptid = "custscript_jpmc_pay_bills_data"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "CLOBTEXT"
+        isformula = false
+        ismandatory = false
+        label = "Bill Data"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+      custscript_jpmc_pay_bills_source = {
+        scriptid = "custscript_jpmc_pay_bills_source"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "Source Account"
+        searchlevel = "2"
+        storevalue = true
+        index = 1
+      }
+      custscript_jpmc_pay_bills_payer = {
+        scriptid = "custscript_jpmc_pay_bills_payer"
+        accesslevel = "2"
+        applyformatting = true
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "INTEGER"
+        isformula = false
+        ismandatory = false
+        label = "Payer ID"
+        searchlevel = "2"
+        storevalue = true
+        index = 2
+      }
+      custscript_jpmc_pay_paymentid = {
+        scriptid = "custscript_jpmc_pay_paymentid"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "TEXT"
+        isformula = false
+        ismandatory = false
+        label = "Interface Payment ID"
+        searchlevel = "2"
+        storevalue = true
+        index = 3
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_jpmc_pay_bills_mr = {
+        scriptid = "customdeploy_jpmc_pay_bills_mr"
+        buffersize = "1"
+        concurrencylimit = "1"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "J.P. Morgan Pay Bills Map/Reduce"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2018-05-10"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "J.P. Morgan Pay Bills"
+}

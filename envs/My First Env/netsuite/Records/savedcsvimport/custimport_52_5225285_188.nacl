@@ -1,0 +1,457 @@
+netsuite.savedcsvimport custimport_52_5225285_188 {
+  scriptid = "custimport_52_5225285_188"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADDUPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Use this mapping to import open AR (open invoices)."
+  ignorereadonly = true
+  importname = "HB Open Invoice (AR)  Import Mapping"
+  logsystemnotescustfields = false
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVOICE"
+  runserversuitescript = false
+  transactionform = "[scriptid=custform_atlas_hb_mm_invoice]"
+  usemultithread = false
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVOICE = {
+        file = "INVOICE"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVOICE_ITEM_INVENTORYDETAIL_INVENTORYASSIGNMENT@f = {
+        record = "INVOICE:ITEM:INVENTORYDETAIL:INVENTORYASSIGNMENT"
+        fieldmappings = {
+          fieldmapping = {
+            BINNUMBER = {
+              field = "BINNUMBER"
+              columnreference = {
+                column = "itemLine_serialNumbers"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVOICE_ITEM@f = {
+        record = "INVOICE:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            AMOUNT = {
+              field = "AMOUNT"
+              columnreference = {
+                column = "itemLine_amount"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            CLASS = {
+              field = "CLASS"
+              columnreference = {
+                column = "itemLine_classRef"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            DEPARTMENT = {
+              field = "DEPARTMENT"
+              columnreference = {
+                column = "itemLine_departmentRef"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            DESCRIPTION = {
+              field = "DESCRIPTION"
+              columnreference = {
+                column = "itemLine_description"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "itemLine_itemRef"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            PRICE = {
+              field = "PRICE"
+              columnreference = {
+                column = "itemLine_priceLevelRef"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "itemLine_quantity"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            TAX1AMT = {
+              field = "TAX1AMT"
+              columnreference = {
+                column = "itemLine_taxCodeAmount"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            TAXCODE = {
+              field = "TAXCODE"
+              columnreference = {
+                column = "itemLine_taxCodeRef"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVOICE__SHIPPINGADDRESS@f = {
+        record = "INVOICE::SHIPPINGADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "shipAddr1"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ADDR2 = {
+              field = "ADDR2"
+              columnreference = {
+                column = "shipAddr2"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ADDRESSEE = {
+              field = "ADDRESSEE"
+              columnreference = {
+                column = "shipAddressee"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ADDRPHONE = {
+              field = "ADDRPHONE"
+              columnreference = {
+                column = "shipPhone"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ATTENTION = {
+              field = "ATTENTION"
+              columnreference = {
+                column = "shipAttention"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "shipCity"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              columnreference = {
+                column = "shipCountry"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            STATE = {
+              field = "STATE"
+              columnreference = {
+                column = "shipState"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "shipZip"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVOICE = {
+        record = "INVOICE"
+        fieldmappings = {
+          fieldmapping = {
+            CURRENCY = {
+              field = "CURRENCY"
+              columnreference = {
+                column = "currencyRef"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            DISCOUNTITEM = {
+              field = "DISCOUNTITEM"
+              columnreference = {
+                column = "discount-discountItemRef"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            DUEDATE = {
+              field = "DUEDATE"
+              columnreference = {
+                column = "dueDate"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            EMAIL = {
+              field = "EMAIL"
+              columnreference = {
+                column = "email"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "customerRef"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            EXCHANGERATE = {
+              field = "EXCHANGERATE"
+              columnreference = {
+                column = "exchangeRate"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "ExternalID"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            FAX = {
+              field = "FAX"
+              columnreference = {
+                column = "fax"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "memo"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            MESSAGE = {
+              field = "MESSAGE"
+              columnreference = {
+                column = "customerMessageRef"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            OTHERREFNUM = {
+              field = "OTHERREFNUM"
+              columnreference = {
+                column = "otherRefNum"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            POSTINGPERIOD = {
+              field = "POSTINGPERIOD"
+              columnreference = {
+                column = "postingPeriodRef"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            SALESREP = {
+              field = "SALESREP"
+              columnreference = {
+                column = "salesRep"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            SHIPMETHOD = {
+              field = "SHIPMETHOD"
+              columnreference = {
+                column = "shipMethodRef"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            SHIPPINGCOST = {
+              field = "SHIPPINGCOST"
+              columnreference = {
+                column = "shipCost"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            TOBEEMAILED = {
+              field = "TOBEEMAILED"
+              columnreference = {
+                column = "toBeEmailed"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            TOBEFAXED = {
+              field = "TOBEFAXED"
+              columnreference = {
+                column = "toBeFaxed"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            TOBEPRINTED = {
+              field = "TOBEPRINTED"
+              columnreference = {
+                column = "toBePrinted"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "tranDate"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            TRANID = {
+              field = "TRANID"
+              columnreference = {
+                column = "tranId"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVOICE__BILLINGADDRESS@f = {
+        record = "INVOICE::BILLINGADDRESS"
+        fieldmappings = {
+          fieldmapping = {
+            ADDR1 = {
+              field = "ADDR1"
+              columnreference = {
+                column = "billAddr1"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ADDR2 = {
+              field = "ADDR2"
+              columnreference = {
+                column = "billAddr2"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ADDRESSEE = {
+              field = "ADDRESSEE"
+              columnreference = {
+                column = "billAddressee"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ADDRPHONE = {
+              field = "ADDRPHONE"
+              columnreference = {
+                column = "billPhone"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ATTENTION = {
+              field = "ATTENTION"
+              columnreference = {
+                column = "billAttention"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            CITY = {
+              field = "CITY"
+              columnreference = {
+                column = "billCity"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            COUNTRY = {
+              field = "COUNTRY"
+              columnreference = {
+                column = "billCountry"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            STATE = {
+              field = "STATE"
+              columnreference = {
+                column = "billState"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ZIP = {
+              field = "ZIP"
+              columnreference = {
+                column = "billZip"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HB Open Invoice (AR)  Import Mapping"
+}

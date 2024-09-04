@@ -1,0 +1,86 @@
+netsuite.savedcsvimport custimport_hfde_contacts {
+  scriptid = "custimport_hfde_contacts"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADDUPDATE"
+  decimaldelimiter = "PERIOD"
+  description = "Germany Contacts tied to Customers"
+  entryform = netsuite.entryForm.instance.custform_625_6248126_412.scriptid
+  ignorereadonly = true
+  importname = "HF | DE | Contacts"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  preventduplicates = false
+  recordtype = "CONTACT"
+  runserversuitescript = true
+  usemultithread = true
+  validatemandatorycustfields = true
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      CONTACT = {
+        file = "CONTACT"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      CONTACT = {
+        record = "CONTACT"
+        fieldmappings = {
+          fieldmapping = {
+            COMPANY = {
+              field = "COMPANY"
+              columnreference = {
+                column = "customer_number"
+                file = "CONTACT"
+                type = "EXTERNAL_ID"
+              }
+            }
+            EMAIL = {
+              field = "EMAIL"
+              columnreference = {
+                column = "email"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+            FIRSTNAME = {
+              field = "FIRSTNAME"
+              columnreference = {
+                column = "first_name"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+            LASTNAME = {
+              field = "LASTNAME"
+              columnreference = {
+                column = "last_name"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+            SALUTATION = {
+              field = "SALUTATION"
+              columnreference = {
+                column = "salutation"
+                file = "CONTACT"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | DE | Contacts"
+}

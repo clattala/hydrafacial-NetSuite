@@ -1,0 +1,52 @@
+netsuite.mapreducescript customscript_hf_trv_update_tier_pricing {
+  scriptid = "customscript_hf_trv_update_tier_pricing"
+  description = "Script runs to update price level on customer to match their tier level."
+  name = "HF | Update Hybrid Loyalty Tier Pricing"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = netsuite.file.instance.SuiteScripts_trevera_updateHybridLoyaltyTierPriceLevelMR_js@ddv.path
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_trv_update_tier_pricing_sch = {
+        scriptid = "customdeploy_trv_update_tier_pricing_sch"
+        buffersize = "16"
+        concurrencylimit = "5"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | Update Loyalty Tier Pricing - Schd"
+        yieldaftermins = "60"
+        recurrence = {
+          daily = {
+            everyxdays = 1
+            repeat = "PT1H"
+            startdate = "2022-04-25"
+            starttime = "07:00:00Z"
+          }
+        }
+      }
+      customdeploy_hf_trv_update_tier_pricing = {
+        scriptid = "customdeploy_hf_trv_update_tier_pricing"
+        buffersize = "16"
+        concurrencylimit = "5"
+        isdeployed = true
+        loglevel = "ERROR"
+        queueallstagesatonce = true
+        runasrole = "ADMINISTRATOR"
+        status = "NOTSCHEDULED"
+        title = "HF | Update Loyalty Tier Pricing"
+        yieldaftermins = "60"
+        recurrence = {
+          single = {
+            startdate = "2022-04-22"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Update Hybrid Loyalty Tier Pricing"
+}

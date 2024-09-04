@@ -1,0 +1,27 @@
+netsuite.scheduledscript customscript_avadeletebatch_sched {
+  scriptid = "customscript_avadeletebatch_sched"
+  name = "AVA_DeleteReconcileBatches_Sched"
+  notifyadmins = false
+  notifyowner = true
+  scriptfile = "[/SuiteBundles/Bundle 296604/AVA_SCH_DeleteReconciledRecords.js]"
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_avadeletebatch_deploy1 = {
+        scriptid = "customdeploy_avadeletebatch_deploy1"
+        isdeployed = true
+        loglevel = "ERROR"
+        status = "NOTSCHEDULED"
+        title = "AVA_DeleteReconcileBatches_Sched1"
+        recurrence = {
+          single = {
+            startdate = "2020-05-26"
+            starttime = "01:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  isInactive = false
+  bundle = netsuite.bundle.instance.bundle_296604
+  _alias = "AVA_DeleteReconcileBatches_Sched"
+}

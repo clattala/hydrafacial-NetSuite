@@ -1,0 +1,99 @@
+netsuite.savedcsvimport custimport_hf_service_items {
+  scriptid = "custimport_hf_service_items"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADDUPDATE"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF | US | SERVICE ITEMS"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "SERVICEPURCHASEITEM"
+  runserversuitescript = false
+  usemultithread = true
+  validatemandatorycustfields = false
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      SERVICEPURCHASEITEM = {
+        file = "SERVICEPURCHASEITEM"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      SERVICEPURCHASEITEM = {
+        record = "SERVICEPURCHASEITEM"
+        fieldmappings = {
+          fieldmapping = {
+            DISPLAYNAME = {
+              field = "DISPLAYNAME"
+              columnreference = {
+                column = "DISPLAY NAME"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+            EXPENSEACCOUNT = {
+              field = "EXPENSEACCOUNT"
+              columnreference = {
+                column = "ExpenseAccount"
+                file = "SERVICEPURCHASEITEM"
+                type = "INTERNAL_ID"
+              }
+            }
+            ISFULFILLABLE = {
+              field = "ISFULFILLABLE"
+              value = "T"
+            }
+            ITEMID = {
+              field = "ITEMID"
+              columnreference = {
+                column = "ITEM NAME/NUMBER"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+            PURCHASEDESCRIPTION = {
+              field = "PURCHASEDESCRIPTION"
+              columnreference = {
+                column = "DESCRIPTION"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "3"
+            }
+            TAXSCHEDULE = {
+              field = "TAXSCHEDULE"
+              columnreference = {
+                column = "TAX SCHEDULE"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+            UNITSTYPE = {
+              field = "UNITSTYPE"
+              columnreference = {
+                column = "PRIMARY UNITS TYPE"
+                file = "SERVICEPURCHASEITEM"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF | US | SERVICE ITEMS"
+}

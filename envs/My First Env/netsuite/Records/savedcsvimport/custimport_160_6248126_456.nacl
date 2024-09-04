@@ -1,0 +1,174 @@
+netsuite.savedcsvimport custimport_160_6248126_456 {
+  scriptid = "custimport_160_6248126_456"
+  charencoding = "windows-1252"
+  columndelimiter = "COMMA"
+  datahandling = "ADD"
+  decimaldelimiter = "PERIOD"
+  ignorereadonly = true
+  importname = "HF Spain - Monthly Invoice Import"
+  logsystemnotescustfields = true
+  multiselectdelimiter = "|"
+  overwritemissingfields = false
+  overwritesublists = false
+  recordtype = "INVOICE"
+  runserversuitescript = true
+  transactionform = netsuite.transactionForm.instance.custform_227_6248126_sb1_501.scriptid
+  usemultithread = false
+  validatemandatorycustfields = false
+  audience = {
+    allemployees = false
+    allpartners = false
+    allroles = false
+    globaledit = false
+    ispublic = false
+  }
+  filemappings = {
+    filemapping = {
+      INVOICE = {
+        file = "INVOICE"
+      }
+    }
+  }
+  recordmappings = {
+    recordmapping = {
+      INVOICE_ITEM_INVENTORYDETAIL_INVENTORYASSIGNMENT@f = {
+        record = "INVOICE:ITEM:INVENTORYDETAIL:INVENTORYASSIGNMENT"
+        fieldmappings = {
+          fieldmapping = {
+            ISSUEINVENTORYNUMBER = {
+              field = "ISSUEINVENTORYNUMBER"
+              columnreference = {
+                column = "BATCH_NUMBER"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "QUANTITY"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+      INVOICE_ITEM@f = {
+        record = "INVOICE:ITEM"
+        fieldmappings = {
+          fieldmapping = {
+            AMOUNT = {
+              field = "AMOUNT"
+              columnreference = {
+                column = "Amount"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            ITEM = {
+              field = "ITEM"
+              columnreference = {
+                column = "Item NS ID"
+                file = "INVOICE"
+                type = "INTERNAL_ID"
+              }
+            }
+            QUANTITY = {
+              field = "QUANTITY"
+              columnreference = {
+                column = "QUANTITY"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            TAXCODE = {
+              field = "TAXCODE"
+              columnreference = {
+                column = "Tax Code Internal ID"
+                file = "INVOICE"
+                type = "INTERNAL_ID"
+              }
+            }
+          }
+        }
+      }
+      INVOICE = {
+        record = "INVOICE"
+        fieldmappings = {
+          fieldmapping = {
+            CURRENCY = {
+              field = "CURRENCY"
+              value = "4"
+            }
+            ENTITY = {
+              field = "ENTITY"
+              columnreference = {
+                column = "Customer NS ID"
+                file = "INVOICE"
+                type = "INTERNAL_ID"
+              }
+            }
+            EXTERNALID = {
+              field = "EXTERNALID"
+              columnreference = {
+                column = "External ID"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            LOCATION = {
+              field = "LOCATION"
+              value = "20"
+            }
+            MEMO = {
+              field = "MEMO"
+              columnreference = {
+                column = "Memo (Document Number)"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            POSTINGPERIOD = {
+              field = "POSTINGPERIOD"
+              value = "68"
+            }
+            SHIPMETHOD = {
+              field = "SHIPMETHOD"
+              columnreference = {
+                column = "Shipping Method"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            SHIPPINGCOST = {
+              field = "SHIPPINGCOST"
+              columnreference = {
+                column = "Shipping Cost"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+            SUBSIDIARY = {
+              field = "SUBSIDIARY"
+              value = "10"
+            }
+            TOBEEMAILED = {
+              field = "TOBEEMAILED"
+              value = "F"
+            }
+            TRANDATE = {
+              field = "TRANDATE"
+              columnreference = {
+                column = "Date"
+                file = "INVOICE"
+                type = "NAME"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  _alias = "HF Spain - Monthly Invoice Import"
+}
