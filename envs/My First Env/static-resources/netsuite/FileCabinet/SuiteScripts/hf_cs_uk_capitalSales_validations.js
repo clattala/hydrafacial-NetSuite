@@ -18,7 +18,7 @@ define([],
 					let i_noOfPayments = currentRecord.getValue('custbody_hf_number_of_payments')
 					let i_downPayment = currentRecord.getValue('custbody_hf_term_first_amt')
 					if(!i_noOfPayments || !i_downPayment){
-						alert('Please enter Total No of Payments and DOWN PAYMENT fields in the billing subtab and save the record')
+						alert('Please ensure INSTALLMENT orders have the details for the number of payments and the down payment amount entered correctly under the "Billing" subtab.' )
 					}
 				   
 				}
