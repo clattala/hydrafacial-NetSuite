@@ -1,14 +1,25 @@
+/**
+ * Custom GL Plugin Script
+ * Processes invoice and customer payment records for revenue reversal and recognition.
+ */
+
+/**
+ * Main function to handle GL impact based on transaction record type.
+ * @param {nlobjRecord} transactionRecord - The transaction record being processed.
+ * @param {Object} standardLines - Standard GL lines.
+ * @param {Object} customLines - Custom GL lines to be created.
+ * @param {Object} book - Accounting book.
+ */
 function customizeGlImpact(transactionRecord, standardLines, customLines, book) {
     try {
         var recordType = transactionRecord.getRecordType();
         nlapiLogExecution('DEBUG', 'RecordType', recordType);
 
-        // Logic for Invoice - Revenue Reversal
+        // Process Invoice for Revenue Reversal
         if (recordType === 'invoice') {
             processInvoice(transactionRecord, standardLines, customLines);
         }
-
-        // Logic for Customer Payment - Revenue Recognition
+        // Process Customer Payment for Revenue Recognition
         else if (recordType === 'customerpayment') {
             processCustomerPayment(transactionRecord, standardLines, customLines);
         }
@@ -18,13 +29,19 @@ function customizeGlImpact(transactionRecord, standardLines, customLines, book) 
     }
 }
 
+/**
+ * Process invoice to reverse revenue.
+ * @param {nlobjRecord} invoiceRecord - The invoice record being processed.
+ * @param {Object} standardLines - Standard GL lines.
+ * @param {Object} customLines - Custom GL lines to be created.
+ */
 function processInvoice(invoiceRecord, standardLines, customLines) {
     var equipItems = [];
     var equipDescriptions = [];
     var equipAmounts = [];
     var equipRevenueAccounts = [];
 
-    // Step 1: Collect information from transaction lines
+    // Collect information from invoice lines
     var lineCount = invoiceRecord.getLineItemCount('item');
     for (var i = 1; i <= lineCount; i++) {
         var lineTypeValue = invoiceRecord.getLineItemValue('item', 'custcol_hf_hierarchy_lvl1', i);
@@ -36,17 +53,15 @@ function processInvoice(invoiceRecord, standardLines, customLines) {
         }
     }
 
-    // Step 2: Match description with memo on GL lines and reverse where matched
+    // Match description with memo on GL lines and reverse where matched
     for (var j = 0; j < standardLines.getCount(); j++) {
         var standardLine = standardLines.getLine(j);
         var memo = standardLine.getMemo();
         var accountId = standardLine.getAccountId();
 
-        // Check if the memo matches any description from our Equip lines
         for (var k = 0; k < equipDescriptions.length; k++) {
             if (memo === equipDescriptions[k]) {
-                // Found a matching GL line, now reverse the revenue
-                if (standardLine.getCreditAmount() > 0) { // Ensure it's a credit line (revenue line)
+                if (standardLine.getCreditAmount() > 0) {
                     var amount = standardLine.getCreditAmount();
                     var entityId = standardLine.getEntityId();
 
@@ -59,45 +74,44 @@ function processInvoice(invoiceRecord, standardLines, customLines) {
                     debitLine.setLocationId(standardLine.getLocationId());
                     debitLine.setMemo(standardLine.getMemo());
 
-                    // Add Credit Line to account 1657 (holding account)
+                    // Add Credit Line to holding account (1657)
                     var creditLine = customLines.addNewLine();
                     creditLine.setAccountId(1657);
                     creditLine.setCreditAmount(amount);
                     creditLine.setDepartmentId(standardLine.getDepartmentId());
                     creditLine.setClassId(standardLine.getClassId());
                     creditLine.setLocationId(standardLine.getLocationId());
+                    creditLine.setMemo("Reclass: " + (memo || '') + " | Customer: " + entityId);
 
-                    // Add the entity ID and name to the memo field for reconciliation purposes
-                    var creditMemo = "Reclass: " + (memo || '') + " | Customer: " + entityId;
-                    creditLine.setMemo(creditMemo);
-
-                    nlapiLogExecution('DEBUG', 'Reversed Revenue Line', 'Memo: ' + creditMemo + ', Amount reversed: ' + amount + ', Entity ID: ' + entityId);
+                    // Log for debugging
+                    nlapiLogExecution('DEBUG', 'Reversed Revenue Line', 'Memo: ' + creditLine.getMemo() + ', Amount reversed: ' + amount + ', Entity ID: ' + entityId);
                 }
             }
         }
     }
 }
 
+/**
+ * Process customer payment to recognize revenue.
+ * @param {nlobjRecord} paymentRecord - The customer payment record being processed.
+ * @param {Object} standardLines - Standard GL lines.
+ * @param {Object} customLines - Custom GL lines to be created.
+ */
 function processCustomerPayment(paymentRecord, standardLines, customLines) {
     var lineCount = paymentRecord.getLineItemCount('apply');
     var totalEquipAmount = 0;
     var totalInvoiceAmount = 0;
-    var invoiceEquipAmounts = {}; // To store Equip amounts by invoice
-    var invoiceRevenueAccounts = {}; // To store Equip revenue accounts by invoice
+    var invoiceEquipAmounts = {};
+    var invoiceRevenueAccounts = {};
 
-    // Step 1: Iterate through applied invoice lines
+    // Iterate through applied invoice lines
     for (var i = 1; i <= lineCount; i++) {
-        if (paymentRecord.getLineItemValue('apply', 'apply', i) === 'T') { // Check if this line is applied
+        if (paymentRecord.getLineItemValue('apply', 'apply', i) === 'T') {
             var invoiceId = paymentRecord.getLineItemValue('apply', 'internalid', i);
             var paymentAmount = parseFloat(paymentRecord.getLineItemValue('apply', 'amount', i));
 
-            // Load the related invoice record 
             var invoiceRecord = nlapiLoadRecord('invoice', invoiceId);
-
-            // Calculate the percentage of 'Equip' lines for this invoice
             var equipPercentage = calculateEquipPercentage(invoiceRecord);
-
-            // Store the Equip amount and revenue accounts for this invoice
             var invoiceTotal = parseFloat(invoiceRecord.getFieldValue('total'));
             var equipAmount = equipPercentage * invoiceTotal;
 
@@ -108,12 +122,14 @@ function processCustomerPayment(paymentRecord, standardLines, customLines) {
         }
     }
 
-    // Calculate the amount to move from the holding account based on the total Equip amount
     var paymentAmount = parseFloat(paymentRecord.getFieldValue('total'));
     var totalEquipPercentage = totalEquipAmount / totalInvoiceAmount;
     var debitAmount = paymentAmount * totalEquipPercentage;
 
-    // Step 2: Add Debit and Credit lines for each Equip line on the invoice
+    var totalDebit = 0;
+    var totalCredit = 0;
+
+    // Add Debit and Credit lines for each Equip line on the invoice
     for (var invoiceId in invoiceEquipAmounts) {
         var invoiceRecord = nlapiLoadRecord('invoice', invoiceId);
         var equipAmount = invoiceEquipAmounts[invoiceId];
@@ -124,12 +140,10 @@ function processCustomerPayment(paymentRecord, standardLines, customLines) {
             var lineTypeValue = invoiceRecord.getLineItemValue('item', 'custcol_hf_hierarchy_lvl1', j);
             if (lineTypeValue === 'Equip') {
                 var lineAmount = parseFloat(invoiceRecord.getLineItemValue('item', 'amount', j));
-                var revenueAccount = parseInt(invoiceRecord.getLineItemValue('item', 'account', j), 10);
-
-                // Calculate the proportionate amount for this Equip line
+                var revenueAccount = revenueAccounts[j];
                 var lineDebitAmount = debitAmount * (lineAmount / equipAmount);
 
-                // Add Debit Line to the holding account (1657)
+                // Add Debit Line to holding account (1657)
                 var debitLine = customLines.addNewLine();
                 debitLine.setAccountId(1657);
                 debitLine.setDebitAmount(lineDebitAmount);
@@ -137,7 +151,7 @@ function processCustomerPayment(paymentRecord, standardLines, customLines) {
                 debitLine.setClassId(invoiceRecord.getLineItemValue('item', 'class', j));
                 debitLine.setLocationId(invoiceRecord.getLineItemValue('item', 'location', j));
 
-                // Add Credit Line to the original revenue account
+                // Add Credit Line to original revenue account
                 var creditLine = customLines.addNewLine();
                 creditLine.setAccountId(revenueAccount);
                 creditLine.setCreditAmount(lineDebitAmount);
@@ -145,15 +159,31 @@ function processCustomerPayment(paymentRecord, standardLines, customLines) {
                 creditLine.setClassId(invoiceRecord.getLineItemValue('item', 'class', j));
                 creditLine.setLocationId(invoiceRecord.getLineItemValue('item', 'location', j));
 
-                // Add logging for debugging
+                // Log for debugging
                 nlapiLogExecution('DEBUG', 'GL Impact for Customer Payment - Line ' + j, 
                                  'Debit from account 1657: ' + lineDebitAmount + 
                                  ', Credit to account ' + revenueAccount + ': ' + lineDebitAmount);
+
+                totalDebit += lineDebitAmount;
+                totalCredit += lineDebitAmount;
             }
         }
     }
+
+    // Verify that the transaction is in balance
+    nlapiLogExecution('DEBUG', 'Total Debit', totalDebit);
+    nlapiLogExecution('DEBUG', 'Total Credit', totalCredit);
+
+    if (totalDebit !== totalCredit) {
+        throw new Error('Transaction is out of balance. Debit: ' + totalDebit + ', Credit: ' + totalCredit);
+    }
 }
 
+/**
+ * Calculate the percentage of Equip lines on an invoice.
+ * @param {nlobjRecord} invoiceRecord - The invoice record being processed.
+ * @returns {number} - The percentage of Equip lines.
+ */
 function calculateEquipPercentage(invoiceRecord) {
     var totalAmount = parseFloat(invoiceRecord.getFieldValue('total'));
     var equipAmount = 0;
@@ -169,17 +199,19 @@ function calculateEquipPercentage(invoiceRecord) {
     return equipAmount / totalAmount;
 }
 
+/**
+ * Get revenue accounts for Equip lines on an invoice.
+ * @param {nlobjRecord} invoiceRecord - The invoice record being processed.
+ * @returns {Object} - A mapping of line numbers to revenue accounts.
+ */
 function getRevenueAccounts(invoiceRecord) {
-    var revenueAccounts = [];
-
+    var revenueAccounts = {};
     var lineCount = invoiceRecord.getLineItemCount('item');
+
     for (var i = 1; i <= lineCount; i++) {
         var lineTypeValue = invoiceRecord.getLineItemValue('item', 'custcol_hf_hierarchy_lvl1', i);
         if (lineTypeValue === 'Equip') {
-            var accountId = parseInt(invoiceRecord.getLineItemValue('item', 'account', i), 10);
-            if (revenueAccounts.indexOf(accountId) === -1) {
-                revenueAccounts.push(accountId);
-            }
+            revenueAccounts[i] = parseInt(invoiceRecord.getLineItemValue('item', 'account', i), 10);
         }
     }
 
