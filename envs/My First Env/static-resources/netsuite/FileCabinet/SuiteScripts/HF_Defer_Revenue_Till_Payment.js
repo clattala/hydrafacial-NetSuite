@@ -52,7 +52,13 @@ function processInvoice(invoiceRecord, standardLines, customLines) {
             equipRevenueAccounts.push(parseInt(invoiceRecord.getLineItemValue('item', 'account', i), 10));
         }
     }
-
+    nlapiLogExecution('DEBUG', 'Equipment Details',
+        'Equipment Items: ' + equipItems.join(', ') + ' | ' +
+        'Equipment Descriptions: ' + equipDescriptions.join(', ') + ' | ' +
+        'Equipment Amounts: ' + equipAmounts.join(', ') + ' | ' +
+        'Equipment Revenue Accounts: ' + equipRevenueAccounts.join(', ')
+    );
+  
     // Match description with memo on GL lines and reverse where matched
     for (var j = 0; j < standardLines.getCount(); j++) {
         var standardLine = standardLines.getLine(j);
@@ -119,9 +125,24 @@ function processCustomerPayment(paymentRecord, standardLines, customLines) {
             invoiceRevenueAccounts[invoiceId] = getRevenueAccounts(invoiceRecord);
             totalEquipAmount += equipAmount;
             totalInvoiceAmount += invoiceTotal;
+
+            nlapiLogExecution('DEBUG', 'Invoice Line Details',
+                'Invoice ID: ' + invoiceId + ' | ' +
+                'Payment Amount: ' + paymentAmount + ' | ' +
+                'Equip Percentage: ' + equipPercentage + ' | ' +
+                'Invoice Total: ' + invoiceTotal + ' | ' +
+                'Equip Amount: ' + equipAmount
+            );
+          
         }
     }
-
+    nlapiLogExecution('DEBUG', 'Totals and Mappings',
+        'Total Equipment Amount: ' + totalEquipAmount + ' | ' +
+        'Total Invoice Amount: ' + totalInvoiceAmount + ' | ' +
+        'Invoice Equipment Amounts: ' + JSON.stringify(invoiceEquipAmounts) + ' | ' +
+        'Invoice Revenue Accounts: ' + JSON.stringify(invoiceRevenueAccounts)
+    );
+  
     var paymentAmount = parseFloat(paymentRecord.getFieldValue('total'));
     var totalEquipPercentage = totalEquipAmount / totalInvoiceAmount;
     var debitAmount = paymentAmount * totalEquipPercentage;
@@ -148,16 +169,16 @@ function processCustomerPayment(paymentRecord, standardLines, customLines) {
                 debitLine.setAccountId(1657);
                 debitLine.setDebitAmount(lineDebitAmount);
                 debitLine.setDepartmentId(invoiceRecord.getLineItemValue('item', 'department', j));
-                debitLine.setClassId(invoiceRecord.getLineItemValue('item', 'class', j));
-                debitLine.setLocationId(invoiceRecord.getLineItemValue('item', 'location', j));
+//                debitLine.setClassId(invoiceRecord.getLineItemValue('item', 'class', j));
+//                debitLine.setLocationId(invoiceRecord.getLineItemValue('item', 'location', j));
 
                 // Add Credit Line to original revenue account
                 var creditLine = customLines.addNewLine();
                 creditLine.setAccountId(revenueAccount);
                 creditLine.setCreditAmount(lineDebitAmount);
                 creditLine.setDepartmentId(invoiceRecord.getLineItemValue('item', 'department', j));
-                creditLine.setClassId(invoiceRecord.getLineItemValue('item', 'class', j));
-                creditLine.setLocationId(invoiceRecord.getLineItemValue('item', 'location', j));
+//                creditLine.setClassId(invoiceRecord.getLineItemValue('item', 'class', j));
+//                creditLine.setLocationId(invoiceRecord.getLineItemValue('item', 'location', j));
 
                 // Log for debugging
                 nlapiLogExecution('DEBUG', 'GL Impact for Customer Payment - Line ' + j, 
@@ -214,6 +235,6 @@ function getRevenueAccounts(invoiceRecord) {
             revenueAccounts[i] = parseInt(invoiceRecord.getLineItemValue('item', 'account', i), 10);
         }
     }
-
+    nlapiLogExecution('DEBUG', 'revenueAccounts ', JSON.stringify(revenueAccounts));
     return revenueAccounts;
 }
