@@ -30,7 +30,7 @@ define(['N/search', 'N/runtime', 'N/record'], function(search, runtime, record) 
         try {
             log.debug('context', context)
             var functionName = 'afterSubmit'
-            if ((context.type == 'create' || context.type == 'edit') && runtime.executionContext != 'USEREVENT') {
+            if ((context.type == 'create' || context.type == 'edit') ){//&& runtime.executionContext != 'USEREVENT') {
                 var vendorBill = context.newRecord
                 var vendorBillInternalId = vendorBill.id;
                 var createdFrom = vendorBill.getValue('createdfrom');
