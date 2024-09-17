@@ -1,6 +1,6 @@
 /**
  * Custom GL Plugin Script
- * Processes invoice and customer payment records for revenue reversal and recognition.
+ * Processes invoice, customer payment, and deposit application records for revenue reversal and recognition.
  */
 
 /**
@@ -22,6 +22,10 @@ function customizeGlImpact(transactionRecord, standardLines, customLines, book) 
         // Process Customer Payment for Revenue Recognition
         else if (recordType === 'customerpayment') {
             processCustomerPayment(transactionRecord, standardLines, customLines);
+        }
+        // Process Deposit Application for Revenue Recognition
+        else if (recordType === 'depositapplication') {
+            processDepositApplication(transactionRecord, standardLines, customLines);
         }
     } catch (e) {
         // Log any errors encountered during execution
@@ -169,19 +173,122 @@ function processCustomerPayment(paymentRecord, standardLines, customLines) {
                 debitLine.setAccountId(1657);
                 debitLine.setDebitAmount(lineDebitAmount);
                 debitLine.setDepartmentId(invoiceRecord.getLineItemValue('item', 'department', j));
-//                debitLine.setClassId(invoiceRecord.getLineItemValue('item', 'class', j));
-//                debitLine.setLocationId(invoiceRecord.getLineItemValue('item', 'location', j));
+                // debitLine.setClassId(invoiceRecord.getLineItemValue('item', 'class', j));
+                // debitLine.setLocationId(invoiceRecord.getLineItemValue('item', 'location', j));
 
                 // Add Credit Line to original revenue account
                 var creditLine = customLines.addNewLine();
                 creditLine.setAccountId(revenueAccount);
                 creditLine.setCreditAmount(lineDebitAmount);
                 creditLine.setDepartmentId(invoiceRecord.getLineItemValue('item', 'department', j));
-//                creditLine.setClassId(invoiceRecord.getLineItemValue('item', 'class', j));
-//                creditLine.setLocationId(invoiceRecord.getLineItemValue('item', 'location', j));
+                // creditLine.setClassId(invoiceRecord.getLineItemValue('item', 'class', j));
+                // creditLine.setLocationId(invoiceRecord.getLineItemValue('item', 'location', j));
 
                 // Log for debugging
                 nlapiLogExecution('DEBUG', 'GL Impact for Customer Payment - Line ' + j, 
+                                 'Debit from account 1657: ' + lineDebitAmount + 
+                                 ', Credit to account ' + revenueAccount + ': ' + lineDebitAmount);
+
+                totalDebit += lineDebitAmount;
+                totalCredit += lineDebitAmount;
+            }
+        }
+    }
+
+    // Verify that the transaction is in balance
+    nlapiLogExecution('DEBUG', 'Total Debit', totalDebit);
+    nlapiLogExecution('DEBUG', 'Total Credit', totalCredit);
+
+    if (totalDebit !== totalCredit) {
+        throw new Error('Transaction is out of balance. Debit: ' + totalDebit + ', Credit: ' + totalCredit);
+    }
+}
+
+/**
+ * Process deposit application to recognize revenue.
+ * @param {nlobjRecord} depositRecord - The deposit application record being processed.
+ * @param {Object} standardLines - Standard GL lines.
+ * @param {Object} customLines - Custom GL lines to be created.
+ */
+function processDepositApplication(depositRecord, standardLines, customLines) {
+    var lineCount = depositRecord.getLineItemCount('apply');
+    var totalEquipAmount = 0;
+    var totalInvoiceAmount = 0;
+    var invoiceEquipAmounts = {};
+    var invoiceRevenueAccounts = {};
+
+    // Iterate through applied invoice lines
+    for (var i = 1; i <= lineCount; i++) {
+        if (depositRecord.getLineItemValue('apply', 'apply', i) === 'T') {
+            var invoiceId = depositRecord.getLineItemValue('apply', 'internalid', i);
+            var depositAmount = parseFloat(depositRecord.getLineItemValue('apply', 'amount', i));
+
+            var invoiceRecord = nlapiLoadRecord('invoice', invoiceId);
+            var equipPercentage = calculateEquipPercentage(invoiceRecord);
+            var invoiceTotal = parseFloat(invoiceRecord.getFieldValue('total'));
+            var equipAmount = equipPercentage * invoiceTotal;
+
+            invoiceEquipAmounts[invoiceId] = equipAmount;
+            invoiceRevenueAccounts[invoiceId] = getRevenueAccounts(invoiceRecord);
+            totalEquipAmount += equipAmount;
+            totalInvoiceAmount += invoiceTotal;
+
+            nlapiLogExecution('DEBUG', 'Invoice Line Details',
+                'Invoice ID: ' + invoiceId + ' | ' +
+                'Deposit Amount: ' + depositAmount + ' | ' +
+                'Equip Percentage: ' + equipPercentage + ' | ' +
+                'Invoice Total: ' + invoiceTotal + ' | ' +
+                'Equip Amount: ' + equipAmount
+            );
+          
+        }
+    }
+    nlapiLogExecution('DEBUG', 'Totals and Mappings',
+        'Total Equipment Amount: ' + totalEquipAmount + ' | ' +
+        'Total Invoice Amount: ' + totalInvoiceAmount + ' | ' +
+        'Invoice Equipment Amounts: ' + JSON.stringify(invoiceEquipAmounts) + ' | ' +
+        'Invoice Revenue Accounts: ' + JSON.stringify(invoiceRevenueAccounts)
+    );
+  
+    var depositAmount = parseFloat(depositRecord.getFieldValue('total'));
+    var totalEquipPercentage = totalEquipAmount / totalInvoiceAmount;
+    var debitAmount = depositAmount * totalEquipPercentage;
+
+    var totalDebit = 0;
+    var totalCredit = 0;
+
+    // Add Debit and Credit lines for each Equip line on the invoice
+    for (var invoiceId in invoiceEquipAmounts) {
+        var invoiceRecord = nlapiLoadRecord('invoice', invoiceId);
+        var equipAmount = invoiceEquipAmounts[invoiceId];
+        var revenueAccounts = invoiceRevenueAccounts[invoiceId];
+        var lineCount = invoiceRecord.getLineItemCount('item');
+
+        for (var j = 1; j <= lineCount; j++) {
+            var lineTypeValue = invoiceRecord.getLineItemValue('item', 'custcol_hf_hierarchy_lvl1', j);
+            if (lineTypeValue === 'Equip') {
+                var lineAmount = parseFloat(invoiceRecord.getLineItemValue('item', 'amount', j));
+                var revenueAccount = revenueAccounts[j];
+                var lineDebitAmount = debitAmount * (lineAmount / equipAmount);
+
+                // Add Debit Line to holding account (1657)
+                var debitLine = customLines.addNewLine();
+                debitLine.setAccountId(1657);
+                debitLine.setDebitAmount(lineDebitAmount);
+                debitLine.setDepartmentId(invoiceRecord.getLineItemValue('item', 'department', j));
+                // debitLine.setClassId(invoiceRecord.getLineItemValue('item', 'class', j));
+                // debitLine.setLocationId(invoiceRecord.getLineItemValue('item', 'location', j));
+
+                // Add Credit Line to original revenue account
+                var creditLine = customLines.addNewLine();
+                creditLine.setAccountId(revenueAccount);
+                creditLine.setCreditAmount(lineDebitAmount);
+                creditLine.setDepartmentId(invoiceRecord.getLineItemValue('item', 'department', j));
+                // creditLine.setClassId(invoiceRecord.getLineItemValue('item', 'class', j));
+                // creditLine.setLocationId(invoiceRecord.getLineItemValue('item', 'location', j));
+
+                // Log for debugging
+                nlapiLogExecution('DEBUG', 'GL Impact for Deposit Application - Line ' + j, 
                                  'Debit from account 1657: ' + lineDebitAmount + 
                                  ', Credit to account ' + revenueAccount + ': ' + lineDebitAmount);
 
@@ -235,6 +342,6 @@ function getRevenueAccounts(invoiceRecord) {
             revenueAccounts[i] = parseInt(invoiceRecord.getLineItemValue('item', 'account', i), 10);
         }
     }
-    nlapiLogExecution('DEBUG', 'revenueAccounts ', JSON.stringify(revenueAccounts));
+    nlapiLogExecution('DEBUG', 'Revenue Accounts', JSON.stringify(revenueAccounts));
     return revenueAccounts;
 }
