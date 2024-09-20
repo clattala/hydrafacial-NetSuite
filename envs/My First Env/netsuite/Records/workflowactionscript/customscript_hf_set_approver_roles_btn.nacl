@@ -1,0 +1,46 @@
+netsuite.workflowactionscript customscript_hf_set_approver_roles_btn {
+  scriptid = "customscript_hf_set_approver_roles_btn"
+  name = "HF Set Approver Roles for Button"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  returnrecordtype = netsuite.customrecord_hf_vb_approver_limit_role.attr.scriptid
+  returntype = "SELECT"
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_Set_Approver_Roles_for_Buttons_js@dsssssv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_approver_level = {
+        scriptid = "custscript_hf_approver_level"
+        accesslevel = "2"
+        applyformatting = true
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "INTEGER"
+        isformula = false
+        ismandatory = false
+        label = "Current Approver Level"
+        searchlevel = "2"
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_set_approver_roles_btn = {
+        scriptid = "customdeploy_hf_set_approver_roles_btn"
+        allemployees = false
+        allpartners = false
+        allroles = true
+        isdeployed = true
+        loglevel = "DEBUG"
+        recordtype = "VENDORBILL"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF Set Approver Roles for Button"
+}

@@ -1,0 +1,63 @@
+netsuite.workflowactionscript customscript_hf_set_next_appvr_role {
+  scriptid = "customscript_hf_set_next_appvr_role"
+  name = "HF Set Next Approver Role"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  returnrecordtype = netsuite.customrecord_hf_vb_approver_limit_role.attr.scriptid
+  returntype = "SELECT"
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_Set_Next_Approver_Roles_js@dssssv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_user_role = {
+        scriptid = "custscript_hf_user_role"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Current User Role"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = "-118"
+        storevalue = true
+        index = 0
+      }
+      custscript_hf_current_level = {
+        scriptid = "custscript_hf_current_level"
+        accesslevel = "2"
+        applyformatting = true
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "INTEGER"
+        isformula = false
+        ismandatory = false
+        label = "Current Approval Level"
+        searchlevel = "2"
+        storevalue = true
+        index = 1
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_set_next_appvr_role = {
+        scriptid = "customdeploy_hf_set_next_appvr_role"
+        allemployees = false
+        allpartners = false
+        allroles = true
+        isdeployed = true
+        loglevel = "DEBUG"
+        recordtype = "VENDORBILL"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF Set Next Approver Role"
+}
