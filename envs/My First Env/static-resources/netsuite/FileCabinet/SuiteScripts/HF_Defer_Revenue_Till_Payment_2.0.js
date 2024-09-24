@@ -5,7 +5,7 @@
  * Processes invoice, customer payment, and deposit application records for revenue reversal and recognition.
  */
 define(['N/record', 'N/log'], function (record, log) {
-    const HOLDING_ACCOUNT_ID = 1657;
+    const HOLDING_ACCOUNT_ID = 1658;
     const EQUIP_TYPE = 'Equip';
 
     // Define custom record types
@@ -29,11 +29,11 @@ define(['N/record', 'N/log'], function (record, log) {
                     break;
                 case RECORD_TYPES.CUSTOMER_PAYMENT:
                 case record.Type.CUSTOMER_PAYMENT:
-                    processPaymentOrDeposit(transactionRecord, context.standardLines, context.customLines, RECORD_TYPES.INVOICE);
+                    processPaymentOrDeposit(transactionRecord, context.standardLines, context.customLines, record.Type.INVOICE);
                     break;
                 case RECORD_TYPES.DEPOSIT_APPLICATION:
                 case record.Type.DEPOSIT_APPLICATION:
-                    processPaymentOrDeposit(transactionRecord, context.standardLines, context.customLines, record.Type.CUSTOMER_DEPOSIT);
+                    processPaymentOrDeposit(transactionRecord, context.standardLines, context.customLines, record.Type.INVOICE);
                     break;
                 default:
                     log.debug({ title: 'Unsupported Record Type', details: recordType });
@@ -161,17 +161,17 @@ define(['N/record', 'N/log'], function (record, log) {
                         var debitLine = customLines.addNewLine();
                         debitLine.accountId = HOLDING_ACCOUNT_ID;
                         debitLine.debitAmount = lineDebitAmount;
-                        debitLine.departmentId = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'department', line: j });
-                        debitLine.classId = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'class', line: j });
-                        debitLine.locationId = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'location', line: j });
+  //                      debitLine.departmentId = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'department', line: j });
+  //                      debitLine.classId = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'class', line: j });
+  //                      debitLine.locationId = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'location', line: j });
                         debitLine.memo = "Revenue Recognition: " + appliedRecord.getValue({ fieldId: 'tranid' }) + " | Line: " + (j + 1);
 
                         var creditLine = customLines.addNewLine();
                         creditLine.accountId = revenueAccount;
                         creditLine.creditAmount = lineDebitAmount;
-                        creditLine.departmentId = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'department', line: j });
-                        creditLine.classId = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'class', line: j });
-                        creditLine.locationId = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'location', line: j });
+ //                       creditLine.departmentId = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'department', line: j });
+ //                       creditLine.classId = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'class', line: j });
+ //                       creditLine.locationId = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'location', line: j });
                         creditLine.memo = "Revenue Recognition: " + appliedRecord.getValue({ fieldId: 'tranid' }) + " | Line: " + (j + 1);
 
                         log.debug({
