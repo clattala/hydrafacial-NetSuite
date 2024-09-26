@@ -11,7 +11,7 @@ define(['N/record'],
             	if(context.type == 'view'){
             		var subsidiary = context.newRecord.getValue('subsidiary');
             		if (subsidiary == 11){
-            			//log.debug('subsidiary-'+subsidiary);
+            			log.error('subsidiary-'+subsidiary);
             			var currentForm = context.form;
             			currentForm.clientScriptModulePath = "SuiteScripts/3rp_cl_profoma_invoice.js";
 
