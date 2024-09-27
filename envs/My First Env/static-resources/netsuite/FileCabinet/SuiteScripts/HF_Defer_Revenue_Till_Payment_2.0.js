@@ -4,8 +4,8 @@
  * Custom GL Plugin Script (SuiteScript 2.0)
  * Processes invoice, customer payment, and deposit application records for revenue reversal and recognition.
  */
-define(['N/record', 'N/log'], function (record, log) {
-    const HOLDING_ACCOUNT_ID = 1658;
+define(['N/record', 'N/log', 'N/search'], function (record, log, search) {
+    const HOLDING_ACCOUNT_ID = 1657;
     const EQUIP_TYPE = 'Equip';
 
     // Define custom record types
@@ -70,6 +70,7 @@ define(['N/record', 'N/log'], function (record, log) {
                         if (parseFloatSafe(standardLine.creditAmount) > 0) {
                             var amount = parseFloatSafe(standardLine.creditAmount);
                             var entityId = standardLine.entityId;
+                            var entityDisplay = getEntityDisplay(entityId);
 
                             var debitLine = customLines.addNewLine();
                             debitLine.accountId = accountId;
@@ -86,7 +87,7 @@ define(['N/record', 'N/log'], function (record, log) {
                             creditLine.departmentId = standardLine.departmentId;
                             creditLine.classId = standardLine.classId;
                             creditLine.locationId = standardLine.locationId;
-                            creditLine.memo = "Reclass: " + (memo || '') + " | Customer: " + entityId;
+                            creditLine.memo = "Reclass: " + (memo || '') + " | Customer: " + entityDisplay;
 							creditLine.entity = standardLine.entityId;
 
                             log.debug({ title: 'Reversed Revenue Line', details: 'Memo: ' + creditLine.memo + ', Amount: ' + amount });
@@ -151,6 +152,9 @@ define(['N/record', 'N/log'], function (record, log) {
                 var revenueAccounts = appliedRecordData.revenueAccounts;
                 var lineCount = appliedRecord.getLineCount({ sublistId: 'item' });
 
+                var entityId = appliedRecord.getValue({ fieldId: 'entity' });
+                var entityDisplay = getEntityDisplay(entityId);
+              
                 for (var j = 0; j < lineCount; j++) {
                     var lineTypeValue = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'custcol_hf_hierarchy_lvl1', line: j });
                     if (lineTypeValue === EQUIP_TYPE) {
@@ -164,7 +168,9 @@ define(['N/record', 'N/log'], function (record, log) {
   //                      debitLine.departmentId = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'department', line: j });
   //                      debitLine.classId = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'class', line: j });
   //                      debitLine.locationId = appliedRecord.getSublistValue({ sublistId: 'item', fieldId: 'location', line: j });
-                        debitLine.memo = "Revenue Recognition: " + appliedRecord.getValue({ fieldId: 'tranid' }) + " | Line: " + (j + 1);
+                        debitLine.memo = "Revenue Recognition: " + appliedRecord.getValue({ fieldId: 'tranid' }) + " | Line: " + (j + 1) + 
+                                     " | Customer: " + entityDisplay + 
+                                     " | Equip %: " + equipPercentage;
 
                         var creditLine = customLines.addNewLine();
                         creditLine.accountId = revenueAccount;
@@ -237,6 +243,20 @@ define(['N/record', 'N/log'], function (record, log) {
         return Math.abs(amount1 - amount2) < 0.01;
     }
 
+    function getEntityDisplay(entityId) {
+        // Lookup 'entityid' and 'companyname' for the customer using search module
+        var customerLookup = search.lookupFields({
+            type: search.Type.CUSTOMER,
+            id: entityId,
+            columns: ['entityid', 'companyname']
+        });
+
+        // Concatenate customerId and customerName to form entityDisplay
+        var entityIdValue = customerLookup.entityid || '';
+        var companyNameValue = customerLookup.companyname || '';
+
+        return entityIdValue + ' ' + companyNameValue;
+    }
     return {
         customizeGlImpact: customizeGlImpact
     };

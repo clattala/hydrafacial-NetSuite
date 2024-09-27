@@ -353,7 +353,7 @@ netsuite.workflow customworkflow83 {
                 label = "Approve"
                 saverecordfirst = false
                 initcondition = {
-                  formula = "INSTR({custbody_hf_approver_roles},{userrole.name}) >0 or {userrole.id}=3"
+                  formula = "INSTR({custbody_hf_approver_roles},{userrole.name}) >0 or {userrole.id}=3 or ({custworkflow_current_approver_level_rec.custrecord_hf_buyer_approver.id}='T' and {user.id}={custbody_hf_buyer.id})"
                   type = "FORMULA"
                 }
                 index = 0
@@ -366,7 +366,7 @@ netsuite.workflow customworkflow83 {
                 label = "Reject"
                 saverecordfirst = false
                 initcondition = {
-                  formula = "INSTR({custbody_hf_approver_roles},{userrole.name}) >0 or {userrole.id}=3"
+                  formula = "INSTR({custbody_hf_approver_roles},{userrole.name}) >0 or {userrole.id}=3 or ({custworkflow_current_approver_level_rec.custrecord_hf_buyer_approver.id}='T' and {user.id}={custbody_hf_buyer.id})"
                   type = "FORMULA"
                 }
                 index = 1
@@ -447,6 +447,29 @@ netsuite.workflow customworkflow83 {
           ONENTRY = {
             triggertype = "ONENTRY"
             setfieldvalueaction = {
+              workflowaction1828 = {
+                scriptid = "workflowaction1828"
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.workflow.instance.customworkflow83.workflowcustomfields.workflowcustomfield.custworkflow_hf_approver_level.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuetext = "0"
+                valuetype = "STATIC"
+                initcondition = {
+                  formula = "isEmpty(\"Workflow:Current Approver Level record\") = 'T'"
+                  type = "VISUAL_BUILDER"
+                  parameters = {
+                    parameter = {
+                      Workflow_Current_Approver_Level_record@fsss = {
+                        name = "Workflow:Current Approver Level record"
+                        value = netsuite.workflow.instance.customworkflow83.workflowcustomfields.workflowcustomfield.custworkflow_current_approver_level_rec.scriptid
+                      }
+                    }
+                  }
+                }
+                index = 1
+                isInactive = true
+              }
               workflowaction1825 = {
                 scriptid = "workflowaction1825"
                 contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
@@ -459,7 +482,7 @@ netsuite.workflow customworkflow83 {
                 initcondition = {
                   type = "VISUAL_BUILDER"
                 }
-                index = 1
+                index = 2
                 isInactive = false
               }
               workflowaction1802 = {
@@ -493,7 +516,7 @@ netsuite.workflow customworkflow83 {
                     }
                   }
                 }
-                index = 2
+                index = 3
                 isInactive = false
               }
               workflowaction1814 = {
