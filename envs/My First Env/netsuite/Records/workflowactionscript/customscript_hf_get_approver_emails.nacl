@@ -1,0 +1,47 @@
+netsuite.workflowactionscript customscript_hf_get_approver_emails {
+  scriptid = "customscript_hf_get_approver_emails"
+  name = "HF | Get Approver Emails"
+  notifyadmins = false
+  notifyowner = true
+  notifyuser = false
+  returntype = "TEXT"
+  scriptfile = netsuite.file.instance.SuiteScripts_HF_Get_Approver_Emails_js@duuuv.path
+  scriptcustomfields = {
+    scriptcustomfield = {
+      custscript_hf_current_level_id = {
+        scriptid = "custscript_hf_current_level_id"
+        accesslevel = "2"
+        applyformatting = false
+        checkspelling = false
+        defaultchecked = false
+        displaytype = "NORMAL"
+        fieldtype = "SELECT"
+        isformula = false
+        ismandatory = false
+        label = "Current Level ID"
+        onparentdelete = "NO_ACTION"
+        searchlevel = "2"
+        selectrecordtype = netsuite.customrecord_hf_vb_approver_limit_role.attr.scriptid
+        storevalue = true
+        index = 0
+      }
+    }
+  }
+  scriptdeployments = {
+    scriptdeployment = {
+      customdeploy_hf_get_approver_emails = {
+        scriptid = "customdeploy_hf_get_approver_emails"
+        allemployees = false
+        allpartners = false
+        allroles = true
+        isdeployed = true
+        loglevel = "DEBUG"
+        recordtype = "VENDORBILL"
+        runasrole = "ADMINISTRATOR"
+        status = "RELEASED"
+      }
+    }
+  }
+  isInactive = false
+  _alias = "HF | Get Approver Emails"
+}

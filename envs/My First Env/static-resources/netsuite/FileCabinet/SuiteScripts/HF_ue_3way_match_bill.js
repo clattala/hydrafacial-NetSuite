@@ -29,8 +29,10 @@
   function afterSubmit(context) {
       try {
           log.debug('context', context)
-          var functionName = 'afterSubmit'
-          if ((context.type == 'create' || context.type == 'edit') && (runtime.executionContext != 'USEREVENT' || runtime.executionContext != 'WORKFLOW')) {
+          var functionName = 'afterSubmit';
+          log.debug('runtime.executionContext',runtime.executionContext)
+        
+          if ((context.type == 'create' /*|| context.type == 'edit'*/) && (runtime.executionContext != 'USEREVENT' || runtime.executionContext != 'WORKFLOW')) {
               var vendorBill = context.newRecord
               var vendorBillInternalId = vendorBill.id;
               var createdFrom = vendorBill.getValue('createdfrom');
@@ -238,19 +240,11 @@
                           log.audit('after 203 after custbody_hf_3way_check_commeents')
                           log.audit('totalVariance ', totalVariance)
                           log.audit('itemreceiptamount', totalItemReceiptAmount)
-                          vendorBill.setValue('custbody_hf_total_variance', totalVariance)
+                          vendorBill.setValue('custbody_hf_total_variance', totalVariance.toFixed(2))
                           vendorBill.setValue('custbody_hf_ir_total', totalItemReceiptAmount)
-                          var variancePercentage = totalVariance / totalItemReceiptAmount
-                          log.audit('variancePer', variancePercentage)
-                          var buyerLimit = totalItemReceiptAmount * 5 / 100
-                          if (buyerLimit > 5000) {
-                              buyerLimit = 5000
-                          }
-
-                          log.audit('buyerLimit', buyerLimit)
-                          vendorBill.setValue('custbody_hf_buyer_limit', buyerLimit)
-
-                          vendorBill.setValue('custbody_hf_variance_percentage', variancePercentage)
+                          var variancePercentage = ((totalVariance / totalItemReceiptAmount)*100).toFixed(2);
+                          log.audit('variancePer', variancePercentage);
+                          vendorBill.setValue('custbody_hf_variance_percentage', variancePercentage);
 
 
 

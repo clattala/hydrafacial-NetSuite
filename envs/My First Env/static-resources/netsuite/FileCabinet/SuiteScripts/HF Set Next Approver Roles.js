@@ -12,20 +12,22 @@ define([
       title: 'Start Script'
     });
     var currentUserRole = runtime.getCurrentScript().getParameter('custscript_hf_user_role');
+	var currentUserRole1 = runtime.getCurrentUser().role;
     var currentLevel = runtime.getCurrentScript().getParameter('custscript_hf_current_level');
     var currentUser = runtime.getCurrentScript().getParameter('custscript_hf_current_user');
     var currentLevelRole = runtime.getCurrentScript().getParameter('custscript_hf_current_level_role');
-
+    log.debug('currentUserRole',currentUserRole);
+	log.debug('currentUserRole1',currentUserRole1);
     log.debug('currentLevel', currentLevel);
     var newRecord = scriptContext.newRecord;
     var type = newRecord.type;
     var vbSubsidiary = newRecord.getValue('subsidiary');
 
-    var nextApproverLevel = returnApproverLevel(currentUserRole, nextApproverLevel, vbSubsidiary, currentLevelRole);
+    var nextApproverLevel = returnApproverLevel(currentUserRole1, currentLevel, vbSubsidiary, currentLevelRole);
 
     log.debug('nextApproverLevel', nextApproverLevel);
 
-    return nextApproverLevel || currentLevel;
+    return nextApproverLevel ? nextApproverLevel : currentLevel;
   }
 
   function returnApproverLevel(userRole, currentLevel, vbSubsidiary, currentLevelRole) {
@@ -60,10 +62,7 @@ define([
       ]
     });
     var flag = 0;
-	log.debug('currentLevel null', currentLevel == null);
-	log.debug('currentLevel ', Number(currentLevel) > 0);
-	log.debug('currentLevel <0', !(currentLevel > 0));
-	
+
 	
     var searchresult = customrecord_hf_vb_approver_limit_roleSearchObj.run().getRange(0, 10);
    
@@ -71,14 +70,15 @@ define([
       var recLevel = searchresult[i].getValue({ name: 'custrecord_hf_approver_level' });
       var recRole = searchresult[i].getValue({ name: 'custrecord_hf_approver_role' });
       var recLimit = searchresult[i].getValue({ name: 'custrecord_hf_approver_limit' });
+      log.debug('recRole',recRole);
       
-      
-      if ((currentLevel == null && !(currentLevel > 0)) || (currentLevel > 0  && userRole == 3 && Number(currentLevel) < Number(recLevel)) || flag == 1) {
+      if ((currentLevel == null) || (currentLevel != null  && userRole == 3 && Number(currentLevel) < Number(recLevel)) || flag == 1) {
       
         return searchresult[i].id;
       }
       if (userRole == recRole) {
         flag = 1;
+		log.debug('Flag true','Flag true');
       }
     }
 
