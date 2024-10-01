@@ -241,10 +241,17 @@
                           log.audit('totalVariance ', totalVariance)
                           log.audit('itemreceiptamount', totalItemReceiptAmount)
                           vendorBill.setValue('custbody_hf_total_variance', totalVariance.toFixed(2))
-                          vendorBill.setValue('custbody_hf_ir_total', totalItemReceiptAmount)
+                          vendorBill.setValue('custbody_hf_ir_total', totalItemReceiptAmount.toFixed(2))
                           var variancePercentage = ((totalVariance / totalItemReceiptAmount)*100).toFixed(2);
                           log.audit('variancePer', variancePercentage);
                           vendorBill.setValue('custbody_hf_variance_percentage', variancePercentage);
+						  var buyerLimit = totalItemReceiptAmount * 5 / 100
+                          if (buyerLimit > 5000) {
+                              buyerLimit = 5000;
+                          }
+
+                          log.audit('buyerLimit', buyerLimit)
+                          vendorBill.setValue('custbody_hf_buyer_limit', buyerLimit)
 
 
 
