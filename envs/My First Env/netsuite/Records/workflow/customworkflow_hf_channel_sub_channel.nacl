@@ -4,7 +4,7 @@ netsuite.workflow customworkflow_hf_channel_sub_channel {
   initcontexts = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
   initoncreate = true
   initonvieworupdate = true
-  islogenabled = false
+  islogenabled = true
   keephistory = "ALWAYS"
   name = "HF | EMEA | Channel & Sub-Channel WF"
   recordtypes = "CUSTOMER"
@@ -118,6 +118,21 @@ netsuite.workflow customworkflow_hf_channel_sub_channel {
                 }
                 index = 0
                 isInactive = true
+              }
+              workflowaction1848 = {
+                scriptid = "workflowaction1848"
+                conditionsavedsearch = netsuite.savedsearch.instance.customsearch_hf_customer_since_.scriptid
+                contexttypes = "ACTION|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|RECORDACTION|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OFFLINECLIENT|OTHER|PAYMENTPOSTBACK|PAYMENTGATEWAY|PLATFORMEXTENSION|PORTLET|PROMOTIONS|CONSOLRATEADJUSTOR|RESTWEBSERVICES|RESTLET|ADVANCEDREVREC|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|WEBSERVICES|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WORKBOOKBUILDER|WORKFLOW"
+                field = netsuite.entitycustomfield.instance.custentity_hf_customer_since.scriptid
+                schedulemode = "DELAY"
+                valuechecked = false
+                valuedate = "TODAY"
+                valuetype = "DATE"
+                initcondition = {
+                  type = "VISUAL_BUILDER"
+                }
+                index = 1
+                isInactive = false
               }
             }
           }
